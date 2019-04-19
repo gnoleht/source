@@ -1,0 +1,1 @@
+{"options":{"autoIndexId":true},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_","ns":"dev.fs.files"},{"v":2,"key":{"filename":1,"uploadDate":1},"name":"filename_1_uploadDate_1","ns":"dev.fs.files","background":true}],"uuid":"bad6952bd25445a68386384bd3e7694a"}

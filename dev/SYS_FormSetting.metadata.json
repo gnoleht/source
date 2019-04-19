@@ -1,0 +1,1 @@
+{"options":{"autoIndexId":true},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_","ns":"dev.SYS_FormSetting"},{"v":2,"key":{"_fts":"text","_ftsx":1},"name":"SearchValue_text","ns":"dev.SYS_FormSetting","background":true,"weights":{"SearchValue":1},"default_language":"none","language_override":"language","textIndexVersion":3}],"uuid":"c5f56645d2fb460eb19474b7d52924b5"}

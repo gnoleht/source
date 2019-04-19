@@ -1,0 +1,1 @@
+{"options":{"autoIndexId":true},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_","ns":"dev.PM_ResourcePlanning"},{"v":2,"key":{"_fts":"text","_ftsx":1},"name":"SearchValue_text","ns":"dev.PM_ResourcePlanning","background":true,"weights":{"SearchValue":1},"default_language":"none","language_override":"language","textIndexVersion":3}],"uuid":"1b6ee0ab6f5e4bb584d94aa6f1999ba6"}

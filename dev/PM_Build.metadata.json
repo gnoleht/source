@@ -1,0 +1,1 @@
+{"options":{"autoIndexId":true},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_","ns":"dev.PM_Build"},{"v":2,"key":{"_fts":"text","_ftsx":1},"name":"SearchValue_text","ns":"dev.PM_Build","background":true,"weights":{"SearchValue":1},"default_language":"none","language_override":"language","textIndexVersion":3}],"uuid":"6b44c2e3c0954084a48587b6bffd8975"}

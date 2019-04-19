@@ -1,0 +1,1 @@
+{"options":{"autoIndexId":true},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_","ns":"dev.fs.chunks"},{"v":2,"unique":true,"key":{"files_id":1,"n":1},"name":"files_id_1_n_1","ns":"dev.fs.chunks","background":true}],"uuid":"77f808f4665644879e60d3a27d8999f1"}

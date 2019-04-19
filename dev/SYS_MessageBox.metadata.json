@@ -1,0 +1,1 @@
+{"options":{"autoIndexId":true},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_","ns":"dev.SYS_MessageBox"},{"v":2,"key":{"_fts":"text","_ftsx":1},"name":"SearchValue_text","ns":"dev.SYS_MessageBox","background":true,"weights":{"SearchValue":1},"default_language":"none","language_override":"language","textIndexVersion":3}],"uuid":"23074b86b564474886018abe2fc7cd9c"}
