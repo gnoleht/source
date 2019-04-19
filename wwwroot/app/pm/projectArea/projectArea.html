@@ -1,0 +1,34 @@
+﻿<div id="projectArea" ng-controller="projectAreaController" ng-init="onload()">
+    <div class="panel panel-default flexLV">
+        <div class="content-body">
+            <div class="white_box">
+                <div id="grvProjectArea" class="control-grid" style="width:100%;height:100%"></div>
+            </div>
+        </div>
+        <div class="modal fade modal_center confirmClose" id="modal-member-area" ng-init="initJS()">
+            <div class="modal-dialog" style="width:600px">
+                <div class="modal-content">
+                    <div class="modal-header clearfix">
+                        <p class="modal_header_title"><span>{{::translation.TITLE}}</span></p>
+                        <div class="box_btn_02">
+                            <!--<button type="button" class="fullscreen" onclick="fullScreen(this)"><i class="bowtie-icon bowtie-view-full-screen"></i></button>-->
+                            <button type="button" class="btn_close_02" data-dismiss="modal"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row form-input-group modal-body-maincontent">
+                            <lv-input class="col-sm-12" field="name" model="data.name" setting="setting" translation="translation" change="" type="text" tab="1"></lv-input>
+                            <!--<lv-input class="col-sm-12" field="name" model="data.name" setting="setting" translation="translation" change="" type="text" tab="1"></lv-input>-->
+                            <lv-input class="col-sm-12" field="description" model="data.description" setting="setting" translation="translation" change="" type="text" tab="3"></lv-input>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn_save_02" id="btnSave" ng-click="save()" tabindex="9"><i class="bowtie-icon bowtie-save"></i> <span ng-bind="translation.BTN_SAVE_CLOSE">Save</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

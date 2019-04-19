@@ -1,0 +1,61 @@
+﻿<div id="vehicles" ng-controller="vehiclesController">
+    <div class="white_box" style="overflow:auto">
+        <div id="grvVehicles" class="control-grid" style="height:100%; width:100%"></div>
+    </div>
+
+    <!-- modal detail-->
+    <div class="modal fadeIn modal_center" role="dialog" id="modal-detail" style="animation-delay:10s;">
+        <div class="modal-dialog modal-medium modal-padding" tabindex="-1" style="width:600px">
+            <div class="modal-content" style="padding-top: 0px !important">
+                <div class="modal-header">
+                    <p class="modal_header_title">
+                        <span ng-bind="action == 'add' ? translation.ADD_NEW_TITLE : translation.EDIT_TITLE | uppercase "></span>
+                    </p>
+                    <div class="box_btn_02">
+                        <button type="button" class="btn_close_02" data-dismiss="modal" title="{{translation.CLOSE_DIALOG}}">
+                            <i class="bowtie-icon bowtie-edit-remove"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-content">
+                        <div class="box_02 col_1 clearfix">
+                            <div class="item">
+                                <lv-input field="name" model="data.name" setting="setting" translation="translation" type="text" tab="1"></lv-input>
+                            </div>
+                            <div class="item">
+                                <lv-input field="brand" model="data.brand" setting="setting" translation="translation" type="text" tab="2"></lv-input>
+                            </div>
+                            <div class="item">
+                                <lv-input field="description" model="data.description" setting="setting" translation="translation" type="text" tab="3"></lv-input>
+                            </div>
+                            <div class="item">
+                                <lv-input field="totalTime" model="data.totalTime" setting="setting" translation="translation" type="phone" tab="4"></lv-input>
+                            </div>
+                            <div class="item">
+                                <lv-select field="vehicleType" model="data.vehicleType" setting="setting" translation="translation" tab="5"></lv-select>
+                            </div>
+                            <div class="item">
+                                <lv-select field="driver" model="data.driver" setting="setting" translation="translation" tab="6"></lv-select>
+                            </div>
+                            <div class="item">
+                                <lv-select config="configDepartment" multiple="multiple" field="departments" model="data.departments" setting="setting" translation="translation" tab="7"></lv-select>
+                            </div>
+                            <div class="item mt_15">
+                                <span tabindex="8">
+                                    <i ng-class="data.isActive? 'bowtie-icon bowtie-checkbox':'bowtie-icon bowtie-checkbox-empty'"
+                                       style="font-size:17px;margin-right:5px;width:10px" ng-click="data.isActive=!data.isActive"></i>
+                                </span><span>{{translation.ISACTIVE}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button ng-click="save()" class="btn btn_save_02" click-Once tabindex="3">
+                        <i class="bowtie-icon bowtie-save"></i><span ng-bind="translation.BTN_SAVE_CLOSE">Lưu & đóng</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

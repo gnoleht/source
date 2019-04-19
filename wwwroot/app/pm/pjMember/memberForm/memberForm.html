@@ -1,0 +1,98 @@
+﻿<div class="modal fade modal_center confirmClose" id="modal-detail-member-root" ng-init="onLoad()">
+    <div class="modal-dialog modal-medium modal-padding">
+        <div class="modal-content requirement-content" style="padding-top: 0px !important">
+            <div class="modal-header clearfix">
+                <p class="modal_header_title"><span ng-bind="params.module == 'pj' ? translation.UPDATE_TITLE : translation.UPDATE_TITLE_PM"></span></p>
+                <div class="box_btn_02">
+                    <button type="button" class="fullscreen" onclick="fullscreen('modal-detail-member-root')" title="{{translation.BTN_FULLSCREEN}}"><i class="bowtie-icon bowtie-view-full-screen"></i></button>
+                    <button type="button" class="btn_close_02" data-dismiss="modal" title="{{translation.BTN_CLOSE}}"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-body-content clearfix">
+                    <div class="modal-body-maincontent" style="overflow: visible !important">
+                        <div class="clearfix">
+                            <div class="w180 img_over_180 float-left">
+                                <div class="droppable-area advancedDropzone">
+                                    <img id="imgAvatar" src="/img/no_avatar.png" class="img-inline dz-message img_full" />
+                                </div>
+                            </div>
+                            <div class="w100_180 float-right form-input-group">
+                                <!--<lv-select  field="userId" model="data.userId" setting="setting" translation="translation" tab="0"></lv-select>-->
+                                <lv-combobox element-id="cmb-userId"
+                                             option="cmbUserId"
+                                             change="changeUserId()"
+                                             field="userId"
+                                             model="data.userId"
+                                             label="{{translation.USERID}}" tab="0">
+                                </lv-combobox>
+                                <div class="box_02 col_2 clearfix">
+                                    <div class="item">
+                                        <lv-input field="firstName" model="data.user.firstName" setting="setting" translation="translation" change="" type="text" tab="1"></lv-input>
+                                    </div>
+                                    <div class="item">
+                                        <lv-input field="lastName" model="data.user.lastName" setting="setting" translation="translation" change="" type="text" tab="2"></lv-input>
+                                    </div>
+                                </div>
+                                <div class="box_02 col_2 clearfix">
+                                    <div class="item">
+                                        <lv-datepicker field="birthDay" model="data.user.birthDay" setting="setting" translation="translation" tab="3"></lv-datepicker>
+                                    </div>
+                                    <div class="item">
+                                        <lv-input field="mobilePhone" model="data.user.mobilePhone" setting="setting" translation="translation" change="" type="phone" tab="4"></lv-input>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix">
+                            <div class="box_02 clearfix d-flex">
+                                <div class="item" ng-if="checkRoleTemp" style="width: calc((100% - 40px) / 3); margin-right: 20px">
+                                    <lv-valuelist-multi element-id="roles" field="role" model="data.role" setting="setting" translation="translation" tab="5"></lv-valuelist-multi>
+                                </div>
+                                <div class="item" style="flex-grow: 1; flex-basis: 0; margin-right: 20px">
+                                    <lv-select field="payRanges" model="data.payRanges" setting="setting" translation="translation" valuelist="setting.payRanges" tab="6"></lv-select>
+                                </div>
+                                <div class="item" style="flex-grow: 1; flex-basis: 0;">
+                                    <!--<lv-select field="projectAreaId" model="data.projectAreaId" setting="setting" translation="translation" valuelist="setting.projectAreas" tab="6"></lv-select>-->
+                                    <lv-valuelist-multi ng-if="!params.area" element-id="projectAreas" field="projectArea" model="data.projectArea" setting="setting" translation="translation" tab="6"></lv-valuelist-multi>
+                                </div>
+                            </div>
+                            <!--<div class="box_02 col_2 clearfix">
+
+                                <div class="item">
+                                </div>
+                            </div>-->
+                            <div class="box_02 col_2 clearfix">
+                                <div class="item">
+                                    <lv-input field="workEmail" model="data.user.email" setting="setting" translation="translation" change="" type="email" tab="7"></lv-input>
+                                </div>
+                                <div class="item">
+                                    <lv-input field="workPhone" model="data.workPhone" setting="setting" translation="translation" change="" type="phone" tab="8"></lv-input>
+                                </div>
+                            </div>
+                        </div>
+                        <!--<div class="clearfix">
+                            <ul class="nav nav-tabs" id="myTab" role="tablist"  style="padding-top:5px;">
+                                <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab_01" role="tab" aria-controls="tab_01" aria-selected="true" aria-expanded="true">Working at</a> </li>
+                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab_02" role="tab" aria-controls="tab_02" aria-selected="false" aria-expanded="false">Role</a> </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="tab_01" role="tabpanel" aria-labelledby="Chi tiết" aria-expanded="true">Working at</div>
+                                <div class="tab-pane" id="tab_02" role="tabpanel" aria-labelledby="Chi nhánh" aria-expanded="false">Role</div>
+                            </div>
+                        </div>-->
+                        <!--<div class="row pd_lr_7 form-input-group modal-body-maincontent">
+                            <div class="col-md-4">
+                            </div>
+                            <div class="col-md-8">
+                            </div>
+                        </div>-->
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="btnSaveClose" ng-click="save()" type="button" class="btn btn_save_02" tabindex="13" click-Once><i class="bowtie-icon bowtie-save"></i><span ng-bind="::translation.BTN_SAVE_CLOSE">Lưu & đóng</span></button>
+            </div>
+        </div>
+    </div>
+</div>

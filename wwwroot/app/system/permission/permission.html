@@ -1,0 +1,65 @@
+﻿<div class="modal fade modal_center" id="modal-permission" ng-init="onload()">
+    <div class="modal-dialog" style="width:1000px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p style="font-size:16px;margin:0;line-height:1.9em;" class="float-left"><span ng-bind="::parentData.name|uppercase "></span></p>
+                <div class="box_btn_02">
+                    <button type="button" class="fullscreen" onclick="fullscreen('modal-permission')"><i class="bowtie-icon bowtie-view-full-screen"></i></button>
+                    <button type="button" class="btn_close_02" data-dismiss="modal"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                </div>
+            </div>
+
+            <div class="modal-body">
+                <div class="modal-body-maincontent autoHeight clearfix">
+                    <div id="divFunction" style="height:100%;position:relative;width:50%;float:left;padding-right:20px">
+                        <h4 style="padding-top:0;margin-top:0;font-size:20px">Chức năng</h4>
+                        <hr style="width:100%;padding:0;margin:0" />
+                        <div id="trvFunction" style="width:100%"></div>
+                    </div>
+
+                    <div id="divPermission" style="height:100%;position:relative;width:50%;float:left;padding-left:20px">
+                        <div id="divPermissionType" style="float:left;width:100%">
+                            <h4 style="padding-top:0;margin-top:0;font-size:20px">Quyền truy cập</h4>
+                            <hr style="width:100%;padding:0;margin:0" />
+
+                            <div id="divDataPermission" style="width:100%;line-height:30px">
+                                <div id="trvPermissionType" style="width:100%;overflow:auto"></div>
+                            </div>
+                        </div>
+
+                        <div style="float:left;width:100%;height:200px;padding-top:20px;font-size:14px">
+                            <h4 style="padding-top:0;margin-top:0;font-size:20px">Quyền thực thi</h4>
+                            <hr style="width:100%;padding:0;margin:0" />
+                            <div id="divActionPermission" style="width:100%;line-height:30px">
+                                <div class="divCheckbox-permission">
+                                    <span id="chkAll" class="bowtie-icon bowtie-checkbox-empty" ng-click="permissionActionChange('chkAll','all','action')" style="margin-left:20px;margin-right:10px;cursor:pointer;width:10px"></span>
+                                    <span class="action-text">Tất cả</span>
+                                </div>
+                                <div class="divCheckbox-permission">
+                                    <span id="chkView" class="bowtie-icon bowtie-checkbox-empty" ng-click="permissionActionChange('chkView','view','action')" style="margin-left:40px;margin-right:10px;cursor:pointer;width:10px"></span>
+                                    <span class="action-text">Xem</span>
+                                </div>
+                                <div class="divCheckbox-permission">
+                                    <span id="chkAdd" class="bowtie-icon bowtie-checkbox-empty" ng-click="permissionActionChange('chkAdd','add','action')" style="margin-left:40px;margin-right:10px;cursor:pointer;width:10px"></span>
+                                    <span class="action-text">Thêm</span>
+                                </div>
+                                <div class="divCheckbox-permission">
+                                    <span id="chkEdit" class="bowtie-icon bowtie-checkbox-empty" ng-click="permissionActionChange('chkEdit','edit','action')" style="margin-left:40px;margin-right:10px;cursor:pointer;width:10px"></span>
+                                    <span class="action-text">Sửa</span>
+                                </div>
+                                <div class="divCheckbox-permission">
+                                    <span id="chkDelete" class="bowtie-icon bowtie-checkbox-empty" ng-click="permissionActionChange('chkDelete','delete','action')" style="margin-left:40px;margin-right:10px;cursor:pointer;width:10px"></span>
+                                    <span class="action-text">Xóa</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal" ng-click="save()" click-Once><i class="fa fa-save"></i> <span ng-bind="::translation.BTN_APPLY">Apply</span></button>
+                <button type="button" class="btn btn-white" data-dismiss="modal"><i class="fa fa-close"></i> <span ng-bind="::translation.BTN_CLOSE">Close</span></button>
+            </div>
+        </div>
+    </div>
+</div>

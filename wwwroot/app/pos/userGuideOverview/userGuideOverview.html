@@ -1,0 +1,296 @@
+﻿<div id="userGuideOverview" ng-controller="userGuideOverviewController" class="pos">
+    <div class="white_box clearfix">
+
+        <div class="left">
+            <div class="title">
+                <!--<p>Thiết lập cho lần đầu sử dụng phần mềm</p>-->
+                <p class="ng-binding">{{translation.SETUPFIRST}}</p>
+            </div>
+            <div class="content">
+                <p class="ng-binding">{{translation.TITLE}}</p>
+                <!--<p>Chọn lĩnh vực kinh doanh của bạn, phần mềm sẽ tự động cấu hình các tính năng phù hợp với lĩnh vực?</p>-->
+                <ul class="clearfix" id="radioKind">
+                    <li>
+                        <label class="container ng-binding" ng-click="changeKind('1')" data-toggle="collapse" href="#clOverview_01" role="button" aria-expanded="false" aria-controls="clOverview_01">
+                            {{translation.RETAIL}}
+                            <!--Bản lẻ (Tạp hóa, siêu thị ...)-->
+                            <input type="radio" name="radio" value="1">
+                            <span class="checkmark"></span>
+                        </label>
+                        <div class="collapse" id="clOverview_01">
+                            <div class="collapse-body">
+                                <p class="cl_img" style="background:#ebebeb url(../../../img/no-product.jpg) center center no-repeat; background-size: contain;"></p>
+                                <p class="cl_content">
+                                    Loại hình kinh doanh có chọn phòng, bàn, khu..và thanh toán hóa đơn dựa trên phòng bàn khu đã chọn
+                                    - Ví du: Nhà hàng, Spa, Quán nhậu, Karaoke..
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <label class="container ng-binding" ng-click="changeKind('2')" data-toggle="collapse" href="#clOverview_02" role="button" aria-expanded="false" aria-controls="clOverview_02">
+                            {{translation.STORE}}
+                            <!--Cửa hàng thời trang-->
+                            <input type="radio" name="radio" value="2">
+                            <span class="checkmark"></span>
+                        </label>
+                        <div class="collapse" id="clOverview_02">
+                            <div class="collapse-body">
+                                <p class="cl_img" style="background:#ebebeb url(../../../img/no-product.jpg) center center no-repeat; background-size: contain;"></p>
+                                <p class="cl_content">
+                                    Loại hình kinh doanh có chọn phòng, bàn, khu..và thanh toán hóa đơn dựa trên phòng bàn khu đã chọn
+                                    - Ví du: Nhà hàng, Spa, Quán nhậu, Karaoke..
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <label class="container ng-binding" ng-click="changeKind('3')" data-toggle="collapse" href="#clOverview_03" role="button" aria-expanded="false" aria-controls="clOverview_03">
+                            {{translation.RESTAURANT}}
+                            <!--Nhà hàng, cà phê, karaoke, Bi-a-->
+                            <input type="radio" name="radio" value="3">
+                            <span class="checkmark"></span>
+                        </label>
+                        <div class="collapse" id="clOverview_03">
+                            <div class="collapse-body">
+                                <p class="cl_img" style="background:#ebebeb url(../../../img/no-product.jpg) center center no-repeat; background-size: contain;"></p>
+                                <p class="cl_content">
+                                    Loại hình kinh doanh có chọn phòng, bàn, khu..và thanh toán hóa đơn dựa trên phòng bàn khu đã chọn
+                                    - Ví du: Nhà hàng, Spa, Quán nhậu, Karaoke..
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <label class="container ng-binding" ng-click="changeKind('4')" data-toggle="collapse" href="#clOverview_04" role="button" aria-expanded="false" aria-controls="clOverview_04">
+                            {{translation.ELECTRONIC}}
+                            <!--Điện tử, điện máy (Điện thoại, Máy tính, Phụ kiện...)-->
+                            <input type="radio" name="radio" value="4">
+                            <span class="checkmark"></span>
+                        </label>
+                        <div class="collapse" id="clOverview_04">
+                            <div class="collapse-body">
+                                <p class="cl_img" style="background:#ebebeb url(../../../img/no-product.jpg) center center no-repeat; background-size: contain;"></p>
+                                <p class="cl_content">
+                                    Loại hình kinh doanh có chọn phòng, bàn, khu..và thanh toán hóa đơn dựa trên phòng bàn khu đã chọn
+                                    - Ví du: Nhà hàng, Spa, Quán nhậu, Karaoke..
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <label class="container ng-binding" ng-click="changeKind('5')" data-toggle="collapse" href="#clOverview_05" role="button" aria-expanded="false" aria-controls="clOverview_05">
+                            {{translation.MATERIALS}}
+                            <!--Sắt thép, Vật liệu xây dựng-->
+                            <input type="radio" name="radio" value="5">
+                            <span class="checkmark"></span>
+                        </label>
+                        <div class="collapse" id="clOverview_05">
+                            <div class="collapse-body">
+                                <p class="cl_img" style="background:#ebebeb url(../../../img/no-product.jpg) center center no-repeat; background-size: contain;"></p>
+                                <p class="cl_content">
+                                    Loại hình kinh doanh có chọn phòng, bàn, khu..và thanh toán hóa đơn dựa trên phòng bàn khu đã chọn
+                                    - Ví du: Nhà hàng, Spa, Quán nhậu, Karaoke..
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <label class="container ng-binding" ng-click="changeKind('6')" data-toggle="collapse" href="#clOverview_06" role="button" aria-expanded="false" aria-controls="clOverview_06">
+                            {{translation.BOOKSTORE}}
+                            <!--Nhà sách-->
+                            <input type="radio" name="radio" value="6">
+                            <span class="checkmark"></span>
+                        </label>
+                        <div class="collapse" id="clOverview_06">
+                            <div class="collapse-body">
+                                <p class="cl_img" style="background:#ebebeb url(../../../img/no-product.jpg) center center no-repeat; background-size: contain;"></p>
+                                <p class="cl_content">
+                                    Loại hình kinh doanh có chọn phòng, bàn, khu..và thanh toán hóa đơn dựa trên phòng bàn khu đã chọn
+                                    - Ví du: Nhà hàng, Spa, Quán nhậu, Karaoke..
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <label class="container ng-binding" ng-click="changeKind('7')" data-toggle="collapse" href="#clOverview_07" role="button" aria-expanded="false" aria-controls="clOverview_07">
+                            {{translation.DRUGSTORE}}
+                            <!--Nhà thuốc, dược phẩm, dụng cụ y tế-->
+                            <input type="radio" name="radio" value="7">
+                            <span class="checkmark"></span>
+                        </label>
+                        <div class="collapse" id="clOverview_07">
+                            <div class="collapse-body">
+                                <p class="cl_img" style="background:#ebebeb url(../../../img/no-product.jpg) center center no-repeat; background-size: contain;"></p>
+                                <p class="cl_content">
+                                    Loại hình kinh doanh có chọn phòng, bàn, khu..và thanh toán hóa đơn dựa trên phòng bàn khu đã chọn
+                                    - Ví du: Nhà hàng, Spa, Quán nhậu, Karaoke..
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <label class="container ng-binding" ng-click="changeKind('8')" data-toggle="collapse" href="#clOverview_08" role="button" aria-expanded="false" aria-controls="clOverview_08">
+                            {{translation.SPA}}
+                            <!--Spa, Mỹ phẩm, Salon tóc-->
+                            <input type="radio" name="radio" value="8">
+                            <span class="checkmark"></span>
+                        </label>
+                        <div class="collapse" id="clOverview_08">
+                            <div class="collapse-body">
+                                <p class="cl_img" style="background:#ebebeb url(../../../img/no-product.jpg) center center no-repeat; background-size: contain;"></p>
+                                <p class="cl_content">
+                                    Loại hình kinh doanh có chọn phòng, bàn, khu..và thanh toán hóa đơn dựa trên phòng bàn khu đã chọn
+                                    - Ví du: Nhà hàng, Spa, Quán nhậu, Karaoke..
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <label class="container ng-binding" ng-click="changeKind('9')" data-toggle="collapse" href="#clOverview_09" role="button" aria-expanded="false" aria-controls="clOverview_09">
+                            {{translation.STATIONERY}}
+                            <!--Văn phòng phẩm-->
+                            <input type="radio" name="radio" value="9">
+                            <span class="checkmark"></span>
+                        </label>
+                        <div class="collapse" id="clOverview_09">
+                            <div class="collapse-body">
+                                <p class="cl_img" style="background:#ebebeb url(../../../img/no-product.jpg) center center no-repeat; background-size: contain;"></p>
+                                <p class="cl_content">
+                                    Loại hình kinh doanh có chọn phòng, bàn, khu..và thanh toán hóa đơn dựa trên phòng bàn khu đã chọn
+                                    - Ví du: Nhà hàng, Spa, Quán nhậu, Karaoke..
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <label class="container ng-binding" ng-click="changeKind('10')" data-toggle="collapse" href="#clOverview_10" role="button" aria-expanded="false" aria-controls="clOverview_10">
+                            {{translation.WOODEN}}
+                            <!--Đồ gỗ, Nội &Aacute; ngoại thất-->
+                            <input type="radio" name="radio" value="10">
+                            <span class="checkmark"></span>
+                        </label>
+                        <div class="collapse" id="clOverview_10">
+                            <div class="collapse-body">
+                                <p class="cl_img" style="background:#ebebeb url(../../../img/no-product.jpg) center center no-repeat; background-size: contain;"></p>
+                                <p class="cl_content">
+                                    Loại hình kinh doanh có chọn phòng, bàn, khu..và thanh toán hóa đơn dựa trên phòng bàn khu đã chọn
+                                    - Ví du: Nhà hàng, Spa, Quán nhậu, Karaoke..
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="clearfix data">
+                    <p class="ng-binding">{{translation.CHECK1}}</p>
+                    <!--<p>Máy của bạn chỉ sử dụng màn hình cảm ứng?</p>-->
+                    <div class="pos_item" id="data_touch">
+                        <div class="switch" ng-model="touch" ng-class="touch == 'true' ? 'change' : ''" ng-click="changeTouch()">
+                            <input type="checkbox" name="checkbox">
+                            <p class="slider mb-0"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix data">
+                    <p class="ng-binding">{{translation.CHECK2}}</p>
+                    <!--<p>Bạn có muốn cài đặt dữ liệu mẫu để tìm hiểu tính năng?</p>-->
+                    <div class="pos_item">
+                        <div class="switch change" ng-class="sampleData ? 'change' : ''" ng-click="changeActive(sampleData)">
+                            <input type="checkbox">
+                            <p class="slider mb-0"></p>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn_filter bg_blue_02" ng-click="apply()"><p class="ng-binding">{{translation.BTN_CONFIRM}}</p><!--<span>Xác nhận</span>--></button>
+            </div>
+        </div>
+        <div class="right">
+            <div class="title">
+                <!--<p>Hướng dẫn sử dụng</p>-->
+                <p class="ng-binding">{{translation.GUIDE}}</p>
+            </div>
+            <div class="content">
+                <div class="step step_01 clearfix">
+                    <div class="step_left">
+                        <div class="title_step ng-binding"><span>1</span>{{translation.STOREDECLARATION}}</div>
+                        <p class="content_step ng-binding">{{translation.GUIDE1}}</p>
+                        <!--<p class="title_step" ><span>1</span>khai báo cửa hàng</p>-->
+                        <!--<p class="content_step">Bạn có thể khai báo thông tin cửa hàng (ngày giờ mở cửa, tên cửa hàng, địa chỉ,...).</p>-->
+                        <ul class="step_btn clearfix">
+                            <li><a href="/pos/store?module=posstore" target="_blank"><button class="btn_filter bg_blue_02 ng-binding"><i class="fa fa-keyboard-o mr-10"></i>{{translation.BTN_DECLARATION}}<!--<span>Khai báo</span>--></button></a></li>
+                        </ul>
+                    </div>
+                    <div class="step_right">
+                        <video controls="controls">
+                            <!--<source src="file.mp4" type="video/mp4" />
+                            <source src="file.webm" type="video/webm" />
+                            <source src="file.ogv" type="video/ogg" />-->
+                        </video>
+                    </div>
+                </div>
+                <div class="step step_02 clearfix">
+                    <div class="step_left">
+                        <div class="title_step ng-binding"><span>2</span>{{translation.EMPLOYEEDECLARATION}}</div>
+                        <p class="content_step ng-binding">{{translation.GUIDE2}}</p>
+                        <!--<p class="title_step"><span>2</span>khai báo nhân viên</p>-->
+                        <!--<p class="content_step">Bạn có thể quản lý danh sách nhân viên và phân quyền cho nhân viên sử dụng phần mền</p>-->
+                        <ul class="step_btn clearfix">
+                            <li><a href="/pos/employee?module=posemployee" target="_blank"><button class="btn_filter bg_blue_02 ng-binding"><i class="bowtie-icon bowtie-user mr-10"></i>{{translation.BTN_EMPLOYEEDECLARATION}}<!--<span>Khai báo nhân viên</span>--></button></a></li>
+                        </ul>
+                    </div>
+                    <div class="step_right">
+                        <video controls="controls">
+                            <!--<source src="file.mp4" type="video/mp4" />
+                            <source src="file.webm" type="video/webm" />
+                            <source src="file.ogv" type="video/ogg" />-->
+                        </video>
+                    </div>
+                </div>
+                <div class="step step_03 clearfix">
+                    <div class="step_left">
+                        <div class="title_step ng-binding"><span>3</span>{{translation.DECLARATIONOFGOODS}}</div>
+                        <p class="content_step ng-binding">{{translation.GUIDE3}}</p>
+                        <!--<p class="title_step"><span>3</span>khai báo danh mục hàng hóa</p>-->
+                        <!--<p class="content_step">Bạn có thể lập danh sách hàng hóa của của hàng bằng cách nhập khẩu từ tệp excel hoặc tự khai báo.</p>-->
+                        <ul class="step_btn clearfix">
+                            <li><button ng-click="call()" class="btn_filter bg_blue_02 ng-binding" ><i class="bowtie-icon bowtie-arrow-import mr-10"></i>{{translation.BTN_IMPORTEXCEL}}<!--<span>Nhập khẩu từ Excel</span>--></button></li>
+                            <li><button class="btn_filter bg_blue_02 ng-binding"><i class="fa fa-keyboard-o mr-10"></i>{{translation.BTN_SELFDECLARATION}}<!--<span>Tự khai báo</span>--></button></li>
+                            <li><button class="btn_filter bg_blue_02  ng-binding"><i class="fa fa-keyboard-o mr-10"></i>{{translation.BTN_ENTERSAMPLE}}<!--<span>Nhập dữ liệu mẫu</span>--></button></li>
+                        </ul>
+
+
+                    </div>
+                    <div class="step_right">
+                        <video controls="controls">
+                            <!--<source src="file.mp4" type="video/mp4" />
+                            <source src="file.webm" type="video/webm" />
+                            <source src="file.ogv" type="video/ogg" />-->
+                        </video>
+                    </div>
+                </div>
+                <div class="step step_04 clearfix">
+                    <div class="step_left">
+                        <div class="title_step ng-binding"><span>4</span>{{translation.PRINTSTAMP}}</div>
+                        <p class="content_step ng-binding">{{translation.GUIDE4}}</p>
+                        <!--<p class="title_step"><span>4</span>im mã tem</p>-->
+                        <!--<p class="content_step">Bạn có thể in tem mã và dán lên hàng hóa để bán hàng nhanh bằng máy quét mã vạch</p>-->
+                        <ul class="step_btn clearfix">
+                            <li><a href="/pos/barcodePrint?module=posbarcode" target="_blank"><button class="btn_filter bg_blue_02 ng-binding"><i class="fa fa-barcode mr-10"></i>{{translation.BTN_PRINTSTAMP}}<!--<span>Im tem mã</span>--></button></a></li>
+                        </ul>
+                    </div>
+                    <div class="step_right">
+                        <video controls="controls">
+                            <!--<source src="file.mp4" type="video/mp4" />
+                            <source src="file.webm" type="video/webm" />
+                            <source src="file.ogv" type="video/ogg" />-->
+                        </video>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div lv-include path="app/pos/userGuideOverview/importItem" name="importItem"></div>
+
+    
+</div>

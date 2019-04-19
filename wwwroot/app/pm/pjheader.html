@@ -1,0 +1,278 @@
+﻿<div id="topHeader" class="hideNo">
+    <div id="idLeftTH">
+        <span style="font-size:16px;color:white;">Work schedule today</span><br />
+        <span style="color:white;"> <span style="color:cadetblue">3 Task New </span> | <span style="color:yellow;"> 2 Task New Active</span> | <span style="color:#d88b20;"> 4 Task Done</span></span>
+    </div>
+    <div id="idRightTH">
+        <span style="font-size:16px;color:white;">PRODUCT PROGRESS</span>
+        <div style="background-color:#d88b20;width: 100px;height: 10px;float: right;margin-top: 17px;position:relative">
+            <span style="color:white;position:absolute;right:0px;margin-top:-18px;">1,070</span>
+            <span style="color:white;position:absolute;right:0px;margin-top:10px;">Done</span>
+        </div>
+        <div style="background-color:yellow;width: 150px;height: 10px;float: right;margin-top: 17px;position:relative;">
+            <span style="color:white;position:absolute;right:0px;margin-top:-18px;">1,670</span>
+            <span style="color:white;position:absolute;right:0px;margin-top:10px;">Active</span>
+        </div>
+        <div style="background-color:cadetblue;width: 160px;height: 10px;float: right;margin-top: 17px;margin-left: 29px;position:relative;">
+            <span style="color:white;position:absolute;right:0px;margin-top:-18px;">1,500</span>
+            <span style="color:white;position:absolute;right:0px;margin-top:10px;">New</span>
+        </div>
+        <br />
+        <span style="color:white;display:block;display:inline-flex">Static by: Requirement status</span>
+    </div>
+</div>
+<div class="title-env">
+    <div id="idMenuLV" onclick="toggleMenu()"><b><i class="bowtie-icon bowtie-menu"></i></b></div>
+    <div>
+        <a id="moduleTitle" class="title" style="margin:0;cursor:pointer;font-size:16px;color:#33689b;" href="/pm/projects"></a>
+    </div>
+    <div>
+        <p id="idNameProject" style="margin:0;color:#33689b;margin-left:10px;font-size:16px;max-width:668px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden"></p>
+    </div>
+
+    <div class="fmSearch">
+        <a href="javascript:;" class="fmIconHeader" onclick="clickSearch();" style="margin-right:15px;" id="idSearchProduct"><i class="bowtie-icon bowtie-chevron-down-light"></i></a>
+    </div>
+
+    <!--<div style="display:block; line-height:56px; ">
+        <input type="text" class="form-control global_filter style-input hideNo" id="inputSearchProduct" style="height:30px;margin-right:15px;border-radius:5px;width:200px;">
+    </div>-->
+    <div id="idDrawSearch" class="hideNo">
+        <p style='font-size:20px;padding-left:10px;padding-top:10px;color:black;padding-bottom:2px;'><b id="resultSearch"></b></p>
+        <div style='display: block; line-height:56px;padding:0px 0px 10px 10px'><input type='text' class='form-control global_filter' id='inputSearchProduct' style='height:30px;margin-right:15px;width:90%;' /></div>
+        <div id="reloadContentSearch"></div>
+    </div>
+</div>
+
+<div style="float:right;height:100%;line-height:40px;border-left:1px solid #ddd">
+    <div class="form-group" style="margin-left:10px">
+        <input type="text" class="form-control global_filter style-input searchInput" style="margin-top:5px;height:22px;margin-right:5px;width:200px;background-color:transparent" id="searchValue" placeholder="{{::translation.SEARCH}}... " ng-keypress="search($event)">
+        <a href="javascript:;" ng-click="search()"><i class="bowtie-icon bowtie-search seachIcon" style="top:8px;right:-1px;font-size:15px"></i></a>
+    </div>
+</div>
+
+<div style="float:right;height:100%;border-left:1px solid #ddd">
+    <a href="javascript:;" class="fmIconHeader" style="float:right;margin-right:10px;display:none;" id="btnSettingfrm" ng-click="settingfrm()"><i class="bowtie-icon bowtie-settings-gear-outline"></i></a>
+    <a href="javascript:;" class="fmIconHeader" style="float:right;margin-right:10px" id="btnDelete" ng-click="delete()"><i class="bowtie-icon bowtie-trash"></i></a>
+    <a href="javascript:;" class="fmIconHeader" style="float:right;margin-right:15px;display:none" id="btnSave" ng-click="save()" click-Once><i class="bowtie-icon bowtie-save"></i></a>
+    <a href="javascript:;" class="fmIconHeader" style="float:right;margin-right:15px" id="btnEdit" ng-click="edit()"><i class="bowtie-icon bowtie-edit-outline"></i></a>
+    <a href="javascript:;" class="fmIconHeader" style="float:right;margin-right:15px" id="btnAdd" ng-click="add()"><i class="bowtie-icon bowtie-math-plus-light"></i></a>
+    <a href="javascript:;" class="fmIconHeader" style="float:right;margin-right:15px;margin-left:10px" id="btnRefresh" ng-click="refreshData()"><i class="bowtie-icon bowtie-navigate-reload"></i></a>
+</div>
+
+<div style="float:right;height:100%">
+    <a id="btn_planDetail" href="/pm/planDetail?pid={{pid}}&pjid={{pjid}}" class="fmIconHeader header-function" style="float:right;margin-right:10px;display:none"><i id="i_planDetail" class="fa fa-ellipsis-h"></i></a>
+    <a id="btn_showListFunction" href="javascript:;" class="fmIconHeader header-function" style="float:right;margin-right:15px;display:none" ng-click="showListFunction()"><i id="i_showListFunction" class="bowtie-icon bowtie-view-list"></i></a>
+    <a id="btn_getPaymentProgress" href="javascript:;" class="fmIconHeader header-function" style="float:right;margin-right:10px;display:none" ng-click="getPaymentProgress()"><i id="i_getPaymentProgress" class="bowtie-icon bowtie-status-info-outline"></i></a>
+</div>
+
+<div class="topHeader" id="valueTopHeader" onclick="toggleHeader();"></div>
+
+<script type="text/javascript">
+    var listData = null;
+    $(document).ready(function () {
+        $("#valueTopHeader").text(translation.VIEW_MORE);
+        $("#divSetting").text(translation.TITLE_SETTING);
+        $("#divSave span").text(translation.TITLE_SAVE);
+        $("#divDefault span").text(translation.TITLE_DEFAULT);
+        $("#divAdvance span").text(translation.TITLE_ADVANCE);
+        //$("#btnAdd").attr("title", translation.BTN_ADD);
+        //$("#btnEdit").attr("title", translation.BTN_EDIT);
+        //$("#btnDelete").attr("title", translation.BTN_DELETE);
+        $("#resultSearch").text(translation.RESULT_SEARCH_PROJECT);
+
+        var module = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
+        if (module == "projects" || module == "project")
+            $("#idMenuLV").hide();
+        else
+            $("#idMenuLV").show();
+
+        getNameProject();
+        $.ajax({
+            url: "api/Project/GetListProject",
+            type: 'POST'
+        }).done(function (data) {
+            listData = data.data;
+            drawSearch(listData);
+        });
+
+    })
+
+    $(document).click(function (e) {
+        if (e.target.id !== "idDrawSearch" && e.target.id !== "inputSearchProduct") {
+            $("#idDrawSearch").hide();
+            //$("#inputSearchProduct").hide();
+        }
+        if (e.target.id !== "i_getPaymentProgress" && e.target.id != "btn_getPaymentProgress") {
+            $("#toggleInfo").hide();
+        }
+    });
+
+    $(".dropdown").click(function () {
+        $("#idDrawSearch").hide();
+        //$("#inputSearchProduct").hide();
+        $("#toggleInfo").hide();
+    })
+
+    $("#idSearchProduct").click(function (e) {
+        e.stopPropagation();
+        $("#toggleInfo").hide();
+    });
+    function clickSearch() {
+        $('#idDrawSearch').toggle();
+        $('#inputSearchProduct').focus();
+        $('.dropdown').removeClass('open');
+    }
+    $("#inputSearchProduct").keyup(function () {
+        var txt = $(this).val();
+        txt = convertEnglish(txt);
+        searchItem(txt);
+    });
+
+    function searchItem(str) {
+        var item = $.grep(listData, function (e) {
+            var _name = convertEnglish(e.name.toLowerCase());
+            return _name.includes(str);
+        })
+        if (str == null || str == undefined || str == "")
+            templateSearch(item.slice(0, 4), "4");
+        else
+            templateSearch(item, null);
+    }
+
+    function toggleMenu() {
+        if ($('#sectionMenu').width() == 0)
+            $('#sectionMenu').width(109);
+        else
+            $('#sectionMenu').width(0);
+
+        $(window).trigger('resize')
+    }
+
+    function getNameProject() {
+        var valueUrl = getUrlVars()["pjid"];
+        if (valueUrl)
+            getProjectWithID(valueUrl);
+        else
+            $("#idNameProject").text("");
+    }
+    //Query string from url
+    function getUrlVars() {
+        var vars = [], hash;
+        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for (var i = 0; i < hashes.length; i++) {
+            hash = hashes[i].split('=');
+            vars.push(hash[0]);
+            vars[hash[0]] = hash[1];
+        }
+        return vars;
+    }
+
+    function getProjectWithID(strID) {
+        if (!strID)
+            return;
+        else {
+            $.ajax({
+                url: "api/Project/GetProject",
+                type: 'POST',
+                data: JSON.stringify(strID),
+                success: function (respone) {
+                    if (respone.isError == false) {
+                        if (respone.data == null) {
+                            respone.data = {};
+                            respone.data.name = "...";
+                        }
+
+                        $("#idNameProject").text('\\ ' + respone.data.name);
+                    }
+                    else {
+                        $("#idNameProject").text("");
+                    }
+                }
+            });
+        }
+    }
+
+    function getPosition(el) {
+        var xPos = 0;
+        var yPos = 0;
+
+        while (el) {
+            if (el.tagName == "BODY") {
+                // deal with browser quirks with body/window/document and page scroll
+                var xScroll = el.scrollLeft || document.documentElement.scrollLeft;
+                var yScroll = el.scrollTop || document.documentElement.scrollTop;
+
+                xPos += (el.offsetLeft - xScroll + el.clientLeft);
+                yPos += (el.offsetTop - yScroll + el.clientTop);
+            } else {
+                // for all other non-BODY elements
+                xPos += (el.offsetLeft - el.scrollLeft + el.clientLeft);
+                yPos += (el.offsetTop - el.scrollTop + el.clientTop);
+            }
+
+            el = el.offsetParent;
+        }
+        return {
+            x: xPos,
+            y: yPos
+        };
+    }
+
+    function drawSearch(data) {
+        // var position = getPosition($(".fmSearch")[0]);
+        var position = getPosition($("#idMenuLV"));
+        var attrSearch = "position:absolute;text-align:left;top:" + (position.y) + "px;width:400px;height:400px;line-height:initial;border:1px solid #ddd;background-color:white;z-index:20;left:" + (position.x + 200) + "px;box-shadow:0 0 30px 0 rgba(0, 0, 0, 0.2), 0 0 40px 5px rgba(0, 0, 0, 0.19);overflow:auto;border-bottom:20px solid #33689b;";
+        $("#idDrawSearch").attr("style", attrSearch);
+        if (data.length > 4)
+            templateSearch(data.slice(0, 4), "4");
+        else
+            templateSearch(data.slice(0, data.length), data.length.toString());
+    }
+
+    function templateSearch(data, topsearch) {
+        var html = "";
+        if (topsearch != null)
+            html = "<p style='padding-left:10px;color:black;'>" + "<span style='color:red;'><b>" + topsearch.toString() + "</b></span> " + translation.TOP_SEARCH_PROJECT + "</p><div style='list-style-type:none;padding:0px;'>";
+        else
+            html = "<p style='padding-left:10px;color:black;'>" + translation.FOUND_SEARCH + " <span style='color:red;'><b>" + data.length + "</b></span> " + translation.REQUIRE_SEARCH_PROJECT + "</p><div style='list-style-type:none;padding:0px;'>";
+        $.each(data, function (index, val) {
+            if (val.owner == null || val.owner == undefined) {
+                val.owner = {};
+                val.owner.firstName = "...";
+                val.owner.lastName = "...";
+            }
+            if (val.code == null)
+                val.code = "...";
+            html += "<div id='idHoverSearch' style='padding:4px 0px 1px 10px;cursor:pointer;clear:both;border-top:1px solid #dddddd;' ><a style='font-size:15px;' href='" + getUrl(val.id, val.pjid) + "'><div><p style='color:black;'><b>" + val.name + "</b></p><p style='color:black;'>" + val.code.toUpperCase() + " | " + val.owner.firstName + " " + val.owner.lastName + " | " + val.state + "</p></div></a></div>";
+        });
+        html += "</div>";
+        $("#reloadContentSearch").html(html);
+    }
+
+    function getUrl(id, pjid) {
+        var url = null;
+        var cLink = window.location.href.indexOf('pid=');
+        var module = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
+        if (module.indexOf("project") != -1)
+            url = "/pm/plan?pid=" + id + "&pjid=" + pjid;
+        else {
+            if (cLink == -1)
+                url = window.location.href + "?pid=" + id + "&pjid=" + pjid;
+            else
+                url = window.location.href.substr(0, cLink) + "pid=" + id + "&pjid=" + pjid;
+        }
+
+        return url;
+    }
+
+    function convertEnglish(str) {
+        str = str.toLowerCase();
+        return str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a").replace(/\ /g, '-').replace(/đ/g, "d").replace(/đ/g, "d").replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y").replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u").replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ.+/g, "o").replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ.+/g, "e").replace(/ì|í|ị|ỉ|ĩ/g, "i");
+    }
+
+    function goTo(url) {
+        window.location.href = url;
+        //$location.path(url);
+    }
+</script>

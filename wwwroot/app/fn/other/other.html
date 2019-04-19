@@ -1,0 +1,77 @@
+﻿<!--check-->
+<div id="other" ng-controller="otherController" ng-init="onload()">
+    <div class="white_box">
+        <div class="fn">
+            <div class="box_control clearfix">
+                <div class="row pd_lr_5 clearfix">
+                    <div class="col-10">
+                        <ul class="box_btn mb-0 d-flex justify-content-start">
+                            <li>
+                                <button type="button" class="bg_blue_02 btn_filter">Truy vấn</button>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-2">
+                        <ul class="box_btn mb-0 float-right">
+                            <li><a class="btn_default btn_30 btn_search_click" ng-click="toogleFilter()"><i class="bowtie-icon bowtie-search-filter"></i></a></li>
+                            <li><a href="" class="btn_default btn_30"><i class="bowtie-icon bowtie-chart-column"></i></a></li>
+                            <li class="btn_menu btn_collapse_02"><a class="bg_blue_01 m-0" ng-click="toogleRight()"><i class="bowtie-icon bowtie-menu"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="box_filter clearfix">
+                    <ul class="box_btn mb-0 d-flex justify-content-start" ">
+                        <li class="w_15 select2_op2">
+                            <div class="btn_search">
+                                <div class="input-group">
+                                    <input id="inputSearch" type="text" class="form-control" placeholder="Tìm danh mục" ng-keypress="callMethod('search', $event)">
+                                    <span class="input-group-btn">
+                                        <button ng-click="callMethod('search')" class="btn" type="button"><i class="bowtie-icon bowtie-search"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="w_10">
+                            <button type="button" class="btn_w100 bg_blue_02 btn_filter">Tra cứu</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- main_box start -->
+            <div class="main_box clearfix content_7_3 scroll">
+                <div class="main_box_body content_7 float-left" ng-class="checkRight ? 'h_s_relate' : 'hide'">
+                    <dl class="box_tb box_tb_01 mb_15">
+                        <dt class="clearfix pos_re">
+                            <p class="title_01 cus mb-0" data-toggle="collapse" data-target="#panel_mytask_01" aria-expanded="true" aria-controls="panel_mytask_01"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>Danh sách đối tượng khác</span></p>
+                            <ul class="clearfix box_infomation">
+                                <li>Tổng <span class="cl_red">(235)</span></li>
+                                <li>Ngưng sử dụng <span class="cl_red">(25)</span></li>
+                            </ul>
+                        </dt>
+                        <dd>
+                            <div class="collapse show" id="panel_mytask_01" aria-expanded="true" style="">
+                                Danh sách đối tượng khác
+                                <!--TODO GRID-->
+                            </div>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="content_3 float-right" ng-class="checkRight ? 'h_s_relate' : 'hide'">
+                    <div class="main_box_relate">
+                        <dl class="box_tb box_tb_02 mb-0">
+                            <dt style="position: relative;">
+                                <p class="title_01 cus mb-0" data-toggle="collapse" data-target="#panel_02" aria-expanded="true" aria-controls="panel_02"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>Thông tin liên hệ</span><span class="cl_red ml-2">(03)</span></p>
+                            </dt>
+                            <dd>
+                                <div class="collapse show" id="panel_mytask_02" aria-expanded="true" style="">
+                                    Thông tin liên hệ
+                                    <!--TODO GRID-->
+                                </div>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

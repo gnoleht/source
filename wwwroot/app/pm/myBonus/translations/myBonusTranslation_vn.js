@@ -1,0 +1,22 @@
+﻿var myBonusTranslation = {
+    "PROJECTS": "Tên dự án",
+    "SPRINTS": "Kỳ công việc",
+    "RESOURCENAME": "Tên công việc",
+    "ORIGINALESTIMATE": "Ước tính ban đầu",
+    "REMAINING_WORK": "Thời gian còn lại",
+    "COMPLETED_WORK": "Thời gian đã hoàn thành",
+    "TOTAL_EFFORF_DONE": "Tổng thời gian đã làm xong",
+    "NEW": "Mới",
+    "ACTIVE": "Đang làm",
+    "RESOLVED": "Đã giải quyết",
+    "CLOSED": "Đã đóng",
+    "REMOVED": "Đã xóa",
+    "COMPLETED": "Đã hoàn thành",
+    "ESTIMATE": "Ước tính",
+    "URGENT": "Khẩn cấp",
+    "HIDE": "cao",
+    "NORMAL": "Bình thường",
+    "LOW": "Thấp",
+    "TOTAL": "Tổng",
+    "STATUS": "Trang thái"
+}

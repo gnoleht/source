@@ -1,0 +1,239 @@
+﻿<div id="dashboardPOS" ng-controller="dashboardPOSController" class="pos">
+    <div class="white_box scroll">
+        <div class="loading-wrapper" ng-show="showLoading">
+            <img src="../../../images/loading.svg" />
+        </div>
+
+        <div class="box_01 clearfix">
+            <div class="clearfix">
+                <p class="cbb_filter clearfix" style="display: flex;width: 400px;align-items: flex-end">
+                    <lv-valuelist-multi style="width: 400px;" element-id="storeId" field="storeId" model="listStoreId" setting="setting" translation="translation" tab="5"></lv-valuelist-multi>
+                    <button ng-click="filterByTime()" class="btn btn_save_02 ml-10">{{translation.FILTER}}</button>
+                </p>
+            </div>
+            <div class="clearfix">
+                <div class="db_item db_item_01">
+                    <p class="title" ng-bind="translation.REPORTTODAY">Doanh thu ngày</p>
+                    <div class="clearfix">
+                        <table class="tb_01">
+                            <tr class="tr_title">
+                                <td ng-bind="translation.BILLTOTAL">Tổng đơn hàng</td>
+                                <td ng-bind="translation.REVENUETOTAL">Tổng doanh thu</td>
+                            </tr>
+                            <tr class="tr_content">
+                                <td>{{dataDashboardTop.today.billTotal | number:0}}</td>
+                                <td>{{dataDashboardTop.today.revenueTotal | number:0}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="clearfix">
+                        <table class="tb_02">
+                            <tr>
+                                <td ng-bind="translation.PROFITTOTAL">Lợi nhuận</td>
+                                <td>{{dataDashboardTop.today.profitTotal | number:0}}</td>
+                            </tr>
+                            <tr>
+                                <td ng-bind="translation.COSTTOTAL">Chi phí</td>
+                                <td>{{dataDashboardTop.today.costTotal | number:0}}</td>
+                            </tr>
+                            <tr>
+                                <td ng-bind="translation.GROSSPROFIT">Lãi gộp</td>
+                                <td>{{dataDashboardTop.today.grossProfit | number:0}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="db_item db_item_02">
+                    <p class="title" ng-bind="translation.REPORTWEEK">Doanh thu ngày</p>
+                    <div class="clearfix">
+                        <table class="tb_01">
+                            <tr class="tr_title">
+                                <td ng-bind="translation.BILLTOTAL">Tổng đơn hàng</td>
+                                <td ng-bind="translation.REVENUETOTAL">Tổng doanh thu</td>
+                            </tr>
+                            <tr class="tr_content">
+                                <td>{{dataDashboardTop.week.billTotal | number:0}}</td>
+                                <td>{{dataDashboardTop.week.revenueTotal | number:0}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="clearfix">
+                        <table class="tb_02">
+                            <tr>
+                                <td ng-bind="translation.PROFITTOTAL">Lợi nhuận</td>
+                                <td>{{dataDashboardTop.week.profitTotal | number:0}}</td>
+                            </tr>
+                            <tr>
+                                <td ng-bind="translation.COSTTOTAL">Chi phí</td>
+                                <td>{{dataDashboardTop.week.costTotal | number:0}}</td>
+                            </tr>
+                            <tr>
+                                <td ng-bind="translation.GROSSPROFIT">Lãi gộp</td>
+                                <td>{{dataDashboardTop.week.grossProfit | number:0}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="db_item db_item_03">
+                    <p class="title" ng-bind="translation.REPORTMONTH">Doanh thu ngày</p>
+                    <div class="clearfix">
+                        <table class="tb_01">
+                            <tr class="tr_title">
+                                <td ng-bind="translation.BILLTOTAL">Tổng đơn hàng</td>
+                                <td ng-bind="translation.REVENUETOTAL">Tổng doanh thu</td>
+                            </tr>
+                            <tr class="tr_content">
+                                <td>{{dataDashboardTop.month.billTotal | number:0}}</td>
+                                <td>{{dataDashboardTop.month.revenueTotal | number:0}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="clearfix">
+                        <table class="tb_02">
+                            <tr>
+                                <td ng-bind="translation.PROFITTOTAL">Lợi nhuận</td>
+                                <td>{{dataDashboardTop.month.profitTotal | number:0}}</td>
+                            </tr>
+                            <tr>
+                                <td ng-bind="translation.COSTTOTAL">Chi phí</td>
+                                <td>{{dataDashboardTop.month.costTotal | number:0}}</td>
+                            </tr>
+                            <tr>
+                                <td ng-bind="translation.GROSSPROFIT">Lãi gộp</td>
+                                <td>{{dataDashboardTop.month.grossProfit | number:0}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="db_item db_item_04">
+                    <p class="title" ng-bind="translation.REPORTYEAR">Doanh thu ngày</p>
+                    <div class="clearfix">
+                        <table class="tb_01">
+                            <tr class="tr_title">
+                                <td ng-bind="translation.BILLTOTAL">Tổng đơn hàng</td>
+                                <td ng-bind="translation.REVENUETOTAL">Tổng doanh thu</td>
+                            </tr>
+                            <tr class="tr_content">
+                                <td>{{dataDashboardTop.year.billTotal | number:0}}</td>
+                                <td>{{dataDashboardTop.year.revenueTotal | number:0}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="clearfix">
+                        <table class="tb_02">
+                            <tr>
+                                <td ng-bind="translation.PROFITTOTAL">Lợi nhuận</td>
+                                <td>{{dataDashboardTop.year.profitTotal | number:0}}</td>
+                            </tr>
+                            <tr>
+                                <td ng-bind="translation.COSTTOTAL">Chi phí</td>
+                                <td>{{dataDashboardTop.year.costTotal | number:0}}</td>
+                            </tr>
+                            <tr>
+                                <td ng-bind="translation.GROSSPROFIT">Lãi gộp</td>
+                                <td>{{dataDashboardTop.year.grossProfit | number:0}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <dl style="padding: 0 0 10px 0;">
+            <dt class="dt_title">
+                <a class="title_01 bg_blue_01" data-toggle="collapse" data-target="#db_01" aria-expanded="true" aria-controls="db_01">
+                    <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i>
+                    <span ng-bind="translation.DASHBOARDCOSTPROFIT"></span>
+                </a>
+            </dt>
+            <dd class="collapse show" id="db_01" aria-expanded="true">
+                <div>
+                    <div lv-include path="app/pos/dashboardCostProfit" name="dashboardCostProfit"></div>
+                </div>
+            </dd>
+        </dl>
+        <dl style="padding: 0 0 10px 0;">
+            <dt class="dt_title">
+                <a class="title_01 bg_blue_01" data-toggle="collapse" data-target="#db_02" aria-expanded="true" aria-controls="db_02">
+                    <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i>
+                    <span ng-bind="translation.DASHBOARDREVENUEBYDAY"></span>
+                </a>
+            </dt>
+            <dd class="collapse show" id="db_02" aria-expanded="true">
+                <div>
+                    <div lv-include path="app/pos/dashboardRevenueByDay" name="dashboardRevenueByDay"></div>
+                </div>
+            </dd>
+        </dl>
+        <dl style="padding: 0 0 10px 0;">
+            <dt class="dt_title">
+                <a class="title_01 bg_blue_01" data-toggle="collapse" data-target="#db_03" aria-expanded="true" aria-controls="db_03">
+                    <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i>
+                    <span ng-bind="translation.DASHBOARDREVENUEBYSTORE">Thống kê doanh thu theo chi nhánh</span>
+                </a>
+
+            </dt>
+            <dd class="collapse show" id="db_03" aria-expanded="true">
+                <div>
+                    <div lv-include path="app/pos/dashboardRevenueByStore" name="dashboardRevenueByStore"></div>
+                </div>
+            </dd>
+        </dl>
+        <dl style="padding: 0 0 10px 0;">
+            <dt class="dt_title">
+                <a class="title_01 bg_blue_01" data-toggle="collapse" data-target="#db_04" aria-expanded="true" aria-controls="db_04">
+                    <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i>
+                    <span ng-bind="translation.DASHBOARDTOPITEM"></span>
+                </a>
+            </dt>
+            <dd class="collapse show" id="db_04" aria-expanded="true">
+                <div>
+                    <div lv-include path="app/pos/dashboardTopItem" name="dashboardTopItem"></div>
+                </div>
+            </dd>
+        </dl>
+        <dl style="padding: 0 0 10px 0;">
+            <dt class="dt_title">
+                <a class="title_01 bg_blue_01" data-toggle="collapse" data-target="#db_05" aria-expanded="true" aria-controls="db_05">
+                    <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i>
+                    <span ng-bind="translation.DASHBOARDPAYMENTMETHODPERCENTREVENUE">Tỷ lệ theo phương thức thanh toán</span>
+                </a>
+
+            </dt>
+            <dd class="collapse show" id="db_05" aria-expanded="true">
+                <div>
+                    <div lv-include path="app/pos/dashboardPaymentMethodPercentRevenue" name="dashboardPaymentMethodPercentRevenue"></div>
+                </div>
+            </dd>
+        </dl>
+        <dl style="padding: 0 0 10px 0;">
+            <dt class="dt_title">
+                <a class="title_01 bg_blue_01" data-toggle="collapse" data-target="#db_06" aria-expanded="true" aria-controls="db_06">
+                    <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i>
+                    <span ng-bind="translation.DASHBOARDCOSTPERCENTREVENUE">Tỷ lệ theo chi phí</span>
+                </a>
+
+            </dt>
+            <dd class="collapse show" id="db_06" aria-expanded="true">
+                <div>
+                    <div lv-include path="app/pos/dashboardCostPercentRevenue" name="dashboardCostPercentRevenue"></div>
+                </div>
+            </dd>
+        </dl>
+        <dl style="padding: 0 0 10px 0;">
+            <dt class="dt_title">
+                <a class="title_01 bg_blue_01" data-toggle="collapse" data-target="#db_07" aria-expanded="true" aria-controls="db_07">
+                    <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i>
+                    <span ng-bind="translation.DASHBOARDREVENUEPERHRS">Doanh thu bán hàng theo khung giờ</span>
+                </a>
+
+            </dt>
+            <dd class="collapse show" id="db_07" aria-expanded="true">
+                <div>
+                    <div lv-include path="app/pos/dashboardRevenuePerHrs" name="dashboardRevenuePerHrs"></div>
+                </div>
+            </dd>
+        </dl>
+    </div>
+</div>
+
+

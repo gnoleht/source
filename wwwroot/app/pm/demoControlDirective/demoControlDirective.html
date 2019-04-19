@@ -1,0 +1,101 @@
+﻿
+
+<style>
+    /*.common-name input.ng-invalid-required.ng-touched.ng-empty {
+        border: 1px solid #d00
+    }*/
+    .ng-invalid-pattern, .validate {
+        border-bottom: 1px solid red !important;
+    }
+</style>
+<div id="pjMember" ng-controller="demoControlDirectiveController" layout="column" layout-padding="" ng-cloak="" class="inputdemoIcons" ng-app="MyApp">
+    <div class="page-title" ng-include="'app/pm/pjheader.html'" onload="loadHeaderComplete()"></div>
+    <div class="panel panel-default flexLV">
+        <div id="sectionMenu">
+            <div ng-include="'app/pm/leftMenu.html'" onload="loadMenuComplete()"></div>
+        </div>
+
+        <!--page body-->
+        <div id="documentBody" class="content-body">
+            <div class="panel-body">
+                <h2>Input</h2>
+                <hr />
+                <!--<input data-inputmask="'alias': 'date'" />-->
+                <!--<input type="text" class="form-control"  data-mask="d/m/y" />-->
+                <div class="row">
+
+                    <div class="col-sm-4">
+                        <lv-checkbox field="inputCheck" model="data.inputCheck" setting="setting" translation="translation" change="" type="text" tab="1"></lv-checkbox>
+                    </div>
+
+
+
+                    <div class="col-sm-4">
+                        <lv-input element-id="txtInputNormal" field="inputNormal" model="data.inputNormal" setting="setting" translation="translation" change="inputNormalChanged()" type="text" tab="1"></lv-input>
+                    </div>
+                    <div class="col-sm-4">
+                        <lv-input element-id="txtInputNormal2" field="inputNormal2" model="data.inputNormal2" setting="setting" translation="translation" change="inputNormalChanged2()" type="phone" tab="1"></lv-input>
+                    </div>
+                    <div class="col-sm-4">
+                        <lv-input element-id="txtInputNormal3" field="inputNormal3" model="data.inputNormal3" setting="setting" translation="translation" change="inputNormalChanged3()" type="email" tab="1"></lv-input>
+                    </div>
+                    <div class="col-sm-4">
+                        <lv-input element-id="txtInputNormal35" field="inputNormal35" model="data.inputNormal35" setting="setting" translation="translation" change="inputNormalChanged35()" type="date" tab="1"></lv-input>
+                    </div>
+                    <div class="col-sm-4">
+                        <lv-input element-id="txtInputNormal4" field="inputNormal4" model="data.inputNormal4" setting="setting" translation="translation" change="inputNormalChanged4()" type="money" tab="1"></lv-input>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <lv-input-group-button element-id="txtInputGroupButton" field="inputGroupButton" model="data.inputGroupButton" setting="setting" translation="translation" change="" type="text" tab="2" buttonclass="fa-check" buttonclick="helloDemo()" buttontab="3"></lv-input-group-button>
+                    </div>
+                    <div class="col-sm-4">
+                        <lv-datepicker element-id="txtDatePicker" field="datePicker" model="data.datePicker" setting="setting" translation="translation" tab="5" change=""></lv-datepicker>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <lv-textarea row="4" element-id="txtTextArea" field="textArea" model="data.textArea" setting="setting" translation="translation" change="" type="" tab="6"></lv-textarea>
+                    </div>
+                    <div class="col-sm-4">
+                        <lv-textarea element-id="txtTextAreaReadonly" field="textAreaReadonly" model="data.textAreaReadonly" setting="setting" block-resize="block-resize" translation="translation" change="" type="" tab="7"></lv-textarea>
+                    </div>
+                    <div class="col-sm-4">
+                        <textarea ui-tinymce="tinymceOptions" ng-model="data.detail" height="100" tabindex="8"></textarea>
+                    </div>
+                </div>
+                <!--<div class="row">
+                    <div class="col-sm-4">
+                        <lv-checkbox element-id="txtCheckbox" field="textCheckbox" model="data.textCheckbox" setting="setting" translation="translation" change="" type="" tab="8"></lv-checkbox>
+                    </div>
+                </div>-->
+                <h2>Select</h2>
+                <hr />
+                <div class="row">
+                    <div class="col-sm-4">
+                        <lv-select field="selectNormal" model="data.selectNormal" setting="setting" translation="translation" tab="9"></lv-select>
+                    </div>
+                    <div class="col-sm-4">
+                        <lv-select-no-label field="selectNormal2" model="data.selectNormal2" setting="setting" translation="translation" tab="9"></lv-select-no-label>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+<script>
+
+    $(document).ready(function () {
+        $(":input[data-inputmask-mask]").inputmask();
+        $(":input[data-inputmask-alias]").inputmask();
+        $(":input[data-inputmask-regex]").inputmask("Regex");
+
+    });
+</script>

@@ -1,0 +1,61 @@
+﻿<link rel="stylesheet" type="text/css" href="css/jquery.atwho.css">
+<script src="js/jquery.caret.js"></script>
+<script src="js/jquery.atwho.min.js"></script>
+
+<div id="autoNumber" ng-controller="autoNumberController">
+    <div class="white_box">
+        <div id="grvAutoNumber" class="control-grid" style="width:100%;height:100%"></div>
+    </div>
+
+    <!-- Modal (detail)-->
+    <div class="modal fade modal_center confirmClose" style="" id="modal-detail">
+        <div class="modal-dialog" style="width:700px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <p style="font-size:16px;margin:0;line-height:1.9em;" class="float-left"><span ng-bind="(action == 'add') ? translation.MODAL_DETAIL_ADDTITLE : translation.MODAL_DETAIL_EDITTITLE"></span></p>
+                    <div class="box_btn_02">
+                        <button type="button" class="fullscreen" onclick="fullscreen('modal-detail')"><i class="bowtie-icon bowtie-view-full-screen"></i></button>
+                        <button type="button" class="btn_close_02" data-dismiss="modal"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                    </div>
+                </div>
+                <div class="modal-body" style="min-height:260px">
+                    <div class="modal-body-maincontent">
+                        <div class="row form-input-group pd_lr_7">
+                            <div class="col-md-12">
+                                <lv-input field="code" model="data.code" setting="setting" translation="translation" type="text" tab="0" class="clearfix" style="margin-bottom: 10px !important"></lv-input>
+                                <lv-select element-id="vllModule" field="module" model="data.module" setting="setting" translation="translation" config="configModule" tab="1" change="moduleChange()"></lv-select>
+                                <lv-input element-id="txtFormat" field="format" model="data.format" setting="setting" translation="translation" type="text" tab="2" class="clearfix" style="margin-bottom: 10px !important"></lv-input>
+                                <lv-select field="type" model="data.type" setting="setting" translation="translation" tab="3"></lv-select>
+                                <lv-input field="step" model="data.step" setting="setting" translation="translation" type="text" tab="4" class="clearfix" style="margin-bottom: 10px !important"></lv-input>
+                                <lv-textarea field="description" model="data.description" setting="setting" translation="translation" block-resize="block-resize" row="2" tab="5" class="clearfix" style="margin-bottom: 10px !important"></lv-textarea>
+                                <dl class="mb-0">
+                                    <dt class="pos_re h_35" style="padding-top:7px">
+                                        <a class="title_02 bg_gray_01 d-flex" style="justify-content: space-between">
+                                            <span class="d-flex" style="margin-left: 0">
+                                                <span>Điều kiện</span>
+                                            </span>
+                                        </a>
+                                        <div style="position: absolute; top: 10px; right: 0; display: flex">
+                                            <div class="cl_green btn_add_02 mr_10" style="font-size: 17px" title="Add"><i class="bowtie-icon bowtie-math-plus-circle-outline" ng-click="addCondition()"></i></div>
+                                            <div class="cl_red btn_add_02" style="font-size: 17px" title="Delete"> <i class="bowtie-icon bowtie-status-failure-outline" ng-click="removeCondition()"></i></div>
+                                        </div>
+                                    </dt>
+                                    <dd class="mb-0">
+                                        <div class="gridWrapper" style="height:200px">
+                                            <div id="grvCondition" style="height:100%;width:100%"></div>
+                                        </div>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn_save_02" id="btnSave" ng-click="save()" click-Once><i class="fa fa-save"></i> <span ng-bind="globalTranslation.BTN_SAVE">Save</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

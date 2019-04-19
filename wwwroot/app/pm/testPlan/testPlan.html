@@ -1,0 +1,160 @@
+﻿<script src="../../../js/chartjs/Chart.PieceLabel.js"></script>
+<div id="testPlan" class="testRunPlan" ng-controller="testPlanController">
+    <div class="white_box" style="background-color:#edf1f5;padding:0; overflow: hidden">
+        <ul class="nav nav-tabs" id="main_tab_01" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" href="/pm/testPlan?pjid={{menuParams.pjid}}&module=pj" id="tab_01-tab" data-toggle="tab" data-target="#tabTestPlan"
+                   role="tab" aria-controls="tab_01" aria-selected="true">Test Plan</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/pm/testRun?pjid={{menuParams.pjid}}&module=pj" id="tab_02-tab" data-toggle="tab" data-target="#tabTestRun"
+                   role="tab" aria-controls="tab_02" aria-selected="false">Run Test</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/pm/testBuildList?pjid={{menuParams.pjid}}&module=pj" id="tab_04-tab" data-toggle="tab" data-target="#tabTestBuildList"
+                   role="tab" aria-controls="tab_04" aria-selected="false">Build</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/pm/testCaseQuery?pjid={{menuParams.pjid}}&module=pj" id="tab_05-tab" data-toggle="tab" data-target="#tabTestCaseQuery"
+                   role="tab" aria-controls="tab_05" aria-selected="false">Query</a>
+            </li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content tab-content-sprint" style="height:100%;width:100%">
+            <div class="tab-pane active" style="height:100%;width:100%" id="tabTestPlan" role="tabpanel" aria-labelledby="tab_01-tab">
+                <div class="content_6_4 d-flex mb-0">
+                    <div class="content_4 mr-10 col-left" ng-show="collapsed">
+                        <div class="mb-10 d-flex">
+                            <lv-select element-id="sprint-task-list" field="testSuite" model="currentTestSuiteId" setting="setting" config="configType" tab="2" change="loadPBL()" style="width: calc(100% - 93px)" class="mr_10"></lv-select>
+                            <div class="btn-small green mr_0" title="Add" ng-click="addTestSuite()"><i class="bowtie-icon bowtie-math-plus mr_5"></i>Add Plan</div>
+                        </div>
+                        <div class="button-wrapper">
+                            <div class="d-flex" style="align-items: center">
+                                <div class="bowtie-icon mr-5" ng-class="abc ? 'bowtie-view-list-tree' : 'bowtie-view-list'" style="font-size: 14px" ng-click="viewList()"></div>
+                                <span class="title" ng-bind="::translation.COLLEFTTITLE"></span>
+                            </div>
+
+                            <div ng-click="showImport()" class="add-wrapper"><i class="bowtie-icon bowtie-math-plus-circle-outline"></i>Import PBL</div>
+                        </div>
+                        <div class="gridWrapper">
+                            <div id="grvPBL" class="control-grid" style="height:100%; width:100%;"></div>
+                        </div>
+                    </div>
+                    <!--<div id="panelTree" class="float-right" ng-class="collapsed ? 'content_6' : 'w_100'">-->
+                    <div class="float-right" ng-class="collapsed ? 'content_6' : 'w_100'">
+                        <ul class="nav nav-tabs bg-white" style="padding-top:6px" role="tablist" id="myTab">
+                            <div class="testSuite-wrapper mb_5" style="width: calc(100% - 150px);">
+                                <div class="txt_cut mr_15">
+                                    <button type="button" class="fullscreen" ng-click="collapseLeft()" title="Collapse"><i class="bowtie-icon" ng-class="collapsed ? 'bowtie-chevron-left-light' : 'bowtie-chevron-right-light'"></i></button>
+                                    Test suite {{currentPBL.no}}: <span>{{currentPBL.name}}</span>
+                                </div>
+                            </div>
+                            <div class="tab-wrapper d-flex">
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-target="#testCase" id="tab_01-tab" data-toggle="tab" role="tab" aria-controls="testCase" aria-selected="true">TestCase</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-target="#chart" id="tab_02-tab" data-toggle="tab" role="tab" aria-controls="chart" aria-selected="false">Charts</a>
+                                </li>
+                            </div>
+                        </ul>
+                        <!-- Tab panes -->
+                        <div class="tab-content tab-content-sprint" style="padding: 0;">
+                            <div class="tab-pane active" id="testCase" role="tabpanel" aria-labelledby="TestCase">
+                                <dl class="mb-0" style="height:calc(60% - 10px)">
+                                    <dd style="height:100%">
+                                        <div class="gridWrapper" style="margin-bottom: 10px">
+                                            <div id="grvTestPlan" class="control-grid" style="height:100%"></div>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl class="mb-0" style="height:calc(40% - 50px)">
+                                    <dt>
+                                        <a class="title_02 bg_gray_01"><span style="margin: 0; padding: 0 10px">Recent test results</span></a>
+                                    </dt>
+                                    <dd style="height:100%">
+                                        <div class="gridWrapper">
+                                            <div id="grvTestResults" class="control-grid" style="height:100%"></div>
+                                        </div>
+                                    </dd>
+                                </dl>
+                            </div>
+                            <div class="tab-pane" id="chart" role="tabpanel" aria-labelledby="Charts">
+                                <div id="content_scroll">
+                                    <div class="box_02 col_2 clearfix">
+                                        <div class="item" id="divChart1">
+                                            <canvas id="chart1"></canvas>
+                                        </div>
+                                        <div class="item" id="divChart2">
+                                            <canvas id="chart2"></canvas>
+                                        </div>
+                                    </div>
+                                    <div class="box_02 col_1 clearfix" id="divChart3" style="min-height:200px!important;">
+                                        <canvas id="chart3"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal import work item -->
+    <div class="modal fade modal_center" role="dialog" id="modal-import">
+        <div class="modal-dialog" style="width:1000px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <p class="modal_header_title"><span ng-bind="::translation.TITLE_IMPORT"></span></p>
+                    <div class="box_btn_02">
+                        <button type="button" class="fullscreen btn-modal-screen" title="{{::translation.BTN_SCREEN}}"><i onclick="fullscreen('modal-import')" class="bowtie-icon bowtie-view-full-screen"></i></button>
+                        <button type="button" class="btn_close_02" data-dismiss="modal" title="{{::translation.BTN_CLOSE}}"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                    </div>
+                </div>
+
+                <div class="modal-body">
+                    <div class="modal-body-maincontent autoHeight" style="max-height:600px">
+                        <div id="gridImport" style="height:100%;width:100%"></div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button ng-click="saveImport()" type="button" class="btn btn_save_02"><i class="bowtie-icon bowtie-save"></i><span ng-bind="::translation.BTN_SAVE_CLOSE"></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade modal_center confirmClose" role="dialog" id="testSuiteModal" ng-init="onloadModal()" style="animation-delay:10s;">
+        <div class="modal-dialog" style="width: 500px;">
+            <div class="modal-content">
+                <div class="modal-header clearfix">
+                    <p class="modal_header_title">
+                        Create a test plan
+                    </p>
+                    <div class="box_btn_02">
+                        <button type="button" class="btn_close_02" data-dismiss="modal" title="{{translation.BTN_CLOSE}}"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-02">
+                        <div class="box_content w_100">
+                            <div class="item">
+                                <lv-valuelist-multi element-id="cmbWorkSprint" field="cmbSprint" model="sprint" setting="setting" translation="translation" config="configType" typeof="combobox" tab="2"></lv-valuelist-multi>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnSaveClose" ng-click="createTestSuite()" type="button" class="btn btn_save_02" click-Once><i class="bowtie-icon bowtie-save"></i><span ng-bind="::translation.BTN_SAVE_CLOSE"></span></button>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <!-- Modal workItemForm-->
+    <lv-include path="app/pm/workItem/workItemForm" name="workItemForm"></lv-include>
+</div>

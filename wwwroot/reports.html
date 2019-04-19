@@ -1,0 +1,198 @@
+﻿<!Doctype html>
+<html lang="en" ng-app="sureerp_reports" ng-controller="reportController">
+<head>
+    <base href="/">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=0.7, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="If-Modified-Since" content="Mon, 26 Jul 1997 05:00:00 GMT" />
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="-1" />
+
+    <link href="/font/fontawesome/css/font-awesome.min.css" rel="stylesheet" />
+
+    <!--control-->
+    <link rel="stylesheet" type="text/css" href="/js/select2/select2.min.css" />
+    <link rel="stylesheet" type="text/css" href="/js/treeview/bootstrap-treeview.min.css">
+    <link rel="stylesheet" type="text/css" href="/js/daterangepicker/daterangepicker-bs3.css">
+    <link rel="stylesheet" type="text/css" href="/js/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" />
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-select.min.css" />
+    <!--grid-->
+    <link rel="stylesheet" type="text/css" href="/js/slickGrid/css/jquery-ui-1.11.3.custom.min.css" />
+    <link rel="stylesheet" type="text/css" href="/js/slickGrid/css/slick.grid.css" />
+    <link rel="stylesheet" type="text/css" href="/js/slickGrid/css/slick.headerbuttons.css" />
+    <link rel="stylesheet" type="text/css" href="/js/slickGrid/css/slick.totalsplugin.css" />
+    <link rel="stylesheet" type="text/css" href="/css/slickGridCustom.css" />
+
+    <!--Scrollbar-->
+    <link rel="stylesheet" type="text/css" href="/js/perfect-scrollbar/perfect-scrollbar.css" />
+    <link rel="stylesheet" type="text/css" href="/js/perfect-scrollbar/perfectScrollCustom.css" />
+
+    <!--toastr-->
+    <link rel="stylesheet" type="text/css" href="/js/iziToastr/iziToast.min.css" />
+
+    <!--context menu-->
+    <link type="text/css" rel="stylesheet" href="/css/contextMenu.css" />
+
+    <!--base css-->
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="/css/responsive.css" />
+    <link type="text/css" rel="stylesheet" href="/css/animate.css" />
+    <link type="text/css" rel="stylesheet" href="/css/jquery.jscrollpane.css" />
+    <link type="text/css" rel="stylesheet" href="/css/tether.min.css" />
+    <link href="/font/fontawesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link type="text/css" rel="stylesheet" href="/css/styles.css" />
+    <link type="text/css" rel="stylesheet" href="/css/report.css" />
+
+
+    <!--jquery-->
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script src="/js/slickGrid/jquery/jquery-ui-1.11.3.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.cookie.js"></script>
+
+    <!--pace-->
+    <link href="/css/pace-theme-minimal.css" rel="stylesheet" />
+    <script data-pace-options='{ "document": false, "eventLag": false }' src="js/pace.min.js"></script>
+
+    <!--Chart-->
+    <script src="/js/chartjs/Chart.min.js"></script>
+
+    <!--bootstrap-->
+    <script type="text/javascript" src="./js/bootstrap.min.js"></script>
+    <script src="/js/treeview/bootstrap-treeview.min.js"></script>
+    <script src="/js/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+    <script src="/js/bootstrap-select.min.js"></script>
+
+    <script src="js/script.min.js"></script>
+
+    <!--select 2-->
+    <script src="/js/select2/select2.full.min.js"></script>
+
+    <!--moment-->
+    <script src="/js/moment/moment-with-locales.min.js"></script>
+    <script src="/js/moment/moment-timezone-with-data.js"></script>
+
+    <!--dropzone-->
+    <script src="/js/dropzone/dropzone.min.js"></script>
+
+    <!--toast-->
+    <script src="/js/iziToastr/iziToast.min.js"></script>
+
+    <!-- input mask -->
+    <script src="/js/inputmask/jquery.inputmask.bundle.js"></script>
+
+    <!--slickGrid-->
+    <script src="/js/slickGrid/jquery/jquery.event.drag-2.3.0.js"></script>
+    <script src="/js/slickGrid/fix/firebugx.js"></script>
+    <script src="/js/slickGrid/grid/slick.core.js"></script>
+    <script src="/js/slickGrid/grid/slick.grid.js"></script>
+    <script src="/js/slickGrid/grid/slick.dataview.js"></script>
+    <script src="/js/slickGrid/grid/slick.editors.js"></script>
+    <script src="/js/slickGrid/plugin/slick.rowselectionmodel.js"></script>
+    <script src="/js/slickGrid/plugin/slick.headerbuttons.js"></script>
+    <script src="/js/slickGrid/plugin/slick.formatters.js"></script>
+    <script src="/js/slickGrid/plugin/slick.totalsdataview.js"></script>
+    <script src="/js/slickGrid/plugin/slick.totalsplugin.js"></script>
+    <script src="/js/slickGrid/plugin/slick.rowmovemanager.js"></script>
+    <script src="/js/slickGrid/plugin/slick.groupitemmetadataprovider.js"></script>
+    <script src="/js/directive/gridControl.js"></script>
+
+    <!--Scrollbar-->
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js" type="text/javascript"></script>
+
+    <!--mark-->
+    <!--<script src="js/jquery.mark.min.js" type="text/javascript"></script>-->
+    <!--split pane-->
+    <script src="js/splitPane/split.min.js" type="text/javascript"></script>
+
+    <!-- JavaScripts custom and stuff -->
+    <script src="js/common.js"></script>
+
+    <script src="js/angularjs/angular.min.js"></script>
+    <script src="js/angularjs/angular-route.min.js"></script>
+    <script src="js/angularjs/angular-cookies.min.js"></script>
+    <script src="js/angularjs/angular-fullscreen.js"></script>
+    <script src="js/angularjs/angular-local-storage.min.js"></script>
+
+    <!-- App -->
+    <script src="reports/app.js"></script>
+    <script type="text/javascript" src="/translations/translation_en.js"></script>
+    <script type="text/javascript" src="/translations/translation_vn.js"></script>
+    <script type="text/javascript" src="reports/reportController.js"></script>
+    <script src="js/directive/basicControl.js"></script>
+
+    <title>Reporting</title>
+
+    <style type="text/css">
+
+        .slick-viewport {
+            overflow-x: hidden !important;
+        }
+
+        #reportFooter {
+            height: 100px
+        }
+
+        @page {
+            size: 7in 9.25in;
+            margin: 5mm;
+        }
+
+        @media print {
+            #reportWapper {
+                display: block;
+            }
+
+            .box_control {
+                display: none
+            }
+
+            .box_space {
+                display: none
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="box_control" style="position:fixed;width:100%;z-index:99;top:0">
+        <ul>
+            <li><i class="bowtie-icon bowtie-print" title="Print" ng-click="print()"></i></li>
+            <li><i class="fa fa-share-square-o" aria-hidden="true" title="Export" ng-click="export()"></i></li>
+        </ul>
+      
+        <ul>
+            <li><i class="fa fa-search-plus" aria-hidden="true" title="Zoom In" ng-click="zoomIn()"></i></li>
+            <li><i class="fa fa-search-minus" aria-hidden="true" title="Zoom Out" ng-click="zoomOut()"></i></li>
+            <li>
+                <select ng-model="zoomLevel" ng-options="c.text for c in zoomList" ng-change="zoomChange(zoomLevel)"></select>
+            </li>
+        </ul>
+        <ul>
+            <li><i class="fa fa-refresh" aria-hidden="true" title="Refresh" ng-click="reload()"></i></li>
+            <li><i class="fa fa-filter" aria-hidden="true" title="Filter" ng-click="filter()"></i></li>
+        </ul>
+    </div>
+    <div class="box_space" style="height:30px"></div>
+    <div class="white_box" id="reportWapper" style="width:900px">
+        <div id="reportHeader">
+            <img src="/images/logo.jpg" style="width:800px;margin-left:auto;margin-right:auto" />
+            <div style="text-align:center;font-size:32px">{{setting.title}}</div>
+        </div>
+        <div id="reportContent" ng-view></div>
+        <div id="reportFooter" style="margin-bottom:100px">
+            <div style="margin-top: 10pt;display: flex;justify-content: space-between;padding: 0 20pt;font-weight: bold;">
+                <div ng-repeat="sign in setting.signs" style="width:100%;clear:both">
+                    <div style="text-align: center;">{{sign.title}}</div>
+                    <div style="text-align: center;margin-top:100px">{{sign.name}}</div>
+                </div>
+               
+            </div>
+
+        </div>
+    </div>
+    <div lv-include path="app/system/formSetting" name="formSetting" setting="0"></div>
+</body>
+</html>

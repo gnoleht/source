@@ -1,0 +1,42 @@
+﻿<div id="module" ng-controller="moduleController">
+    <div class="white_box">
+        <div id="grvModule" class="control-grid" style="width:100%;height:100%"></div>
+    </div>
+
+    <!-- Modal (detail)-->
+    <div class="modal fade modal_center confirmClose" style="" id="modal-detail">
+        <div class="modal-dialog" style="width:600px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <p style="font-size:16px;margin:0;line-height:1.9em;" class="float-left"><span ng-bind="(action == 'add' || action == 'addChild') ? translation.MODAL_DETAIL_ADDTITLE : translation.MODAL_DETAIL_EDITTITLE"></span></p>
+                    <div class="box_btn_02">
+                        <button type="button" class="fullscreen" onclick="fullscreen('modal-detail')"><i class="bowtie-icon bowtie-view-full-screen"></i></button>
+                        <button type="button" class="btn_close_02" data-dismiss="modal"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                    </div>
+                </div>
+                <div class="modal-body" style="min-height:260px">
+                    <div class="modal-body-maincontent">
+                        <div class="row form-input-group pd_lr_7">
+                            <div class="col-md-12">
+                                <lv-input field="id" model="data.id" setting="setting" translation="translation" type="text" tab="1" class="clearfix" style="margin-bottom: 10px !important"></lv-input>
+                                <lv-input field="name" model="data.name" setting="setting" translation="translation" type="text" tab="2" class="clearfix" style="margin-bottom: 10px !important"></lv-input>                                                       
+                                <lv-input field="entity" model="data.entity" setting="setting" translation="translation" type="text" tab="3" class="clearfix" style="margin-bottom: 10px !important"></lv-input>
+                                <lv-input field="action" model="data.action" setting="setting" translation="translation" type="text" tab="4" class="clearfix" style="margin-bottom: 10px !important"></lv-input>
+                                <lv-textarea field="description" model="data.description" setting="setting" translation="translation" block-resize="block-resize" row="3" tab="5" class="clearfix" style="margin-bottom: 10px !important"></lv-textarea>
+                                <div style="width:100%;line-height:30px">
+                                    <i id="i_{{data.active}}" ng-class="data.active? 'bowtie-icon bowtie-checkbox':'bowtie-icon bowtie-checkbox-empty'" style="font-size:17px;margin-right:5px;width:10px" ng-click="changeActive(data)"></i>
+                                    <span ng-bind="translation.ACTIVE" style="font-size:13px;margin-right:5px;width:10px"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn_save_02" id="btnSave" ng-click="save()" click-Once><i class="fa fa-save"></i> <span ng-bind="globalTranslation.BTN_SAVE">Save</span></button>                  
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

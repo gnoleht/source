@@ -1,0 +1,481 @@
+﻿<div id="teamCapacity" ng-controller="teamCapacityController">
+    <div class="white_box" style="background-color:#edf1f5;padding:0">
+        <ul class="nav nav-tabs" id="main_tab_01" role="tablist"></ul>
+        <!-- Tab panes -->
+        <div class="tab-content tab-content-sprint" id="tab-content">
+            <div class="tab-pane active" id="tabTeamCapacity" role="tabpanel" aria-labelledby="tab_04-tab">
+                <div class="clearfix content_7_3" style="height:calc(100% - 70px)">
+                    <div class="content_7 float-left {{hiddenListSprint}}">
+                        <table class="tb_tree">
+                            <thead>
+                                <tr class="bg_blue_02">
+                                    <th colspan="4">
+                                        <p class="mb-0">
+                                            <span ng-bind="currentSprintName"></span>
+                                        </p>
+                                    </th>
+                                </tr>
+
+                                <tr class="heading">
+                                    <th class="w-25" ng-bind="translation.DISPLAYNAME"></th>
+                                    <th class="center" ng-bind="translation.DAYS_OFF"></th>
+                                    <th class="w-25" ng-bind="translation.ACTIVITY"></th>
+                                    <th class="w-25" ng-bind="translation.CAPACITY_PER_DAY"></th>
+                                </tr>
+                            </thead>
+                        </table>
+                        <div id="divTemCapacity" style="height:calc(100% - 72px)">
+                            <table class="tb_tree">
+                                <tbody>
+                                    <tr ng-repeat="item in currentSprint.capacityList" class="clickable-row" data-id="{{item.userId}}">
+                                        <td class="w-25" ng-if="item.select == true">
+                                            <span class="img_user_tb img_over" style="background-image: url('/api/system/viewfile?id={{item.user? item.user.avatarThumb:item.avatarThumb}}&def=/img/no_avatar.png')">
+                                            </span><span class="txt_user_tb">{{item.user? item.user.displayName:item.displayName}}</span>
+                                        </td>
+                                        <td class="w-25 center" ng-if="item.select == true">
+                                            <a href="javascript:void(0);" ng-click="loadTime(item.user? item.user.displayName:item.displayName, item.userId)">{{item.dayOffCount}}</a>
+                                        </td>
+                                        <td class="w-25" ng-if="item.select == true">
+                                            <div class="cbb_02">
+                                                <select name="activity" id="sl_01" class="form-control iput"
+                                                        ng-model="item.activity"
+                                                        ng-options="option.id as option.text for option in setting.valuelist.activity"></select>
+                                            </div>
+                                        </td>
+                                        <td class="w-25" ng-if="item.select == true">
+                                            <input id="txtCapacityDays_{{$index}}" min="0" max="24" ng-model="item.capacityDays" class="form-control iput" type="number" />
+                                        </td>
+                                    </tr>
+                                    <tr class="tb_footer" ng-show="currentSprint.capacityList.length > 0">
+                                        <td class="w-25">
+                                            <span class="txt_user_tb" ng-bind="::translation.TEAM_DAYS_OFF"></span>
+                                        </td>
+                                        <td class="w-25 center">
+                                            <a href="javascript:void(0);" ng-click="loadTimeAll()" ng-bind="currentSprint.allDayOffCount">
+                                            </a>
+                                        </td>
+                                        <td colspan="2">
+                                            <span ng-bind="::translation.TEAM_DAYS_OFF_TEXT"></span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="sprint_plan_main float-right content_3 {{hiddenListSprint}}" style="height:100%;">
+                        <div class="clearfix bg_blue_01 h_th">
+                            <p class="title_01 float-left mb-0 display_n" ng-bind="translation.SPRINTS"></p>
+                            <ul class="float-right clearfix mb-0 title_01">
+                                <li class="float-left mr-2 cus display_n btn_30 btn_default" ng-click="changeSetting()">
+                                    <i class="bowtie-icon bowtie-settings-gear-outline"></i>
+                                </li>
+                                <li class="float-left cus btn_full btn_30 btn_default" ng-click="toogleSprint()">
+                                    <i class="bowtie-icon bowtie-menu"></i><span class="menu_min" ng-bind="translation.SPRINTS"></span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div id="accordion" class="sprint_plan {{hiddenTemcapacity}}">
+                            <dl class="m-0">
+                                <dt data-toggle="collapse" data-target="#collapse_01" aria-expanded="false" aria-controls="collapse_01" class="collapsed">
+                                    <div class="bg_gray_02" data-toggle="collapse" data-target="#collapse_01" aria-expanded="false" aria-controls="collapse_01">
+                                        <p class="title_02 mb-0" ng-bind="translation.PAST"></p>
+                                    </div>
+                                </dt>
+                                <dd id="collapse_01" class="collapse mb-0" aria-labelledby="collapse_01">
+                                    <div class="content" ng-repeat="item in lstSprintPast">
+                                        <div class="content_title clearfix">
+                                            <a href="/pm/teamCapacity?pjid={{menuParams.pjid}}&spr={{item.code}}&module=pj">
+                                                <p class="mb-0 float-left">{{item.name}}</p>
+                                            </a>
+                                            <p class="mb-0 float-right">{{item.workingDays}} {{translation.DAYS}}</p>
+                                        </div>
+                                        <div class="content_main">
+                                            <p class="time">
+                                                <i class="bowtie-icon bowtie-status-waiting"></i><span class="ml-1">{{ item.startDate | date:'dd-MM'}}</span>
+                                                <span class="ml-3">-</span><span class="ml-3">{{ item.endDate | date:'dd-MM'}}</span>
+                                            </p>
+                                            <ul class="row_status clearfix mb-0">
+                                                <li ng-if="item.newCount > 0" class="bg_status_new"
+                                                    style="width:{{(100*(item.newCount)/(item.newCount + item.activeCount + item.resolvedCount + item.closedCount + item.removedCount))}}%">
+                                                    <span>{{item.newCount}}</span>
+                                                </li>
+                                                <li ng-if="item.activeCount > 0" class="bg_status_active"
+                                                    style="width:{{(100*(item.activeCount)/(item.newCount + item.activeCount + item.resolvedCount + item.closedCount + item.removedCount))}}%">
+                                                    <span>{{item.activeCount}}</span>
+                                                </li>
+                                                <li ng-if="item.resolvedCount > 0" class="bg_status_resolved"
+                                                    style="width:{{(100*(item.resolvedCount)/(item.newCount + item.activeCount + item.resolvedCount + item.closedCount + item.removedCount))}}%">
+                                                    <span>{{item.resolvedCount}}</span>
+                                                </li>
+                                                <li ng-if="item.closedCount > 0" class="bg_status_close"
+                                                    style="width:{{(100*(item.closedCount)/(item.newCount + item.activeCount + item.resolvedCount + item.closedCount + item.removedCount))}}%">
+                                                    <span>{{item.closedCount}}</span>
+                                                </li>
+                                                <li ng-if="item.removedCount > 0" class="bg_status_remove"
+                                                    style="width:{{(100*(item.removedCount)/(item.newCount + item.activeCount + item.resolvedCount + item.closedCount + item.removedCount))}}%">
+                                                    <span>{{item.removedCount}}</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </dd>
+                            </dl>
+                            <dl class="m-0">
+                                <dt class="arrow" data-toggle="collapse" data-target="#collapse_02" aria-expanded="true" aria-controls="collapse_02">
+                                    <div class="bg_gray_02" data-toggle="collapse" data-target="#collapse_02" aria-expanded="true" aria-controls="collapse_02">
+                                        <p class="title_02 mb-0" ng-bind="translation.CURRENT"></p>
+                                    </div>
+                                </dt>
+                                <dd id="collapse_02" class="collapse mb-0 show" aria-labelledby="collapse_02">
+                                    <div class="content" ng-repeat="item in lstSprintCurrent">
+                                        <div class="content_title clearfix">
+                                            <a href="/pm/teamCapacity?pjid={{menuParams.pjid}}&spr={{item.code}}&module=pj">
+                                                <p class="mb-0 float-left">{{item.name}}</p>
+                                            </a>
+                                            <p class="mb-0 float-right">{{item.workingDays}} {{translation.DAYS}}</p>
+                                        </div>
+                                        <div class="content_main">
+                                            <p class="time">
+                                                <i class="bowtie-icon bowtie-status-waiting"></i><span class="ml-1">{{ item.startDate | date:'dd-MM'}}</span>
+                                                <span class="ml-3">-</span><span class="ml-3">{{ item.endDate | date:'dd-MM'}}</span>
+                                            </p>
+                                            <ul class="row_status clearfix mb-0">
+                                                <li ng-if="item.newCount > 0" class="bg_status_new"
+                                                    style="width:{{(100*(item.newCount)/(item.newCount + item.activeCount + item.resolvedCount + item.closedCount + item.removedCount))}}%">
+                                                    <span>{{item.newCount}}</span>
+                                                </li>
+                                                <li ng-if="item.activeCount > 0" class="bg_status_active"
+                                                    style="width:{{(100*(item.activeCount)/(item.newCount + item.activeCount + item.resolvedCount + item.closedCount + item.removedCount))}}%">
+                                                    <span>{{item.activeCount}}</span>
+                                                </li>
+                                                <li ng-if="item.resolvedCount > 0" class="bg_status_resolved"
+                                                    style="width:{{(100*(item.resolvedCount)/(item.newCount + item.activeCount + item.resolvedCount + item.closedCount + item.removedCount))}}%">
+                                                    <span>{{item.resolvedCount}}</span>
+                                                </li>
+                                                <li ng-if="item.closedCount > 0" class="bg_status_close"
+                                                    style="width:{{(100*(item.closedCount)/(item.newCount + item.activeCount + item.resolvedCount + item.closedCount + item.removedCount))}}%">
+                                                    <span>{{item.closedCount}}</span>
+                                                </li>
+                                                <li ng-if="item.removedCount > 0" class="bg_status_remove"
+                                                    style="width:{{(100*(item.removedCount)/(item.newCount + item.activeCount + item.resolvedCount + item.closedCount + item.removedCount))}}%">
+                                                    <span>{{item.removedCount}}</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </dd>
+                            </dl>
+                            <dl class="m-0">
+                                <dt class="arrow" data-toggle="collapse" data-target="#collapse_03" aria-expanded="true" aria-controls="collapse_03">
+                                    <div class="bg_gray_02" data-toggle="collapse" data-target="#collapse_03" aria-expanded="true" aria-controls="collapse_03">
+                                        <p class="title_02 mb-0" ng-bind="translation.FUTURE"></p>
+                                    </div>
+                                </dt>
+                                <dd id="collapse_03" class="collapse mb-0 show" aria-labelledby="collapse_03">
+                                    <div class="content" ng-repeat="item in lstSprintFuture">
+                                        <div class="content_title clearfix">
+                                            <a href="/pm/teamCapacity?pjid={{menuParams.pjid}}&spr={{item.code}}&module=pj">
+                                                <p class="mb-0 float-left">{{item.name}}</p>
+                                            </a>
+                                            <p class="mb-0 float-right">{{item.workingDays}} {{translation.DAYS}}</p>
+                                        </div>
+                                        <div class="content_main">
+                                            <p class="time">
+                                                <i class="bowtie-icon bowtie-status-waiting"></i><span class="ml-1">{{ item.startDate | date:'dd-MM'}}</span>
+                                                <span class="ml-3">-</span><span class="ml-3">{{ item.endDate | date:'dd-MM'}}</span>
+                                            </p>
+                                            <ul class="row_status clearfix mb-0">
+                                                <li ng-if="item.newCount > 0" class="bg_status_new"
+                                                    style="width:{{(100*(item.newCount)/(item.newCount + item.activeCount + item.resolvedCount + item.closedCount + item.removedCount))}}%">
+                                                    <span>{{item.newCount}}</span>
+                                                </li>
+                                                <li ng-if="item.activeCount > 0" class="bg_status_active"
+                                                    style="width:{{(100*(item.activeCount)/(item.newCount + item.activeCount + item.resolvedCount + item.closedCount + item.removedCount))}}%">
+                                                    <span>{{item.activeCount}}</span>
+                                                </li>
+                                                <li ng-if="item.resolvedCount > 0" class="bg_status_resolved"
+                                                    style="width:{{(100*(item.resolvedCount)/(item.newCount + item.activeCount + item.resolvedCount + item.closedCount + item.removedCount))}}%">
+                                                    <span>{{item.resolvedCount}}</span>
+                                                </li>
+                                                <li ng-if="item.closedCount > 0" class="bg_status_close"
+                                                    style="width:{{(100*(item.closedCount)/(item.newCount + item.activeCount + item.resolvedCount + item.closedCount + item.removedCount))}}%">
+                                                    <span>{{item.closedCount}}</span>
+                                                </li>
+                                                <li ng-if="item.removedCount > 0" class="bg_status_remove"
+                                                    style="width:{{(100*(item.removedCount)/(item.newCount + item.activeCount + item.resolvedCount + item.closedCount + item.removedCount))}}%">
+                                                    <span>{{item.removedCount}}</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+                <div id="id_sprint_team" class="team_member clearfix {{hiddenTemcapacity}}">
+                    <p class="cus mb-0"><a href="#" class="bg_blue_01" ng-click="toogleTeam()"><i class="bowtie-icon bowtie-chevron-right-end"></i> <span>member</span></a></p>
+                    <div class="scroll clearfix" id="scroll_team_member">
+                        <div class="item">
+                            <p class="name">Team Capacity</p>
+                            <div class="row_status_01">
+                                <div class="row_status_01_01">
+                                    <div ng-if="teamCapacity.remaining == 0">
+                                        <div class="time">(<span title="Total task remaining">0</span>/<span title="Team capacity remaining">{{teamCapacity.capacity}}</span> hrs)</div>
+                                    </div>
+                                    <div ng-if="teamCapacity.remaining != 0" style="width: {{100*(teamCapacity.remaining/teamCapacity.capacity)}}%;"
+                                         ng-class="{'progress-current':teamCapacity.remaining <= teamCapacity.capacity,'progress-overload':teamCapacity.remaining > teamCapacity.capacity}">
+                                        <div class="time">(<span title="Total task remaining">{{teamCapacity.remaining}}</span>/<span title="Team capacity remaining">{{teamCapacity.capacity}}</span> hrs)</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item" ng-repeat="item in workdetails">
+                            <p class="name">{{item.displayName}} (<span title="Original">{{item.original}}</span>/<span title="Capacity">{{item.totalCapacity}}</span>)</p>
+                            <div class="row_status_01">
+                                <div class="row_status_01_01">
+                                    <div ng-if="item.remaining == 0">
+                                        <div class="time">(<span title="Task remaining">0</span>/<span title="Capacity remaining">{{item.capacity}}</span> hrs)</div>
+                                    </div>
+                                    <div ng-if="item.remaining != 0" style="width: {{100*(item.remaining/item.capacity)}}%;"
+                                         ng-class="{'progress-current':item.remaining <= item.capacity,'progress-overload':item.remaining > item.capacity}">
+                                        <div class="time">(<span title="Task remaining">{{item.remaining}}</span>/<span title="Capacity remaining">{{item.capacity}}</span> hrs)</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal (Modal detail)-->
+    <div lv-include path="app/pm/workItem/workItemForm" name="workItemForm"></div>
+
+    <!-- Modal (Modal Sprint Setting)-->
+    <div lv-include path="app/pm/pm_share/sprintSetting" name="sprintSetting" id="sprintSetting"></div>
+
+    <!-- Context menu sprint -->
+    <div id="contextMenuSprint" class="context-menu" style="width:300px;">
+        <ul class="context-menu_items">
+            <li class="context-menu_item" ng-repeat="item in lstSprint">
+                <a ng-click="selectSprint(item.id)" class="context-menu_link" title="">&nbsp;&nbsp;{{item.name}}&nbsp;&nbsp;({{item.startDate | date:"dd/MM/yyyy"}} - {{item.endDate | date:"dd/MM/yyyy"}})</a>
+            </li>
+        </ul>
+    </div>
+
+    <!--context menu-->
+    <div id="contextMenu" class="context-menu">
+        <ul class="context-menu_items">
+            <li ng-show="parentType == 'userstory'" class="bug context-menu_item no-padding">
+                <a ng-click="add('userstory')" class="context-menu_link type_userstory" title="Add User Story">User Story</a>
+            </li>
+            <li class="task context-menu_item no-padding">
+                <a ng-click="add('task')" class="context-menu_link type_task" title="Add task">Task</a>
+            </li>
+            <li ng-show="parentType == 'userstory'" class="bug context-menu_item no-padding">
+                <a ng-click="add('bug')" class="context-menu_link type_bug" title="Add bug">Bug</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="modal fade modal_center confirmClose" id="modal-detail-member">
+        <div class="modal-dialog" style="width:600px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <p style="font-size:16px;margin:0;line-height:1.9em;" class="float-left">
+                        <span ng-bind="translation.MODAL_DETAIL_MEMBER_ADD"></span>
+                    </p>
+                    <div class="box_btn_02">
+                        <button type="button" class="btn_close_02" data-dismiss="modal"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-maincontent">
+                        <div class="w_100 clearfix pos_re">
+                            <lv-select style="width: calc(100% - 30px);" element-id="project-member-team" tabindex="1" field="member" label="{{translation.MEMBER}}" model="member" setting="setting" tab="1"></lv-select>
+                            <div ng-click="showAddMember()" class="add-wrapper" style="position: absolute;right: 0;bottom: 0;font-size: 15px;border-bottom: 1px solid #ddd;padding: 5px 10px;"><i class="bowtie-icon bowtie-users"></i></div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" ng-disabled="member==null" class="btn btn_save_02" id="btnSave" ng-click="saveAddNewMember()" click-Once><i class="fa fa-save"></i> <span ng-bind="globalTranslation.BTN_SAVE">Save</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Modal time-->
+    <div class="modal fade modal_center" id="modal-time" tabindex="-1">
+        <div class="modal-dialog" style="width:650px">
+            <div class="modal-content">
+                <div class="modal-header clearfix ui-draggable-handle">
+                    <p class="modal_header_title">{{::translation.DAY_OFF_LIST}} : {{displayNamePop}}</p>
+                    <div class="box_btn_02">
+                        <button type="button" class="btn_close_02" data-dismiss="modal"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                    </div>
+                </div>
+                <div class="modal-body" id="modal-body-time">
+                    <table ng-repeat="day in capacity.dayOffList" style="width:100%;" ng-if="capacity.dayOffList.length > 0" class="tb_team_cap_md">
+                        <tr>
+                            <td>
+                                <div class="form-input-group">
+                                    <div class="box_02 col_1">
+                                        <div class="item">
+                                            <a href="javascript:;" ng-click="removeTimeCapacity(day,userIdPop)" class="btn_remove"><i class="bowtie-icon bowtie-status-failure-outline"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </td>
+                            <td>
+                                <div class="form-input-group">
+                                    <div class="box_02 col_1">
+                                        <div class="item">
+                                            <lv_date options="options" element-id="dtpStart_{{$index}}" change="changeStartDayOffList($index)" field="startDate" model="day.startDate" setting="setting" translation="translation"></lv_date>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-input-group">
+                                    <div class="box_02 col_1">
+                                        <div class="item">
+                                            <lv_date options="options" element-id="dtpEnd_{{$index}}" change="changeEndDayOffList($index)" field="endDate" model="day.endDate" setting="setting" translation="translation"></lv_date>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td style="text-align:right;">
+                                <div class="form-input-group">
+                                    <div class="box_02 col_1">
+                                        <div class="item">
+                                            <div class="form-group">
+                                                <label style="font-size:12px;">{{translation.NET_DAYS_OFF}}</label>
+                                                <p class="mb-0 iput"><span ng-bind="day.totalDayOff"></span></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td style="text-align:right;">
+                                <div class="form-input-group">
+                                    <div class="box_02 col_1">
+                                        <div class="item">
+                                            <div class="form-group">
+                                                <label style="font-size:12px;">{{translation.HALFTIME}}</label>
+                                                <p class="mb-0 iput">
+                                                    <span>
+                                                        <i id="halftime_{{$index}}" ng-class="day.halfTime? 'bowtie-icon bowtie-checkbox':'bowtie-icon bowtie-checkbox-empty'"
+                                                           style="font-size:17px;margin-right:5px;width:10px" ng-click="changeHalftime($index)"></i>
+                                                    </span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <div>
+                        <a href="javascript:;" ng-click="addTimeCapacity()" class="btn_team_cap">
+                            <i class="bowtie-icon bowtie-math-plus btn_30 btn_add float-left"></i>{{translation.ADD_DATE}}
+                        </a>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" click-Once class="btn btn_save_02" ng-click="saveDayOffList(userIdPop)">
+                        <i class="fa fa-save"></i> <span ng-bind="translation.BTN_SAVE_CLOSE">Save</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--modal time all-->
+    <div class="modal fade modal_center" id="modal-time-all" tabindex="-1">
+        <div class="modal-dialog" style="width:650px;">
+            <div class="modal-content">
+                <div class="modal-header clearfix ui-draggable-handle">
+                    <p style="font-size:16px;margin:0;line-height:1.9em;" class="float-left">{{displayNamePop}}</p>
+                    <div class="box_btn_02">
+                        <button type="button" class="btn_close_02" data-dismiss="modal"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                    </div>
+                </div>
+                <div class="modal-body" id="modal-body-all-time">
+                    <table ng-repeat="day in sprintAllDayOffList" style="width:100%;" ng-if="sprintAllDayOffList.length > 0" class="tb_team_cap_md">
+                        <tr>
+                            <td>
+                                <div class="form-input-group">
+                                    <div class="box_02 col_1">
+                                        <div class="item">
+                                            <a href="javascript:;" ng-click="removeTimeCapacityAll(day)" class="btn_remove"><i class="bowtie-icon bowtie-status-failure-outline"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-input-group">
+                                    <div class="box_02 col_1">
+                                        <div class="item">
+                                            <lv_date options="options" element-id="dtpStartAll_{{$index}}" change="changeStartAllDayOffList($index)" field="startDate" model="day.startDate" setting="setting" translation="translation"></lv_date>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-input-group">
+                                    <div class="box_02 col_1">
+                                        <div class="item">
+                                            <lv_date options="options" element-id="dtpEndAll_{{$index}}" change="changeEndAllDayOffList($index)" field="endDate" model="day.endDate" setting="setting" translation="translation"></lv_date>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td style="text-align:right; vertical-align:bottom;">
+                                <div class="form-input-group">
+                                    <div class="box_02 col_1">
+                                        <div class="item">
+                                            <p class="mb-0">{{translation.NET_DAYS_OFF}}</p>
+                                            <p class="mb-0"><span ng-bind="day.totalDayOff"></span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td style="text-align:right; vertical-align:bottom;">
+                                <div class="form-input-group">
+                                    <div class="box_02 col_1">
+                                        <div class="item">
+                                            <p class="mb-0">{{translation.HALFTIME}}</p>
+                                            <p class="mb-0">
+                                                <span>
+                                                    <i id="halftimeAll_{{$index}}" ng-class="day.halfTime? 'bowtie-icon bowtie-checkbox':'bowtie-icon bowtie-checkbox-empty'"
+                                                       style="font-size:17px;margin-right:5px;width:10px" ng-click="changeHalftimeAll($index)"></i>
+                                                </span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <div>
+                        <a href="javascript:;" ng-click="addTimeCapacityAll()" class="btn_team_cap">
+                            <i class="bowtie-icon bowtie-math-plus btn_30 btn_add float-left"></i>{{translation.ADD_DATE}}
+                        </a>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button click-Once type="button" class="btn btn_save_02" ng-click="saveDayOffListAll()">
+                        <i class="fa fa-save"></i> <span ng-bind="translation.BTN_SAVE_CLOSE">Save</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal (Modal pjUser)-->
+    <div lv-include path="app/pm/pjMember/memberForm" name="memberForm"></div>
+</div>

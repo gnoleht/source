@@ -1,0 +1,299 @@
+﻿<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<div id="company" class="testRunPlan" ng-controller="companyController">
+    <div class="white_box">
+        <div ng-show="viewMode != '1'" style="height:100%">
+            <div class="content_6_4 d-flex mb-0" style="height:100%">
+                <div class="content_4 mr-10 col-left">
+                    <dl class="mb-0" style="height:100%">
+                        <dt>
+                            <a class="title_02 bg_gray_01 d-flex" style="justify-content: space-between">
+                                <span class="d-flex" style="margin-left: 0">
+                                    <span ng-bind="translation.ORGANIZATION_CHART"></span>
+                                </span>
+                            </a>
+                            <div style="display: flex; position: absolute; right: 0; bottom: 5px;">
+                                <div class="btn-small blue" title="{{translation.BTN_SAVE}}" ng-click="savePermissions()"><i class="bowtie-icon bowtie-save"></i></div>
+                                <div class="btn-small red" title="{{translation.BTN_DELETE}}" ng-click="savePermissions()"><i class="bowtie-icon bowtie-math-multiply"></i></div>
+                                <div class="btn-small gray mr_0" title="{{translation.BTN_REFRESH}}" ng-click="loadAction()"><i class="bowtie-icon bowtie-navigate-refresh"></i></div>
+                            </div>
+                        </dt>
+                        <dd class="mb-0" style="height:calc(100% - 30px)">
+                            <div class="gridWrapper">
+                                <div id="grvCompany" class="control-grid" style="height:100%; width:100%"></div>
+                            </div>
+                        </dd>
+                    </dl>
+                </div>
+                <div id="panelTree" class="float-right content_6" style="height:100%">
+                    <dl class="mb-0" style="height:100%">
+                        <dt>
+                            <a class="title_02 bg_gray_01 d-flex" style="justify-content: space-between">
+                                <span class="d-flex" style="margin-left: 0">
+                                    <span ng-bind="translation.LIST_EMPLOYEE"></span>
+                                </span>
+                            </a>
+                        </dt>
+                        <dd class="mb-0" style="height:calc(100% - 30px)">
+                            <div class="gridWrapper">
+                                <div id="grvUserInfo" class="control-grid" style="height:100%; width:100%"></div>
+                            </div>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <div id="chart_div" ng-show="viewMode == '1'" style="width:100%;height:100%"></div>
+    </div>
+
+    <!--context menu-->
+    <div id="contextMenu" class="context-menu">
+        <ul class="context-menu_items">
+            <li class="context-menu_item" ng-repeat="item in setting.valuelist.type">
+                <a ng-click="add(item.id)" class="context-menu_link" title=""><i class="{{item.opt.icon}}" style="color:{{item.opt.color}};font-size:{{item.opt.size}}px"></i> {{item.text}}</a>
+            </li>
+        </ul>
+    </div>
+    <div id="contextMenu_Company" class="context-menu context-menu-task-list">
+        <ul class="context-menu_items">
+            <li class="epic context-menu_item no-padding">
+                <a ng-click="addCompany('company')" class="context-menu_link type_epic" title="Add Company">Company</a>
+            </li>
+            <li class="function context-menu_item no-padding">
+                <a ng-click="addCompany('cooperation')" class="context-menu_link type_function" title="Add Cooperation">Cooperation</a>
+            </li>
+        </ul>
+    </div>
+    <!-- end context menu-->
+    <!-- Modal add Company-->
+    <div class="modal fade modal_center confirmClose" id="modal-detail-company">
+        <div class="modal-dialog modal-medium modal-padding" style="width: 1200px; max-width: 1200px">
+            <div class="modal-content requirement-content" style="padding-top: 0px !important">
+                <div class="modal-header clearfix">
+                    <p class="modal_header_title"><span ng-bind="TitleCompany"></span></p>
+                    <div class="box_btn_02">
+                        <button type="button" class="fullscreen" onclick="fullscreen('modal-detail-company')" title="{{translation.BTN_SCREEN}}"><i class="bowtie-icon bowtie-view-full-screen"></i></button>
+                        <button type="button" class="btn_close_02" data-dismiss="modal" title="{{translation.CLOSE_DIALOG}}"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-maincontent clearfix">
+                        <div class="w100_180 form-input-group float-left">
+                            <dl>
+                                <dt>
+                                    <a class="title_01 bg_blue_01" data-toggle="collapse" data-target="#panel_01" aria-expanded="true" aria-controls="panel_01">
+                                        <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i>
+                                        <span ng-bind="translation.COMPANY_INFO">Thông tin công ty</span>
+                                    </a>
+                                </dt>
+                                <dd>
+                                    <div class="collapse show" id="panel_01" aria-expanded="true">
+                                        <div class="box_02 d-flex clearfix">
+                                            <div class="col_item_2 mr_20">
+                                                <div class="box_02 col_2 clearfix">
+                                                    <div class="item mb-0">
+                                                        <div class="form-group">
+                                                            <label ng-bind="translation.CODE" for="codeId" class="ng-binding ">Code</label>
+                                                            <span>
+                                                                <span class="size-per-80"><sup> (</sup></span><span class="red">*</span><span class="size-per-80"><sup>)</sup></span>
+                                                            </span>
+                                                            <input restrict-input="{type: 'lettersAndDigitsOnly'}" type="text" spellcheck="false"
+                                                                   class="style-input form-control ip_txt ng-empty ng-invalid ng-invalid-required" id="codeIdCompany" ng-model="data.code" tabindex="1">
+                                                        </div>
+                                                    </div>
+                                                    <div class="item mb-0">
+                                                        <lv-input field="name" model="data.name" setting="setting" translation="translation" type="text" tab="2"></lv-input>
+                                                    </div>
+                                                </div>
+                                                <div class="box_02 col_1 clearfix">
+                                                    <div class="item">
+                                                        <lv-input field="address" model="data.address" setting="setting" translation="translation" type="text" tab="4"></lv-input>
+                                                    </div>
+                                                </div>
+                                                <div class="box_02 col_3 clearfix">
+                                                    <div class="item">
+                                                        <lv-input field="phone" model="data.phone" setting="setting" translation="translation" type="phone" tab="6"></lv-input>
+                                                    </div>
+                                                    <div class="item">
+                                                        <lv-input field="fax" model="data.fax" setting="setting" translation="translation" type="phone" tab="7"></lv-input>
+                                                    </div>
+                                                    <div class="item">
+                                                        <lv-input field="email" model="data.email" setting="setting" translation="translation" type="email" tab="8"></lv-input>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col_item_1">
+                                                <div class="box_02 col_1 clearfix">
+                                                    <div class="item">
+                                                        <div class="form-group">
+                                                            <label ng-bind="translation.NAMEEN" for="nameEN" class="ng-binding ">Name(EN)</label>
+                                                            <span>
+                                                                <span class="size-per-80"><sup> (</sup></span><span class="red">*</span><span class="size-per-80"><sup>)</sup></span>
+                                                            </span>
+                                                            <input type="text" spellcheck="false" class="style-input form-control ip_txt ng-empty ng-invalid ng-invalid-required" id="nameEN" ng-model="data.nameEN" tabindex="3">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="box_02 col_1 clearfix">
+                                                    <div class="item">
+                                                        <lv-input field="tax" model="data.tax" setting="setting" translation="translation" type="phone" tab="5"></lv-input>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </dd>
+                            </dl>
+                            <dl class="mt_15">
+                                <dt>
+                                    <a class="title_01 bg_blue_01" data-toggle="collapse" data-target="#panel_02" aria-expanded="true" aria-controls="panel_02">
+                                        <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i>
+                                        <span ng-bind="translation.JURIDICAL">Pháp lý</span>
+                                    </a>
+                                </dt>
+                                <dd>
+                                    <div class="collapse show" id="panel_02" aria-expanded="true">
+                                        <div class="box_02 col_4 clearfix">
+                                            <div class="item">
+                                                <lv-input field="representative" model="data.representative" setting="setting" translation="translation" type="text" tab="9"></lv-input>
+                                            </div>
+                                            <div class="item">
+                                                <lv-input field="position" model="data.position" setting="setting" translation="translation" type="text" tab="10"></lv-input>
+                                            </div>
+                                            <div class="item">
+                                                <lv-input field="abbreviation" model="data.abbreviation" setting="setting" translation="translation" type="text" tab="11"></lv-input>
+                                            </div>
+                                            <div class="item">
+                                                <lv-date element-id="createdDate" field="createdDate" model="data.createdDate" setting="setting" label="{{translation.CREATEDDATE}}" tab="12"></lv-date>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </dd>
+                            </dl>
+
+                        </div>
+                        <div class="w180 float-right ">
+                            <dl>
+                                <dt>
+                                    <a class="title_01 bg_blue_01" data-toggle="collapse" data-target="#panel_03" aria-expanded="true" aria-controls="panel_03">
+                                        <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i>
+                                        <span ng-bind="translation.IMAGE">Hình ảnh</span>
+                                    </a>
+                                </dt>
+                                <dd>
+                                    <div class="collapse show" id="panel_03" aria-expanded="true">
+                                        <div class="droppable-area advancedDropzone mt-10">
+                                            <img id="imgAvatarCompany" src="/img/no_avatar.png" class="img-inline dz-message img_full" />
+                                        </div>
+                                    </div>
+                                </dd>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button ng-click="saveCompany()" type="button" class="btn btn_save_02" tabindex="13" click-Once><i class="bowtie-icon bowtie-save"></i><span ng-bind="::translation.BTN_SAVE_CLOSE">Lưu & đóng</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Modal add Company-->
+    <!-- Modal add Department-->
+    <div class="modal fade modal_center confirmClose" id="modal-detail-department">
+        <div class="modal-dialog modal-medium modal-padding">
+            <div class="modal-content requirement-content" style="padding-top: 0px !important">
+                <div class="modal-header clearfix">
+                    <p class="modal_header_title"><span ng-bind="(actionDepartment == 'add') ? translation.MODAL_DETAIL_ADD_DEPARTMENT : translation.MODAL_DETAIL_EDI_DEPARTMENT"></span></p>
+                    <div class="box_btn_02">
+                        <button type="button" class="fullscreen" onclick="fullscreen('modal-detail-department')" title="{{translation.BTN_SCREEN}}"><i class="bowtie-icon bowtie-view-full-screen"></i></button>
+                        <button type="button" class="btn_close_02" data-dismiss="modal" title="{{translation.CLOSE_DIALOG}}"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-maincontent clearfix">
+                        <dl>
+                            <dt>
+                                <a class="title_01 bg_blue_01" data-toggle="collapse" data-target="#panel_04" aria-expanded="true" aria-controls="panel_04">
+                                    <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i>
+                                    <span ng-bind="translation.COMPANY_INFO">Thông tin chung</span>
+                                </a>
+                            </dt>
+                            <dd>
+                                <div class="collapse show box_pd" id="panel_04" aria-expanded="true">
+                                    <div class="box_02 d-flex clearfix">
+                                        <div class="col_item_2 mr_20">
+                                            <div class="box_02 col_2 clearfix">
+                                                <div class="item mb-0">
+                                                    <div class="form-group">
+                                                        <label ng-bind="translation.CODE" for="codeId" class="ng-binding ">Code</label>
+                                                        <span>
+                                                            <span class="size-per-80"><sup> (</sup></span><span class="red">*</span><span class="size-per-80"><sup>)</sup></span>
+                                                        </span>
+                                                        <input restrict-input="{type: 'lettersAndDigitsOnly'}" type="text" spellcheck="false"
+                                                               class="style-input form-control ip_txt ng-empty ng-invalid ng-invalid-required" id="codeId" ng-model="data.code" tabindex="1">
+                                                    </div>
+                                                </div>
+                                                <div class="item">
+                                                    <lv-input element-id="nameId" field="name" model="data.name" setting="setting" translation="translation" type="text" tab="2"></lv-input>
+                                                </div>
+                                            </div>
+                                            <div class="box_02 col_1 clearfix">
+                                                <div class="item">
+                                                    <lv-input element-id="addressId" field="address" model="data.address" setting="setting" translation="translation" type="text" tab="4"></lv-input>
+                                                </div>
+                                            </div>
+                                            <div class="box_02 col_1 clearfix">
+                                                <div class="item">
+                                                    <lv-input element-id="descriptionId" field="description" model="data.description" setting="setting" translation="translation" type="text" tab="7"></lv-input>
+                                                </div>
+                                            </div>
+                                            <div class="box_02 col_2 clearfix">
+                                                <div class="item">
+                                                    <lv-input element-id="representativeId" field="representative" model="data.representative" setting="setting" translation="translation" type="text" tab="9"></lv-input>
+                                                </div>
+                                                <div class="item">
+                                                    <lv-input element-id="positionId" field="position" model="data.position" setting="setting" translation="translation" type="text" tab="10"></lv-input>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col_item_1">
+                                            <div class="box_02 col_1 clearfix">
+                                                <div class="item">
+                                                    <lv-input field="directlyUnder" model="data.directlyUnder" setting="setting" translation="translation" type="text" tab="3"></lv-input>
+                                                </div>
+                                            </div>
+                                            <div class="box_02 col_2 clearfix">
+                                                <div class="item mb-0">
+                                                    <lv-input element-id="taxId" field="tax" model="data.tax" setting="setting" translation="translation" type="phone" tab="5"></lv-input>
+                                                </div>
+                                                <div class="item">
+                                                    <lv-input element-id="phoneId" field="phone" model="data.phone" setting="setting" translation="translation" type="phone" tab="6"></lv-input>
+                                                </div>
+                                            </div>
+                                            <div class="box_02 col_1 clearfix">
+                                                <div class="item">
+                                                    <lv-input element-id="emailId" field="email" model="data.email" setting="setting" translation="translation" type="email" tab="8"></lv-input>
+                                                </div>
+                                            </div>
+                                            <div class="box_02 col_1 clearfix">
+                                                <div class="item">
+                                                    <lv-select element-id="typeId" field="type" model="data.type" setting="setting" translation="translation" config="configType" tab="11" style="margin-bottom: 10px !important"></lv-select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button ng-click="saveDepartment()" type="button" class="btn btn_save_02" tabindex="12" click-Once><i class="bowtie-icon bowtie-save"></i><span ng-bind="::translation.BTN_SAVE_CLOSE">Lưu & đóng</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Modal add Department-->
+    <!-- Modal User-->
+    <div lv-include path="app/system/user/userForm" name="userForm"></div>
+    <!-- End Modal User-->
+</div>

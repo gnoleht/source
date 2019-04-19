@@ -1,0 +1,416 @@
+﻿<div id="cumulativePolicy" ng-controller="cumulativePolicyController" class="pos">
+    <div class="white_box">
+        <div class="box_filter clearfix" style="height: initial; margin-top: -5px;">
+            <ul class="box_btn mb-0 d-flex justify-content-start" style="align-items: flex-end">
+                <li class="w_15 select2_op2">
+                    <div class="btn_search">
+                        <div class="input-group">
+                            <input type="text" id="full_text_filter" class="form-control" placeholder="{{translation.SEARCH}}" ng-keypress="searchFull($event)" tab="1">
+                            <span class="input-group-btn">
+                                <button class="btn" type="button" ng-click="searchFull()"><i class="bowtie-icon bowtie-search"></i></button>
+                            </span>
+
+                            <!--<input type="text" id="full_text_filter" class="form-control" placeholder="Tìm phiếu">
+                            <span class="input-group-btn">
+                                <button class="btn" type="button"><i class="bowtie-icon bowtie-search"></i></button>
+                            </span>-->
+                        </div>
+                    </div>
+                </li>
+                <li class="w_15 select2_op2">
+                    <lv-select element-id="objectTypeFilter" field="objectType" model="objectTypeFilter" setting="setting" change="changeObjectTypeFilter()" translation="translation" tab="1"></lv-select>
+                </li>
+                <li class="w_15 select2_op2">
+                    <lv-combobox element-id="cmbStoreId" option="cmbStoreId" model="storeFilter" tab="2" label="{{translation.STOREFILTER}}">
+                    </lv-combobox>
+                </li>
+                <li class="w_15 select2_op2">
+                    <lv-datepicker field="fromDate" model="fromDate" setting="setting" translation="translation" tab="3"></lv-datepicker>
+                </li>
+                <li class="w_15 select2_op2">
+                    <lv-datepicker field="toDate" model="toDate" setting="setting" translation="translation" tab="4"></lv-datepicker>
+                </li>
+                <li>
+                    <button type="button" class="bg_blue_02 btn_filter w_100" ng-click="searchObject()">{{translation.FILTER}}</button>
+                </li>
+            </ul>
+        </div>
+        <div class="content_6_4 clearfix">
+            <div class="content_4 mr_10 float-left">
+                <dl class="wrapper">
+                    <dt>
+                        <a class="title_02 bg_gray_01 pos_re">
+                            <span>Danh sách chính sách</span>
+                        </a>
+                    </dt>
+                    <dd class="pos_re" style="height: calc(100% - 30px)">
+                        <div class="box_01 scroll" style="height: calc(100% - 50px)">
+                            <div id="{{item.invExport.id}}" ng-repeat="item in listData" class="item" ng-class="classActive(item.invExport.id)" ng-click="changeRow(item.invExport)" ng-dblclick="edit()">
+                                <ul class="clearfix">
+                                    <li class="float-left w-50 txt_cut"><a class="link">{{item.invExport.code}}</a></li>
+                                    <li class="float-right">{{item.invExport.docDate | date :"dd/MM/yyyy"}} - {{item.invExport.docTime | date: "HH:mm"}}</li>
+                                </ul>
+                                <p class="txt_cut mb_5" style="height: 20px;">{{item.invExport.memo}}</p>
+                                <ul class="clearfix">
+                                    <li class="float-left"><b>SL: {{item.sumQuantity | number}}</b></li>
+                                    <li class="float-right"><b>{{item.sumAmount | number}}</b></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="box_footer">
+                            <div>
+                                <b>{{translation.TOTALPAGE}}: <span class="link">{{totalItem}}</span></b>
+                            </div>
+                            <div style="font-weight: bold; position: absolute; right: 125px">
+                                {{translation.PAGE}}: <input id="pageInput" type="number" name="page" value="{{pageCurrent}}" /> / {{totalPage}}
+                            </div>
+                            <div class="button-left-wrapper">
+                                <div class="btn_add_02 mr_5" title="Previous" ng-click="prev(pageCurrent -1)"><i class="bowtie-icon bowtie-chevron-left-light"></i></div>
+                                <div class="btn_add_02" title="Next" ng-click="next(pageCurrent +1)"> <i class="bowtie-icon bowtie-chevron-right-light"></i></div>
+                            </div>
+                        </div>
+                    </dd>
+                </dl>
+            </div>
+            <div class="content_6 float-right scroll" style="padding-right: 10px">
+                <div class="modal-02 clearfix mb_20">
+                    <dl class="mb-0 mr-20 w_50">
+                        <dt><a class="title_02 bg_gray_01" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="true" aria-controls="multiCollapse_01 multiCollapse_02 multiCollapse_03"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow mr_5"></i>Thông tin chi tiết</a></dt>
+                        <dd style="height: calc(100% - 360px)">
+                            <div class="multi-collapse show multi-collapse" id="multiCollapse_01" aria-expanded="true">
+                                <div class="d-flex w_100">
+                                    <div class="col-left">
+                                        <p>Mã chính sách:</p>
+                                        <p>Tên chính sách:</p>
+                                        <p>Mức độ ưu tiên</p>
+                                        <p>% chiết khấu:</p>
+                                        <p>Ngày trong tháng:</p>
+                                        <p>Diễn giải:</p>
+                                    </div>
+                                    <div class="col-right">
+                                        <p class="txt_cut"></p>
+                                        <p class="txt_cut"></p>
+                                        <p class="txt_cut"></p>
+                                        <p class="txt_cut"></p>
+                                        <p class="txt_cut"></p>
+                                        <p class="txt_cut"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </dd>
+                    </dl>
+                    <dl class="mb-0 w_50">
+                        <dt><a class="title_02 bg_gray_01" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="true" aria-controls="multiCollapse_01 multiCollapse_02 multiCollapse_03"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow mr_5"></i>Thời gian</a></dt>
+                        <dd>
+                            <div class="multi-collapse show multi-collapse" id="multiCollapse_02" aria-expanded="true">
+                                <div class="d-flex w_100">
+                                    <div class="col-left">
+                                        <p>Từ ngày:</p>
+                                        <p>Đến ngày:</p>
+                                        <p>Giờ bắt đầu:</p>
+                                        <p>Giờ kết thúc:</p>
+                                        <p>Thứ áp dụng</p>
+                                        <p>Trạng thái:</p>
+                                    </div>
+                                    <div class="col-right">
+                                        <p class="txt_cut"></p>
+                                        <p class="txt_cut"></p>
+                                        <p class="txt_cut"></p>
+                                        <p class="txt_cut"></p>
+                                        <p class="txt_cut"></p>
+                                        <p class="txt_cut"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="modal-02 clearfix mb_20">
+                    <dl class="mb-0" style="flex-grow: 1; flex-basis: 0">
+                        <dt><a class="title_02 bg_gray_01" data-toggle="collapse" data-target="multi-collapse" aria-expanded="true" aria-controls="multiCollapse_01 multiCollapse_02 multiCollapse_03"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow mr_5"></i>Đối tượng</a></dt>
+                        <dd>
+                            <div class="multi-collapse show multi-collapse" id="multiCollapse_03" aria-expanded="true">
+                                <div class="d-flex">
+                                    <div class="d-flex col_item_1">
+                                        <div class="col-left">
+                                            <p>{{translation.AllCUSTOMER}}:</p>
+                                        </div>
+                                        <div class="col-right">
+                                            <p class="txt_cut"><span ng-show="defaultFirstData.custType=='1'"><i class="fa fa-check status_closed" aria-hidden="true" style="font-size: 18px"></i></span></p>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex col_item_1">
+                                        <div class="col-left" style="width: fit-content">
+                                            <p style="white-space: nowrap">{{translation.FORGROUPCUSTOMER}}:</p>
+                                        </div>
+                                        <div class="col-right">
+                                            <p class="txt_cut"><span ng-show="defaultFirstData.custType=='2'"><i class="fa fa-check status_closed" aria-hidden="true" style="font-size: 18px"></i></span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-flex col_item_1">
+                                    <div class="col-left w_20">
+                                        <p>{{translation.GROUPCUSTOMER}}:</p>
+                                    </div>
+                                    <div class="col-right">
+                                        <p class="txt_cut" ng-bind="showGroupCustomer()"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="modal-01 clearfix">
+                    <dl class="mb-0 wrapper">
+                        <dt>
+                            <a class="title_02 bg_gray_01" data-toggle="collapse" data-target="#multiCollapse_04" aria-expanded="true" aria-controls="multiCollapse_04">
+                                <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow mr_5"></i>{{translation.DETAILS}}<span class="cl_red">(37)</span>
+                            </a>
+                        </dt>
+                        <dd style="height: calc(100% - 270px)">
+                            <div class="multi-collapse show wrapper" id="multiCollapse_04" aria-expanded="true">
+                                <div class="gridWrapper">
+                                    <div id="grvinventoryExport" class="control-grid wrapper"></div>
+                                </div>
+                            </div>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="modal-01 clearfix">
+                    <dl class="mb-0 wrapper">
+                        <dt>
+                            <a class="title_02 bg_gray_01" data-toggle="collapse" data-target="#multiCollapse_05" aria-expanded="true" aria-controls="multiCollapse_05">
+                                <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow mr_5"></i>Phạm vi áp dụng<span class="cl_red">(37)</span>
+                            </a>
+                        </dt>
+                        <dd style="height: calc(100% - 270px)">
+                            <div class="multi-collapse show wrapper" id="multiCollapse_05" aria-expanded="true">
+                                <div class="gridWrapper">
+                                    <div id="grvinventoryExport" class="control-grid wrapper"></div>
+                                </div>
+                            </div>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal (detail)-->
+    <div class="modal fade modal_center confirmClose" style="" id="modal-detail" ng-init="initModal()">
+        <div class="modal-dialog" style="width:1000px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <p style="font-size:16px;margin:0;line-height:1.9em;" class="float-left"><span ng-bind="(action == 'add' || action == 'addChild') ? translation.MODAL_DETAIL_ADDTITLE : translation.MODAL_DETAIL_EDITTITLE"></span></p>
+                    <div class="box_btn_02">
+                        <button type="button" class="fullscreen" onclick="fullscreen('modal-detail')"><i class="bowtie-icon bowtie-view-full-screen"></i></button>
+                        <button type="button" class="btn_close_02" data-dismiss="modal"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-maincontent autoHeight">
+                        <ul class="nav nav-tabs bg-white" id="main_tab_01" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="tab_01-tab" data-toggle="tab" data-target="#tab1"
+                                   role="tab" aria-controls="tab_01" aria-selected="true" ng-click="resizeTab()">Thông tin chính sách</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="tab_02-tab" data-toggle="tab" data-target="#tab2"
+                                   role="tab" aria-controls="tab_02" aria-selected="false" ng-click="resizeTab()">Hiệu lực chính sách</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="tab_03-tab" data-toggle="tab" data-target="#tab3"
+                                   role="tab" aria-controls="tab_03" aria-selected="false" ng-click="resizeTab()">Đối tượng áp dụng</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content mb_40" id="tabTop">
+                            <div class="tab-pane active clearfix" id="tab1" role="tabpanel" aria-labelledby="tab1">
+                                <div class="form-input-group">
+                                    <div class="box_02 col_2 clearfix mb_15">
+                                        <div class="pos_item">
+                                            <label>Tên chính sách</label>
+                                            <input type="text" name="name" value="" />
+                                        </div>
+                                        <div class="pos_item">
+                                            <label>Mã chính sách</label>
+                                            <input type="text" name="name" value="" />
+                                        </div>
+
+                                    </div>
+                                    <div class="box_02 col_2 clearfix mb_15">
+                                        <div class="pos_item">
+                                            <label>Mức độ ưu tiên</label>
+                                            <input type="number" name="name" value="" />
+                                        </div>
+                                        <div class="pos_item">
+                                            <label>Loại tích lũy</label>
+                                            <select select2>
+                                                <option value="value">Điểm cộng dồn</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="box_02 col_2 clearfix mb_15">
+                                        <div class="pos_item" style="float: none">
+                                            <label>Đơn giá 1 điểm</label>
+                                            <input type="number" name="name" value="" placeholder="10,000" />
+                                        </div>
+                                    </div>
+                                    <div class="box_02 col_2 clearfix mb_15">
+                                        <div class="pos_item">
+                                            <label>Ngày lập</label>
+                                            <input type="date" name="name" value="" />
+                                        </div>
+                                        <div class="pos_item">
+                                            <label>Tình trạng</label>
+                                            <span class="status mr_5 status_new"><i class="bowtie-icon bowtie-record-fill"></i></span>Tạo mới
+                                        </div>
+                                    </div>
+                                    <div class="box_02 col_1 clearfix mb_5">
+                                        <div class="pos_item">
+                                            <label>Diễn giải</label>
+                                            <input type="text" name="name" value="" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="tab2" role="tabpanel" aria-labelledby="tab2">
+                                <div class="form-input-group">
+                                    <div class="box_02 col_2 clearfix mb_15">
+                                        <div class="pos_item">
+                                            <label>Ngày hiệu lực từ</label>
+                                            <input type="date" name="name" value="" />
+                                        </div>
+                                        <div class="pos_item">
+                                            <label>Khung giờ từ</label>
+                                            <div class="d-flex" style="width: calc(100% - 170px); justify-content: space-between">
+                                                <input type="time" name="name" value="" />
+                                                <select select2>
+                                                    <option value="value" selected>Sáng</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="box_02 col_2 clearfix mb_15">
+                                        <div class="pos_item">
+                                            <label>Ngày hiệu lực đến</label>
+                                            <input type="date" name="name" value="" />
+                                        </div>
+                                        <div class="pos_item">
+                                            <label>Khung giờ đến</label>
+                                            <div class="d-flex" style="width: calc(100% - 170px); justify-content: space-between">
+                                                <input type="time" name="name" value="" />
+                                                <select select2>
+                                                    <option value="value" selected>Sáng</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="box_02 col_2 clearfix mb_15">
+                                        <div class="pos_item">
+                                            <label>Thứ trong tuần</label>
+                                            <div class="d-flex" style="justify-content: space-between; width: calc(100% - 170px)">
+                                                <div class="d-flex" style="flex-direction: column">
+                                                    <p class="mb_5">T2</p>
+                                                    <i class="bowtie-icon bowtie-checkbox" style="font-size: 15px;"></i>
+                                                </div>
+                                                <div class="d-flex" style="flex-direction: column">
+                                                    <p class="mb_5">T3</p>
+                                                    <i class="bowtie-icon bowtie-checkbox" style="font-size: 15px;"></i>
+                                                </div>
+                                                <div class="d-flex" style="flex-direction: column">
+                                                    <p class="mb_5">T4</p>
+                                                    <i class="bowtie-icon bowtie-checkbox" style="font-size: 15px;"></i>
+                                                </div>
+                                                <div class="d-flex" style="flex-direction: column">
+                                                    <p class="mb_5">T5</p>
+                                                    <i class="bowtie-icon bowtie-checkbox" style="font-size: 15px;"></i>
+                                                </div>
+                                                <div class="d-flex" style="flex-direction: column">
+                                                    <p class="mb_5">T6</p>
+                                                    <i class="bowtie-icon bowtie-checkbox" style="font-size: 15px;"></i>
+                                                </div>
+                                                <div class="d-flex" style="flex-direction: column">
+                                                    <p class="mb_5">T7</p>
+                                                    <i class="bowtie-icon bowtie-checkbox" style="font-size: 15px;"></i>
+                                                </div>
+                                                <div class="d-flex" style="flex-direction: column; align-items: center">
+                                                    <p class="mb_5">CN</p>
+                                                    <i class="bowtie-icon bowtie-checkbox" style="font-size: 15px;"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="pos_item">
+                                            <label>Ngày trong tháng</label>
+                                            <input type="number" name="name" value="" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="tab3" role="tabpanel" aria-labelledby="tab3">
+                                <div class="form-input-group">
+                                    <div class="box_02 col_1 clearfix mb_15">
+                                        <div class="pos_item">
+                                            <div class="switch mr-10" style="width: 60px" ng-class="data.active ? 'change' : ''" ng-click="changeActive()">
+                                                <input type="checkbox">
+                                                <p class="slider mb-0"></p>
+                                            </div>
+                                            <div class="switch-label txt_cut">Tất cả khách hàng</div>
+
+                                            <div class="switch mr-10" style="width: 60px" ng-class="data.active2 ? 'change' : ''" ng-click="changeActive2()">
+                                                <input type="checkbox">
+                                                <p class="slider mb-0"></p>
+                                            </div>
+                                            <div class="switch-label txt_cut">Nhóm khách hàng</div>
+                                        </div>
+                                    </div>
+                                    <div class="box_02 col_2 clearfix mb_5">
+                                        <div class="pos_item" style="float: none">
+                                            <label>Nhóm khách hàng</label>
+                                            <select select2>
+                                                <option value="value">text</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ul class="nav nav-tabs bg-white" id="main_tab_02" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="tab_04-tab" data-toggle="tab" data-target="#tab4"
+                                   role="tab" aria-controls="tab_04" aria-selected="true">Chi tiết</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="tab_05-tab" data-toggle="tab" data-target="#tab5"
+                                   role="tab" aria-controls="tab_05" aria-selected="false">Phạm vi áp dụng</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="tabBottom">
+                            <div class="tab-pane active clearfix wrapper" id="tab4" role="tabpanel" aria-labelledby="tab4">
+                                <div class="box_content wrapper">
+                                    <div class="gridWrapper">
+                                        <div id="grvItemDetail" class="control-grid" style="width: 100%;height:100%;">
+                                            Grid
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane wrapper" id="tab5" role="tabpanel" aria-labelledby="tab5">
+                                <div class="box_content wrapper">
+                                    <div class="gridWrapper">
+                                        <div id="grvItemDetail" class="control-grid" style="width: 100%;height:100%;">
+                                            Grid
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn_save_02" id="btnSave" ng-click="save()" click-Once><i class="fa fa-save"></i> <span ng-bind="globalTranslation.BTN_SAVE">Save</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

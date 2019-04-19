@@ -1,0 +1,410 @@
+﻿
+<script src="../../../js/bootstrap-tagsinput.js"></script>
+<link href="../../../css/bootstrap-tagsinput.css" rel="stylesheet" />
+
+<div id="item" ng-controller="itemController" class="pos">
+    <div class="white_box">
+        <div class="box_filter clearfix">
+            <ul class="box_btn mb-0 d-flex justify-content-start">
+                <li class="w_15 select2_op2">
+                    <div class="btn_search">
+                        <div class="input-group">
+                            <input type="text" id="full_text_filter" class="form-control" placeholder="{{translation.SEARCH}}" ng-keypress="searchFull($event)" tab="1">
+                            <span class="input-group-btn">
+                                <button class="btn" type="button" ng-click="searchFull()"><i class="bowtie-icon bowtie-search"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                </li>
+                <li class="w_15 select2_op2">
+                    <lv-combobox element-id="cmbFieldFilter" field="cmbFieldFilter" option="cmbFieldFilter" model="fieldFilter" tab="2" label="">
+                    </lv-combobox>
+                </li>
+                <li class="w_15 select2_op2">
+                    <lv-combobox element-id="cmbGroupFilter" field="cmbGroupFilter" option="cmbGroupFilter" model="groupFilter" tab="3" label="">
+                    </lv-combobox>
+                </li>
+                <li class="w_15 select2_op2">
+                    <lv-select element-id="cmbkindItem" field="kindItem" model="kindItem" setting="setting" translation="translation" tab="4" label=" " allowclear="true"  placeholder="{{translation.KINDITEM}}"></lv-select>
+                </li>
+            
+                <li>
+                    <button type="button" class="bg_blue_02 btn_filter w_100" ng-click="searchObject()">{{translation.FILTER}}</button>
+                </li>
+            </ul>
+        </div>
+        <div class="content_6_4 d-flex wrapper">
+            <div class="content_6 mr_15 wrapper">
+                <dl class="mb-0 wrapper">
+                    <dt class="clearfix pos_re">
+                        <a class="title_01 bg_blue_01" data-toggle="collapse" data-target="#panel_01" aria-expanded="true" aria-controls="panel_01">
+                            <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>{{translation.LISTSTORE}}</span>
+                            <ul class="clearfix box_infomation">
+                                <li class="ng-binding ng-scope">
+                                    {{translation.TOTALSTATUS}}<span class="cl_red">({{total}})</span>
+                                </li>
+                                <li class="ng-binding ng-scope">
+                                    {{translation.ACTIVESTATUS}}<span class="cl_red">({{active}})</span>
+                                </li>
+                                <li class="ng-binding ng-scope">
+                                    {{translation.DEACTIVESTATUS}}<span class="cl_red">({{deactive}})</span>
+                                </li>
+                            </ul>
+                        </a>
+                    </dt>
+                    <dd style="width:100%;height:calc(100% - 25px)">
+                        <div class="collapse show wrapper" id="panel_01" aria-expanded="true">
+                            <div class="gridWrapper">
+                                <div id="grvItem" class="control-grid" style="width:100%;height:100%;"></div>
+                            </div>
+                        </div>
+                    </dd>
+                </dl>
+            </div>
+            <div class="content_4 scroll">
+                <dl class="mb_40">
+                    <dt><a class="title_01 bg_blue_01" data-toggle="collapse" data-target="#panel_02" aria-expanded="true" aria-controls="panel_02"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>{{translation.INFO}}</span></a></dt>
+                    <dd>
+                        <div class="collapse show" id="panel_02" aria-expanded="true">
+                            <div class="avatar2" style="background-image: url('/api/system/viewfile?id={{dataDetail.itemImage}}&amp;def=/img/no-product.jpg')"></div>
+                            <div class="d-flex">
+                                <div class="col-left">
+                                    <p>{{translation.FIELDID}}:</p>
+                                    <p>{{translation.GROUPID}}:</p>
+                                    <p>{{translation.SKU}}:</p>
+                                    <p>{{translation.BARCODE}}:</p>
+                                    <p>{{translation.UMID}}:</p>
+                                    <p>{{translation.MAXSTOCK}}:</p>
+                                    <p>{{translation.MINSTOCK}}:</p>
+                                </div>
+                                <div class="col-right">
+                                    <p class="txt_cut" ng-bind="itemFieldName">Hàng hóa</p>
+                                    <p class="txt_cut" ng-bind="dataDetail.relatedGroup.name">Bia, rượu</p>
+                                    <p class="txt_cut" ng-bind="dataDetail.sku">183746</p>
+                                    <p class="txt_cut" ng-bind="dataDetail.barcode">294757491847</p>
+                                    <p class="txt_cut" ng-bind="dataDetail.relatedUnitOfMeasure.name">Chai</p>
+                                    <p class="txt_cut" ng-bind="dataDetail.maxStock | number:0">1,700</p>
+                                    <p class="txt_cut" ng-bind="dataDetail.minStock | number:0">100</p>
+                                </div>
+                            </div>
+                        </div>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt><a class="title_01 bg_blue_01" data-toggle="collapse" data-target="#panel_03" aria-expanded="true" aria-controls="panel_03"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>{{translation.STOCK}}</span></a></dt>
+                    <dd>
+                        <div class="collapse show" id="panel_03" aria-expanded="true">
+                            <div class="d-flex mt_10">
+                                <div class="col-left">
+                                    <p>{{translation.STOCK}}:</p>
+                                    <p>{{translation.BIN}}:</p>
+                                    <p>{{translation.SHOWCASE}}:</p>
+                                </div>
+                                <div class="col-right">
+                                    <p class="txt_cut" ng-bind="stock | number:0">Bổ sung sau</p>
+                                    <p class="txt_cut" ng-bind="dataDetail.bin">Vị trí 2</p>
+                                    <p class="txt_cut" ng-bind="dataDetail.showcase">Kệ 2</p>
+                                </div>
+                            </div>
+                        </div>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal (detail)-->
+    <div class="modal fadeIn modal_center" role="dialog" id="modal-detail" ng-init="onloadModal()" style="animation-delay:10s;">
+        <div class="modal-dialog modal-medium modal-padding" style="width:1100px;">
+            <div class="modal-content requirement-content" style="padding-top: 0px !important">
+                <div class="modal-header clearfix">
+                    <p style="font-size:16px;margin:0;line-height:1.9em;" class="float-left"><span ng-bind="(action == 'add') ? translation.MODAL_DETAIL_ADDTITLE : translation.MODAL_DETAIL_EDITTITLE"></span></p>
+                    <div class="box_btn_02">
+                        <button type="button" class="fullscreen" onclick="fullscreen('modal-detail')"><i class="bowtie-icon bowtie-view-full-screen"></i></button>
+                        <button type="button" class="btn_close_02" data-dismiss="modal"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-content clearfix">
+                        <div class="modal-body-maincontent clearfix">
+                            <ul class="nav nav-tabs bg-white" id="main_tab_01" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="tab_01-tab" data-toggle="tab" data-target="#tab1"
+                                       role="tab" aria-controls="tab_01" aria-selected="true">Thông tin chung</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="tab_02-tab" data-toggle="tab" data-target="#tab2" role="tab" aria-controls="tab_02" aria-selected="false">Kiểm soát</a>
+                                </li>
+                                <li class="nav-item" ng-show="data.sizeBreakdown">
+                                    <a class="nav-link" id="tab_03-tab" data-toggle="tab" data-target="#tab3" role="tab" aria-controls="tab_03" aria-selected="false" ng-click="resizeGrvAttribute()">Thuộc tính</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active clearfix" id="tab1" role="tabpanel" aria-labelledby="tab1">
+                                    <div class="w180 float-left">
+                                        <div class="img_over_180">
+                                            <div class="droppable-area advancedDropzoneStore dz-clickable img float-left img_over_180 clearfix" style="border:1px solid #eee;">
+                                                <img id="imgItem" src="/api/system/viewfile?id={{data.itemImage}}&amp;def=/img/no-product.jpg" class="img-inline dz-message img_full">
+                                                <div class="close" ng-click="deleteAvatar()"><i class="bowtie-icon bowtie-edit-delete"></i></div>
+                                            </div>
+                                        </div>
+                                        <div class="box_02 col_1 clearfix mb_15 mt_15">
+                                            <div class="pos_item">
+                                                <div class="switch" ng-class="data.active ? 'change' : ''" ng-click="changeActive(data.active)">
+                                                    <input type="checkbox">
+                                                    <p class="slider mb-0"></p>
+                                                </div>
+                                                <div class="switch-label txt_cut">{{translation.ACTIVE}}</div>
+                                            </div>
+                                        </div>
+                                        <div class="box_02 col_1 clearfix mb_15">
+                                            <div class="pos_item">
+                                                <div class="switch" ng-class="data.promotion ? 'change' : ''" ng-click="changePromotion(data.promotion)">
+                                                    <input type="checkbox">
+                                                    <p class="slider mb-0"></p>
+                                                </div>
+                                                <div class="switch-label txt_cut">{{translation.PROMOTION}}</div>
+                                            </div>
+                                        </div>
+                                        <div class="box_02 col_1 clearfix mb_15">
+                                            <div class="pos_item">
+                                                <div class="switch" ng-class="data.sizeBreakdown ? 'change' : ''" ng-click="changeBreakdown(data.sizeBreakdown)">
+                                                    <input type="checkbox">
+                                                    <p class="slider mb-0"></p>
+                                                </div>
+                                                <div class="switch-label txt_cut">{{translation.SIZEBREAKDOWN}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="w100_180 float-right form-input-group">
+                                        <div class="box_02 col_1 clearfix mb_15">
+                                            <div class="pos_item">
+                                                <div id="radioKind" class="d-flex" style="justify-content: flex-start; width: calc(100% - 170px); margin-left: 170px;">
+                                                    <label class="container w_30" ng-click="changeKind('1')">
+                                                        {{translation.ITEM}}
+                                                        <input type="radio" checked="checked" name="radio" value="1">
+                                                        <span class="checkmark"></span>
+                                                    </label>
+                                                    <label class="container w_30" ng-click="changeKind('2')">
+                                                        {{translation.SERVICE}}
+                                                        <input type="radio" name="radio" value="2">
+                                                        <span class="checkmark"></span>
+                                                    </label>
+                                                    <label class="container w_30" ng-click="changeKind('3')">
+                                                        {{translation.VOUCHER}}
+                                                        <input type="radio" name="radio" value="3">
+                                                        <span class="checkmark"></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="box_02 col_1 clearfix mb_15">
+                                            <div class="pos_item">
+                                                <lv-input element-id="itemName" field="name" model="data.name" setting="setting" translation="translation" type="text" tab="1"></lv-input>
+                                            </div>
+
+                                        </div>
+                                        <div class="box_02 col_1 clearfix mb_15">
+                                            <div class="pos_item haveButton">
+                                                <lv-combobox element-id="cmbGroupId" option="cmbGroupId" setting="setting" field="groupId" model="data.groupId" tab="2" label="{{translation.GROUPID}}">
+                                                </lv-combobox>
+                                                <a ng-click="addItemGroup()" class="btn_add btn_30 "><i class="bowtie-icon bowtie-math-plus"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="box_02 col_2 clearfix mb_15">
+                                            <div class="pos_item">
+                                                <lv-input field="sku" model="data.sku" setting="setting" translation="translation" type="text" tab="3"></lv-input>
+                                            </div>
+                                            <div class="pos_item">
+                                                <lv-number field="barcode" model="data.barcode" setting="setting" translation="translation" tab="4"></lv-number>
+                                            </div>
+                                        </div>
+                                        <div class="box_02 col_2 clearfix mb_15">
+                                            <div class="pos_item">
+                                                <lv-number field="cogs" model="data.cogs" setting="setting" translation="translation" tab="5"></lv-number>
+                                            </div>
+                                            <div class="pos_item">
+                                                <lv-number field="vatPercent" model="data.vatPercent" setting="setting" translation="translation" type="text" tab="6" min="0" max="100"></lv-number>
+                                            </div>
+                                        </div>
+                                        <div class="box_02 col_2 clearfix mb_15">
+                                            <div class="pos_item">
+                                                <lv-number field="profitPercent" model="data.profitPercent" setting="setting" translation="translation" tab="7"></lv-number>
+                                            </div>
+                                            <div class="pos_item">
+                                                <lv-number field="sellPrice" model="data.sellPrice" setting="setting" translation="translation" tab="8"></lv-number>
+                                            </div>
+                                        </div>
+                                        <div class="box_02 col_2 clearfix mb_15">
+                                            <div class="pos_item">
+                                                <lv-number field="minStock" model="data.minStock" setting="setting" translation="translation" tab="9"></lv-number>
+                                            </div>
+                                            <div class="pos_item">
+                                                <lv-number field="maxStock" model="data.maxStock" setting="setting" translation="translation" tab="10"></lv-number>
+                                            </div>
+                                        </div>
+                                        <div class="box_02 col_2 clearfix mb_15">
+                                            <div class="pos_item">
+                                                <label><span>{{translation.STOCK}}</span></label>
+                                                <input type="number" disabled />
+                                            </div>
+                                            <div class="pos_item">
+                                                <lv-combobox element-id="cmbUmid" option="cmbUmid" field="umid" setting="setting" model="data.umid" tab="11" label="{{translation.UMID}}">
+                                                </lv-combobox>
+                                            </div>
+                                        </div>
+                                        <div class="box_02 col_1 clearfix mb_15">
+                                            <div class="pos_item">
+                                                <label ng-bind="::translation.NOTE"> Mô tả mặt hàng </label>
+                                                <textarea ui-tinymce="tinymceNoResizeOptions" ng-model="data.note" tab="12"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="tab2" role="tabpanel" aria-labelledby="tab2">
+                                    <div class="box_content">
+                                        <div class="w100 form-input-group">
+                                            <div class="box_02 col_1 clearfix mb_15">
+                                                <div class="pos_item">
+                                                    <lv-input field="bin" model="data.bin" setting="setting" translation="translation" type="text" tab="1"></lv-input>
+                                                </div>
+                                            </div>
+                                            <div class="box_02 col_1 clearfix mb_15">
+                                                <div class="pos_item">
+                                                    <lv-input field="showcase" model="data.showcase" setting="setting" translation="translation" type="text" tab="2"></lv-input>
+                                                </div>
+                                            </div>
+                                            <div class="box_02 col_2 clearfix mb_15">
+                                                <div class="pos_item">
+                                                    <lv-number field="expireDate" model="data.expireDate" setting="setting" translation="translation" type="number" tab="3"></lv-number>
+                       
+                                                </div>
+                                                <div class="pos_item">
+                                                    <lv-select nolabel="true" element-id="cmbExpireTo" field="expireTo" model="data.expireTo" setting="setting" allowclear="true" translation="translation" tab="4"></lv-select>
+                       
+                                                </div>
+                                            </div>
+                                            <div class="box_02 col_1 clearfix mb_15">
+                                                <div class="pos_item">                   
+                                                    <lv-select element-id="vendorId" field="vendorId" model="data.vendorId" setting="setting" change="changeVendor()" allowclear="true" translation="translation" tab="5"></lv-select>                
+                                                </div>
+                                            </div>
+                                            <div class="box_02 col_2 clearfix mb_15">
+                                                <div class="pos_item">
+                                                    <label><span>Tên liên hệ</span></label>
+                                                    <input type="text" value="{{dataVendor.representative}}" disabled />
+                                                </div>
+                                                <div class="pos_item">
+                                                    <label><span>Điện thoại</span></label>
+                                                    <input type="text" value="{{dataVendor.phone}}" disabled />
+                                                </div>
+                                            </div>
+                                            <div class="box_02 col_1 clearfix mb_15">
+                                                <div class="pos_item">
+                                                    <label><span>Địa chỉ</span></label>
+                                                    <input type="text" value="{{dataVendor.address}}" disabled />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="tab3" role="tabpanel" aria-labelledby="tab3">
+                                    <div class="box_content">
+                                        <div class="w100 form-input-group">
+                                            <div class="box_02 col_1 clearfix mb_15">
+                                                <div class="pos_item pos_item_2">
+                                                    <label><span>Màu</span></label>
+                                                    <input type="text" placeholder="Xanh, Đỏ, Vàng..." data-role="tagsinput" id="tagColor" class="form-control" />
+                                                </div>
+                                            </div>
+                                            <div class="box_02 col_1 clearfix mb_15">
+                                                <div class="pos_item pos_item_2">
+                                                    <label><span>Size</span></label>
+                                                    <input type="text" placeholder="S, M, L, XL..." data-role="tagsinput" id="tagSize" class="form-control" />
+                                                </div>
+                                            </div>
+                                            <div class="gridWrapper" style="width:100%;height:100%;">
+                                                <div id="grvAttribute" class="control-grid" style="width:100%;height:420px;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button id="btnSaveClose" ng-click="printBarcode()" type="button" class="btn btn_save_02" tabindex="13" click-Once><i class="bowtie-icon bowtie-print"></i><span ng-bind="::translation.PRINT_BARCODE">In barcode</span></button>
+                    <button ng-show="action=='add'" id="btnSaveClose" ng-click="saveAndContinue()" type="button" class="btn btn_save_02" tabindex="13" click-Once><i class="bowtie-icon bowtie-save"></i><span ng-bind="::translation.SAVE_AND_CONTINUE">Lưu & Tiếp</span></button>
+                    <button id="btnSaveClose" ng-click="save()" type="button" class="btn btn_save_03" tabindex="13" click-Once><i class="bowtie-icon bowtie-save"></i><span ng-bind="::translation.BTN_SAVE_CLOSE">Lưu & đóng</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal group (detail)-->
+    <div class="modal fade modal_center confirmClose" style="" id="modal-group-detail">
+        <div class="modal-dialog" style="width:600px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <p style="font-size:16px;margin:0;line-height:1.9em;" class="float-left"><span ng-bind="translation.MODAL_DETAIL_ADDTITLE"></span></p>
+                    <div class="box_btn_02">
+                        <button type="button" class="fullscreen" onclick="fullscreen('modal-detail')"><i class="bowtie-icon bowtie-view-full-screen"></i></button>
+                        <button type="button" class="btn_close_02" data-dismiss="modal"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                    </div>
+                </div>
+                <div class="modal-body" style="min-height:260px">
+                    <div class="modal-body-maincontent">
+                        <div class="form-input-group">
+                            <div class="box_02 col_1 clearfix mb_15">
+                                <div class="pos_item">
+                                    <lv-input field="codeGroup" model="dataGroup.code" setting="setting" translation="translation" type="text" tab="1" class="clearfix"></lv-input>
+                                </div>
+                            </div>
+                            <div class="box_02 col_1 clearfix mb_15">
+                                <div class="pos_item">
+                                    <lv-input field="nameGroup" model="dataGroup.name" setting="setting" translation="translation" type="text" tab="2" class="clearfix"></lv-input>
+                                </div>
+                            </div>
+                            <div class="box_02 col_1 clearfix mb_15">
+                                <div class="pos_item">
+                                    <lv-combobox element-id="cmbFieldId" field="fieldId" option="cmbFieldId" model="dataGroup.fieldId" tab="3" label="{{translation.FIELDID}}">
+                                    </lv-combobox>
+                                </div>
+                            </div>
+
+                            <div class="box_02 col_1 clearfix mb_15">
+                                <div class="pos_item">
+                                    <lv-number field="order" model="dataGroup.order" setting="setting" translation="translation" type="text" tab="5"></lv-number>
+                                </div>
+                            </div>
+                            <div class="box_02 col_1 clearfix mb_15">
+                                <div class="pos_item">
+                                    <lv-textarea field="note" style="width: 100%;" model="dataGroup.note" setting="setting" translation="translation" block-resize="block-resize" row="5" tab="6" class="clearfix"></lv-textarea>
+                                </div>
+                            </div>
+                            <div class="box_02 col_1 clearfix mb_15">
+                                <div class="pos_item">
+                                    <div class="switch-label txt_cut" style="width: 120px;margin-left: 50px;">Đang hoạt động</div>
+                                    <div class="switch" ng-class="dataGroup.active ? 'change' : ''" ng-click="changeActive(dataGroup.active)" style="width: 60px">
+                                        <input type="checkbox">
+                                        <p class="slider mb-0"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn_save_02" id="btnSave" ng-click="saveItemGroup()" click-Once><i class="fa fa-save"></i> <span ng-bind="globalTranslation.BTN_SAVE">Save</span></button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+

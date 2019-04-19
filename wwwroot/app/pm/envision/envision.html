@@ -1,0 +1,56 @@
+﻿<div id="envision" ng-controller="envisionController" ng-init="initJS()">
+    <div class="white_box" style="background-color:#edf1f5;padding:0">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" id="main_tab_01" role="tablist">
+            <!--<li class="nav-item">
+                <a class="nav-link active" ng-click="currentTab = 'briefDescription';displayFunction()" id="tab_01-tab" data-toggle="tab" data-target="#tabBriefDescription"
+                   role="tab" aria-controls="tab_01" aria-selected="true" ng-bind="translation.BRIEF_DESCRIPTION">
+                    Mô tả sản phẩm
+                </a>
+            </li>-->
+            <li class="nav-item">
+                <a class="nav-link active" ng-click="currentTab = 'businessObjective';displayFunction()" id="tab_03-tab" data-toggle="tab"
+                   data-target="#tabBusinessObjective" role="tab" aria-controls="tab_03" aria-selected="true" ng-bind="translation.BUSSINESS_OBJECTIVES">
+                    Mục tiêu kinh doanh
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" ng-click="currentTab = 'marketNeeds';displayFunction()" id="tab_02-tab" data-toggle="tab" data-target="#tabMarketNeeds"
+                   role="tab" aria-controls="tab_02" aria-selected="false" ng-bind="translation.MARKET_NEEDS">
+                    Phân khúc thị trường
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" ng-click="currentTab = 'successCriteria';displayFunction()" id="tab_04-tab" data-toggle="tab" data-target="#tabSuccessCriteria"
+                   role="tab" aria-controls="tab_04" aria-selected="false" ng-bind="translation.SUCCESS_CRITERIA">
+                    Tiêu chí thành công
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" ng-click="currentTab = 'goNotGo';displayFunction('currentTab')" id="tab_05-tab" data-toggle="tab" data-target="#tabGoNotGo"
+                   role="tab" aria-controls="tab_05" aria-selected="false" ng-bind="translation.GO_OR_NOT">
+                    Thực hiện hay không
+                </a>
+            </li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content" style="width:100%;height:100%;overflow:auto">
+            <!--<div class="tab-pane active" style="height:100%;width:100%" id="tabBriefDescription" role="tabpanel" aria-labelledby="tab_01-tab">
+                <div lv-include path="app/pm/envision" name="briefDescription" setting="0" && language="0"></div>
+            </div>-->
+            <div class="tab-pane active" style="height:100%;width:100%" id="tabBusinessObjective" role="tabpanel" aria-labelledby="tab_03-tab">
+                <div lv-include path="app/pm/envision" name="businessObjective" setting="0" && language="0"></div>
+            </div>
+            <div class="tab-pane" style="height:100%;width:100%" id="tabMarketNeeds" role="tabpanel" aria-labelledby="tab_02-tab">
+                <div lv-include path="app/pm/envision" name="marketNeeds" setting="0" && language="0"></div>
+            </div>
+            <div class="tab-pane" style="height:100%;width:100%" id="tabSuccessCriteria" role="tabpanel" aria-labelledby="tab_04-tab">
+                <div lv-include path="app/pm/envision" name="successCriteria" setting="0" && language="0"></div>
+            </div>
+            <div class="tab-pane" style="height:100%;width:100%" id="tabGoNotGo" role="tabpanel" aria-labelledby="tab_04-tab">
+                <div lv-include path="app/pm/envision" name="goNotGo" setting="0" && language="0"></div>
+            </div>
+        </div>
+    </div>
+</div>

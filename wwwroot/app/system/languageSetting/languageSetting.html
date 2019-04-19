@@ -1,0 +1,22 @@
+﻿<div id="languageSetting" class="modal modal_center fade" ng-controller="languageSettingController">
+    <div class="modal-dialog" style="width:1000px">
+        <div class="modal-content ">
+            <div class="modal-header clearfix">
+                <p style="font-size:16px;margin:0;line-height:1.9em;" class="float-left">
+                    <span ng-bind="translation.MODAL_TITLE"></span>
+                </p>
+                <div class="box_btn_02">
+                    <button type="button" class="btn_close_02" data-dismiss="modal"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-body-maincontent autoHeight">
+                    <div id="grvLanguageSetting" style="width:100%;height:100%"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn_save_02" id="btnSave" ng-click="save()" click-Once><i class="fa fa-save"></i> <span ng-bind="globalTranslation.BTN_SAVE"></span></button>
+            </div>
+        </div>
+    </div>
+</div>

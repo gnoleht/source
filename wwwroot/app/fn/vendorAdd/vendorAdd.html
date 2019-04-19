@@ -1,0 +1,418 @@
+﻿<div id="vendorAdd" ng-controller="vendorAddController" ng-init="onload()">
+    <div class="white_box clearfix">
+        <div class="fn">
+            <div class="box_control clearfix">
+                <div class="row pd_lr_5 clearfix">
+                    <div class="col-10">
+                        <ul class="box_btn mb-0 d-flex justify-content-start">
+                            <li>
+                                <button type="button" class="bg_blue_02 btn_filter">{{translation.BTNQUERY}}</button>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-2">
+                        <ul class="box_btn mb-0 float-right">
+                            <li><a class="btn_default btn_30 btn_search_click" ng-click="toogleFilter()"><i class="bowtie-icon bowtie-search-filter"></i></a></li>
+                            <li><a href="" class="btn_edit btn_30"><i class="bowtie-icon bowtie-chevron-left-light"></i></a></li>
+                            <li><a href="" class="btn_edit btn_30"><i class="bowtie-icon bowtie-chevron-right-light"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="box_filter clearfix">
+                    <ul class="box_btn mb-0 d-flex justify-content-start">
+                        <li class="w_15">
+                            <div class="btn_search">
+                                <div class="input-group">
+                                    <input id="inputSearch" type="text" class="form-control" placeholder="Mã nhà cung cấp" ng-keypress="callMethod('search', $event)">
+                                    <span class="input-group-btn">
+                                        <button ng-click="callMethod('search')" class="btn" type="button"><i class="bowtie-icon bowtie-search"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="w_15">
+                            <div class="btn_search">
+                                <div class="input-group">
+                                    <input id="inputSearch" type="text" class="form-control" placeholder="Mã số thuế" ng-keypress="callMethod('search', $event)">
+                                    <span class="input-group-btn">
+                                        <button ng-click="callMethod('search')" class="btn" type="button"><i class="bowtie-icon bowtie-search"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="w_15 select2_op2">
+                            <select select2 name="state">
+                                <option value="" disabled selected>Vùng miền</option>
+                                <option value="1">VIP</option>
+                                <option value="2">Phổ thông</option>
+                            </select>
+                        </li>
+                        <li class="w_15 select2_op2">
+                            <select select2 name="state">
+                                <option value="" disabled selected>Tỉnh thành</option>
+                                <option value="1">VIP</option>
+                                <option value="2">Phổ thông</option>
+                            </select>
+                        </li>
+                        <li class="w_15 select2_op2">
+                            <select select2 name="state">
+                                <option value="" disabled selected>Quốc gia</option>
+                                <option value="1">VIP</option>
+                                <option value="2">Phổ thông</option>
+                            </select>
+                        </li>
+                        <li class="w_10">
+                            <button type="button" class="w_100 bg_blue_02 btn_filter">Tra cứu</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="scroll clearfix">
+                <div class="main_box_item_01">
+                    <div class="clearfix box_group_02">
+                        <dl class="box_tb">
+                            <dt>
+                                <p class="title_01 cus mb-0" data-toggle="collapse" data-target="#panel_add_pc_01" aria-expanded="true" aria-controls="panel_add_pc_01"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>{{translation.TABMASTERLEFT}}</span></p>
+                            </dt>
+                            <dd class="mb-0">
+                                <div class="collapse show" id="panel_add_pc_01" aria-expanded="true" style="">
+                                    <div class="box_03 content_8_2 clearfix">
+                                        <!-- img -->
+                                        <div class="droppable-area advancedDropzone dz-clickable img float-left img_over_180" style="border:1px solid #eee;">
+                                            <img id="imgAvatar" src="/api/system/viewfile?id=null&amp;def=/img/no_avatar.png" class="img-inline dz-message img_full">
+                                        </div>
+
+                                        <div class="item border-0 content_8 float-right">
+                                            <div class="box_03 col_2 clearfix">
+                                                <div class="item mt-0">
+                                                    <!--<p class="label">{{translation.ObjectID}} <span class="cl_red">(*)</span></p>-->
+                                                    <lv-input field="ObjectID" model="data.ObjectID" setting="setting" translation="translation" change="" type="text"></lv-input>
+                                                </div>
+                                                <div class="item mt-0">
+                                                    <!--<p class="label">{{translation.ObjectName}} <span class="cl_red">(*)</span></p>-->
+                                                    <lv-input field="ObjectName" model="data.ObjectName" setting="setting" translation="translation" change="" type="text"></lv-input>
+                                                </div>
+                                            </div>
+                                            <div class="box_03 col_1 clearfix">
+                                                <div class="item txt_cut">
+                                                    <!--<p class="label">{{translation.PrimaryStreet}} <span class="cl_red">(*)</span></p>-->
+                                                    <lv-input field="PrimaryStreet" model="data.PrimaryStreet" setting="setting" translation="translation" change="" type="text"></lv-input>
+                                                </div>
+                                            </div>
+                                            <div class="box_03 col_2 clearfix">
+                                                <div class="item">
+                                                    <p class="label">{{translation.PRIMARYPROVINCE}} <span class="cl_red">(*)</span></p>
+                                                    <select select2 name="state" ng-model="data.PrimaryProvince"  ng-change="Change(data.PrimaryProvince,'PrimaryProvince')" id="PrimaryProvince">                                                      
+                                                        <option ng-repeat="province in Province" value="{{province.id}}" ng-selected="data.PrimaryProvince ==province.id">{{province.provinceName}}</option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="item border-0">
+                                                    <p class="label">{{translation.PRIMARYCOUNTRY}} <span class="cl_red">(*)</span></p>
+                                                    <select select2 name="state" ng-model="data.PrimaryCountry" ng-change="Change(data.PrimaryCountry,'PrimaryCountry')" id="PrimaryCountry">
+                                                        <option ng-repeat="country in Country" value="{{country.id}}" ng-selected="data.PrimaryCountry ==country.id">{{country.countryName}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="box_03 col_2 clearfix">
+                                                <div class="item">
+                                                    <!--<p class="label">{{translation.PrimaryPhone}}</p>-->
+                                                    <lv-input field="PrimaryPhone" model="data.PrimaryPhone" setting="setting" translation="translation" change="" type="number"></lv-input>
+
+                                                </div>
+                                                <div class="item">
+                                                    <!--<p class="label">{{translation.PrimaryFax}}</p>-->
+                                                    <lv-input field="PrimaryFax" model="data.PrimaryFax" setting="setting" translation="translation" change="" type="number"></lv-input>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </dd>
+                        </dl>
+                        <dl class="box_tb">
+                            <dt>
+                                <p class="title_01 cus mb-0" data-toggle="collapse" data-target="#panel_add_pc_02" aria-expanded="true" aria-controls="panel_add_pc_02"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>{{translation.TABMASTERRIGHT}}</span></p>
+                            </dt>
+                            <dd class="mb-0">
+                                <form name="userForm" ng-submit="submitForm(userForm.$valid)" >
+                                    <div class="collapse show" id="panel_add_pc_02" aria-expanded="true" style="">
+                                        <div class="box_02 w_100 col_1 clearfix">
+                                            <div class="item border-0 w_100">
+                                                <div class="box_03 col_2">
+                                                    <div class="item mt-0">
+                                                        <!--<p class="label">{{translation.TaxCode}}<span class="cl_red">(*)</span></p>-->
+                                                        <lv-input field="TaxCode" model="data.TaxCode" setting="setting" translation="translation" change="" type="text"></lv-input>
+
+                                                    </div>
+                                                    <div class="item mt-0">
+                                                        <!--<p class="label">{{translation.BusinessLicence}}<span class="cl_red">(*)</span></p>-->
+                                                        <lv-input field="BusinessLicence" model="data.BusinessLicence" setting="setting" translation="translation" change="" type="text"></lv-input>
+
+                                                    </div>
+                                                </div>
+                                                <div class="box_03 col_2 clearfix">
+                                                    <div class="item txt_cut">
+                                                        <!--<p class="label">{{translation.Representative}} <span class="cl_red">(*)</span></p>-->
+                                                        <lv-input field="Representative" model="data.Representative" setting="setting" translation="translation" change="" type="text"></lv-input>
+
+                                                    </div>
+                                                    <div class="item txt_cut">
+                                                        <p class="label">{{translation.REPJOBTITLEID}} <span class="cl_red">(*)</span></p>
+                                                        <select select2 name="state"  ng-model="data.RepJobTitleID" style="margin-top: 0px;" ng-change="Change(data.RepJobTitleID,'RepJobTitleID')" id="RepJobTitleID">
+                                                            <option ng-repeat="jobTitle in JobTitle" value="{{jobTitle.id}}" ng-selected="data.RepJobTitleID ==jobTitle.id">{{jobTitle.jobTitleName}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="box_03 col_2 clearfix">
+                                                    <div class="item">
+                                                        <!--<p class="label">{{translation.PrimaryEmail}} <span class="cl_red">(*)</span></p>-->
+                                                        <lv-input field="PrimaryEmail" model="data.PrimaryEmail" setting="setting" translation="translation" change="" type="email"></lv-input>
+
+                                                    </div>
+                                                    <div class="item">
+                                                        <!--<p class="label">{{translation.PrimaryWebsite}}<span class="cl_red">(*)</span></p>-->
+                                                        <lv-input field="PrimaryWebsite" model="data.PrimaryWebsite" setting="setting" translation="translation" change="" type="text"></lv-input>
+
+                                                    </div>
+                                                </div>
+                                                <div class="box_03 col_2 clearfix" style="margin-top: 10px;">
+                                                    <div class="item border-0">
+                                                        <div class="switch" ng-class="data.Active ? '' : 'change'" ng-click="data.Active = !data.Active">
+                                                            <input type="checkbox" ng-model="data.Active">
+                                                            <p class="slider mb-0 text-top"><span class="text text_release">{{translation.ACTIVE}}</span><span class="text text_accept">{{translation.UNACTIVE}}</span></p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="item border-0">
+                                                        <div class="switch" ng-class="data.Customer ? '' : 'change'" ng-click="data.Customer = !data.Customer">
+                                                            <input type="checkbox" ng-model="data.Customer">
+                                                            <p class="slider mb-0 text-top"><span class="text text_release">{{translation.CUSTOMER}}</span><span class="text text_accept">{{translation.UNCUSTOMER}}</span></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                               
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+                <div class="main_box_item_02">
+                    <ul class="box_btn mb-0">
+                        <li><a href="" class="btn_add btn_30" data-toggle="modal" data-target="#myModal"><i class="bowtie-icon bowtie-math-plus"></i></a></li>
+                        <li><a href="" class="btn_copy btn_30"><i class="bowtie-icon bowtie-edit-copy"></i></a></li>
+                        <li><a href="" class="btn_edit btn_30"><i class="bowtie-icon bowtie-edit-outline"></i></a></li>
+                        <li><a href="" class="btn_del btn_30"><i class="bowtie-icon bowtie-edit-remove"></i></a></li>
+                        <li><a href="" ng-click="toggleFullScreen()" class="btn_default btn_30"><i class="bowtie-icon bowtie-view-full-screen"></i></a></li>
+                    </ul>
+                    <ul class="nav nav-tabs bg-white" id="myTab" role="tablist">
+                        <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab_06" role="tab" aria-controls="tab_06" aria-selected="true" aria-expanded="true" ng-click="CheckTab('LienHe')">{{translation.TABDETAILCONTACT}}</a> </li>
+                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab_07" role="tab" aria-controls="tab_07" aria-selected="false" aria-expanded="false" ng-click="CheckTab('ChiNhanh')">{{translation.TABDETAILBRANCH}}</a> </li>
+                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab_08" role="tab" aria-controls="tab_08" aria-selected="false" aria-expanded="false" ng-click="CheckTab('HanMucCongNo')">{{translation.TABDETAILDEBTLIMIT}}</a> </li>
+                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab_15" role="tab" aria-controls="tab_15" aria-selected="false" aria-expanded="false" ng-click="CheckTab('HanMucCongNoQuaHan')">{{translation.TABDETAILOVERDUEDEBTLIMIT}}</a> </li>
+                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab_09" role="tab" aria-controls="tab_09" aria-selected="true" aria-expanded="true" ng-click="CheckTab('HoaDon')">{{translation.TABDETAILBILL}}</a> </li>
+                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab_10" role="tab" aria-controls="tab_10" aria-selected="false" aria-expanded="false" ng-click="CheckTab('DonHang')">{{translation.TABDETAILORDER}}</a> </li>
+                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab_11" role="tab" aria-controls="tab_11" aria-selected="false" aria-expanded="false" ng-click="CheckTab('HopDong')">{{translation.TABDETAILCONTRACT}}</a> </li>
+                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab_12" role="tab" aria-controls="tab_12" aria-selected="true" aria-expanded="true" ng-click="CheckTab('ThamSoThietLap')">{{translation.TABDETAILPARAMETERSET}}</a> </li>
+                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab_14" role="tab" aria-controls="tab_14" aria-selected="false" aria-expanded="false" ng-click="CheckTab('PhanTich')">{{translation.TABDETAILANALYSIS}}</a> </li>
+                    </ul>
+                    <div class="tab-content border_r border_l border_b">
+                        <div class="tab-pane active" id="tab_06" role="tabpanel" aria-labelledby="Chi tiết" aria-expanded="true">
+                            Liên hệ
+                            <!--TODO GRID-->
+                        </div>
+                        <div class="tab-pane" id="tab_07" role="tabpanel" aria-labelledby="Chi nhánh" aria-expanded="false">
+                            Chi nhánh
+                            <!--TODO GRID-->
+                        </div>
+                        <div class="tab-pane" id="tab_08" role="tabpanel" aria-labelledby="Hạn mức công nợ" aria-expanded="false">
+                            Hạn mức công nợ
+                            <!--TODO GRID-->
+                        </div>
+                        <div class="tab-pane" id="tab_15" role="tabpanel" aria-labelledby="Hạn mức công nợ" aria-expanded="false">
+                            Hạn mức nợ quá hạn
+                            <!--TODO GRID-->
+                        </div>
+                        <div class="tab-pane" id="tab_09" role="tabpanel" aria-labelledby="Hóa đơn" aria-expanded="false">
+                            Hóa đơn
+                            <!--TODO GRID-->
+                        </div>
+                        <div class="tab-pane" id="tab_10" role="tabpanel" aria-labelledby="Đơn hàng" aria-expanded="false">
+                            Đơn hàng
+                            <!--TODO GRID-->
+                        </div>
+                        <div class="tab-pane" id="tab_11" role="tabpanel" aria-labelledby="Hợp đồng" aria-expanded="false">
+                            Hợp đồng
+                            <!--TODO GRID-->
+                        </div>
+                        <div class="tab-pane" id="tab_12" role="tabpanel" aria-labelledby="Thông số thiết lập" aria-expanded="false">
+                            <div class="clearfix box_group_02">
+                                <dl class="box_tb box_tb_01 mb-0">
+                                    <dt class="clearfix pos_re">
+                                        <p class="title_01 cus mb-0" data-toggle="collapse" data-target="#panel_05" aria-expanded="true" aria-controls="panel_05"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>Đối tượng hóa đơn</span></p>
+                                    </dt>
+                                    <dd class="mb_10">
+                                        <div class="collapse show" id="panel_05" aria-expanded="true" style="">
+                                            <div class="box_03 col_2 clearfix">
+                                                <div class="item txt_cut">
+                                                    <p class="label">Đối tượng xuất hóa đơn</p>
+                                                    <select select2 name="state" ng-model="data.InvoiceAccount" style="margin-top: 0px;" >
+                                                        <option ng-repeat="object in Object" value="{{object.id}}" ng-selected="data.InvoiceAccount ==object.id">{{object.objectName}}</option>
+                                                    </select>
+                                                </div>
+                                                <div class="item txt_cut">
+                                                    <p class="label">Nguyên tắc cấn trừ HD</p>
+                                                    <select select2 name="state" ng-model="data.SettlementPrinciple" ng-init="data.SettlementPrinciple = SettlementPrinciple[0].id" style="margin-top: 0px;">
+                                                        <option ng-repeat="settlementPrinciple in SettlementPrinciple" value="{{settlementPrinciple.id}}" ng-selected="data.SettlementPrinciple ==settlementPrinciple.id">{{settlementPrinciple.value}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="box_03 col_2 clearfix">
+                                                <div class="item txt_cut">
+                                                    <p class="label">Cập nhật hóa đơn</p>
+                                                    <select select2 name="state" ng-model="data.InvoiceUpdate" style="margin-top: 0px;" ng-init="data.InvoiceUpdate = InvoiceUpdate[0].id" >
+                                                        <option ng-repeat="invoiceUpdate in InvoiceUpdate" value="{{invoiceUpdate.id}}" ng-selected="data.InvoiceUpdate ==invoiceUpdate.id">{{invoiceUpdate.value}}</option>
+                                                    </select>
+                                                </div>
+                                                <div class="item txt_cut">
+                                                    <p class="label">Tiền tệ</p>
+                                                    <select class="select" name="state" select2>
+                                                        <option value="1" selected>VND</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl class="box_tb box_tb_01 mb-0">
+                                    <dt class="clearfix pos_re">
+                                        <p class="title_01 cus mb-0" data-toggle="collapse" data-target="#panel_05" aria-expanded="true" aria-controls="panel_05"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>Thanh toán và giao hàng</span></p>
+                                    </dt>
+                                    <dd class="mb_10">
+                                        <div class="collapse show" id="panel_05" aria-expanded="true" style="">
+                                            <div class="box_03 col_3 clearfix">
+                                                <div class="item txt_cut">
+                                                    <p class="label">Hình thức thanh toán</p>
+                                                    <select class="select" name="state" select2>
+                                                        <option value="1" selected>Tiền mặt/Chuyển khoản</option>
+                                                    </select>
+                                                </div>
+                                                <div class="item txt_cut">
+                                                    <p class="label">Điều khoản thanh toán</p>
+                                                    <select class="select" name="state" select2>
+                                                        <option value="1" selected>Thời gian thanh toán 30 ngày</option>
+                                                    </select>
+                                                </div>
+                                                <div class="item txt_cut">
+                                                    <p class="label">Chiết khấu thanh toán</p>
+                                                    <input type="text" class="iput" placeholder="5%">
+                                                </div>
+                                            </div>
+                                            <div class="box_03 col_2 clearfix">
+                                                <div class="item txt_cut">
+                                                    <p class="label">Hình thức giao hàng</p>
+                                                    <select class="select" name="state" select2>
+                                                        <option value="1" selected></option>
+                                                    </select>
+                                                </div>
+                                                <div class="item txt_cut">
+                                                    <p class="label">Điều khoản giao hàng</p>
+                                                    <select class="select" name="state" select2>
+                                                        <option value="1" selected></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab_14" role="tabpanel" aria-labelledby="Phân tích" aria-expanded="false">
+                            <dl class="box_tb box_tb_01 mb-0">
+                                <dd class="mb_10">
+                                    <div class="collapse show" id="panel_05" aria-expanded="true" style="">
+                                        <div class="box_03 col_5 clearfix">
+                                            <div class="item txt_cut border-0">
+                                                <p class="label">Nguồn nhà cung cấp</p>
+                                                <select class="select" name="state" select2>
+                                                    <option value="1" selected>Chiến dịch email marketing</option>
+                                                </select>
+                                            </div>
+                                            <div class="item txt_cut border-0">
+                                                <p class="label">Thị trường</p>
+                                                <select class="select" name="state" select2>
+                                                    <option value="1" selected>Châu Á</option>
+                                                </select>
+                                            </div>
+                                            <div class="item txt_cut">
+                                                <p class="label">Quy mô nhân sự</p>
+                                                <input type="text" class="iput" placeholder="500">
+                                            </div>
+                                            <div class="item txt_cut border-0">
+                                                <p class="label">Mã phân tích 7</p>
+                                                <select class="select" name="state" select2>
+                                                    <option value="1" selected></option>
+                                                </select>
+                                            </div>
+                                            <div class="item txt_cut border-0">
+                                                <p class="label">Mã phân tích 9</p>
+                                                <select class="select" name="state" select2>
+                                                    <option value="1" selected></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </dd>
+                            </dl>
+                            <dl class="box_tb box_tb_01 mb-0">
+                                <dd class="mb_10">
+                                    <div class="collapse show" id="panel_05" aria-expanded="true" style="">
+                                        <div class="box_03 col_5 clearfix">
+                                            <div class="item txt_cut">
+                                                <p class="label">Loại hình</p>
+                                                <input type="text" class="iput" placeholder="Cổ phần">
+                                            </div>
+                                            <div class="item txt_cut border-0">
+                                                <p class="label">Nhóm nhà cung cấp</p>
+                                                <select class="select" name="state" select2>
+                                                    <option value="1" selected>Khách hàng sỉ</option>
+                                                </select>
+                                            </div>
+                                            <div class="item txt_cut border-0">
+                                                <p class="label">Mã phân tích 6</p>
+                                                <select class="select" name="state" select2>
+                                                    <option value="1" selected></option>
+                                                </select>
+                                            </div>
+                                            <div class="item txt_cut border-0">
+                                                <p class="label">Mã phân tích 8</p>
+                                                <select class="select" name="state" select2>
+                                                    <option value="1" selected></option>
+                                                </select>
+                                            </div>
+                                            <div class="item txt_cut border-0">
+                                                <p class="label">Mã phân tích 10</p>
+                                                <select class="select" name="state" select2>
+                                                    <option value="1" selected></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+   
+        $('span.select2-selection').css({ 'background-color': '#fffbfa !important', 'border-bottom': '1px solid #ff867e !important' });
+     
+</script>

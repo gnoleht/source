@@ -1,0 +1,80 @@
+﻿<div id="formSetting" class="modal modal_center fade" ng-controller="formSettingController">
+    <div class="modal-dialog" style="width:800px">
+        <div class="modal-content">
+            <div class="modal-header clearfix">
+                <p style="font-size:16px;margin:0;line-height:1.9em;" class="float-left">
+                    <span ng-bind="translation.MODAL_TITLE"></span>
+                </p>
+                <div class="box_btn_02">
+                    <button type="button" class="btn_close_02" data-dismiss="modal" title="{{translation.BTN_CLOSE}}"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-body-maincontent">
+                    <div style="width:100%;height:400px;display:block;font-size:14px">
+                        <div style="float:left;width:40%;height:calc(100% - 40px)">
+                            <label style="color:#6e6e6e;margin-bottom:10px !important;font-size:13px" ng-bind="translation.AVAIABLE_COLUMN"></label>
+                            <div id="hiddenList" style="width:100%;height:100%;border:1px solid #ddd;overflow:auto">
+                                <ul class="mb-0 lv_folder_01">
+                                    <li ng-repeat="item in hiddenColumns" style="font-size: 14px">
+                                        <p id="column_{{item.id}}" class="folder_item" style="padding:5px 5px;border-bottom:none;cursor:pointer" ng-click="selectColumn(item.id, item)" ng-dblclick="updateColumn(item)">
+                                            <i class="bowtie-icon bowtie-tag-fill"></i>
+                                            <span style="padding-left:5px">{{item.name}}</span>
+                                        </p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div style="width:10%;height:100%;float:left">
+                            <div style="height:100%;padding-top:183px;padding-left:calc((100% - 33px) / 2)">
+                                <a class="btn_refresh btn_33" ng-click="buttonUpdateColumn()">
+                                    <i class="bowtie-icon bowtie-switch"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div style="width:40%;height:calc(100% - 40px);float:left">
+                            <label style="color:#6e6e6e;margin-bottom:10px !important;font-size:13px" ng-bind="translation.SELECTED_COLUMN"></label>
+                            <div id="visibleList" style="width:100%;height:100%;border:1px solid #ddd;overflow:auto">
+                                <ul class="mb-0 lv_folder_01">
+                                    <li ng-repeat="item in columns" ng-if="item.name" style="font-size: 14px">
+                                        <p id="column_{{item.id}}" class="folder_item" style="padding:5px 5px;border-bottom:none;cursor:pointer" ng-click="selectColumn(item.id, item, '1')" ng-dblclick="updateColumn(item, '1')">
+                                            <i class="bowtie-icon bowtie-tag"></i>
+                                            <span style="padding-left:5px">{{item.name}}</span>
+                                        </p>
+                                        <ul ng-if="item.children" class="mb-0 lv_folder_01" style="padding-left:20px">
+                                            <li ng-repeat="childItem in item.children" ng-if="childItem.name">
+                                                <p id="column_{{childItem.id}}" class="folder_item" style="padding:5px 5px;border-bottom:none;cursor:pointer" ng-click="selectColumn(childItem.id, childItem, '1', item.id)">
+                                                    <i class="bowtie-icon bowtie-tag"></i>
+                                                    <span style="padding-left:5px">{{childItem.name}}</span>
+                                                </p>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div style="width:10%;height:100%;float:left">
+                            <div style="padding-top:120px;padding-left:calc((100% - 20px) / 2)">
+                                <a class="btn_refresh btn_33" ng-click="upColumn()">
+                                    <i class="bowtie-icon bowtie-arrow-up"></i>
+                                </a>
+                            </div>
+                            <div style="height:40px;padding-left:calc((100% - 20px) / 2);margin-top:5px">
+                                <a class="btn_refresh btn_33" ng-click="downColumn()">
+                                    <i class="bowtie-icon bowtie-arrow-down"></i>
+                                </a>
+                            </div>
+                            <div style="display:block;padding-left:15px">
+                                <label style="color:#6e6e6e" ng-bind="translation.WIDTH"></label>
+                                <input id="txtWidth" type="number" class="select-border" ng-model="column.width" style="width:100%;text-align:left" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn_save_02" id="btnSave" ng-click="save()" click-Once><i class="fa fa-save"></i> <span ng-bind="globalTranslation.BTN_SAVE"></span></button>
+            </div>
+        </div>
+    </div>
+</div>

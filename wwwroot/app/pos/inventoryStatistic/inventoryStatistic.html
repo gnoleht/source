@@ -1,0 +1,161 @@
+﻿<div id="inventoryStatistic" ng-controller="inventoryStatisticController" class="pos">
+    <div class="white_box">
+        <div class="box_filter clearfix">
+            <ul class="box_btn mb-0 d-flex justify-content-start">
+                <!--<li class="w_15 select2_op2">
+                    <div class="btn_search">
+                        <div class="input-group">
+                            <input type="text" id="full_text_filter" class="form-control" placeholder="{{translation.SEARCH}}" ng-keypress="searchFull($event)">
+                            <span class="input-group-btn">
+                                <button class="btn" type="button" ng-click="searchFull()"><i class="bowtie-icon bowtie-search"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                </li>-->
+
+
+                <li class="w_15 select2_op2">
+                    <lv-combobox element-id="cmbStoreId" field="cmbStoreId" option="cmbStoreId" model="storeFilter" tab="2">
+                    </lv-combobox>
+                </li>
+
+                <li class="w_15 select2_op2">
+                    <lv-select element-id="timeMark" field="timeMark" model="timeMark" setting="setting" change="changeTimeMark()" translation="translation" tab="1" nolabel="hidden" allowclear="true" placeholder="{{translation.TIMEMARK}}"></lv-select>
+                </li>
+
+                <li class="w_15 select2_op2">
+                    <lv-datepicker field="fromDate" model="fromDate" setting="setting" translation="translation" tab="3" placeholder="{{translation.FROMDATE}}" nolabel="hidden"></lv-datepicker>
+                </li>
+                <li class="w_15 select2_op2">
+                    <lv-datepicker field="toDate" model="toDate" setting="setting" translation="translation" tab="4" placeholder="{{translation.TODATE}}" nolabel="hidden"></lv-datepicker>
+                </li>
+                <li>
+                    <button type="button" class="bg_blue_02 btn_filter w_100" ng-click="searchObject()">{{translation.FILTER}}</button>
+                </li>
+            </ul>
+        </div>
+        <div class="box_item clearfix d-flex data-wrapper">
+            <a>
+                <div class="item item_document" style="width: 100%">
+                    <div class="title">
+                        <div class="text">{{translation.OPENINGSTOCK}}</div>
+                    </div>
+                    <div class="info">
+                        <div class="number">
+                            <div class="mb_5 txt_cut ng-binding">Tổng tiền</div>
+                            <b>{{statistic.openingStock.sum | number:0}}</b>
+                        </div>
+                        <div class="number">
+                            <div class="mb_5 txt_cut ng-binding">Số lượng</div>
+                            <b>{{statistic.openingStock.count | number:0}}</b>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            <a>
+                <div class="item item_requirement" style="width: 100%">
+                    <div class="title">
+                        <div class="text">{{translation.SUMIMPORT}}</div>
+                    </div>
+                    <div class="info">
+                        <div class="number">
+                            <div class="mb_5 txt_cut ng-binding">Tổng tiền</div>
+                            <b>{{statistic.import.sum | number:0}}</b>
+                        </div>
+                        <div class="number">
+                            <div class="mb_5 txt_cut ng-binding">Số lương</div>
+                            <b>{{statistic.import.count | number:0}}</b>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            <a>
+                <div class="item item_epic" style="width: 100%">
+                    <div class="title">
+                        <div class="text">{{translation.SUMEXPORT}}</div>
+                    </div>
+                    <div class="info">
+                        <div class="number">
+                            <div class="mb_5 txt_cut ng-binding">Tổng tiền</div>
+                            <b>{{statistic.export.sum | number:0}}</b>
+                        </div>
+                        <div class="number">
+                            <div class="mb_5 txt_cut ng-binding">Số lượng</div>
+                            <b>{{statistic.export.count | number:0}}</b>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            <a>
+                <div class="item item_function" style="width: 100%">
+                    <div class="title">
+                        <div class="text">{{translation.CLOSINGSTOCK}}</div>
+                    </div>
+                    <div class="info">
+                        <div class="number">
+                            <div class="mb_5 txt_cut ng-binding">Tổng tiền</div>
+                            <b>{{statistic.closingStock.sum | number:0}}</b>
+                        </div>
+                        <div class="number">
+                            <div class="mb_5 txt_cut ng-binding">Số lượng</div>
+                            <b>{{statistic.closingStock.count | number:0}}</b>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <ul class="nav nav-tabs bg-white" role="tablist" id="myTab">
+            <li class="nav-item">
+                <a class="nav-link active" data-target="#statistic01" id="tab_01-tab" data-toggle="tab" role="tab" aria-controls="statistic01" aria-selected="true" ng-click="resizeGrid()">Thống kê xuất nhập tồn kho</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-target="#statistic02" id="tab_02-tab" data-toggle="tab" role="tab" aria-controls="statistic02" aria-selected="true" ng-click="resizeGrid()">Sản phẩm bán chạy, bán chậm</a>
+            </li>
+        </ul>
+        <div class="tab-content tab-content-sprint" style="padding: 0px; height: calc(100% - 200px);">
+            <div class="tab-pane active" id="statistic01" role="tabpanel" aria-labelledby="statistic01">
+                <dl class="mb-0 box_pd" style="width: 100%; height: 100%;">                    
+                    <dd style="width:100%;height:100%;">
+                        <div class="wrapper">
+                            <div class="gridWrapper">
+                                <div id="grvInventoryStatistic" class="control-grid wrapper" style="width:100%;height:100%"></div>
+                            </div>
+                        </div>
+                    </dd>
+                </dl>
+            </div>
+            <div class="tab-pane" id="statistic02" role="tabpanel" aria-labelledby="statistic02">
+                <dl class="mb-0 box_pd" style="width: 100%; height: 50%;">
+                    <dt class="clearfix pos_re">
+                        <a class="title_01 bg_blue_01">
+                            <span>{{translation.TOPBESTSELL}}</span>
+                        </a>
+                    </dt>
+                    <dd style="width:100%;height:calc(100% - 25px)">
+                        <div class="wrapper">
+                            <div class="gridWrapper">
+                                <div id="grvBest" class="control-grid wrapper" style="width:100%;height:100%"></div>
+                            </div>
+                        </div>
+                    </dd>
+                </dl>
+                <dl class="mb-0 box_pd" style="width: 100%; height: 50%;">
+                    <dt class="clearfix pos_re">
+                        <a class="title_01 bg_blue_01">
+                            <span>{{translation.TOPWORSTSELL}}</span>
+                        </a>
+                    </dt>
+                    <dd style="width:100%;height:calc(100% - 25px)">
+                        <div class="wrapper">
+                            <div class="gridWrapper">
+                                <div id="grvWorst" class="control-grid wrapper" style="width:100%;height:100%"></div>
+                            </div>
+                        </div>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+
+

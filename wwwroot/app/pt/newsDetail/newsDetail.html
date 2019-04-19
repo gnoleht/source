@@ -1,0 +1,91 @@
+﻿<style>
+    #newsDetail dl {
+        border: 1px solid #ddd;
+        padding: 5px;
+        background-color: #fff;
+    }
+    #newsDetail dd {
+        padding-top: 10px;
+    }
+    #newsDetail .item {
+        display: flex;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 10px;
+    }
+    #newsDetail a:last-child .item {
+        margin-bottom: 0;
+        border-bottom: 0;
+        padding-bottom: 0;
+    }
+    #newsDetail .img {
+        width: 100px;
+        height: 100px;
+        margin-right: 10px;
+    }
+    #newsDetail .main_content {
+        width: calc(100% - 110px);
+    }
+    #newsDetail .title {
+        height: 25px;
+        font-weight: bold;
+        color: #555;
+        margin-bottom: 5px;
+        text-overflow: ellipsis;
+    }
+    #newsDetail .content {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+        height: 45px;
+        margin-bottom: 5px;
+        color: #555;
+    }
+    #newsDetail .time {
+        font-size: 12px;
+        font-style: italic;
+        margin: 0;
+        color: #555;
+    }
+        #newsDetail .time span {
+            color: #008ccb;
+        }
+</style>
+
+<div id="newsDetail" ng-controller="newsDetailController">
+    <div class="white_box">
+        <div class="content_6_4" id="contentDetail">
+            <div class="content_6" style="float: left">
+                <div class="mr-20 mb-10" style="font-size: 24px;color: #0074a9;width: calc(100% - 170px)">{{data.title}}</div>
+                <div class="mb-10" style="font-style: italic">
+                    <span ng-bind="::translation.POSTED_DATE"></span>: <span style="color: #008ccb;" ng-bind="data.publicationTime | date:'dd/MM/yyyy'"></span> -
+                    <span ng-bind="::translation.POSTED_BY"></span>: <span style="color: #008ccb;" ng-bind="data.createdByRef.displayName"></span>
+                    <span ng-if="data.source"> - <span ng-bind="::translation.SOURCE"></span>: <span style="color: #008ccb;" ng-bind="data.source"></span></span>
+                </div>
+                <div class="mb-10" style="font-weight: bold"><span ng-bind="data.describe"></span></div>
+                <div style="max-width: 100%;overflow: hidden;" ng-bind-html="data.content | trustAsHtml"></div>
+            </div>
+            <div ng-show="listRelated && listRelated.length > 0" class="content_4" style="position: fixed;top: 100px;right: 20px;padding-right: 10px">
+                <dl class="mb-0">
+                    <dt class="clearfix pos_re">
+                        <a class="title_01 bg_blue_01">
+                            <span ng-bind="::translation.RELATED_NEWS">Tin tức liên quan</span>
+                        </a>
+                    </dt>
+                    <dd style="width:100%;height:calc(100% - 25px)">
+                        <a href="pt/newsDetail?code={{item.code}}" ng-repeat="item in listRelated">
+                            <div class="item clearfix" title="{{item.title}}">
+                                <div class="img" style="background:#eee url({{'/api/system/viewfile?id='+ item.pictureThumb + '&def=/img/pic_upload.png'}}) no-repeat center center;"></div>
+                                <div class="main_content">
+                                    <p class="title txt_cut">{{item.title}}</p>
+                                    <p class="content">{{item.describe}}</p>
+                                    <p class="time right">{{::translation.POSTED_DATE}}: <span ng-bind="data.publicationTime | date:'dd/MM/yyyy'"></span></p>
+                                </div>
+                            </div>
+                        </a>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>

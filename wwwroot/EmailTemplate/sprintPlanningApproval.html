@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <table width="100%" border="0" cellspacing="0" cellpadding="10">
+        <tr>
+            <td>Dear Sponsor,</td>
+        </tr>
+        <tr>
+            <td align="justify">
+                I would like to send you the request for approval the sprint planning of project {{ProjectName}} created by PO/SM {{PO}} with detail information as below.
+                Please take time to review and approve or reject this sprint planning. <span style="color: red">The sprint be active for team member can update task untill you are approved.</span>
+            </td>
+        </tr>
+        <tr>
+            <td align="justify">
+                Hệ thống gửi đến bạn yêu cầu phê duyệt cho Kỳ Công việc của dự án {{ProjectName}} được tạo bởi PO/SM {{PO}} với thông tin chi tiết như bên dưới.
+                Vui lòng xem qua và chọn phê duyệt hay từ chối. <span style="color: red">Kỳ công việc này chỉ được Active cho phép các thành viên cập nhật công việc khi bạn phê duyệt.</span>
+            </td>
+        </tr>
+        <tr>
+            <td align="center">
+                <table width="50%" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td>
+                            <table cellpadding="5" width="100%">
+                                <tr>
+                                    <td><strong>{{Title}}</strong></td>
+                                </tr>
+                            </table>
+                            <table cellpadding="10" width="100%">
+                                <tr>
+                                    <td>
+                                        <table cellpadding="10" width="100%" style="border-top: 1px solid #f8981d;">
+                                            <tr>
+                                                <td>Project Name: <strong>{{ProjectName}}</strong></td>
+                                            </tr>
+                                        </table>
+                                        <table cellpadding="10" width="100%">
+                                            <tr>
+                                                <td>Sprint Name: <strong>{{Name}}</strong></td>
+                                            </tr>
+                                        </table>
+                                        <table cellpadding="10" width="100%">
+                                            <tr>
+                                                <td>From: <strong>{{StartDate}}</strong> - To: <strong>{{EndDate}}</strong></td>
+                                            </tr>
+                                        </table>
+                                        <table cellpadding="10" width="100%">
+                                            <tr>
+                                                <td>
+                                                    <table width="50%" cellpadding="0">
+                                                        <tr>
+                                                            <td width="90%">Current Sprint Stories Point: </td>
+                                                            <td width="10%" style="border-bottom: 1px solid #f8981d;" align="center"><strong>{{CurrentSprintStoriesPoint}}</strong></td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <table width="50%" cellpadding="0">
+                                                        <tr>
+                                                            <td width="90%">Average Stories Point: </td>
+                                                            <td width="10%" style="border-bottom: 1px solid #f8981d;" align="center"><strong>{{AverageStoriesPoint}}</strong></td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <table cellpadding="10" width="100%">
+                                            <tr>
+                                                <td>Team Capacity: <strong>{{Remaining}}/{{Capacity}} hours</strong></td>
+                                            </tr>
+                                        </table>
+                                        <table cellpadding="10" width="100%">
+                                            <tr>
+                                                <td>
+                                                    <table width="100%">
+                                                        <tr>
+                                                            <td bgcolor="#30B98F" width="{{Total}}%"></td>
+                                                            <td bgcolor="#dadada" height="20" width="{{Total2}}%"></td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <table cellpadding="5" width="100%" style="border-top: 1px solid #f8981d;">
+                                            <tr>
+                                                <td align="right">
+                                                    <table width="200">
+                                                        <tr align="right">
+                                                            {{ButtonContent}}
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Yours sincerely,</td>
+        </tr>
+        <tr>
+            <td><strong>ERP_Project Management Module</strong></td>
+        </tr>
+        <tr>
+            <td>-----------------------------------------------------------------------------</td>
+        </tr>
+        <tr>
+            <td>Lac Viet Computing Corp.</td>
+        </tr>
+        <tr>
+            <td>23 Nguyen Thi Huynh St., Phu Nhuan Dist., HCMC., Vietnam</td>
+        </tr>
+        <tr>
+            <td>Tel: (84-28) 3842 3333 - Ext 521  |  Fax: (84-28) 3842 2370</td>
+        </tr>
+        <tr>
+            <td>Website: <a href="http://www.lacviet.com.vn">http://www.lacviet.com.vn</a></td>
+        </tr>
+    </table>
+</body>
+</html>

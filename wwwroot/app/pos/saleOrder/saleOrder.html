@@ -1,0 +1,153 @@
+﻿<!--<style>
+    input[type=number]::-webkit-inner-spin-button {
+      display: none;
+    }
+</style>-->
+<div id="saleOrder" ng-controller="saleOrderController" class="pos">
+    <div class="white_box">
+        <div class="box_filter clearfix">
+            <ul class="box_btn mb-0 d-flex justify-content-end">
+                <li class="w_15 select2_op2">
+                    <div class="btn_search">
+                        <div class="input-group">
+                            <input type="text" id="full_text_filter" class="form-control" placeholder="Tìm phiếu" ng-keypress="search($event, 1)">
+                            <span class="input-group-btn">
+                                <button class="btn" type="button" ng-click="search($event, 1, 1)"><i class="bowtie-icon bowtie-search"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                </li>
+                <li class="w_15 select2_op2">
+                    <lv-combobox field="cmbStoreFilter" option="cmbStoreFilter" model="storeFilter" tab="0" label="">
+                    </lv-combobox>
+
+                </li>
+                <li class="w_15 select2_op2">
+                    <lv-select field="dateTypeFilter" model="dateTypeFilter" setting="setting" translation="translation" tab="0" change="dateTypeChange()" allowclear="true" placeholder="{{translation.DATETYPEFILTERXXX}}"></lv-select>
+
+                    <!--<select select2>
+                        <option value="1" selected>Mốc thời gian</option>
+                    </select>-->
+                </li>
+                <li class="w_15 select2_op2">
+                    <!--<select select2>
+                        <option value="1" selected>Từ ngày</option>
+                    </select>-->
+                    <lv-datepicker field="dateFromFilterxxx" model="dataFilter.dateFromFilter" setting="setting" translation="translation" nolabel="hidden" tab="0" style="width: 100%" placeholder="{{translation.DATEFROMFILTER}}"></lv-datepicker>
+                </li>
+                <li class="w_15 select2_op2">
+                    <lv-datepicker field="dateToFilterxxx" model="dataFilter.dateToFilter" setting="setting" translation="translation" nolabel="hidden" tab="0" style="width: 100%" placeholder="{{translation.DATETOFILTER}}"></lv-datepicker>
+                    <!--<select select2>
+                        <option value="1" selected>Đến ngày</option>
+                    </select>-->
+                </li>
+                <li>
+                    <button type="button" class="bg_blue_02 btn_filter w_100" ng-click="searchObject()">Lọc</button>
+                </li>
+            </ul>
+        </div>
+        <div class="content_6_4 clearfix">
+            <div class="content_4 mr_10 float-left">
+                <dl class="wrapper">
+                    <dt>
+                        <a class="title_02 bg_gray_01 pos_re">
+                            <span ng-bind="::translation.LISTRECEIPTS">Thông tin chung</span>
+                        </a>
+                    </dt>
+                    <dd class="pos_re" style="height: calc(100% - 30px)">
+                        <div class="box_01 scroll" style="height: calc(100% - 50px)">
+                            <div class="item itemSaleOrder" id="{{item.id}}" ng-class="dataChoose.id == item.id ? 'active' : ''" ng-repeat="item in dataRoot.data" ng-click="chooseSaleOrder(item)" ng-dblclick="setupEdit(item)">
+                                <ul class="clearfix">
+                                    <li class="float-left w-50 txt_cut"><a class="link">{{item.code}}</a></li>
+                                    <li class="float-right">{{item.docDate | date:'dd-MM-yyyy'}}</li>
+                                </ul>
+                                <p class="txt_cut mb_5">{{item.memo}}</p>
+                                <ul class="clearfix">
+                                    <li class="float-right"><b>{{item.totalAmount | number:0}}</b></li>
+                                    <!--<li class="float-right"><b>{{sum(item.saleOrderDetailRelateds, 'sellingAmount') | number:0}}</b></li>-->
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="box_footer">
+                            <div>
+                                <b>{{translation.TOTALPAGE}}: <span class="link">{{dataRoot.totalItem}}</span></b>
+                            </div>
+                            <div style="font-weight: bold; position: absolute; right: 125px">
+                                {{translation.PAGE}}: <input id="pageInput" type="number" name="page" value="{{dataRoot.pageCurrent}}" /> / {{dataRoot.totalPage}}
+                            </div>
+                            <div class="button-left-wrapper">
+                                <div class="btn_add_02 mr_5" title="Previous"><i class="bowtie-icon bowtie-chevron-left-light" ng-click="prev(dataRoot.pageCurrent - 1)"></i></div>
+                                <div class="btn_add_02" title="Next"> <i class="bowtie-icon bowtie-chevron-right-light" ng-click="next(dataRoot.pageCurrent + 1)"></i></div>
+                            </div>
+                        </div>
+                    </dd>
+                </dl>
+            </div>
+            <div class="content_6 float-right">
+                <div class="modal-02 clearfix mb_20">
+                    <dl class="mb-0 mr-20" style="flex-grow: 1; flex-basis: 0; width: calc(50% - 10px)">
+                        <dt><a class="title_02 bg_gray_01" data-toggle="collapse" data-target="#multiCollapse_01" aria-expanded="true" aria-controls="multiCollapse_01"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow mr_5"></i>{{translation.GENERALINFO}}</a></dt>
+                        <dd>
+                            <div class="multi-collapse show" id="multiCollapse_01" aria-expanded="true">
+                                <div class="d-flex w_100">
+                                    <div class="col-left">
+                                        <!-- <p>Ngành hàng:</p>-->
+                                        <p>{{translation.CUSTNAME}}:</p>
+                                        <p>{{translation.TABLEID}}:</p>
+                                        <p>{{translation.CHECKIN}}:</p>
+                                        <p>{{translation.CHECKOUT}}:</p>
+                                    </div>
+                                    <div class="col-right">
+                                        <!-- <p class="txt_cut">Hàng hóa</p>-->
+                                        <p class="txt_cut" ng-bind="dataChoose.custName"></p>
+                                        <p class="txt_cut" ng-bind="dataChoose.tableRelated.name"></p>
+                                        <p class="txt_cut" ng-bind="dataChoose.checkIN | date:'dd/MM/yyyy h:mma'"></p>
+                                        <p class="txt_cut" ng-bind="dataChoose.checkOUT | date:'dd/MM/yyyy h:mma'"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </dd>
+                    </dl>
+                    <dl class="mb-0" style="flex-grow: 1; flex-basis: 0">
+                        <dt><a class="title_02 bg_gray_01" data-toggle="collapse" data-target="#multiCollapse_02" aria-expanded="true" aria-controls="multiCollapse_02"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow mr_5"></i>{{translation.CERTIFICATE}}</a></dt>
+                        <dd>
+                            <div class="multi-collapse show" id="multiCollapse_02" aria-expanded="true">
+                                <div class="d-flex w_100">
+                                    <div class="col-left">
+                                        <!-- <p>Ngành hàng:</p>-->
+                                        <p>{{translation.CODE1}}:</p>
+                                        <p>{{translation.DOCDATE}}:</p>
+                                        <p>{{translation.CASHIERID}}:</p> <!--THUNNGAN-->
+                                        <p>{{translation.STOREID1}}:</p> <!--THUNNGAN-->
+                                    </div>
+                                    <div class="col-right">
+                                        <!-- <p class="txt_cut">Hàng hóa</p>-->
+                                        <p class="txt_cut" ng-bind="dataChoose.code"></p>
+                                        <p class="txt_cut" ng-bind="dataChoose.docDate | date:'dd/MM/yyyy'"></p>
+                                        <p class="txt_cut" ng-bind="dataChoose.cashierRelated.displayName"></p>
+                                        <p class="txt_cut" ng-bind="dataChoose.storeRelated.name"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="modal-01 clearfix wrapper">
+                    <dl class="mb-0 wrapper">
+                        <dt><a class="title_02 bg_gray_01" data-toggle="collapse" data-target="#multiCollapse_03" aria-expanded="true" aria-controls="multiCollapse_03"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow mr_5"></i>{{translation.DETAILS}}</a></dt>
+                        <dd style="height: calc(100% - 180px)">
+                            <div class="multi-collapse show wrapper gridWrapper" id="multiCollapse_03" aria-expanded="true">
+                                <div id="grvSaleOrder" class="control-grid wrapper" style="max-height: 250px"></div>
+                                <div id="grvSaleOrderPair" class="control-grid wrapper" style="max-height: 250px"></div>
+                            </div>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+

@@ -1,0 +1,40 @@
+﻿
+<div class="modal fade modal_center" role="dialog" id="modal-add-link" ng-init="onLoad()">
+    <div class="modal-dialog" style="width:980px" tabindex="-1">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <p style="font-size:16px;margin:0;line-height:1.9em;" class="float-left"><span>ADD RELATED</span></p>
+                <div class="box_btn_02">
+                    <!--<button type="button" class="fullscreen btn-modal-screen" title="{{::translation.BTN_SCREEN}}"><i onclick="fullscreen('modal-add-link')" class="bowtie-icon bowtie-view-full-screen"></i></button>-->
+                    <button type="button" class="btn_close_02" ng-click="closeAddLink()"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-body-box clearfix">
+                    <div class="modal-body-box_01 float-left">
+                        <h4>Select the link type and the details</h4>
+                        <lv-select element-id="vllRelatedLinkType" field="linkType" model="findLink.linkType" setting="setting" translation="translation" tab="51" style="margin-bottom: 10px !important; margin-top: 10px"></lv-select>
+                        <h4>Choose linked work items</h4>
+                        <lv-select ng-if="params.pid" element-id="vllRelatedProject" field="project" model="findLink.projectId" setting="setting" translation="translation" tab="52" class="clearfix"  style="margin-bottom: 10px !important; margin-top: 10px"></lv-select>
+                        <lv-select element-id="vllitemType" field="relatedType" model="findLink.itemType" setting="setting" translation="translation" tab="53" class="clearfix" style="margin-bottom: 10px !important; margin-top: 10px"></lv-select>
+                        <lv-input element-id="txtTitleContains"
+                                  field="titleContains"
+                                  model="findLink.titleContains"
+                                  setting="setting"
+                                  translation="translation"
+                                  type="text"></lv-input>
+                        <button class="btn btn_save_02 float-right mt-2" type="button" ng-click="getLink()"><i class="bowtie-icon bowtie-search"></i>&nbsp;<span>Find</span></button>
+                    </div>
+                    <div class="modal-body-box_02 float-right" style="position:relative">
+                        <!--<h5 class="font-weight-light"><em>Select item to add to the work item list</em></h5>-->
+                        <div id="gridWorkItemLink" style="width:100%;height:100%"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button ng-click="saveLink()" type="button" class="btn btn_save_02" click-Once><i class="bowtie-icon bowtie-save"></i><span ng-bind="::translation.BTN_SAVE_CLOSE">Lưu & đóng</span></button>
+            </div>
+        </div>
+    </div>
+</div>

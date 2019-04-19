@@ -1,0 +1,257 @@
+﻿<div id="inventoryBalance" ng-controller="inventoryBalanceController" class="pos">
+    <div class="white_box">
+        <div class="box_filter clearfix">
+            <ul class="box_btn mb-0 d-flex justify-content-start">
+                <li class="w_15 select2_op2">
+                    <div class="btn_search">
+                        <div class="input-group">
+                            <input type="text" id="full_text_filter" class="form-control" placeholder="{{translation.SEARCH}}" ng-keypress="searchFull($event)" tab="1">
+                            <span class="input-group-btn">
+                                <button class="btn" type="button" ng-click="searchFull()"><i class="bowtie-icon bowtie-search"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                </li>
+                <li class="w_15 select2_op2">
+                    <lv-combobox element-id="cmbStoreId" field="cmbStoreId" option="cmbStoreId" model="storeFilter" tab="2" label="">
+                    </lv-combobox>
+                </li>
+
+                <li class="w_15 select2_op2">
+                    <lv-combobox element-id="cmbGroupFilter" field="cmbGroupFilter" option="cmbGroupFilter" model="groupFilter" tab="2" label="">
+                    </lv-combobox>
+                <li class="w_15 select2_op2">
+                    <lv-select element-id="timeMark" field="timeMark" model="timeMark" setting="setting" change="changeTimeMark()" translation="translation" tab="3" label=" " allowclear="true" placeholder="{{translation.TIMEMARK}}"></lv-select>
+                </li>
+
+                <li class="w_15 select2_op2">
+                    <lv-datepicker field="toDate" model="toDate" setting="setting" translation="translation" tab="4" nolabel="hidden" placeholder="{{translation.TODATE}}"></lv-datepicker>
+                </li>
+                <li>
+                    <button type="button" class="bg_blue_02 btn_filter w_100" ng-click="searchObject()" tabindex="5">{{translation.FILTER}}</button>
+                </li>
+            </ul>
+        </div>
+        <div class="content_6_4 d-flex wrapper">
+            <div class="content_6 mr_15 wrapper">
+                <dl class="mb-0 wrapper">
+                    <dt class="clearfix pos_re">
+                        <a class="title_01 bg_blue_01" data-toggle="collapse" data-target="#panel_01" aria-expanded="true" aria-controls="panel_01">
+                            <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>{{translation.LISTSTORE}}</span>
+                        </a>
+                    </dt>
+                    <dd style="width:100%;height:calc(100% - 25px)">
+                        <div class="collapse show wrapper" id="panel_01" aria-expanded="true">
+                            <div class="gridWrapper">
+                                <div id="grvInventoryBalance" class="control-grid" style="width:100%;height:100%;"></div>
+                            </div>
+                        </div>
+                    </dd>
+                </dl>
+            </div>
+            <div class="content_4 scroll">
+                <dl class="mb_20">
+                    <dt><a class="title_01 bg_blue_01" data-toggle="collapse" data-target="#panel_02" aria-expanded="true" aria-controls="panel_02"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>Thông tin mặt hàng</span></a></dt>
+                    <dd>
+                        <div class="collapse show" id="panel_02" aria-expanded="true">
+                            <div class="avatar2" style="background-image: url('/api/system/viewfile?id={{dataDetail.item.itemImage}}&amp;def=/img/no-product.jpg')"></div>
+                            <div class="d-flex">
+                                <div class="col-left">
+                                    <p>Ngành hàng:</p>
+                                    <p>Nhóm hàng:</p>
+                                    <p>Tồn tối đa:</p>
+                                    <p>Tồn tối thiểu:</p>
+                                </div>
+                                <div class="col-right">
+                                    <p class="txt_cut" ng-bind="dataDetail.item.relatedGroup.itemField.name"></p>
+                                    <p class="txt_cut" ng-bind="dataDetail.item.relatedGroup.name"></p>
+                                    <p class="txt_cut" ng-bind="dataDetail.item.maxStock | number:0"></p>
+                                    <p class="txt_cut" ng-bind="dataDetail.item.minStock | number:0"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </dd>
+                </dl>
+                <dl class="mb_20">
+                    <dt><a class="title_01 bg_blue_01" data-toggle="collapse" data-target="#panel_03" aria-expanded="true" aria-controls="panel_03"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>Tồn kho</span></a></dt>
+                    <dd>
+                        <div class="collapse show" id="panel_03" aria-expanded="true">
+                            <div class="d-flex mt_10">
+                                <div class="col-left">
+                                    <p>Tồn đầu tháng:</p>
+                                    <p>Nhập trong tháng:</p>
+                                    <p>Xuất trong tháng:</p>
+                                    <p>Tồn cuối tháng:</p>
+                                </div>
+                                <div class="col-right">
+                                    <p class="txt_cut">{{dataDetail.openingStock | number:0}}<span style="padding-left:30px;">{{dataDetail.item.relatedUnitOfMeasure.name}}</span></p>
+                                    <p class="txt_cut">{{dataDetail.sumImport | number:0}}<span style="padding-left:30px;">{{dataDetail.item.relatedUnitOfMeasure.name}}</span></p>
+                                    <p class="txt_cut">{{dataDetail.sumExport | number:0}}<span style="padding-left:30px;">{{dataDetail.item.relatedUnitOfMeasure.name}}</span></p>
+                                    <p class="txt_cut">{{dataDetail.closingStock | number:0}}<span style="padding-left:30px;">{{dataDetail.item.relatedUnitOfMeasure.name}}</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </dd>
+                </dl>
+                <dl class="mb_20">
+                    <dt class="pos_re">
+                        <a class="title_01 bg_blue_01" data-toggle="collapse" data-target="#panel_04" aria-expanded="true" aria-controls="panel_04">
+                            <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>Danh sách phiếu nhập</span>
+                        </a>
+                    </dt>
+                    <dd>
+                        <div class="collapse show" id="panel_04" aria-expanded="true">
+                            <div class="tb">
+                                <div class="tr">
+                                    <div class="th w_45" style="justify-content: center">Số phiếu</div>
+                                    <div class="th w_55" style="justify-content: center">Ngày phiếu</div>
+                                </div>
+                                <div class="tr" ng-repeat="imp in dataDetail.listImport">
+                                    <div class="td w_45 link center" ng-click="showInventoryDetail(imp,'import')">{{imp.code}}</div>
+                                    <div class="td w_55 center">{{imp.docDate | date:'dd/MM/yyyy'}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </dd>
+                </dl>
+                <dl class="mb_20">
+                    <dt class="pos_re">
+                        <a class="title_01 bg_blue_01" data-toggle="collapse" data-target="#panel_05" aria-expanded="true" aria-controls="panel_05">
+                            <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>Danh sách phiếu xuất</span>
+                        </a>
+                    </dt>
+                    <dd>
+                        <div class="collapse show" id="panel_05" aria-expanded="true">
+                            <div class="tb">
+                                <div class="tr">
+                                    <div class="th w_45" style="justify-content: center">Số phiếu</div>
+                                    <div class="th w_55" style="justify-content: center">Ngày phiếu</div>
+                                </div>
+                                <div class="tr" ng-repeat="exp in dataDetail.listExport">
+                                    <div class="td w_45 link center" ng-click="showInventoryDetail(exp,'export')">{{exp.code}}</div>
+                                    <div class="td w_55 center">{{exp.docDate | date:'dd/MM/yyyy'}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </dd>
+                </dl>
+                <dl class="mb_20">
+                    <dt class="pos_re">
+                        <a class="title_01 bg_blue_01" data-toggle="collapse" data-target="#panel_06" aria-expanded="true" aria-controls="panel_06">
+                            <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>Danh sách phiếu bán lẻ </span>
+                        </a>
+                    </dt>
+                    <dd>
+                        <div class="collapse show" id="panel_06" aria-expanded="true">
+                            <div class="tb">
+                                <div class="tr">
+                                    <div class="th w_45" style="justify-content: center">Số phiếu</div>
+                                    <div class="th w_55" style="justify-content: center">Ngày phiếu</div>
+                                </div>
+                                <div class="tr" ng-repeat="retail in dataDetail.listRetail">
+                                    <div class="td w_45 center"><a href="/pos/saleOrder?module=poscashtrans&code={{retail.code}}" target="_blank">{{retail.code}}</a></div>
+                                    <div class="td w_55 center">{{retail.docDate | date:'dd/MM/yyyy'}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt class="pos_re">
+                        <a class="title_01 bg_blue_01" data-toggle="collapse" data-target="#panel_07" aria-expanded="true" aria-controls="panel_07">
+                            <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>Danh sách phiếu kiểm kho</span>
+                        </a>
+                    </dt>
+                    <dd>
+                        <div class="collapse show" id="panel_07" aria-expanded="true">
+                            <div class="tb">
+                                <div class="tr">
+                                    <div class="th w_45" style="justify-content: center">Số phiếu</div>
+                                    <div class="th w_55" style="justify-content: center">Ngày phiếu</div>
+                                </div>
+                                <div class="tr" ng-repeat="count in dataDetail.listCounting">
+                                    <div class="td w_45 link center"><a href="/pos/inventoryCounting?module=posinvtrans&code={{count.code}}" target="_blank">{{count.code}}</a></div>
+                                    <div class="td w_55 center">{{count.docDate | date:'dd/MM/yyyy'}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Import & Export -->
+    <div class="modal fade modal_center confirmClose" style="" id="modal-detail-inventory" ng-init="initModalInventory()">
+        <div class="modal-dialog" style="height:100%;width:1200px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <p style="font-size:16px;margin:0;line-height:1.9em;" class="float-left"><span ng-bind="typeInventory=='import'? translation.MODAL_DETAIL_IMPORT: translation.MODAL_DETAIL_EXPORT"></span></p>
+                    <div class="box_btn_02">
+                        <button type="button" class="fullscreen" onclick="fullscreen('modal-detail-import')"><i class="bowtie-icon bowtie-view-full-screen"></i></button>
+                        <button type="button" class="btn_close_02" data-dismiss="modal"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-maincontent autoHeight">
+                        <div class="form-input-group">
+                            <div class="box_02 col_2 clearfix mb_15">
+                                <div class="pos_item">
+                                    <lv-select field="objectType" model="data.objectType" setting="setting" change="changeObjectType()" translation="translation" tab="1"></lv-select>
+                                </div>
+                                <div class="pos_item">
+                                    <lv-input field="code" model="data.code" setting="setting" translation="translation" change="" type="text" tab="2"></lv-input>
+                                </div>
+
+                            </div>
+                            <div class="box_02 col_2 clearfix mb_15">
+                                <div class="pos_item">
+                                    <lv-combobox element-id="cmbObject" field="objectId" option="cmbObject" model="data.objectId" tab="3" label="{{translation.OBJECTID}}">
+                                    </lv-combobox>
+                                </div>
+                                <div class="pos_item">
+                                    <lv-datepicker field="docDate" model="data.docDate" setting="setting" translation="translation" tab="4"></lv-datepicker>
+                                </div>
+
+
+                            </div>
+                            <div class="box_02 col_2 clearfix mb_15">
+                                <div class="pos_item">
+                                    <lv-input field="deliverer" model="data.deliverer" setting="setting" translation="translation" change="" type="text" tab="5"></lv-input>
+                                </div>
+                                <div class="pos_item">
+                                    <label>{{translation.DOCTIME}}</label>
+                                    <input id="docTime" type="time" name="name" />
+                                </div>
+
+
+                            </div>
+                            <div class="box_02 col_2 clearfix mb_15">
+                                <div class="pos_item">
+                                    <lv-input field="memo" model="data.memo" setting="setting" translation="translation" change="" type="text" tab="6"></lv-input>
+                                </div>
+                                <div class="pos_item">
+                                    <lv-combobox field="storeId" option="cmbStoreId" model="data.storeId" tab="7" label="{{translation.STOREID}}">
+                                    </lv-combobox>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="box_content wrapper" style="height: calc(100% - 260px)">
+                            <div class="gridWrapper">
+                                <div id="grvItemDetail" class="control-grid wrapper"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                   <!-- <button type="button" class="btn btn_save_02" id="btnSave" ng-click="save()" click-Once><i class="fa fa-save"></i> <span ng-bind="globalTranslation.BTN_SAVE">Save</span></button>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

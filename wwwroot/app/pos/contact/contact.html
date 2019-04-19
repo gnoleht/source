@@ -1,0 +1,72 @@
+﻿<div id="contact" ng-controller="contactController" class="pos">
+    <div class="white_box">
+        <div id="grvcontact" class="control-grid" style="width:100%;height:100%"></div>
+    </div>
+
+    <!-- Modal (detail)-->
+    <div class="modal fade modal_center confirmClose" style="" id="modal-detail">
+        <div class="modal-dialog" style="width:600px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <p style="font-size:16px;margin:0;line-height:1.9em;" class="float-left"><span ng-bind="(action == 'add') ? translation.MODAL_DETAIL_ADDTITLE : translation.MODAL_DETAIL_EDITTITLE"></span></p>
+                    <div class="box_btn_02">
+                        <button type="button" class="fullscreen" onclick="fullscreen('modal-detail')"><i class="bowtie-icon bowtie-view-full-screen"></i></button>
+                        <button type="button" class="btn_close_02" data-dismiss="modal"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                    </div>
+                </div>
+                <div class="modal-body" style="min-height:260px">
+                    <div class="modal-body-maincontent">
+                        <div class="form-input-group">
+                            <div class="box_02 col_1 clearfix mb_15">
+                                <div class="pos_item">
+                                    <lv-input field="code" model="data.code" setting="setting" translation="translation" type="text" tab="2" class="clearfix"></lv-input>
+                                </div>
+                            </div>
+                            <div class="box_02 col_1 clearfix mb_15">
+                                <div class="pos_item">
+                                    <lv-input field="name" model="data.name" setting="setting" translation="translation" type="text" tab="3" class="clearfix"></lv-input>
+                                </div>
+                            </div>
+                            <div class="box_02 col_1 clearfix mb_15">
+                                <div class="pos_item">
+                                    <lv-input field="sKU" model="data.details.sKU" setting="setting" translation="translation" type="text" tab="4" class="clearfix"></lv-input>
+                                </div>
+                            </div>
+                            <div class="box_02 col_1 clearfix mb_15">
+                                <div class="pos_item">
+                                    <lv-number field="price" model="data.details.price" setting="setting" translation="translation" type="text" tab="5" class="clearfix"></lv-number>
+                                </div>
+                            </div>
+                            <div class="box_02 col_1 clearfix mb_15">
+                                <div class="pos_item">
+                                    <lv-date element-id="sysDate" field="sysDate" model="data.details.sysDate" setting="setting" label="{{translation.SYSDATE}}" tab="7"></lv-date>
+                                </div>
+                                <div class="box_02 col_1 clearfix mb_15">
+                                    <div class="pos_item">
+                                        <lv-textarea field="note" model="data.note" setting="setting" translation="translation" block-resize="block-resize" row="3" tab="8" class="clearfix"></lv-textarea>
+                                    </div>
+                                </div>
+                                <div class="box_02 col_1 clearfix mb_15">
+                                    <div class="pos_item">
+                                        <div class="pos_item">
+                                            <div class="switch-label txt_cut" style="width: 120px;margin-left: 50px;">Đang hoạt động</div>
+                                            <div class="switch" ng-class="data.active ? 'change' : ''" ng-click="changeActive(data.active)" style="width: 60px">
+                                                <input type="checkbox">
+                                                <p class="slider mb-0"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn_save_02" id="btnSave" ng-click="save()" click-Once><i class="fa fa-save"></i> <span ng-bind="globalTranslation.BTN_SAVE">Save</span></button>                  
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,178 @@
+
+/*responsive */
+@media screen and (max-width: 1366px) {
+    .checkbox input {
+        width: auto;
+        height: auto;
+        margin-right: 10px;
+    }
+
+    .tb_kanban_scroll .body_kanban_scroll .tr .td, .tb_kanban_scroll .tr .th {
+        flex-basis: 230px;
+    }
+
+        .tb_kanban_scroll .tr .th:first-child {
+            flex-basis: 218px;
+        }
+
+    .tb_kanban_scroll .tr .parent {
+        flex-basis: 204px !important;
+    }
+
+    .main_container_header .row .col-6:nth-child(2) {
+        background: #edf1f5;
+    }
+    .modal-dialog {
+        max-width: 1180px;
+    }
+}
+
+@media screen and (max-width: 1280px) {
+    #header .main_func > li {
+        margin: 0px 15px;
+    }
+
+    .main_container .breadcrumb {
+        max-width: 660px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    /*#chartContent > div {
+        width: calc((100% - 15px)/2);
+    }
+    #chartContent > div:nth-child(2n + 2) {
+       margin-right: 0px;
+    }*/
+}
+
+/*@media screen and (max-width: 1279px) {
+    .breadcrumb-item > a {
+        max-width: 300px;
+    }
+    .main_container .breadcrumb {
+        max-width: 100%;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        padding: 5px 0px;
+        height: 40px;
+    }
+    .main_container_header .col-7, .main_container_header .col-5 {
+        max-width: 100%;
+        flex: 0 0 100%;
+    }
+    .main_container_header .box_btn {
+        height: 40px;
+    }
+    .main_box {
+        padding-top: 90px;
+    }
+    .modal-dialog {
+        max-width: 900px !important;
+    }
+}*/
+
+@media screen and (max-width: 1199px) {
+}
+
+@media screen and (max-width: 1045px) {
+    #header .main_time {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    /*#wrapper {
+        min-width: 1184px;
+    }*/
+
+    .modal-dialog.open {
+        min-width: 1024px;
+        overflow: scroll;
+    }
+
+    .main_box .col-6 {
+        -ms-flex: 0 0 100%;
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    .mb_15_1024 {
+        margin-bottom: 15px;
+    }
+
+    .box_check ul {
+        width: 100%;
+        float: none;
+    }
+
+    .tb_kanban_scroll .body_kanban_scroll .tr .td, .tb_kanban_scroll .tr .th {
+        flex-basis: 155px;
+    }
+
+        .tb_kanban_scroll .tr .th:first-child {
+            flex-basis: 180px;
+        }
+
+    .tb_kanban_scroll .tr .parent {
+        flex-basis: 166px !important;
+    }
+
+    .body_kanban_scroll .box_kanban_footer p:first-child {
+        display: none;
+    }
+    .white_box {
+        padding: 10px;
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    img {
+        max-width: 100%;
+    }
+
+    .inner {
+        box-sizing: border-box;
+        padding: 0 3%;
+    }
+}
+@media only screen and (max-width: 1070px) {
+    .breadcrumb-item > a {
+        max-width: 150px;
+    }
+}
+@media screen and (max-width: 991px) {
+}
+
+@media screen and (max-width: 640px) {
+}
+
+@media screen and (max-width: 414px) {
+}
+
+@media screen and (max-width: 320px) {
+}
+
+@media screen and (max-width: 240px) {
+}
+
+/*--Extra large xl--*/
+@media screen and (min-width: 1200px) and (max-width: 1599px) {
+}
+
+/*--Large lg--*/
+@media screen and (min-width: 992px) and (max-width: 1199px) {
+}
+
+/*--Medium md--*/
+@media screen and (min-width: 768px) and (max-width: 991px) {
+}
+
+/*--Small sm--*/
+@media screen and (min-width: 576px) and (max-width: 767px) {
+}
+
+/*--Extra small xs--*/
+@media screen and (max-width: 575px) {
+}

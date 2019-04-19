@@ -1,0 +1,73 @@
+﻿.box_control {
+    display: flex;
+    margin: 0;
+}
+
+    .box_control ul {
+        padding: 0 5px;
+        border-right: 1px solid #ddd;
+        display: flex;
+        align-items: center;
+    }
+
+        .box_control ul:last-child {
+            border-right: 0;
+        }
+
+        .box_control ul li {
+            padding: 0 10px;
+            cursor: pointer;
+            line-height: 30px;
+            display: flex;
+        }
+
+            .box_control ul:first-child li:first-child {
+                padding-left: 0;
+            }
+
+            .box_control ul li input {
+                width: 30px;
+                height: 25px;
+                margin-right: 5px;
+                text-align: center;
+            }
+
+                .box_control ul li input::-webkit-outer-spin-button,
+                .box_control ul li input::-webkit-inner-spin-button {
+                    /* display: none; <- Crashes Chrome on hover */
+                    -webkit-appearance: none;
+                    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+                }
+
+            .box_control ul li i {
+                cursor: pointer;
+                font-size: 14px;
+            }
+
+                .box_control ul li i.big {
+                    font-size: 14px;
+                    padding-top: 2px;
+                }
+
+            .box_control ul li select {
+                height: 25px;
+                text-align: center;
+                cursor: pointer;
+            }
+
+.bg_gray {
+    background-color: #ddd;
+}
+
+    .bg_gray .white_box {
+        height: calc(100vh - 82px);
+    }
+
+
+.white_box {
+    font-size:14px;
+}
+
+#reportContent {
+    height: 100%
+}

@@ -1,0 +1,76 @@
+﻿<div id="analysisReport" ng-controller="analysisReportController">
+    <div class="white_box clearfix">
+        <div class="content_6_4 clearfix">
+            <div class="content_4 scroll float-left" style="padding-right: 10px">
+                <dl class="mb_15">
+                    <dt><a class="title_01 bg_blue_01" data-toggle="collapse" data-target="#panel_02" aria-expanded="true" aria-controls="panel_02"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>{{translation.TIME}}</span></a></dt>
+                    <dd>
+                        <div class="collapse show" id="panel_02" aria-expanded="true">
+                            <div class="box_02 col_1">
+                                <div class="item">
+                                    <input type="radio" name="checkbox" value="1" checked="checked"  ng-model="data.time" /><span>Theo tháng</span>
+                                </div>
+                                <div class="item">
+                                    <input type="radio" name="checkbox" value="2"  ng-model="data.time"/><span>Theo quý</span>
+                                </div>
+                                <div class="item">
+                                    <input type="radio" name="checkbox" value="3" ng-model="data.time"/><span>Theo năm</span>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </dd>
+                </dl>
+                <dl class="mb_10">
+                    <dt><a class="title_01 bg_blue_01" data-toggle="collapse" data-target="#panel_03" aria-expanded="true" aria-controls="panel_03"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>{{translation.INFO_GROUP}}</span></a></dt>
+                    <dd>
+                        <div class="collapse show" id="panel_03" aria-expanded="true">
+                            <div class="box_02 col_1">
+                                <div class="item">
+                                    <label>{{translation.GROUP}}:</label>
+                                    <!--<lv-valuelist-multi field="groupId" model="data.groupId" setting="setting" translation="translation" tab="9"></lv-valuelist-multi>-->
+                                    <lv-select field="analysisReport_Group" model="data.analysisReport_Group" setting="setting" tab="3"></lv-select>
+
+                                </div>
+                            </div>
+                        </div>
+                    </dd>
+                </dl>
+                <dl class="mb_10">
+                    <dt><a class="title_01 bg_blue_01" data-toggle="collapse" data-target="#panel_06" aria-expanded="true" aria-controls="panel_06"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>{{translation.INFO_STORE}}</span></a></dt>
+                    <dd>
+                        <div class="collapse show" id="panel_06" aria-expanded="true">
+                            <div class="box_02 col_1">
+                                <div class="item">
+                                    <label>{{translation.STORE}}:</label>
+                                    <lv-valuelist-multi style="width: 400px;" element-id="storeId" field="storeId" model="listStoreId" setting="setting" translation="translation" tab="5"></lv-valuelist-multi>
+                                </div>
+                            </div>
+                        </div>
+                    </dd>
+
+                </dl>
+                <button id="btnSaveClose" ng-click="loadReport()" type="button" class="btn btn_save_02 float-right">
+                    <i class="fa fa-print"></i><span>{{translation.PRINT}}</span>
+                </button>
+            </div>
+
+            <div class="content_6 float-right" style="height:100%">
+                <dl class="mb-0" style="height:100%">
+                    <dt>
+                        <a class="title_01 bg_blue_01">
+                            <span>{{translation.ANALYSIS_REPORT}}</span>
+                        </a>
+                    </dt>
+                    <dd style="width:100%;height:calc(100% - 25px); padding: 10px 5px;">
+
+                        <div class="gridWrapper">
+                            <div id="grvAnalysisReport" class="control-grid" style="width:100%;height:100%"></div>
+                        </div>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+</div>

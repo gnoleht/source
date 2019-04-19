@@ -1,0 +1,170 @@
+﻿<style>
+    .dropdown-menu {
+        max-height: 300px;
+        overflow-y: auto;
+    }
+</style>
+<div class="modal fade modal_center confirmClose" id="userForm" ng-init="onLoad()" style="animation-delay:10s;">
+    <!--<div class="modal fade modal_center confirmClose" id="myMember" ng-controller="myMemberController" ng-init="initJS()">-->
+    <div class="modal-dialog modal-medium modal-padding" style="width:900px">
+        <div class="modal-content requirement-content" style="padding-top: 0px !important">
+            <div class="modal-header clearfix">
+                <p class="modal_header_title"><span ng-bind="action == 'edit'? translation.UPDATE_TITLE : translation.ADD_TITLE"></span></p>
+                <div class="box_btn_02">
+                    <button type="button" class="fullscreen" onclick="fullscreen('userForm')"><i class="bowtie-icon bowtie-view-full-screen"></i></button>
+                    <button type="button" class="btn_close_02" data-dismiss="modal"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-body-content clearfix">
+                    <div class="modal-body-maincontent">
+                        <div class="clearfix">
+                            <div class="w180 img_over_180 float-left">
+                                <div class="droppable-area advancedDropzoneUser">
+                                    <img id="imgAvatarUser" src="/img/no_avatar.png" class="img-inline dz-message img_full" />
+                                </div>
+                            </div>
+                            <div class="w100_180 float-right form-input-group">
+                                <div class="box_02 col_2 clearfix">
+                                    <div class="item">
+                                        <!--<lv-input field="id" model="data.id" setting="setting" translation="translation" change="" type="text" tab="1"></lv-input>-->
+                                        <lv-combobox element-id="cmb-userId"
+                                                     option="cmbUserId"
+                                                     change="changeUserId()"
+                                                     field="id"
+                                                     model="data.id"
+                                                     label="{{translation.ID}}" tab="0">
+                                    </div>
+                                    <div class="item">
+                                        <lv-input field="email" model="data.email" setting="setting" translation="translation" change="" type="text" tab="1"></lv-input>
+                                    </div>
+                                </div>
+                                <div class="box_02 col_2 clearfix">
+                                    <div class="item">
+                                        <lv-input field="firstName" model="data.firstName" setting="setting" translation="translation" change="" type="text" tab="1"></lv-input>
+                                    </div>
+                                    <div class="item">
+                                        <lv-input field="lastName" model="data.lastName" setting="setting" translation="translation" change="" type="text" tab="2"></lv-input>
+                                    </div>
+                                </div>
+                                <div class="box_02 col_2 clearfix">
+                                    <div class="item">
+                                        <lv-datepicker field="birthDay" model="data.birthDay" setting="setting" translation="translation" tab="3"></lv-datepicker>
+                                    </div>
+                                    <div class="item">
+                                        <lv-input field="mobilePhone" model="data.mobilePhone" setting="setting" translation="translation" change="" type="phone" tab="4"></lv-input>
+                                    </div>
+                                </div>
+                                <ul id="selectContent" class="box_cbb clearfix mb_10">
+                                    <li ng-if="type=='role' || !type">
+                                        <label ng-bind="translation.COMPANY"></label>
+                                        <select id="select-company" class="lv-select" multiple ng-model="data.company" tabindex="4">
+                                            <option ng-repeat="child in setting.valuelist.company" style="padding-left: {{child.opt.indent}}px" value="{{child.id}}">{{child.text}}</option>
+                                        </select>
+                                    </li>
+                                    <li ng-if="type=='company' || !type">
+                                        <label ng-bind="translation.ROLE"></label>
+                                        <select id="select-role" class="lv-select" multiple ng-model="data.role" tabindex="4">
+                                            <optgroup ng-repeat="option in setting.valuelist.role" label="{{option[0].objectCode}}">
+                                                <option ng-repeat="child in option" value="{{child.id}}">{{child.text}}</option>
+                                            </optgroup>
+                                        </select>
+                                    </li>
+                                </ul>
+                                <div class="box_02 col_2 clearfix">
+                                    <div class="item">
+                                        <lv-input field="code" model="data.code" setting="setting" translation="translation" change="" type="text" tab="4"></lv-input>
+                                    </div>
+                                    <div class="item">
+                                        <div class="form-group">
+                                            <div class="label">{{translation.ACTIVE}}</div>
+                                            <div class="switch" ng-class="data.active?'change':''" style="margin-top: 5px !important">
+                                                <input type="checkbox" value="{{data.active}}">
+                                                <p class="slider mb-0"><span class="text text_release">True</span><span class="text text_accept">False</span></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="clearfix mb_15">
+                            <dl class="mb-0">
+                                <dt>
+                                    <a class="title_02 bg_gray_01" aria-expanded="true" data-target="#panel-address" id="btnControl" aria-controls="panel-address" data-toggle="collapse">
+                                        <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span ng-bind="::translation.INFO" class="ng-binding">Control</span>
+                                    </a>
+                                </dt>
+                                <dd>
+                                    <div class="multi-collapse collapse show" id="panel-address" aria-expanded="true" style="">
+                                        <div class="box_02 col_2 clearfix">
+                                            <div class="item">
+                                                <lv-select field="province" model="data.address.province" change="ChangeProvince()" setting="setting" translation="translation" tab="5"></lv-select>
+                                            </div>
+                                            <div class="item">
+                                                <lv-select field="district" model="data.address.district" setting="setting" translation="translation" tab="6"></lv-select>
+                                            </div>
+                                        </div>
+                                        <div class="box_02 clearfix">
+                                            <div class="item">
+                                                <lv-input field="streetAddress" model="data.address.streetAddress" setting="setting" translation="translation" tab="7"></lv-input>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </dd>
+                            </dl>
+
+
+                        </div>
+
+
+                        <!--<div class="clearfix mb_15">
+                            <div class="box_02 col_2 clearfix">
+                                <div class="item">
+                                    <lv-valuelist-multi  field="company" model="data.company" setting="setting" translation="translation" tab="8"></lv-valuelist-multi>
+                                </div>
+                                <div class="item">
+                                    <lv-valuelist-multi  field="role" model="data.role" setting="setting" translation="translation" tab="9"></lv-valuelist-multi>
+                                </div>
+                            </div>
+                        </div>-->
+                        <!--<div class="clearfix login mt-15 mb-15">
+                            <ul>
+                                <li class="mb-10 float-left" style="margin-right: 60px;"><p class="support"><a href="#">Bạn muốn thay đổi <span>MẬT KHẨU</span></a></p></li>
+                                <li><p class="support"><a href="#">Bạn muốn thiết lập <span>THÔNG BÁO</span></a></p></li>
+                            </ul>
+                        </div>-->
+                        <div class="clearfix">
+                            <dl class="mb-0">
+                                <dt>
+                                    <a class="title_02 bg_gray_01" aria-expanded="true" data-target="#panel-info" id="btnControl" aria-controls="panel-info" data-toggle="collapse">
+                                        <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span ng-bind="::translation.SOCIALS" class="ng-binding">Control</span>
+                                    </a>
+                                </dt>
+                                <dd>
+                                    <div class="multi-collapse collapse show" id="panel-info" aria-expanded="true" style="">
+                                        <!--<p style="font-size: 14px;margin: 0;line-height: 1.9em;text-transform: uppercase;">Liên kết với</p>-->
+                                        <div style="margin: 15px 0 0 0" ng-repeat="item in data.socials track by $index" class="clearfix">
+                                            <p class="float-left mr-15 mb-0"><img style="width: 30px; height: auto;" ng-src="{{FindImage(item)}}" /></p>
+                                            <input type="text" ng-id="data.socials[$index]" ng-model="data.socials[$index]" class="iput mr-15 input-social" style="width:calc(100% - 90px);float:left;" />
+                                            <span class="btn_del btn_30 btn_function" ng-click="DeleteSocial(item)"><i class="bowtie-icon bowtie-edit-delete"></i></span>
+                                        </div>
+                                        <div class="box_02 clearfix mt-10">
+                                            <button class="btn btn_save_02" ng-click="AddSocial()"><i class="bowtie-icon bowtie-math-plus mr_5"></i>{{translation.ADD_LINK}}</button>
+                                        </div>
+                                    </div>
+                                </dd>
+                            </dl>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button id="btnSaveClose" ng-click="save()" type="button" class="btn btn_save_02" tabindex="13" click-Once><i class="bowtie-icon bowtie-save"></i><span ng-bind="::globalTranslation.BTN_SAVE">Lưu & đóng</span></button>
+            </div>
+        </div>
+    </div>
+</div>

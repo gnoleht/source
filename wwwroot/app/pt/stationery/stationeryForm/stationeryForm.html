@@ -1,0 +1,168 @@
+﻿<style>
+    .table > tbody > tr.active > th {
+        background-color: #f5f5f5
+    }
+</style>
+<div class="modal fadeIn modal_center" role="dialog" id="modal-detail" style="animation-delay:10s;" ng-init="onLoad()">
+    <div class="modal-dialog" tabindex="-1">
+        <div class="modal-content" style="padding-top: 0px !important">
+            <div class="modal-header">
+                <p class="modal_header_title"><span ng-bind="action == 'add' ? translation.ADD : translation.EDIT | uppercase "></span></p>
+                <div class="box_btn_02">
+                    <button type="button" onclick="fullscreen('modal-detail')" class="fullscreen btn-modal-screen" title="{{::translation.BTN_SCREEN}}"><i class="bowtie-icon bowtie-view-full-screen"></i></button>
+                    <button type="button" class="btn_close_02" data-dismiss="modal" title="{{::translation.BTN_CLOSE}}"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-body-content">
+                    <ul class="nav nav-tabs bg-white" id="main_tab_01" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="tab_01-tab" data-toggle="tab" data-target="#tab1"
+                               role="tab" aria-controls="tab_01" aria-selected="true" ng-bind="::translation.TAB_INFO | uppercase">THÔNG TIN CHUNG</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="tab_02-tab" data-toggle="tab" data-target="#tab2" role="tab" aria-controls="tab_02" aria-selected="false" ng-click="resizeGridCanvas()" ng-bind="::translation.TAB_DETAIL | uppercase">CHI TIẾT ĐĂNG KÝ</a>
+                        </li>
+                        <lable style="margin-left: auto;font-size: 14px;padding: 4px 8px;display: flex;border: 1px solid #ddd;border-radius: 5px;height: fit-content;"><i class="bowtie-icon bowtie-calendar mr_10"></i>{{data.createdDate}}</lable>
+                    </ul>
+                    <div class="tab-content form-input-group">
+                        <div class="tab-pane active" id="tab1" role="tabpanel" aria-labelledby="tab1">
+                            <div class="box_content">
+                                <div class="box_02 col_2 clearfix">
+                                    <div class="item">
+                                        <lv-input field="createdBy" model="data.userRef.displayName" setting="setting" translation="translation" tab="1"></lv-input>
+                                    </div>
+                                    <div class="item">
+                                        <lv-input field="department" model="data.departmentRef.name" permission="data.fieldPermission" setting="setting" translation="translation" tab="2"></lv-input>
+                                    </div>
+                                </div>
+                                <div class="box_02 col_2 clearfix">
+                                    <div class="item">
+                                        <lv-input field="company" model="data.companyRef.name" permission="data.fieldPermission" setting="setting" translation="translation" tab="3"></lv-input>
+                                    </div>
+                                    <div class="item">
+                                        <div class="box_04 col_2 clearfix">
+                                            <div class="item">
+                                                <lv-radio field="period" model="data.period" permission="data.fieldPermission" setting="setting" translation="translation" tab="4"></lv-radio>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="box_02 col_1 mt_5">
+                                    <div class="item select2_op2">
+                                        <lv-textarea element-id="txtReason" field="reason" model="data.reason" permission="data.fieldPermission" setting="setting" translation="translation" row="5" tab="5"></lv-textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab2" role="tabpanel" aria-labelledby="tab2">
+                            <div class="box_content">
+                                <dl class="mb-0" style="height:100%">
+                                    <dt class="pos_re h_35" style="padding-top:7px">
+                                        <a class="title_02 bg_gray_01 d-flex" style="justify-content: space-between">
+                                            <span class="d-flex" style="margin-left: 0">
+                                                <span ng-bind="translation.LIST_STATIONERY_ITEM"></span>
+                                            </span>
+                                        </a>
+                                        <div style="position: absolute; top: 10px; right: 0; display: flex">
+                                            <div class="cl_green btn_add_02 mr_10" style="font-size: 17px" title="Add"><i class="bowtie-icon bowtie-math-plus-circle-outline" ng-click="importItem()"></i></div>
+                                            <div class="cl_red btn_add_02" style="font-size: 17px" title="Delete"> <i class="bowtie-icon bowtie-status-failure-outline" ng-click="removeRow()"></i></div>
+                                        </div>
+                                    </dt>
+                                    <dd class="mb-0" style="height:calc(100% - 30px)">
+                                        <div class="gridWrapper">
+                                            <div id="grvStationeryForm" class="control-grid" style="width:100%;height:250px"></div>
+                                        </div>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="action == 'edit' && data.status == '0' && data.permission.approve" class="item" style="margin-top: 15px">
+                        <div class="form-group">
+                            <label ng-bind="::translation.COMMENT" for="reason">Ý kiến</label>
+                            <textarea rows="2" class="style-input form-control"
+                                      id="txtComment"
+                                      ng-model="data.comment"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div ng-if="data.status != '1'" class="switch-wrapper d-flex align-items-center switch_super_small" style="position: absolute;left:10px">
+                    <p class="label mb-0 mr-10 txt_bold" style="margin-left:10px" ng-bind="limitMessage"></p>
+                </div>
+                <button ng-if="action == 'edit' && data.status >= 2 && data.permission.update" ng-click="sendApprove()" type="button" class="btn btn_save_02" click-Once><span ng-bind="::translation.BTN_SEND_APPROVE"></span></button>
+                <button ng-if="action == 'edit' && data.status == '0' && data.permission.approve" ng-click="approve()" type="button" class="btn btn_save_02" click-Once><i style="font-size:18px" class="fa fa-check-circle-o"></i><span ng-bind="::translation.BTN_APPROVE"></span></button>
+                <button ng-if="action == 'edit' && data.status == '0' && data.permission.approve" ng-click="reject()" type="button" class="btn btn_save_02" click-Once><i style="font-size:18px" class="fa fa-window-close"></i><span ng-bind="::translation.BTN_REJECT"></span></button>
+                <button ng-if="(action == 'add' && data.permission.create) || (action == 'edit' && data.permission.update && data.status != '1')" id="btnSaveClose" ng-click="save()" type="button" class="btn btn_save_02" click-Once><i class="bowtie-icon bowtie-save"></i><span ng-bind="action == 'add' ? translation.BTN_REGISTER : translation.BTN_SAVE_CLOSE"></span></button>
+                <button ng-if="action == 'edit'" ng-click="history()" type="button" class="btn btn_save_02" click-Once title="{{::translation.HISTORY}}"><i style="font-size:18px" class="bowtie-icon bowtie-navigate-history"></i><span ng-bind="::translation.HISTORY"></span></button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fadeIn modal_center" role="dialog" style="animation-delay:10s;" id="modal-import-item">
+    <div class="modal-dialog" tabindex="-1" style="width: 700px">
+        <div class="modal-content" style="padding-top: 0px !important">
+            <div class="modal-header">
+                <p class="modal_header_title"><span ng-bind="::translation.BTN_LIST_STATIONERY"></span></p>
+                <div class="box_btn_02">
+                    <button type="button" onclick="fullscreen('modal-import-item')" class="fullscreen btn-modal-screen" title="{{::translation.BTN_SCREEN}}"><i class="bowtie-icon bowtie-view-full-screen"></i></button>
+                    <button type="button" class="btn_close_02" data-dismiss="modal" title="{{::translation.BTN_CLOSE}}"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-body-content" style="min-height:370px">
+                    <div class="box_content">
+                        <div class="box_02 col_2 clearfix">
+                            <div class="item">
+                                <div class="form-group">
+                                    <lv-select element-id="vllStationeryCategory" change="itemFilter()" field="stationeryCategory" model="filterItem.category" setting="setting" translation="translation" tab="1"></lv-select>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="form-group">
+                                    <label ng-bind="::translation.FIND"></label>
+                                    <div class="input-group">
+                                        <input tabindex="2" ng-keyup="$event.keyCode == 13 && itemFilter()" type="text" class="style-input form-control ip_txt" ng-model="filterItem.textSearch">
+                                        <span class="input-group-addon" ng-click="itemFilter()"><i class="bowtie-icon bowtie-search"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box_content">
+                        <div id="grvItem" style="width:100%;height:350px"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="btnSaveClose" ng-click="saveAddItem()" type="button" class="btn btn_save_02" click-Once><i class="bowtie-icon bowtie-save"></i><span ng-bind="::translation.BTN_SAVE_CLOSE">Lưu & đóng</span></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fadeIn modal_center" role="dialog" id="stationery-history">
+    <div class="modal-dialog modal-medium modal-padding" tabindex="-1" style="width:700px">
+        <div class="modal-content" style="padding-top: 0px !important">
+            <div class="modal-header">
+                <p class="modal_header_title">
+                    <span ng-bind="translation.HISTORY | uppercase "></span>
+                </p>
+                <div class="box_btn_02">
+                    <button type="button" class="btn_close_02" data-dismiss="modal" title="{{translation.BTN_CLOSE}}">
+                        <i class="bowtie-icon bowtie-edit-remove"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="modal-body" style="max-height:450px;overflow:auto">
+                <table class="table table-bordered">
+                    <tbody id="btlContent"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

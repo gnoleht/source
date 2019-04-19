@@ -1,0 +1,251 @@
+﻿<!--check-->
+<div id="bankAdd" ng-controller="bankAddController" ng-init="onload()">
+    <div class="white_box">
+        <div class="fn">
+            <div class="box_control clearfix">
+                <div class="row pd_lr_5 clearfix">
+                    <div class="col-10">
+                        <ul class="box_btn mb-0 d-flex justify-content-start">
+                            <li>
+                                <button type="button" class="bg_blue_02 btn_filter">Truy vấn</button>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-2">
+                        <ul class="box_btn mb-0 float-right">
+                            <li><a class="btn_default btn_30 btn_search_click" ng-click="toogleFilter()"><i class="bowtie-icon bowtie-search-filter"></i></a></li>
+                            <li><a href="" class="btn_edit btn_30"><i class="bowtie-icon bowtie-chevron-left-light"></i></a></li>
+                            <li><a href="" class="btn_edit btn_30"><i class="bowtie-icon bowtie-chevron-right-light"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="box_filter clearfix">
+                    <ul class="box_btn mb-0 d-flex justify-content-start" ">
+                        <li class="w_15 select2_op2">
+                            <div class="btn_search">
+                                <div class="input-group">
+                                    <input id="inputSearch" type="text" class="form-control" placeholder="Tìm danh mục" ng-keypress="callMethod('search', $event)">
+                                    <span class="input-group-btn">
+                                        <button ng-click="callMethod('search')" class="btn" type="button"><i class="bowtie-icon bowtie-search"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="w_10">
+                            <button type="button" class="btn_w100 bg_blue_02 btn_filter">Tra cứu</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- main_box start -->
+            <div class="main_box clearfix main_container_w100 scroll">
+                <div class="main_box_body w_100">
+                    <div class="main_box_item_01">
+                        <div class="clearfix box_group_02">
+                            <dl class="box_tb">
+                                <dt>
+                                    <p class="title_01 cus mb-0" data-toggle="collapse" data-target="#panel_add_pc_01" aria-expanded="true" aria-controls="panel_add_pc_01"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>Thông tin chung</span></p>
+                                </dt>
+                                <dd class="m_10">
+                                    <div class="collapse show" id="panel_add_pc_01" aria-expanded="true" style="">
+                                        <div class="box_03 content_8_2 clearfix">
+                                            <div class="item border-0 content_2 float-left pos_re box_img">
+                                                <img src="../images/img_1.png" alt="img" class="w-100">
+                                                <ul class="clearfix mb-0 box_btn">
+                                                    <li><a href="#"><i class="bowtie-icon bowtie-diff-image-pixel cl_blue"></i></a></li>
+                                                    <li><a href="#"><i class="bowtie-icon bowtie-status-failure cl_red"></i></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="item border-0 content_8 float-right mt-0">
+                                                <div class="box_03 col_2 clearfix">
+                                                    <div class="item txt_cut">
+                                                        <p class="label">Mã ngân hàng <span class="cl_red">(*)</span></p>
+                                                        <input type="text" class="iput" placeholder="ACB">
+                                                    </div>
+                                                    <div class="item txt_cut">
+                                                        <p class="label">Tên ngân hàng <span class="cl_red">(*)</span></p>
+                                                        <input type="text" class="iput" placeholder="Ngân hàng cổ phần thương mại Á Châu">
+                                                    </div>
+                                                </div>
+                                                <div class="box_03 col_3 clearfix">
+                                                    <div class="item">
+                                                        <p class="label">Địa chỉ <span class="cl_red">(*)</span></p>
+                                                        <input type="text" class="iput" placeholder="232 Nguyễn Huệ, Phường Bến Thành, Quận 1">
+                                                    </div>
+                                                    <div class="item">
+                                                        <p class="label">Tỉnh thành <span class="cl_red">(*)</span></p>
+                                                        <select class="select" name="state" select2>
+                                                            <option value="1" selected>Hồ Chí Minh</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="item">
+                                                        <p class="label">Quốc gia <span class="cl_red">(*)</span></p>
+                                                        <input type="text" class="iput" placeholder="Việt Nam">
+                                                    </div>
+                                                </div>
+                                                <div class="box_03 col_3 clearfix">
+                                                    <div class="item">
+                                                        <p class="label">Số điện thoại</p>
+                                                        <input type="text" class="iput" placeholder="0123456789">
+                                                    </div>
+                                                    <div class="item">
+                                                        <p class="label">Số Fax</p>
+                                                        <input type="text" class="iput" placeholder="(84-2) 39797979">
+                                                    </div>
+                                                    <div class="item">
+                                                        <p class="label">Email</p>
+                                                        <input type="text" class="iput" placeholder="abc@abc.com.vn">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </dd>
+                            </dl>
+                            <dl class="box_tb">
+                                <dt>
+                                    <p class="title_01 cus mb-0" data-toggle="collapse" data-target="#panel_add_pc_02" aria-expanded="true" aria-controls="panel_add_pc_02"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>Liên hệ</span></p>
+                                </dt>
+                                <dd class="mb_10">
+                                    <div class="collapse show" id="panel_add_pc_02" aria-expanded="true" style="">
+                                        <div class="box_03 col_4 clearfix">
+                                            <div class="item">
+                                                <p class="label">Mã số thuế</p>
+                                                <input type="text" class="iput" placeholder="1920484745">
+                                            </div>
+                                            <div class="item">
+                                                <p class="label">Giấy phép kinh doanh</p>
+                                                <select class="select" name="state" select2>
+                                                    <option value="1" selected>GPKD19395858575</option>
+                                                </select>
+                                            </div>
+                                            <div class="item">
+                                                <p class="label">Người liên hệ</p>
+                                                <input type="text" class="iput" placeholder="Nguyễn Cao trí">
+                                            </div>
+                                            <div class="item">
+                                                <p class="label">Chức vụ</p>
+                                                <input type="text" class="iput" placeholder="Tổng giám đốc">
+                                            </div>
+                                        </div>
+                                        <div class="box_03 col_3 clearfix">
+                                            <div class="item">
+                                                <p class="label">Email</p>
+                                                <input type="email" class="iput" placeholder="abc@gmail.com">
+                                            </div>
+                                            <div class="item">
+                                                <p class="label">Website</p>
+                                                <input type="email" class="iput" placeholder="www.abc.com.vn">
+                                            </div>
+                                            <div class="item border-0" style="padding-left: 20px; margin-top: 20px;">
+                                                <div class="switch" ng-class="checkSwitch ? 'change' : ''" ng-click="checkSwitch = !checkSwitch">
+                                                    <input type="checkbox">
+                                                    <p class="slider mb-0 text-top"><span class="text text_release">Ngưng hoạt động</span><span class="text text_accept">Đang hoạt động</span></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="main_box_item_02">
+                        <ul class="box_btn mb-0">
+                            <li><a href="" class="btn_add btn_30" data-toggle="modal" data-target="#myModal"><i class="bowtie-icon bowtie-math-plus"></i></a></li>
+                            <li><a href="" class="btn_copy btn_30"><i class="bowtie-icon bowtie-edit-copy"></i></a></li>
+                            <li><a href="" class="btn_edit btn_30"><i class="bowtie-icon bowtie-edit-outline"></i></a></li>
+                            <li><a href="" class="btn_del btn_30"><i class="bowtie-icon bowtie-edit-remove"></i></a></li>
+                            <li><a href="" class="btn_default btn_30"><i class="bowtie-icon bowtie-view-full-screen"></i></a></li>
+                        </ul>
+                        <ul class="nav nav-tabs bg-white" id="myTab" role="tablist">
+                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab_06" role="tab" aria-controls="tab_06" aria-selected="true" aria-expanded="true">Liên hệ</a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab_07" role="tab" aria-controls="tab_07" aria-selected="false" aria-expanded="false">Chi nhánh</a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab_08" role="tab" aria-controls="tab_08" aria-selected="false" aria-expanded="false">Hạn mức vay</a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab_09" role="tab" aria-controls="tab_09" aria-selected="false" aria-expanded="false">Yếu tố phân tích</a> </li>
+                        </ul>
+                        <div class="tab-content border_r border_l border_b">
+                            <div class="tab-pane active" id="tab_06" role="tabpanel" aria-labelledby="CSDL" aria-expanded="true">
+                                Mã liên hệ
+                                <!--TODO GRID-->
+                            </div>
+                            <div class="tab-pane" id="tab_07" role="tabpanel" aria-labelledby="Thông tin ngân hàng" aria-expanded="false">
+                                Chi nhánh
+                                <!--TODO GRID-->
+                            </div>
+                            <div class="tab-pane" id="tab_08" role="tabpanel" aria-labelledby="Hạn mức vay" aria-expanded="false">
+                                Hạn mức vay
+                                <!--TODO GRID-->
+                            </div>
+                            <div class="tab-pane" id="tab_09" role="tabpanel" aria-labelledby="Tiền hạch toán" aria-expanded="false">
+                                <div class="box_03 col_5 clearfix">
+                                    <div class="item">
+                                        <p class="label">Mã phân tích 1</p>
+                                        <select class="select" name="state" select2>
+                                            <option value="1" selected></option>
+                                        </select>
+                                    </div>
+                                    <div class="item">
+                                        <p class="label">Mã phân tích 2</p>
+                                        <select class="select" name="state" select2>
+                                            <option value="1" selected></option>
+                                        </select>
+                                    </div>
+                                    <div class="item">
+                                        <p class="label">Mã phân tích 3</p>
+                                        <select class="select" name="state" select2>
+                                            <option value="1" selected></option>
+                                        </select>
+                                    </div>
+                                    <div class="item">
+                                        <p class="label">Mã phân tích 4</p>
+                                        <select class="select" name="state" select2>
+                                            <option value="1" selected></option>
+                                        </select>
+                                    </div>
+                                    <div class="item">
+                                        <p class="label">Mã phân tích 5</p>
+                                        <select class="select" name="state" select2>
+                                            <option value="1" selected></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="box_03 col_5 clearfix">
+                                    <div class="item">
+                                        <p class="label">Mã phân tích 6</p>
+                                        <select class="select" name="state" select2>
+                                            <option value="1" selected></option>
+                                        </select>
+                                    </div>
+                                    <div class="item">
+                                        <p class="label">Mã phân tích 7</p>
+                                        <select class="select" name="state" select2>
+                                            <option value="1" selected></option>
+                                        </select>
+                                    </div>
+                                    <div class="item">
+                                        <p class="label">Mã phân tích 8</p>
+                                        <select class="select" name="state" select2>
+                                            <option value="1" selected></option>
+                                        </select>
+                                    </div>
+                                    <div class="item">
+                                        <p class="label">Mã phân tích 9</p>
+                                        <select class="select" name="state" select2>
+                                            <option value="1" selected></option>
+                                        </select>
+                                    </div>
+                                    <div class="item">
+                                        <p class="label">Mã phân tích 10</p>
+                                        <select class="select" name="state" select2>
+                                            <option value="1" selected></option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

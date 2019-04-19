@@ -1,0 +1,212 @@
+﻿
+<div id="goNotGo" style="height:100%;width:100%" ng-init="onload()">
+    <div class="row pd_lr_7">
+        <div class="box_content col-md-6">
+            <dl class="mb-0">
+                <dt class="dt_pos_re h_th">
+                    <a class="title_01 bg_gray_01" data-toggle="collapse" data-target="#multiCollapse_goNotGo_01" aria-expanded="true" aria-controls="multiCollapse_goNotGo_01">
+                        <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span ng-bind="::translation.STRENGTHS">Điểm mạnh</span>
+                    </a>
+                    <ul class="box_btn clearfix mb-0 dt_pos_ab">
+                        <li>
+                            <a href="javascript:;" ng-click="addItem('strength')" class="left btn_30 btn_add">
+                                <i class="bowtie-icon bowtie-math-plus-light fmIconEnvision"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" ng-click="removeItem('strength')" class="btn_30 btn_del">
+                                <i class="bowtie-icon bowtie-edit-remove fmIconEnvision"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </dt>
+                <dd>
+                    <div class="multi-collapse show" id="multiCollapse_goNotGo_01" aria-expanded="true">
+                        <table class="tb_tree">
+                            <thead>
+                                <tr class="bg_blue_01">
+                                    <th>
+                                        <p class="mb-0" ng-bind="::translation.INFO">Thông tin</p>
+                                    </th>
+                                    <th class="w-25">
+                                        <p class="mb-0" ng-bind="::translation.TYPE">Loại</p>
+                                    </th>
+                                </tr>
+                            </thead>
+                        </table>
+                        <div id="divStrength" class="tblDiv">
+                            <table class="tb_tree" id="tblStrength">
+                                <tbody>
+                                    <tr ng-repeat="item in envision.goNotGo.strength" class="clickable-row-strength" data-id="{{$index}}">
+                                        <td>
+                                            <lv-input-no-label element-id="txtStrength_{{$index}}" field="value" model="item.value" setting="setting" translation="translation" change="" type="text" tab="1"></lv-input-no-label>
+                                        </td>
+                                        <td class="w-25">
+                                            <lv-select element-id="vllStrength{{$index}}" field="strength" model="item.type" setting="setting" translation="translation"></lv-select>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </dd>
+            </dl>
+        </div>
+
+        <div class="box_content col-md-6">
+            <dl class="mb-0">
+                <dt class="dt_pos_re h_th">
+                    <a class="title_01 bg_gray_01" data-toggle="collapse" data-target="#multiCollapse_goNotGo_02" aria-expanded="true" aria-controls="multiCollapse_goNotGo_02">
+                        <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span ng-bind="::translation.WEAKNESSES">Điểm yếu</span>
+                    </a>
+                    <ul class="box_btn clearfix mb-0 dt_pos_ab">
+                        <li>
+                            <a href="javascript:;" ng-click="addItem('weakness')" class="left btn_30 btn_add">
+                                <i class="bowtie-icon bowtie-math-plus-light fmIconEnvision"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" ng-click="removeItem('weakness')" class="btn_30 btn_del">
+                                <i class="bowtie-icon bowtie-edit-remove fmIconEnvision"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </dt>
+                <dd>
+                    <div class="multi-collapse show" id="multiCollapse_goNotGo_02" aria-expanded="true">
+                        <table class="tb_tree">
+                            <thead>
+                                <tr class="bg_blue_01">
+                                    <th>
+                                        <p class="mb-0" ng-bind="::translation.INFO">Thông tin</p>
+                                    </th>
+                                    <th class="w-25">
+                                        <p class="mb-0" ng-bind="::translation.TYPE">Loại</p>
+                                    </th>
+                                </tr>
+                            </thead>
+                        </table>
+                        <div id="divWeakness" class="tblDiv">
+                            <table class="tb_tree" id="tblWeakness">
+                                <tbody>
+                                    <tr ng-repeat="item in envision.goNotGo.weakness" class="clickable-row-weakness" data-id="{{$index}}">
+                                        <td>
+                                            <lv-input-no-label element-id="txtWeakness_{{$index}}" field="value" model="item.value" setting="setting" translation="translation" change="" type="text" tab="1"></lv-input-no-label>
+                                        </td>
+                                        <td class="w-25">
+                                            <lv-select element-id="vllWeakness{{$index}}" field="weakness" model="item.type" setting="setting" translation="translation"></lv-select>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </dd>
+            </dl>
+        </div>
+
+        <div class="box_content col-md-6" style="padding-top:15px">
+            <dl class="mb-0">
+                <dt class="dt_pos_re h_th">
+                    <a class="title_01 bg_gray_01" data-toggle="collapse" data-target="#multiCollapse_goNotGo_03" aria-expanded="true" aria-controls="multiCollapse_goNotGo_03">
+                        <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span ng-bind="::translation.OPPORTUNITIES">Cơ hội</span>
+                    </a>
+                    <ul class="box_btn clearfix mb-0 dt_pos_ab">
+                        <li>
+                            <a href="javascript:;" ng-click="addItem('opportunity')" class="left btn_30 btn_add">
+                                <i class="bowtie-icon bowtie-math-plus-light fmIconEnvision"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" ng-click="removeItem('opportunity')" class="btn_30 btn_del">
+                                <i class="bowtie-icon bowtie-edit-remove fmIconEnvision"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </dt>
+                <dd>
+                    <div class="multi-collapse show" id="multiCollapse_goNotGo_03" aria-expanded="true">
+                        <table class="tb_tree">
+                            <thead>
+                                <tr class="bg_blue_01">
+                                    <th>
+                                        <p class="mb-0" ng-bind="::translation.INFO">Thông tin</p>
+                                    </th>
+                                    <th class="w-25">
+                                        <p class="mb-0" ng-bind="::translation.TYPE">Loại</p>
+                                    </th>
+                                </tr>
+                            </thead>
+                        </table>
+                        <div id="divOpportunity" class="tblDiv">
+                            <table class="tb_tree" id="tblOpportunity">
+                                <tbody>
+                                    <tr ng-repeat="item in envision.goNotGo.opportunity" class="clickable-row-opportunity" data-id="{{$index}}">
+                                        <td>
+                                            <lv-input-no-label element-id="txtOpportunity_{{$index}}" field="value" model="item.value" setting="setting" translation="translation" change="" type="text" tab="1"></lv-input-no-label>
+                                        </td>
+                                        <td class="w-25">
+                                            <lv-select element-id="vllOpportunity{{$index}}" field="opportunity" model="item.type" setting="setting" translation="translation"></lv-select>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </dd>
+            </dl>
+        </div>
+
+        <div class="box_content col-md-6" style="padding-top:15px">
+            <dl class="mb-0">
+                <dt class="dt_pos_re h_th">
+                    <a class="title_01 bg_gray_01" data-toggle="collapse" data-target="#multiCollapse_goNotGo_04" aria-expanded="true" aria-controls="multiCollapse_goNotGo_04">
+                        <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span ng-bind="::translation.THREATS">Các mối đe dọa</span>
+                    </a>
+                    <ul class="box_btn clearfix mb-0 dt_pos_ab">
+                        <li>
+                            <a href="javascript:;" ng-click="addItem('threat')" class="left btn_30 btn_add">
+                                <i class="bowtie-icon bowtie-math-plus-light fmIconEnvision"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" ng-click="removeItem('threat')" class="btn_30 btn_del">
+                                <i class="bowtie-icon bowtie-edit-remove fmIconEnvision"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </dt>
+                <dd>
+                    <div class="multi-collapse show" id="multiCollapse_goNotGo_04" aria-expanded="true">
+                        <table class="tb_tree">
+                            <thead>
+                                <tr class="bg_blue_01">
+                                    <th>
+                                        <p class="mb-0" ng-bind="::translation.INFO">Thông tin</p>
+                                    </th>
+                                    <th class="w-25">
+                                        <p class="mb-0" ng-bind="::translation.TYPE">Loại</p>
+                                    </th>
+                                </tr>
+                            </thead>
+                        </table>
+                        <div id="divThreat" class="tblDiv">
+                            <table class="tb_tree" id="tblThreat">
+                                <tbody>
+                                    <tr ng-repeat="item in envision.goNotGo.threat" class="clickable-row-threat" data-id="{{$index}}">
+                                        <td>
+                                            <lv-input-no-label element-id="txtThreat_{{$index}}" field="value" model="item.value" setting="setting" translation="translation" change="" type="text" tab="1"></lv-input-no-label>
+                                        </td>
+                                        <td class="w-25">
+                                            <lv-select element-id="vllThreat{{$index}}" field="threat" model="item.type" setting="setting" translation="translation"></lv-select>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </dd>
+            </dl>
+        </div>
+    </div>
+</div>

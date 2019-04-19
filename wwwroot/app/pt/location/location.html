@@ -1,0 +1,48 @@
+﻿<div id="location" ng-controller="locationController">
+    <div class="white_box" style="overflow:auto">
+        <div id="grvLocation" class="control-grid" style="height:100%; width:100%"></div>
+    </div>
+
+    <!-- modal detail-->
+    <div class="modal fadeIn modal_center" role="dialog" id="modal-detail" style="animation-delay:10s;">
+        <div class="modal-dialog modal-medium modal-padding" tabindex="-1" style="width:600px">
+            <div class="modal-content" style="padding-top: 0px !important">
+                <div class="modal-header">
+                    <p class="modal_header_title">
+                        <span ng-bind="action == 'add' ? translation.ADD_NEW_TITLE : translation.EDIT_TITLE | uppercase "></span>
+                    </p>
+                    <div class="box_btn_02">
+                        <button type="button" class="btn_close_02" data-dismiss="modal" title="{{translation.CLOSE_DIALOG}}">
+                            <i class="bowtie-icon bowtie-edit-remove"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-content">
+                        <div class="box_02 col_1 clearfix">
+                            <div class="item">
+                                <lv-input field="name" model="data.name" setting="setting" translation="translation" type="text" tab="1"></lv-input>
+                            </div>
+                            <div class="item">
+                                <lv-input field="sortOrder" model="data.sortOrder" setting="setting" translation="translation" type="number" tab="2"></lv-input>
+                            </div>
+                            <div class="item">
+                                <label ng-bind="translation.VIEWERS" class="mb_5"></label>
+                                <select id="select-viewers" class="lv-select" multiple ng-model="data.viewers" tabindex="3">
+                                    <optgroup ng-repeat="option in setting.valuelist.viewers" label="{{option[0].objectCode}}">
+                                        <option ng-repeat="child in option" value="{{child.id}}">{{child.text}}</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button ng-click="save()" class="btn btn_save_02" click-Once tabindex="3">
+                        <i class="bowtie-icon bowtie-save"></i><span ng-bind="translation.BTN_SAVE_CLOSE">Lưu & đóng</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,82 @@
+﻿<div id="stationeryLimit" ng-controller="stationeryLimitController">
+    <div class="white_box">
+        
+        <div id="grvStationeryLimit" style="width:100%;height:100%"></div>
+    </div>
+
+    <div class="modal fadeIn modal_center" role="dialog" id="modal-limit" style="animation-delay:10s;" ng-init="onLoad()">
+        <div class="modal-dialog" tabindex="-1" style="width: 600px">
+            <div class="modal-content" style="padding-top: 0px !important">
+                <div class="modal-header">
+                    <p class="modal_header_title"><span ng-bind="action == 'add' ? translation.ADD : translation.EDIT | uppercase "></span></p>
+                    <div class="box_btn_02">
+                        <button type="button" onclick="fullscreen('modal-detail')" class="fullscreen btn-modal-screen" title="{{::translation.BTN_SCREEN}}"><i class="bowtie-icon bowtie-view-full-screen"></i></button>
+                        <button type="button" class="btn_close_02" data-dismiss="modal" title="{{::translation.BTN_CLOSE}}"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-content">
+                        <div class="box_content">
+                            <div class="item mb_10">
+                                <!--<div class="form-group">
+            <label ng-bind="::translation.TITLE"></label>
+            <input tabindex="1" type="text" class="style-input form-control ip_txt" id="txtTitle" ng-model="data.title">
+        </div>-->
+                                <lv-input element-id="txtTitle" field="title" model="data.title" setting="setting" translation="translation"></lv-input>
+                            </div>
+                            <div class="item mb-10">
+                                <!--<div class="form-group">
+            <label ng-bind="::translation.LIMIT"></label>
+            <input tabindex="2" type="text" class="style-input form-control ip_txt" id="txtLimit" ng-model="data.limit">
+        </div>-->
+                                <lv-number element-id="txtLimit"
+                                           field="limit"
+                                           model="data.limit"
+                                           setting="setting"
+                                           translation="translation"
+                                           type="decimal" tab="3"></lv-number>
+                            </div>
+                            <div class="item mb_10">
+                                <lv-combobox option="cmbDepartment"
+                                             element-id="Department"
+                                             field="department"
+                                             model="data.department"
+                                             required="required"
+                                             label="{{translation.DEPARTMENT}}" tab="3">
+                                </lv-combobox>
+                            </div>
+                            <div class="item mb_10">
+                                <lv-combobox option="cmbRole"
+                                             element-id="ApproveRole"
+                                             field="approveRole"
+                                             model="data.approveRole"
+                                             required="required"
+                                             label="{{translation.APPROVE_ROLE}}" tab="4">
+                                </lv-combobox>
+                            </div>
+                            <div class="item mb_10">
+                                <lv-combobox option="cmbRole"
+                                             element-id="OrderRole"
+                                             field="orderRole"
+                                             model="data.orderRole"
+                                             required="required"
+                                             label="{{translation.ORDER_ROLE}}" tab="5">
+                                </lv-combobox>
+                            </div>
+                            <div class="form-group mb_10">
+                                <label ng-bind="::translation.NOTE" for="reason"></label>
+                                <textarea rows="2" class="style-input form-control"
+                                          id="txtNote"
+                                          ng-model="data.note" tabindex="6"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnSaveClose" ng-click="save()" type="button" class="btn btn_save_02" click-Once><i class="bowtie-icon bowtie-save"></i><span ng-bind="::translation.BTN_SAVE_CLOSE"></span></button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,38 @@
+﻿<script  type="text/javascript" src="../../../js/recorder.js"></script>
+
+<div class="modal fadeIn modal_center" role="dialog" id="modal-recorder">
+    <div class="modal-dialog" style="width: 1000px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p class="modal_header_title">
+                    <span ng-bind="'Recorder example demo' |uppercase "></span>
+                </p>
+                <div class="box_btn_02">
+                    <!--<button type="button" class="fullscreen btn-modal-screen"><i onclick="fullscreen('modal-recoder')" class="bowtie-icon bowtie-view-full-screen"></i></button>-->
+                    <button type="button" class="btn_close_02" data-dismiss="modal"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-body-content clearfix">
+                    <div class="modal-body-header">
+                        <div class="text">Make sure you are using a recent version of Google Chrome & Edge</div>
+                        <div class="text">Also before you enable microphone input either plug in headphones or turn the volume down if you want to avoid ear splitting feedback!</div>
+                    </div>
+                    <div class="modal-body-maincontent">
+                        <button ng-click="startRecording()"  ng-disabled="button.disabled"> Record </button>
+                        <button ng-click="stopRecording()" ng-disabled="!button.disabled"> Stop </button>
+
+                        <ul id="recordingslist"></ul>
+
+                        <div>Log</div>
+                        <div id="log"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button ng-click="saveRecorder()" type="button" class="btn btn_save_02" click-Once tabindex="13"><i class="bowtie-icon bowtie-save"></i><span ng-bind="::translation.BTN_SAVE_CLOSE"></span></button>
+            </div>
+        </div>
+    </div>
+</div>
+

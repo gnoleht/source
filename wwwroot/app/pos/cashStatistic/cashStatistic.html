@@ -1,0 +1,163 @@
+﻿<div id="cashStatistic" ng-controller="cashStatisticController" class="pos">
+    <div class="white_box">
+        <div class="box_filter clearfix">
+            <ul class="box_btn mb-0 d-flex justify-content-end">
+                <li class="w_15 select2_op2">
+                    <div class="btn_search">
+                        <div class="input-group">
+                            <input type="text" id="full_text_filter" class="form-control" placeholder="Tìm phiếu" ng-keypress="search($event, 1)">
+                            <span class="input-group-btn">
+                                <button class="btn" type="button" ng-click="search($event, 1, 1)"><i class="bowtie-icon bowtie-search"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                </li>
+                <li class="w_15 select2_op2">
+                    <lv-combobox field="cmbStoreFilter" option="cmbStoreFilter" model="storeFilter" tab="0">
+                    </lv-combobox>
+                </li>
+                <li class="w_15 select2_op2">
+                    <lv-select field="docType" model="docType" setting="setting" translation="translation" tab="0" label=" " allowclear="true"></lv-select>
+                </li>
+                <li class="w_15 select2_op2">
+                <lv-select field="dateTypeFilter" model="dateTypeFilter" setting="setting" translation="translation" tab="0" change="dateTypeChange()" allowclear="true" placeholder="{{translation.DATETYPEFILTERXXX}}"></lv-select>
+                </li>
+                <li class="w_15 select2_op2">
+                    <!--<select select2>
+            <option value="1" selected>Từ ngày</option>
+        </select>-->
+                    <lv-datepicker field="dateFromFilterxxx" model="fromDate" setting="setting" translation="translation" tab="0" style="width: 100%" nolabel="hidden" placeholder="{{translation.DATEFROMFILTER}}"></lv-datepicker>
+                </li>
+                <li class="w_15 select2_op2">
+                    <lv-datepicker field="dateToFilterxxx" model="toDate" setting="setting" translation="translation" tab="0" style="width: 100%" nolabel="hidden" placeholder="{{translation.DATETOFILTER}}"></lv-datepicker>
+                    <!--<select select2>
+            <option value="1" selected>Đến ngày</option>
+        </select>-->
+                </li>
+                <li>
+                    <button type="button" class="bg_blue_02 btn_filter w_100" ng-click="searchObject()">Lọc</button>
+                </li>
+            </ul>
+        </div>
+
+        <div class="box_item clearfix d-flex data-wrapper">
+            <a>
+                <div class="item item_document" style="width: 100%">
+                    <div class="title"><div class="text">{{translation.EARLYPERIOD}}</div></div>
+                    <div class="number">
+                        <b>{{earlyPeriod | number}}</b>
+                    </div>
+                </div>
+            </a>
+            <a>
+                <div class="item item_requirement" style="width: 100%">
+                    <div class="title"><div class="text">{{translation.TOTALDEBIT}}</div></div>
+                    <div class="number">
+                        <b>{{totalDebit | number}}</b>
+                    </div>
+                </div>
+            </a>
+            <a>
+                <div class="item item_epic" style="width: 100%">
+                    <div class="title"><div class="text">{{translation.TOTALCREDIT}}</div></div>
+                    <div class="number">
+                        <b>{{totalCredit | number}}</b>
+                    </div>
+                </div>
+            </a>
+            <a>
+                <div class="item item_function" style="width: 100%">
+                    <div class="title"><div class="text">{{translation.ENDPERIOD}}</div></div>
+                    <div class="number">
+                        <b>{{endPeriod | number}}</b>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <ul class="nav nav-tabs bg-white" role="tablist" id="myTab">
+            <li class="nav-item">
+                <a class="nav-link active" data-target="#statistic" id="tab_01-tab" data-toggle="tab" role="tab" aria-controls="statistic" aria-selected="true">Thống kê</a>
+            </li>
+        </ul>
+        <div class="tab-content tab-content-sprint" style="padding: 0px;">
+            <div class="tab-pane active" id="statistic" role="tabpanel" aria-labelledby="statistic">
+                <dl class="mb-0 box_pd" style="width: 100%; height: 100%;">                   
+                    <dd style="width:100%;height:100%">
+                        <div class="wrapper">
+                            <div class="gridWrapper">
+                                <div id="grvCashStatistic" class="control-grid wrapper" style="width:100%;height:100%"></div>
+                            </div>
+                        </div>
+                    </dd>
+                </dl>
+
+                <!--<div class="box_pd">
+                    <dl class="mb-0 wrapper">
+                        <dd class="wrapper" style="height:calc(100% - 25px)">
+                            <div class="collapse show wrapper" id="panel_01" aria-expanded="true">
+                                <div class="gridWrapper">
+                                    <div id="grvCashStatistic" class="control-grid" style="width:100%;height:100%"></div>
+                                </div>
+                            </div>
+                        </dd>
+                    </dl>
+                </div>-->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal (detail)-->
+    <div class="modal fade modal_center confirmClose" style="" id="modal-detail">
+        <div class="modal-dialog" style="width:600px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <p style="font-size:16px;margin:0;line-height:1.9em;" class="float-left"><span ng-bind="(action == 'add') ? translation.MODAL_DETAIL_ADDTITLE : translation.MODAL_DETAIL_EDITTITLE"></span></p>
+                    <div class="box_btn_02">
+                        <button type="button" class="fullscreen" onclick="fullscreen('modal-detail')"><i class="bowtie-icon bowtie-view-full-screen"></i></button>
+                        <button type="button" class="btn_close_02" data-dismiss="modal"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                    </div>
+                </div>
+                <div class="modal-body" style="min-height:260px">
+                    <div class="modal-body-maincontent">
+                        <div class="form-input-group">
+                            <div class="box_02 col_1 clearfix mb_15">
+                                <div class="pos_item">
+                                    <lv-input field="code" model="data.code" setting="setting" translation="translation" type="text" tab="2" class="clearfix"></lv-input>
+                                </div>
+                            </div>
+                            <div class="box_02 col_1 clearfix mb_15">
+                                <div class="pos_item">
+                                    <lv-input field="name" model="data.name" setting="setting" translation="translation" type="text" tab="3" class="clearfix"></lv-input>
+                                </div>
+                            </div>
+                            <div class="box_02 col_1 clearfix mb_15">
+                                <div class="pos_item">
+                                    <lv-textarea row="5" style="width: 100%" block-resize="block-resize" field="note" model="data.note" setting="setting" translation="translation" type="text" tab="4"></lv-textarea>
+                                </div>
+                            </div>
+                            <!--<div class="box_02 col_1 clearfix mb_15">
+                                <div class="pos_item">
+                                    <lv-select field="storeId" model="data.storeId" setting="setting" translation="translation" valuelist="setting.storeId" tab="5"></lv-select>
+                                </div>
+                            </div>-->
+                            <div class="box_02 col_1 clearfix mb_15">
+                                <div class="pos_item">
+                                    <div class="switch-label txt_cut" style="width: 120px;margin-left: 50px;">Đang hoạt động</div>
+                                    <div class="switch" ng-class="data.active ? 'change' : ''" ng-click="changeActive(data.active)" style="width: 60px">
+                                        <input type="checkbox">
+                                        <p class="slider mb-0"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn_save_02" id="btnSave" ng-click="save()" click-Once><i class="fa fa-save"></i> <span ng-bind="globalTranslation.BTN_SAVE">Save</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

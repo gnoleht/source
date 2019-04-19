@@ -1,0 +1,36 @@
+﻿
+var reportByTimeTranslation = {
+    "NO": "STT",
+    "CODE": "Số phiếu",
+    "DOCDATE": "Ngày bán",
+    "CASHIER": "Thu ngân",
+    "CUSTOMER": "Khách hàng",
+    "BPAIDAMOUNT": "Doanh thu trước thuế GTGT",
+    "VATAMOUNT": "Thuế GTGT",
+    "PAIDAMOUNT": "Doanh thu sau thuế GTGT",
+    "STATISTIC": "Thống kê theo",
+    "FROMDATE": "Từ ngày",
+    "TODATE": "Đến ngày",
+    "LIST_REPORTBYTIME": "Báo cáo tổng hợp doanh thu bán lẻ theo thời gian",
+    
+    "INFO_REPORT": "Thông tin báo cáo",
+    "SYNTHESIS_REPORT": "Báo cáo tổng hợp",
+
+    "GROUP": "Nhóm theo",
+    "TIMEMARK": "Mốc thời gian",
+    "FROMTIME": "Khung giờ từ",
+    "TOTIME": "Khung giờ đến",
+    "TIME": "Thông tin thời gian",
+    "INFO_ITEM": "Thông tin hàng hóa",
+    "ITEM_GROUP": "Nhóm hàng",
+    "ITEM_INDUSTRY": "Ngành hàng",
+    "ITEM": "Mặt hàng",
+    "CUST_INFO": "Thông tin khách hàng",
+    "CUST_GROUP": "Nhóm khách hàng",
+    "CUST_TYPE": "Loại khách hàng",
+    "CUSTOMER": "Khách hàng",
+    "STORE_INFO": "Thông tin cửa hàng",
+    "STORE": "Cửa hàng",
+    "PRINT": "Xem báo cáo",
+    "TOTAL":"Tổng cộng"
+}

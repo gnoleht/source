@@ -1,0 +1,287 @@
+﻿{
+  "requirement": {
+    "new": {
+      "proposed": null,
+      "active": null,
+      "resolved": null,
+      "closed": null,
+      "removed": null
+    },
+    "proposed": {
+      "active": [ "Accepted" ],
+      "resolved": null,
+      "closed": [ "Rejected" ],
+      "removed": null
+    },
+    "active": {
+      "new": null,
+      "proposed": [ "Investigation", "Complete" ],
+      "resolved": [ "Code Completed & System Test Passed" ],
+      "closed": null,
+      "removed": null
+    },
+    "resolved": {
+      "new": null,
+      "proposed": null,
+      "active": [ "Validation Test Failed" ],
+      "closed": [ "Validation Test Passed" ],
+      "removed": null
+    },
+    "closed": {
+      "new": null,
+      "proposed": null,
+      "active": [ "Closed in Error" ],
+      "resolved": [ "Closed in Error" ],
+      "removed": null
+    },
+    "removed": {
+      "new": null,
+      "proposed": null,
+      "active": null,
+      "resolved": null,
+      "closed": null
+    }
+  },
+
+  "epic": {
+    "new": {
+      "active": [ "Implementation stated" ],
+      "resolved": null,
+      "closed": null,
+      "removed": [ "Removed from the backlog" ]
+    },
+    "active": {
+      "new": [ "Moved to the backlog" ],
+      "resolved": [ "Code Completed & System Test Passed" ],
+      "closed": null,
+      "removed": null
+    },
+    "resolved": {
+      "new": null,
+      "active": [ "Acceptance test fail" ],
+      "closed": [ "Acceptance test passed" ],
+      "removed": null
+    },
+    "closed": {
+      "new": null,
+      "active": null,
+      "resolved": [ "Closed in Error" ],
+      "removed": null
+    },
+    "removed": {
+      "new": null,
+      "active": null,
+      "resolved": null,
+      "closed": null
+    }
+  },
+
+  "function": {
+    "new": {
+      "active": [ "Implementation stated" ],
+      "resolved": null,
+      "closed": null,
+      "removed": [ "Removed from the backlog" ]
+    },
+    "active": {
+      "new": [ "Moved to the backlog" ],
+      "resolved": [ "Code Completed & System Test Passed" ],
+      "closed": null,
+      "removed": null
+    },
+    "resolved": {
+      "new": null,
+      "active": [ "Acceptance test fail" ],
+      "closed": [ "Acceptance test passed" ],
+      "removed": null
+    },
+    "closed": {
+      "new": null,
+      "active": null,
+      "resolved": [ "Closed in Error" ],
+      "removed": null
+    },
+    "removed": {
+      "new": null,
+      "active": null,
+      "resolved": null,
+      "closed": null
+    }
+  },
+
+  "userstory": {
+    "new": {
+      "active": [ "Implementation stated" ],
+      "resolved": null,
+      "closed": null,
+      "removed": [ "Removed from the backlog" ]
+    },
+    "active": {
+      "new": [ "Moved to the backlog" ],
+      "resolved": [ "Code Completed & System Test Passed" ],
+      "closed": null,
+      "removed": null
+    },
+    "resolved": {
+      "new": null,
+      "active": [ "Acceptance test fail" ],
+      "closed": [ "Acceptance test passed" ],
+      "removed": null
+    },
+    "closed": {
+      "new": null,
+      "active": null,
+      "resolved": [ "Closed in Error" ],
+      "removed": null
+    },
+    "removed": {
+      "new": null,
+      "active": null,
+      "resolved": null,
+      "closed": null
+    }
+  },
+
+  "task": {
+    "new": {
+      "active": null,
+      "resolved": null,
+      "closed": [ "Work finished", "Obsolete" ],
+      "removed": [ "Removed from the backlog" ]
+    },
+    "active": {
+      "new": null,
+      "resolved": null,
+      "closed": [ "Work finished", "Obsolete" ],
+      "removed": null
+    },
+    "resolved": {
+      "new": null,
+      "active": null,
+      "closed": null,
+      "removed": null
+    },
+    "closed": {
+      "new": null,
+      "active": null,
+      "resolved": null,
+      "removed": null
+    },
+    "removed": {
+      "new": null,
+      "active": null,
+      "resolved": null,
+      "closed": null
+    }
+  },
+
+  "bug": {
+    "new": {
+      "active": null,
+      "approved": [ "Approved by Dev Lead", "Investigate" ],
+      "resolved": [ "Fixed", "As Designed", "Cannot Reproduce", "Copied to Backlog", "Deferred", "Duplicate", "Obsolete" ],
+      "done": null,
+      "closed": [ "Fixed", "As Designed", "Cannot Reproduce", "Copied to Backlog", "Deferred", "Duplicate", "Obsolete" ],
+      "removed": [ "Not a Bug", "Duplicate", "Removed from backlog" ]
+    },
+    "active": {
+      "new": [ "Investigation Complete" ],
+      "approved": [ "Work stoped" ],
+      "resolved": [ "Fixed", "As Designed", "Cannot Reproduce", "Copied to Backlog", "Deferred", "Duplicate", "Obsolete" ],
+      "done": null,
+      "closed": [ "Fixed and verified", "As Designed", "Cannot Reproduce", "Copied to Backlog", "Deferred", "Duplicate", "Obsolete" ],
+      "removed": null
+    },
+    "approved": {
+      "new": null,
+      "active": [ "Commitment" ],
+      "resolved": null,
+      "done": null,
+      "closed": null,
+      "removed": [ "Not a Bug", "Duplicate", "Removed from backlog" ]
+    },
+    "resolved": {
+      "new": null,
+      "active": [ "Not fixed", "Test Failed" ],
+      "approved": null,
+      "done": null,
+      "closed": [ "Fixed and verified" ],
+      "removed": null
+    },
+    "done": {
+      "new": null,
+      "active": null,
+      "approved": null,
+      "resolved": [ "Not fixed" ],
+      "closed": null,
+      "removed": null
+    },
+    "closed": {
+      "new": [ "Not fixed", "Test Failed" ],
+      "active": [ "Reactivated (ReOpen)", "Regression" ],
+      "approved": null,
+      "done": null,
+      "resolved": [ "Resolved in error" ],
+      "removed": null
+    },
+    "removed": {
+      "new": null,
+      "active": null,
+      "approved": null,
+      "done": null,
+      "resolved": null,
+      "closed": null
+    }
+  },
+
+  "testCase": {
+    "new": {
+      "new": null,
+      "notRun": [ "Investigation Complete" ],
+      "passed": [ "Complete" ],
+      "failed": [ "There are some errors" ],
+      "inProgress": [ "Fixed", "As Designed", "Cannot Reproduce", "Copied to Backlog", "Deferred", "Duplicate", "Obsolete" ],
+      "blocked": [ "Deferred", "Duplicate", "Obsolete" ]
+    },
+    "notRun": {
+      "new": [ "New" ],
+      "notRun": null,
+      "passed": [ "Complete" ],
+      "failed": [ "There are some errors" ],
+      "inProgress": [ "Fixed", "As Designed", "Cannot Reproduce", "Copied to Backlog", "Deferred", "Duplicate", "Obsolete" ],
+      "blocked": [ "Deferred", "Duplicate", "Obsolete" ]
+    },
+    "passed": {
+      "new": [ "New" ],
+      "notRun": null,
+      "passed": null,
+      "failed": [ "There are some errors" ],
+      "inProgress": [ "Fixed", "As Designed", "Cannot Reproduce", "Copied to Backlog", "Deferred", "Duplicate", "Obsolete" ],
+      "blocked": [ "Deferred", "Duplicate", "Obsolete" ]
+    },
+    "failed": {
+      "new": [ "New" ],
+      "notRun": null,
+      "passed": [ "Complete" ],
+      "failed": null,
+      "inProgress": [ "Fixed", "As Designed", "Cannot Reproduce", "Copied to Backlog", "Deferred", "Duplicate", "Obsolete" ],
+      "blocked": [ "Deferred", "Duplicate", "Obsolete" ]
+    },
+    "inProgress": {
+      "new": [ "New" ],
+      "notRun": null,
+      "passed": [ "Complete" ],
+      "failed": [ "There are some errors" ],
+      "inProgress": null,
+      "blocked": [ "Deferred", "Duplicate", "Obsolete" ]
+    },
+    "blocked": {
+      "new": null,
+      "notRun": null,
+      "passed": null,
+      "failed": null,
+      "inProgress": null,
+      "blocked": null
+    }
+  }
+}

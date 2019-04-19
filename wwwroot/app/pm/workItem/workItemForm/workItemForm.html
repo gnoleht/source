@@ -1,0 +1,409 @@
+﻿<div class="modal fadeIn modal_center" role="dialog" id="modal-detail" ng-init="onload()" style="animation-delay:10s;">
+    <div class="modal-dialog" tabindex="-1">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p class="modal_header_title"><span ng-bind="action == 'add' ? translation.BTN_ADD +' '+ data.typeName : translation.BTN_EDIT + ' ' + data.typeName + ' ' + data.no |uppercase "></span></p>
+                <div class="box_btn_02">
+                    <button type="button" onclick="fullscreen('modal-detail')" class="fullscreen btn-modal-screen" title="{{::translation.BTN_SCREEN}}"><i class="bowtie-icon bowtie-view-full-screen"></i></button>
+                    <button type="button" class="btn_close_02" data-dismiss="modal" title="{{::translation.BTN_CLOSE}}"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-body-content clearfix">
+                    <div class="type_md_header_{{data.type}} modal-body-header">
+                        <p ng-bind="::translation.TITLE">Name</p>
+                        <div class="clearfix">
+                            <input ng-model="data.name" type="text" tabindex="1" class="form-control ip_requirement" id="txtWIName" spellcheck="false" />
+                            <ul class="box_btn_03 clearfix">
+                                <li><a href="" class="btnHistory" ng-class="action == 'add' ? 'btn_30  btn_disable':'btn_30 btn_default'" ng-click="action == 'edit' && openHistory($event)" data-target="popover-history" title="{{translation.HISTORY}}"><i class="bowtie-icon bowtie-navigate-history"></i> </a></li>
+                                <li><a href="" class="btnComment" ng-class="action == 'add' ? 'btn_30  btn_disable':'btn_30 btn_default'" ng-click="action == 'edit' && openComment($event)" data-target="popover-comment" title="{{translation.COMMENT}}"><i class="bowtie-icon bowtie-comment-discussion"></i> </a></li>
+                                <li><a href="" class="btn_30 btn_default" ng-click="collapseButton()"><i class="bowtie-icon bowtie-toggle-collapse-all"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="modal-body-maincontent">
+                        <!-- Description -->
+                        <div class="modal-01" ng-show="data.type != 'bug' && data.type != 'testCase'">
+                            <div class="box_content border_n">
+                                <dl class="mb-0">
+                                    <dt><a class="title_01 bg_blue_01" data-toggle="collapse" data-target="#panel-desc" aria-expanded="true" aria-controls="panel-desc"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span ng-bind="::translation.DESCRIPTION"></span></a></dt>
+                                    <dd>
+                                        <div class="collapse show" id="panel-desc" aria-expanded="true" style="">
+                                            <textarea ui-tinymce="tinymceOptions" ng-model="data.description" tabindex="2"></textarea>
+                                        </div>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <!-- Acceptance Criteria -->
+                        <div class="modal-01" ng-show="['epic', 'function', 'userstory'].indexOf(data.type) != -1">
+                            <div class="box_content border_n">
+                                <dl class="mb-0">
+                                    <dt><a class="title_01 bg_blue_01" data-toggle="collapse" data-target="#panel-accep" aria-expanded="true" aria-controls="panel-accep"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span ng-bind="::translation.ACCEPTANCE_CRITERIA"></span></a></dt>
+                                    <dd>
+                                        <div class="collapse show" id="panel-accep" aria-expanded="true" style="">
+                                            <textarea ui-tinymce="tinymceOptions" ng-model="data.acceptanceCriteria" tabindex="3"></textarea>
+                                        </div>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <!-- Reproduce Steps -->
+                        <div class="modal-01" ng-show="data.type == 'bug'">
+                            <div class="box_content">
+                                <dl class="mb-0">
+                                    <dt><a class="title_01 bg_blue_01" data-toggle="collapse" data-target="#panel-reproduceSteps" aria-expanded="true" aria-controls="panel-reproduceSteps"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span ng-bind="::translation.REPRODUCESTEPS"></span></a></dt>
+                                    <dd>
+                                        <div class="collapse show" id="panel-reproduceSteps" aria-expanded="true" style="">
+                                            <textarea ui-tinymce="tinymceOptions" ng-model="data.reproduceSteps" tabindex="4"></textarea>
+                                        </div>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <!-- System Info -->
+                        <div class="modal-01" ng-show="data.type == 'bug'">
+                            <div class="box_content">
+                                <dl class="mb-0">
+                                    <dt><a class="title_01 bg_blue_01" data-toggle="collapse" data-target="#panel-systemInfo" aria-expanded="true" aria-controls="panel-systemInfo"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span ng-bind="::translation.SYSTEMINFO"></span></a></dt>
+                                    <dd>
+                                        <div class="collapse show" id="panel-systemInfo" aria-expanded="true" style="">
+                                            <textarea ui-tinymce="tinymceOptions" ng-model="data.systemInfo" tabindex="5"></textarea>
+                                        </div>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+
+                        <!-- TestCase Condition -->
+                        <div ng-show="data.type == 'testCase'" class="modal-02 col_2 clearfix mb_10">
+                            <div class="box_content">
+                                <dl class="mb-0">
+                                    <dt><a class="title_01 bg_blue_01"><span ng-bind="::translation.OBJECTIVE"></span></a></dt>
+                                    <dd style="border: 1px solid #eee;">
+                                        <textarea ui-tinymce="tinymceOptions" ng-model="data.objective" tabindex="4"></textarea>
+                                    </dd>
+                                </dl>
+                            </div>
+                            <div class="box_content">
+                                <dl class="mb-0">
+                                    <dt><a class="title_01 bg_blue_01"><span ng-bind="::translation.PRECONDITION"></span></a></dt>
+                                    <dd style="border: 1px solid #eee;">
+                                        <textarea ui-tinymce="tinymceOptions" ng-model="data.preCondition" tabindex="5"></textarea>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+
+                        <div ng-show="data.type == 'testCase'" id="testStepWrapper" class="modal-01 col_1 clearfix mb_10" style="top: 0;background: #fff;z-index: 999;">
+                            <div class="box_content">
+                                <a class="title_01 bg_blue_01" style="position: relative">
+                                    <span ng-bind="::translation.STEPS"></span>
+                                    <div style="position: absolute; right: 0; display: flex">
+                                        <div class="cl_green btn_add_02 mr_10" style="font-size: 17px; margin-top:1px" title="{{translation.BTN_ADD}}"><i class="bowtie-icon bowtie-math-plus-circle-outline" ng-click='addRow()'></i></div>
+                                        <div class="cl_red btn_add_02" style="font-size: 17px" title="{{translation.BTN_DELETE}}"> <i class="bowtie-icon bowtie-status-failure-outline" ng-click='removeRow()'></i></div>
+                                        <div class="cl_blue btn_add_02" style="font-size: 17px; margin:0 10px;transform: rotate(-90deg);" title="{{translation.BTN_UP}}"> <i class="bowtie-icon bowtie-navigate-forward-circle" ng-click='moveUp()'></i></div>
+                                        <div class="cl_blue btn_add_02 mr_10" style="font-size: 17px;transform: rotate(90deg);margin-top:2px" title="{{translation.BTN_DOWN}}"> <i class="bowtie-icon bowtie-navigate-forward-circle" ng-click='moveDown()'></i></div>
+                                        <div class="cl_blue btn_add_02" style="font-size: 14px; margin-top:2px" title="{{translation.BTN_SCREEN}}"> <i class="bowtie-icon bowtie-view-full-screen" id="fullTestStepButton" ng-click='fullTestStep()'></i></div>
+                                    </div>
+                                </a>
+                                <div class="gridWrapper">
+                                    <div id="grvTestSteps" class="control-grid" style="width: 100%; height: 100%;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--<div ng-class="data.type == 'bug' ? 'modal-02 col_3 clearfix':'modal-02 clearfix'">-->
+                        <div class="modal-02 clearfix">
+                            <div class="box_content">
+                                <dl class="mb-0">
+                                    <dt><a class="title_02 bg_gray_01" data-toggle="collapse" data-target="#multiCollapse_01" aria-expanded="true" aria-controls="multiCollapse_01"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span ng-bind="::translation.TITLE_PANEL_CONTROL"></span></a></dt>
+                                    <dd>
+                                        <div class="multi-collapse collapse show" id="multiCollapse_01" aria-expanded="true" style="">
+                                            <div class="item" ng-if="data.type != 'testCase'">
+                                                <lv-select config="configState" element-id="vllState" field="state" model="data.state" change="changeState()" setting="setting" translation="translation" tab="6"></lv-select>
+                                            </div>
+                                            <div class="item" ng-if="data.type == 'testCase'">
+                                                <lv-select config="configState" element-id="vllState" field="testCaseState" model="data.state" change="changeState()" setting="setting" translation="translation" tab="6"></lv-select>
+                                            </div>
+                                            <div class="item">
+                                                <!--<lv-select element-id="vllReason" field="reason" model="data.reason" setting="setting" translation="translation" tab="7"></lv-select>-->
+                                                <lv-input element-id="txtReason"
+                                                          field="reason"
+                                                          model="defaultData.reason"
+                                                          setting="setting"
+                                                          translation="translation"
+                                                          type="text" ng-show="defaultData.state == data.state"></lv-input>
+                                                <div class="form-group" ng-show="defaultData.state != data.state">
+                                                    <label ng-bind="::translation.REASON"></label>
+                                                    <select tabindex="7" select2 class="form-control" id="vllReason" ng-model="data.reason">
+                                                        <option ng-repeat="item in setting.valuelist.reasons" value="{{$index}}">{{item}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="item">
+                                                <!--<lv-select element-id="vllArea" field="area" model="data.area" setting="setting" translation="translation" tab="8"></lv-select>-->
+                                                <lv-combobox option="cmbArea"
+                                                             element-id="workArea"
+                                                             field="area"
+                                                             model="data.area"
+                                                             change="changeArea()"
+                                                             label="{{translation.AREA}}" tab="8">
+                                                </lv-combobox>
+                                            </div>
+
+                                            <div class="item" ng-show="data.type != 'testCase' && params.module == 'pj'">
+                                                <lv-combobox option="cmbSprint"
+                                                             element-id="cmbWorkSprint"
+                                                             field="sprint"
+                                                             model="data.sprint"
+                                                             label="{{translation.SPRINT}}" tab="9">
+                                                </lv-combobox>
+                                            </div>
+                                            <div class="item" ng-show="data.type == 'testCase' && params.module == 'pj'">
+                                                <div class="form-group">
+                                                    <label ng-bind="::translation.SPRINT"></label>
+                                                    <input type="text" class="style-input form-control " tabindex="9" id="cmbSprint" ng-model="data.sprintName" readonly="readonly">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </dd>
+                                </dl>
+                            </div>
+                            <div class="box_content">
+                                <dl class="mb-0">
+                                    <dt><a class="title_02 bg_gray_01" data-toggle="collapse" data-target="#multiCollapse_02" aria-expanded="true" aria-controls="multiCollapse_02"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span ng-bind="::translation.TITLE_PANEL_PLANNING"></span></a></dt>
+                                    <dd>
+                                        <div class="multi-collapse collapse show" id="multiCollapse_02" aria-expanded="true">
+                                            <div class="item">
+                                                <lv-select element-id="vllPriority" config="configPriority" field="priority" model="data.priority" setting="setting" translation="translation" tab="10"></lv-select>
+                                            </div>
+                                            <div class="item" ng-show="data.type != 'bug'">
+                                                <lv-select element-id="vllRisk" field="risk" model="data.risk" setting="setting" translation="translation" tab="11"></lv-select>
+                                            </div>
+
+                                            <!--<div class="item form-group" ng-show="['task', 'bug'].indexOf(data.type) == -1">
+                                                <lv-datepicker field="targetDate" model="data.targetDate" setting="setting" translation="translation" tab="12"></lv-datepicker>
+                                            </div>-->
+                                            <div class="item form-group" ng-show="data.type == 'requirement'">
+                                                <lv-date element-id="requirementPlanEndDate" field="planEndDate" model="data.planEndDate" setting="setting" label="{{translation.REQUIREMENT_PLAN_END_DATE}}" tab="12"></lv-date>
+                                            </div>
+
+                                            <div class="item" ng-show="['epic', 'function'].indexOf(data.type) != -1">
+                                                <lv-select element-id="vllVersion" field="version" model="data.version" setting="setting" translation="translation" tab="13"></lv-select>
+                                            </div>
+                                            <div class="item" ng-show="data.type == 'userstory'">
+                                                <lv-select element-id="vllSize" field="size" model="data.size" setting="setting" translation="translation" tab="14"></lv-select>
+                                            </div>
+                                            <div class="item" ng-show="data.type == 'bug'">
+                                                <lv-select element-id="vllSeverity" field="severity" model="data.severity" setting="setting" translation="translation" tab="15"></lv-select>
+                                            </div>
+                                            <div class="item" ng-show="data.type == 'bug' || data.type == 'task'">
+                                                <lv-select element-id="vllFindingAtActivity" field="phase" model="data.phase" setting="setting" translation="translation" tab="16"></lv-select>
+                                            </div>
+                                            <div class="item" ng-show="data.type == 'bug'">
+                                                <lv-select element-id="vllRetrospective" field="retrospective" model="data.retrospective" setting="setting" translation="translation" tab="17"></lv-select>
+                                            </div>
+                                            <div class="item" ng-show="data.type == 'bug'">
+                                                <lv-select element-id="vllBugCategory" field="bugCategory" model="data.bugCategory" setting="setting" translation="translation" tab="18"></lv-select>
+                                            </div>
+                                        </div>
+                                    </dd>
+                                </dl>
+                            </div>
+                            <div class="box_content">
+                                <dl class="mb-0">
+                                    <dt><a class="title_02 bg_gray_01" data-toggle="collapse" data-target="#multiCollapse_03" aria-expanded="true" aria-controls="multiCollapse_03"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span ng-bind="::translation.TITLE_PANEL_ASSIGNTO"></span></a></dt>
+                                    <dd>
+                                        <div class="multi-collapse collapse show" id="multiCollapse_03" aria-expanded="true" style="">
+                                            <div class="item" ng-hide="data.type == 'testCase'">
+                                                <lv-combobox option="cmbAssign"
+                                                             element-id="workAssign"
+                                                             field="assign"
+                                                             model="data.assign"
+                                                             label="{{translation.ASSIGN}}" tab="19">
+                                                </lv-combobox>
+                                            </div>
+                                            <div class="item" ng-show="data.type == 'testCase'">
+                                                <lv-combobox option="cmbAssign"
+                                                             element-id="designerAssign"
+                                                             field="assign"
+                                                             model="data.assign"
+                                                             label="{{translation.DESIGNERASSIGN}}" tab="20">
+                                                </lv-combobox>
+                                            </div>
+                                            <div class="item" ng-show="data.type == 'testCase'">
+                                                <lv-combobox option="cmbAssign"
+                                                             element-id="testingAssign"
+                                                             field="testingAssign"
+                                                             model="data.testingAssign"
+                                                             label="{{translation.TESTINGASSIGN}}" tab="20">
+                                                </lv-combobox>
+                                            </div>
+                                            <div class="item" ng-show="data.type == 'requirement'">
+                                                <lv-select-muti element-id="cmbPersonas" field="personas" model="data.personas" setting="setting" translation="translation" tab="20"></lv-select-muti>
+                                            </div>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl class="mb-0" ng-show="['bug', 'task'].indexOf(data.type) != -1" style="margin-top:10px">
+                                    <dt><a class="title_02 bg_gray_01" data-toggle="collapse" data-target="#multiCollapse_04" aria-expanded="true" aria-controls="multiCollapse_04"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>Effort (Hours)</span></a></dt>
+                                    <dd>
+                                        <div class="multi-collapse collapse show" id="multiCollapse_04" aria-expanded="true" style="">
+                                            <div class="item">
+                                                <lv-number element-id="txtOriginalEstimate"
+                                                           field="originalEstimate"
+                                                           model="data.originalEstimate"
+                                                           setting="setting"
+                                                           translation="translation"
+                                                           change="changeOriginal()"
+                                                           type="decimal" tab="22" min="0" max-num="3" max-dec="2"></lv-number>
+                                            </div>
+                                            <div class="item">
+                                                <lv-number element-id="txtRemaining"
+                                                           field="remaining"
+                                                           model="data.remaining"
+                                                           setting="setting"
+                                                           translation="translation"
+                                                           type="decimal" tab="23" min="0" max-num="3" max-dec="2"></lv-number>
+                                            </div>
+                                            <div class="item">
+                                                <lv-number element-id="txtCompleted"
+                                                           field="completed"
+                                                           model="data.completed"
+                                                           setting="setting"
+                                                           translation="translation"
+                                                           type="decimal" tab="24" min="0" max-num="3" max-dec="2"></lv-number>
+                                            </div>
+                                        </div>
+                                    </dd>
+                                </dl>
+                            </div>
+                            <div class="box_content" ng-if="data.type != 'bug'">
+                                <dl class="mb-0" ng-show="data.type == 'requirement' || data.type == 'testCase'">
+                                    <dt><a class="title_02 bg_gray_01" data-toggle="collapse" data-target="#multiCollapse_05" aria-expanded="true" aria-controls="multiCollapse_05"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span ng-bind="::translation.TITLE_PANEL_CLASSIFICATION"></span></a></dt>
+                                    <dd>
+                                        <div class="multi-collapse collapse show" id="multiCollapse_05" aria-expanded="true" style="" ng-hide="data.type == 'testCase'">
+                                            <div class="item">
+                                                <lv-select element-id="vllRequirementSources" field="requirementSources" model="data.requirementSources" setting="setting" translation="translation" tab="25"></lv-select>
+                                            </div>
+                                            <div class="item">
+                                                <lv-select element-id="vllCategory" field="typeCategory" model="data.category" setting="setting" translation="translation" tab="26"></lv-select>
+                                            </div>
+                                        </div>
+                                        <div class="multi-collapse collapse show" id="multiCollapse_05" aria-expanded="true" style="" ng-show="data.type == 'testCase'">
+                                            <div class="item">
+                                                <lv-select element-id="vllTestingType" field="testingType" model="data.testingType" setting="setting" translation="translation" tab="27"></lv-select>
+                                            </div>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl class="mb-0" ng-show="['bug', 'requirement', 'testCase'].indexOf(data.type) == -1">
+                                    <dt><a class="title_02 bg_gray_01" data-toggle="collapse" data-target="#multiCollapse_07" aria-expanded="true" aria-controls="multiCollapse_07"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span ng-bind="::translation.TITLE_PANEL_PLAN_WORK">PLAN WORK (DAY)</span></a></dt>
+                                    <dd>
+                                        <div class="multi-collapse collapse show" id="multiCollapse_07" aria-expanded="true">
+                                            <div class="item">
+                                                <lv-date field="planStartDate" model="data.planStartDate" setting="setting" translation="translation" tab="28" change="changePlanDate('startDate')"></lv-date>
+                                            </div>
+                                            <div class="item">
+                                                <lv-date field="planEndDate" model="data.planEndDate" setting="setting" translation="translation" tab="29" change="changePlanDate('endDate')"></lv-date>
+                                            </div>
+                                            <div class="item">
+                                                <lv-input element-id="txtPlanDuration"
+                                                          field="planDuration"
+                                                          model="data.planDuration"
+                                                          setting="setting"
+                                                          translation="translation"
+                                                          type="text" tab="30"></lv-input>
+                                            </div>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl class="mb-0" ng-show="data.type == 'task'" style="margin-top:10px;">
+                                    <dt><a class="title_02 bg_gray_01" data-toggle="collapse" data-target="#multiCollapse_06" aria-expanded="true" aria-controls="multiCollapse_06"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span ng-bind="::translation.TITLE_PANEL_ACTUAL_WORK"></span></a></dt>
+                                    <dd>
+                                        <div class="multi-collapse collapse show" id="multiCollapse_06" aria-expanded="true" style="">
+                                            <div class="item">
+                                                <div class="form-group">
+                                                    <label ng-bind="::translation.ACTUALSTARTDATE"></label>
+                                                    <input type="text" class="style-input form-control " tabindex="31" id="txtActualStartDate" ng-model="data.actualStartDate" date readonly="readonly">
+                                                </div>
+                                            </div>
+                                            <div class="item">
+                                                <div class="form-group">
+                                                    <label ng-bind="::translation.ACTUALENDDATE"></label>
+                                                    <input type="text" class="style-input form-control " tabindex="32" id="txtActualEndDate" ng-model="data.actualEndDate" date readonly="readonly">
+                                                </div>
+                                            </div>
+                                            <div class="item">
+                                                <lv-input element-id="txtActualDuration"
+                                                          field="actualDuration"
+                                                          model="data.actualDuration"
+                                                          setting="setting"
+                                                          translation="translation"
+                                                          type="text" tab="33"></lv-input>
+                                            </div>
+                                        </div>
+                                    </dd>
+                                </dl>
+                            </div>
+                            <div class="box_content" ng-if="data.type == 'bug'">
+                                <dl class="mb-0">
+                                    <dt><a class="title_02 bg_gray_01" data-toggle="collapse" data-target="#multiCollapse_08" aria-expanded="true" aria-controls="multiCollapse_08"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span ng-bind="::translation.TITLE_PANEL_BUILDINFO"></span></a></dt>
+                                    <dd>
+                                        <div class="multi-collapse collapse show" id="multiCollapse_08" aria-expanded="true" style="">
+                                            <div class="item">
+                                                <div class="form-group">
+                                                    <label ng-bind="::translation.FOUNDINBUILD"></label>
+                                                    <input type="text" class="style-input form-control " tabindex="34" id="txtFoundInBuild" ng-model="data.foundInBuild" readonly="readonly">
+                                                </div>
+                                            </div>
+                                            <div class="item">
+                                                <div class="form-group">
+                                                    <label ng-bind="::translation.INTEGRATEDINBUILD"></label>
+                                                    <input type="text" class="style-input form-control " tabindex="35" id="txtIntegratedInBuild" ng-model="data.integratedInBuild" readonly="readonly">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-content-plus clearfix animated bounceInDown" style="height:calc(100% - 20px);top:10px">
+                    <ul class="title m-0">
+                        <li><a href="javascript:" class="btn_data btn_modal" ng-bind="::translation.ATTACHMENTS"></a></li>
+                        <li><a href="javascript:" class="btn_link btn_modal" ng-bind="::translation.RELATED_WORK"></a></li>
+                    </ul>
+                    <div class="modal-content-link-data clearfix">
+                        <div class="content_data">
+                            <!-- Include Attachment list -->
+                            <list-attachment id="workAttachment"></list-attachment>
+                        </div>
+                        <div class="content_link">
+                            <!-- Include related list -->
+                            <list-related-work id="related-work-item"></list-related-work>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button id="btnSaveClose" ng-click="save()" type="button" class="btn btn_save_02" click-Once><i class="bowtie-icon bowtie-save"></i><span ng-bind="::translation.BTN_SAVE_CLOSE">Lưu & đóng</span></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Comment -->
+    <comment></comment>
+    <!-- history -->
+    <history></history>
+
+</div>
+<div>
+    <!-- modal attachment -->
+    <div lv-include path="app/pm/pm_share/attachment" name="attachment" id="workAttachment"></div>
+    <!-- modal relatedWork -->
+    <div lv-include path="app/pm/pm_share/relatedWork" name="relatedWork"></div>
+</div>

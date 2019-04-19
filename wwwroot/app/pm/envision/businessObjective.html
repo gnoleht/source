@@ -1,0 +1,358 @@
+﻿<script src="/js/chartjs/Chart.min.js"></script>
+<div id="businessObjective" style="position:relative;width:100%;height:100%" ng-init="onload()">
+    <div style="height:100%;width:100%">
+        <div class="box_content" style="width:100%;height:100%">
+            <dl class="mb-0">
+                <dt>
+                    <a class="title_01 bg_blue_01" data-toggle="collapse" data-target="#multiCollapse_businessObjective_01" aria-expanded="true" aria-controls="multiCollapse_businessObjective_01">
+                        <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i>
+                        <span ng-bind="translation.TIME_MONEY">Thời gian thu hồi vốn</span>
+                    </a>
+                </dt>
+                <dd class="border_n">
+                    <div class="content_7_3 box_pd border clearfix multi-collapse show collapse show" id="multiCollapse_businessObjective_01" aria-expanded="true" style="">
+                        <div class="content_3 float-left">
+                            <div class="content_btn">
+                                <div class="form-group">
+                                    <label class="control-label" for="vllTimeOfProject" ng-bind="translation.TIME_PROJECT">Thời gian dự án (năm)</label>
+                                    <select select2 ng-model="data.timeOfProject" id="vllTimeOfProject" ng-change="changedTimeProject()">
+                                        <option ng-repeat="item in setting.valuelist.timeofproject" value="{{item.id}}"> {{ item.text }}</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label" ng-bind="translation.TIME_INVEST">Thời gian đầu tư (năm)</label>
+
+                                    <select select2="option2" ng-model="data.timeOfInvest" placeholder=" " id="vllTimeOfInvest" ng-change="changedTimeInvest()">
+                                        <option ng-repeat="item in setting.valuelist.timeofinvest" value="{{item.id}}"> {{ item.text }}</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <div style="margin-top:10px;"><label ng-bind="translation.LIFE_PRODUCT">Đời sống sản phẩm (năm)</label></div>
+                                    <div><input class="form-control lifeOfProduct ip_txt" type="text" placeholder=" " id="txtLifeOfProduct" ng-model="data.lifeOfProduct" readonly /></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content_7 float-right">
+                            <dl class="mb-0" id="chartProject">
+                                <dt class="dt_pos_re h_th">
+                                    <a class="title_01 bg_gray_01" data-toggle="collapse" data-target="#panel-timemoney" aria-expanded="true" aria-controls="#panel-timemoney">
+                                        <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i>
+                                        <span class="titleCkePer" ng-bind="translation.TIME_MONEY">Thời gian thu hồi vốn</span>
+                                    </a>
+                                    <ul class="box_btn clearfix mb-0 dt_pos_ab">
+                                        <li>
+                                            <a title="{{translation.HISTORY}}" href="javascript:;" ng-click="openHistory($event)" class="left btn_30 btn_edit">
+                                                <i class="bowtie-icon bowtie-navigate-history fmIconEnvision"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;" ng-click="changeView()" class="left btn_30 btn_add">
+                                                <i id="iconView" class="bowtie-icon bowtie-chart-column fmIconEnvision"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </dt>
+                                <dd class="border_n">
+                                    <div id="panel-timemoney" class="panel-collapse collapse show">
+                                        <div class="tb_businessObj clearfix">
+                                            <div id="divTableHeader">
+                                                <table class="tb_tree">
+                                                    <thead>
+                                                        <tr>
+                                                            <th></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <th ng-bind="translation.COST_TAB">Chi phí</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <th ng-bind="translation.REVENUE">Doanh thu</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <th ng-bind="translation.PAYBACK">Thu hồi vốn</th>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div id="divTable" style="overflow:auto">
+                                                <table class="tb_tree" id="tbSummary"></table>
+                                            </div>
+
+                                            <div id="divChart" style="display:none;">
+                                                <div class="divChart_body"><canvas id="cvChart"></canvas></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </dd>
+            </dl>
+        </div>
+
+        <div class="box_content" style="width:100%;height:100%;overflow:auto;margin-top:10px">
+            <dl class="mb-0">
+                <dt class="dt_pos_re h_th">
+                    <a class="title_01 bg_gray_01" data-toggle="collapse" data-target="#multiCollapse_businessObjective_02" aria-expanded="true" aria-controls="multiCollapse_businessObjective_02">
+                        <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i>
+                        <span ng-bind="translation.COST">Chi phí</span>
+                    </a>
+                    <ul class="box_btn clearfix mb-0 dt_pos_ab">
+                        <li>
+                            <a href="javascript:;" ng-click="addDetail('cost')" class="left btn_30 btn_add">
+                                <i class="bowtie-icon bowtie-math-plus-light fmIconEnvision"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" ng-click="editDetail('cost')" class="left btn_30 btn_edit">
+                                <i class="bowtie-icon bowtie-edit-outline fmIconEnvision"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" ng-click="deleteDetail('cost')" class="btn_30 btn_del">
+                                <i class="bowtie-icon  bowtie-edit-remove  fmIconEnvision"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </dt>
+                <dd class="border_n">
+                    <div class="multi-collapse show" id="multiCollapse_businessObjective_02" aria-expanded="true">
+                        <div id="grvBusinessObjectiveCost" style="height:250px"></div>
+                    </div>
+
+                </dd>
+            </dl>
+        </div>
+
+        <div class="box_content" style="width:100%;margin-top:10px">
+            <dl class="mb-0">
+                <dt class="dt_pos_re h_th">
+                    <a class="title_01 bg_gray_01" data-toggle="collapse" data-target="#multiCollapse_businessObjective_03" aria-expanded="true" aria-controls="multiCollapse_businessObjective_03">
+                        <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i>
+                        <span ng-bind="translation.REVENUE">Doanh thu</span>
+                    </a>
+                    <ul class="box_btn clearfix mb-0 dt_pos_ab">
+                        <li>
+                            <a href="javascript:;" ng-click="addDetail('revenue')" class="left btn_30 btn_add">
+                                <i class="bowtie-icon bowtie-math-plus-light fmIconEnvision"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" ng-click="editDetail('revenue')" class="left btn_30 btn_edit">
+                                <i class="bowtie-icon bowtie-edit-outline fmIconEnvision"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" ng-click="deleteDetail('revenue')" class="btn_30 btn_del">
+                                <i class="bowtie-icon  bowtie-edit-remove  fmIconEnvision"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </dt>
+                <dd class="border_n">
+                    <div class="multi-collapse show" id="multiCollapse_businessObjective_03" aria-expanded="true" style="">
+                        <div id="grvBusinessObjectiveRevenue" style="height:250px"></div>
+                    </div>
+                </dd>
+            </dl>
+        </div>
+    </div>
+
+    <!-- Modal (Modal Detail)-->
+    <div class="modal fade modal_center confirmClose" id="modal-detail" tabindex="-1">
+        <div class="modal-dialog modal-medium modal-padding" id="dialog-modal" style="width:40%;">
+            <div class="modal-content requirement-content" style="padding-top: 0px !important">
+                <div class="modal-header ui-draggable-handle">
+                    <p class="modal_header_title"><span>{{titleAdd}}</span></p>
+                    <div class="box_btn_02">
+                        <button type="button" class="btn_close_02" data-dismiss="modal" title="Close"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-content clearfix">
+                        <div class="modal-body-detail clearfix modal-body-maincontent">
+                            <div class="clearfix row pd_lr_7">
+                                <!--PAYMENT_INFO-->
+                                <div class="col-sm-6 float-left">
+                                    <div class="box_content">
+                                        <dl class="mb-0">
+                                            <dt>
+                                                <a class="title_02 bg_gray_01" aria-expanded="true" data-target="#panel-info-detail" aria-controls="panel-info-detail" data-toggle="collapse">
+                                                    <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i>
+                                                    <span ng-bind="translation.INFO_DETAIL" class="ng-binding">Thông tin</span>
+                                                </a>
+                                            </dt>
+                                            <dd class="border_n">
+                                                <div class="multi-collapse collapse show" id="panel-info-detail" aria-expanded="true" style="">
+                                                    <div class="item">
+                                                        <lv-input element-id="txt_quota" field="quota" model="detail.quota" setting="setting" translation="translation" change="" type="text" tabindex="1"></lv-input>
+                                                    </div>
+                                                    <div class="item">
+                                                        <lv-input element-id="txt_unit" field="unit" model="detail.unit" setting="setting" translation="translation" change="" type="text" tabindex="2"></lv-input>
+                                                    </div>
+                                                    <div class="item">
+                                                        <lv-input class="none-padding" element-id="txt_price" field="price" model="detail.price" setting="setting" translation="translation" change="" type="money" tabindex="3"></lv-input>
+                                                    </div>
+                                                </div>
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                </div>
+                                <!--CONTROL_DEBIT-->
+                                <div class="col-sm-6 float-left">
+                                    <div class="box_content">
+                                        <dl class="mb-0">
+                                            <dt>
+                                                <a class="title_02 bg_gray_01" aria-expanded="true" data-target="#panel-year" aria-controls="panel-year" data-toggle="collapse">
+                                                    <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i>
+                                                    <span ng-bind="translation.QUANTITY_YEAR" class="ng-binding">Số lượng theo năm</span>
+                                                </a>
+                                            </dt>
+                                            <dd class="border_n">
+                                                <div class="multi-collapse collapse show" id="panel-year" aria-expanded="true" style="">
+                                                    <div class="item" ng-repeat="item in lstYear">
+                                                        <lv-input class="none-padding" element-id="txt_year_{{$index}}" field="year" index="{{$index + 1}}" model="detail[item]" setting="setting" translation="translation" change="" type="money" tabindex="{{$index + 4}}"></lv-input>
+                                                    </div>
+                                                </div>
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" click-Once class="btn btn_save_02" ng-click="saveDetail()">
+                        <i class="bowtie-icon bowtie-save"></i> <span ng-bind="translation.BTN_SAVE_CLOSE">Save</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--POPOVER-->
+    <!-- history -->
+    <div id="popover-history" class="context-popover">
+        <div class="arrow"></div>
+        <div class="popover-title">
+            <b ng-bind="::translation.HISTORY"></b>
+            <a href="javascript:;" ng-click="closeHistory()" style="float:right"><i class="bowtie-icon bowtie-edit-remove"></i></a>
+        </div>
+        <div class="popover-content" style="width:500px;">
+            <div ng-repeat="item in history">
+                <div class="clearfix">
+                    <span class="img_user_tb img_over">
+                        <img class="img-circle" src="/api/system/viewfile?id={{item.createdByRelated.avatarThumb}}&def=/img/no_avatar.png" alt="user-image">
+                    </span>
+                    <b>{{item.createdByRelated.displayName}}</b>
+                    <span class="epoch-time"> ({{item.createdTime}})</span>
+                    <br />
+                    <span>Updated, made other changes.</span>
+                </div>
+                <div class="box_content border_n">
+                    <dl class="mb-0">
+                        <dt>
+                            <a class="title_02 bg_gray_01" data-toggle="collapse" data-target="#panel-history-{{$index}}" aria-expanded="true" aria-controls="panel-history-{{$index}}">
+                                <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i>
+                                <span>Fields</span>
+                            </a>
+                        </dt>
+                        <dd class="border_n">
+                            <div class="collapse show" id="panel-history-{{$index}}" aria-expanded="true">
+                                <table class="table table-condensed">
+                                    <colgroup>
+                                        <col style="width:30%">
+                                        <col style="width:35%">
+                                        <col style="width:35%">
+                                    </colgroup>
+                                    <thead>
+                                        <tr>
+                                            <th>Field</th>
+                                            <th>New value</th>
+                                            <th>Old value</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="jitem in item.Value">
+                                            <td>
+                                                <span ng-bind="jitem.key"></span>
+                                            </td>
+                                            <td>
+                                                <span ng-bind="jitem.newVal"></span>
+                                            </td>
+                                            <td>
+                                                <span ng-bind="jitem.oldVal"></span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    input.editor-text {
+        width: 100%;
+        height: 100%;
+        border: 0;
+        margin: 0;
+        background: transparent;
+        outline: 0;
+        padding: 0;
+    }
+
+    .slick-cell.editable {
+        border: 1px solid #eee
+    }
+
+    .slick-cell.invalid {
+        border-color: red;
+    }
+
+    .lifeOfProduct {
+        border: 0;
+        border-radius: 0;
+        border-bottom: 1px solid #eee;
+        padding-left: 0px;
+    }
+
+    #businessObjective .slick-header .slick-header-columns .ui-state-default:first-child .slick-column-name {
+        float: left;
+    }
+
+    #businessObjective .slick-header .slick-header-columns .ui-state-default:nth-child(2) .slick-column-name {
+        float: left;
+    }
+
+    #businessObjective .slick-header .slick-header-columns .ui-state-default .slick-column-name {
+        float: right;
+    }
+
+    #businessObjective .slick-viewport .grid-canvas .ui-widget-content .slick-cell:first-child {
+        text-align: left;
+    }
+
+    #businessObjective .slick-viewport .grid-canvas .ui-widget-content .slick-cell:nth-child(2) {
+        text-align: left;
+    }
+
+    #businessObjective .slick-viewport .grid-canvas .ui-widget-content .slick-cell {
+        text-align: right;
+    }
+
+    #businessObjective .slick-footerrow .slick-footerrow-columns .ui-state-default {
+        text-align: right;
+    }
+
+</style>

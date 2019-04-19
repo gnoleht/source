@@ -1,0 +1,69 @@
+﻿<div id="dashboard" ng-controller="dashboardController">
+    <div id="{{function.id}}" class="dbParentFunction" ng-repeat="function in listFunction">
+        <div class="dbCollapse" style="width:30px;padding-top:14px">
+            <a class="dbCollapseIcon" ng-click="collapseChild(function.id)"><i id="i_{{function.id}}" class="bowtie-icon bowtie-chevron-down-light blockOpen" style="color:#949494"></i></a>
+        </div>
+        <div style="float:left;width:95%">
+            <div style="padding-bottom:15px">
+                <div class="txt_title" style="cursor:pointer;" ng-click="collapseChild(function.id)">
+                    <span class="txt_01" ng-if="currentLanguage=='vn'">Quản lý </span>
+                    <span class="txt_02">{{function.name[currentLanguage]}}</span>
+                    <span class="txt_01" ng-if="currentLanguage=='en'"> Management</span>
+                </div>
+                <p style="color:#999" class="mb-0">{{function.description[currentLanguage]}}</p>
+            </div>
+            <div id="div_{{function.id}}" class="childGroup">
+                <a ng-repeat="child in listChild[function.id]" href="{{child.url}}">
+                    <div id="div_child.id" class="dbchildFunction" ng-style="child.url != null && child.url!='' && {'cursor':'pointer'}" style="background-color:{{child.style.backColor}}">
+                        <div class="wrapper" style="background-image: url('api/system/viewFile?id={{child.style.iconThumb}}'); background-size: cover; background-position: center"  ng-if="child.style != null && child.style.iconThumb != null && child.style.iconThumb != ''"></div>
+                        <!--<img style="width:100%;height:100%" ng-if="child.style != null && child.style.iconThumb != null && child.style.iconThumb != ''" src="api/system/viewFile?id={{child.style.iconThumb}}">-->
+                        <div ng-if="child.style.iconThumb == null || child.style.iconThumb == ''">
+                            <p class="dbChildTitle" style="color:{{child.style.titleColor}}">{{child.name[currentLanguage]}}</p>
+                            <p class="dbChildDesc" style="color:{{child.style.descColor}}">{{child.description[currentLanguage]}}</p>
+                        </div>
+                        <div class="dbChildIcon" ng-if="child.style.iconThumb == null || child.style.iconThumb == ''">
+                            <i class="{{child.style.icon}}" aria-hidden="true"></i>
+                            <span class="dbChildSumary" ng-if="child.sumary!=0">{{child.sumary}}</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!--<div id="contextmenu-message" style="width:250px;display:none;position:absolute;background-color:white;border-top:1px solid #ddd;max-height:320px;">
+        <div style="width:100%;height:80px;border:1px solid #ddd;border-top:none">
+            <img style="height:50px;float:left;margin-top:5px" src="assets/images/favicon.png">
+            <div style="height:60px;width:180px;float:right">
+                <p style="height:14px;line-height:14px;margin:0;padding:0;margin-top:3px;font-weight:600">Thông báo</p>
+                <div style="height:40px;line-height:20px">Yêu cầu xét duyệt tài liệu "Design UI 3.0"</div>
+            </div>
+            <div style="padding-left:5px; padding-right:5px;color:#ddd">
+                <span style="height:14px;line-height:14px;float:left">Vuong, Pham Hoang</span>
+                <span style="height:14px;line-height:14px;float:right">10/04/2018</span>
+            </div>
+        </div>
+        <div style="width:100%;height:80px;border:1px solid #ddd;border-top:none">
+            <img style="height:50px;float:left;margin-top:5px" src="assets/images/favicon.png">
+            <div style="height:60px;width:180px;float:right">
+                <p style="height:14px;line-height:14px;margin:0;padding:0;margin-top:3px;font-weight:600">Thông báo</p>
+                <div style="height:40px;line-height:20px">Yêu cầu xét duyệt tài liệu "Design UI 3.0"</div>
+            </div>
+            <div style="padding-left:5px; padding-right:5px;color:#ddd">
+                <span style="height:14px;line-height:14px;float:left">Vuong, Pham Hoang</span>
+                <span style="height:14px;line-height:14px;float:right">10/04/2018</span>
+            </div>
+        </div>
+        <div style="width:100%;height:80px;border:1px solid #ddd;border-top:none">
+            <img style="height:50px;float:left;margin-top:5px" src="assets/images/favicon.png">
+            <div style="height:60px;width:180px;float:right">
+                <p style="height:14px;line-height:14px;margin:0;padding:0;margin-top:3px;font-weight:600">Thông báo</p>
+                <div style="height:40px;line-height:20px">Yêu cầu xét duyệt tài liệu "Design UI 3.0"</div>
+            </div>
+            <div style="padding-left:5px; padding-right:5px;color:#ddd">
+                <span style="height:14px;line-height:14px;float:left">Vuong, Pham Hoang</span>
+                <span style="height:14px;line-height:14px;float:right">10/04/2018</span>
+            </div>
+        </div>
+    </div>-->
+
+</div>

@@ -1,0 +1,51 @@
+﻿<style>
+    .fc-license-message {
+        display: none !important;
+    }
+
+    .form-control:disabled, .form-control[readonly] {
+        background-color: #e9ecef !important;
+    }
+
+    .fc-event {
+        color: #fff !important;
+    }
+</style>
+
+<link href='/js/fullcalendar-scheduler/lib/fullcalendar.min.css' rel='stylesheet' />
+<link href='/js/fullcalendar-scheduler/lib/fullcalendar.print.min.css' rel='stylesheet' media='print' />
+<link href='/js/fullcalendar-scheduler/scheduler.min.css' rel='stylesheet' />
+
+<script src="/js/jQuery.print.min.js"></script>
+<script src="/js/fullcalendar-scheduler/lib/moment.min.js"></script>
+<script src='/js/fullcalendar-scheduler/lib/fullcalendar.min.js'></script>
+<script src='/js/fullcalendar-scheduler/scheduler.min.js'></script>
+<script src="/js/fullcalendar-scheduler/locale/locale-all.js"></script>
+<script src="/js/popper/popper.min.js"></script>
+
+<div id="vehicleReports" ng-controller="vehicleReportsController">
+    <div class="white_box" style="overflow:auto">
+        <div class="form-row">
+            <div class="form-group col-md-4 mr_15">
+                <lv-select field="location" model="location" setting="setting" translation="translation" tab="1" change="changeLocation()"></lv-select>
+                <!--<label ng-bind="translation.LOCATION"></label>
+                <select class="form-control" ng-model="location" ng-change="changeLocation()" style="height:34px;">
+                    <option ng-repeat="item in locations" value="{{item.id}}" ng-bind="item.name"></option>
+                </select>-->
+            </div>
+            <div class="form-group col-md-6">
+                <label ng-bind="translation.VEHICLETYPE"></label>
+                <div class="d-flex" style="justify-content: flex-start; margin-top: 7px">
+                    <label class="d-flex mb_5 mr-15" style="align-items:center;" ng-repeat="item in vehicleTypes">
+                        <i class="mr-15" ng-class="item.isCheck? 'bowtie-icon bowtie-checkbox':'bowtie-icon bowtie-checkbox-empty'"
+                           style="font-size:17px;width:10px" ng-click="changeIsCheck(item.id)">
+                        </i>
+                        <span class="txt_cut mr-5 badge badge-{{item.badge}}" ng-bind="item.name"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div id="calendar"></div>
+    </div>
+</div>

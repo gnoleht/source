@@ -1,0 +1,44 @@
+﻿<style>
+    .box_content .item{
+        padding-bottom:15px
+    }
+</style>
+<div id="newsCategory" ng-controller="newsCategoryController">
+    <div class="white_box">
+
+        <div id="grvNewsCategory" style="width:100%;height:100%"></div>
+    </div>
+
+    <div class="modal fadeIn modal_center" role="dialog" id="modal-detail" style="animation-delay:10s;" ng-init="onLoad()">
+        <div class="modal-dialog" tabindex="-1" style="width:500px">
+            <div class="modal-content" style="padding-top: 0px !important">
+                <div class="modal-header">
+                    <p class="modal_header_title"><span ng-bind="action == 'add' ? translation.ADD : translation.EDIT | uppercase "></span></p>
+                    <div class="box_btn_02">
+                        <button type="button" onclick="fullscreen('modal-detail')" class="fullscreen btn-modal-screen" title="{{::translation.BTN_SCREEN}}"><i class="bowtie-icon bowtie-view-full-screen"></i></button>
+                        <button type="button" class="btn_close_02" data-dismiss="modal" title="{{::translation.BTN_CLOSE}}"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-content">
+                        <div class="box_content">
+                            <div class="item">
+                                <lv-input element-id="txtName" field="name" model="data.name" setting="setting" translation="translation"></lv-input>
+                            </div>
+                            <div class="item">
+                                <lv-input element-id="txtDescription" field="description" model="data.description" setting="setting" translation="translation"></lv-input>
+                            </div>
+                            <div class="item">
+                                <lv-input element-id="txtNote" field="note" model="data.note" setting="setting" translation="translation"></lv-input>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnSaveClose" ng-click="save()" type="button" class="btn btn_save_02" click-Once><i class="bowtie-icon bowtie-save"></i><span ng-bind="::translation.BTN_SAVE_CLOSE"></span></button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

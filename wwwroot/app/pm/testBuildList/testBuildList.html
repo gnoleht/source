@@ -1,0 +1,169 @@
+﻿<div id="testBuildList" ng-controller="testBuildListController">
+    <div class="white_box" style="background-color:#edf1f5;padding:0">
+        <ul class="nav nav-tabs" id="main_tab_01" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link" href="/pm/testPlan?pjid={{menuParams.pjid}}&module=pj" id="tab_01-tab" data-toggle="tab" data-target="#tabTestPlan"
+                   role="tab" aria-controls="tab_01" aria-selected="false">Test Plan</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/pm/testRun?pjid={{menuParams.pjid}}&module=pj" id="tab_02-tab" data-toggle="tab" data-target="#tabTestRun"
+                   role="tab" aria-controls="tab_02" aria-selected="false">Run Test</a>
+            </li>
+            <!--<li class="nav-item">
+                <a class="nav-link" href="/pm/testDashboard?pjid={{menuParams.pjid}}&module=pj" id="tab_03-tab" data-toggle="tab" data-target="#tabTestDashboard"
+                   role="tab" aria-controls="tab_03" aria-selected="false">Dashboard</a>
+            </li>-->
+            <li class="nav-item active">
+                <a class="nav-link active" href="/pm/testBuildList?pjid={{menuParams.pjid}}&module=pj" id="tab_04-tab" data-toggle="tab" data-target="#tabTestBuildList"
+                   role="tab" aria-controls="tab_04" aria-selected="true">Build</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/pm/testCaseQuery?pjid={{menuParams.pjid}}&module=pj" id="tab_05-tab" data-toggle="tab" data-target="#tabTestCaseQuery"
+                   role="tab" aria-controls="tab_05" aria-selected="false">Query</a>
+            </li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content tab-content-sprint">
+            <div class="tab-pane" id="tabTestPlan" role="tabpanel" aria-labelledby="tab_01-tab"></div>
+            <div class="tab-pane" id="tabTestRun" role="tabpanel" aria-labelledby="tab_02-tab"></div>
+            <!--<div class="tab-pane" id="tabTestDashboard" role="tabpanel" aria-labelledby="tab_03-tab"></div>-->
+            <div class="tab-pane active" id="tabTestBuildList" role="tabpanel" aria-labelledby="tab_04-tab">
+                <div class="content_6_4 d-flex mb-0">
+                    <div class="content_4 mr-10">
+                        <div id="panelTree" style="height: 743px;">
+                            <dl class="mb-0">
+                                <dt>
+                                    <a class="title_02 bg_gray_01"><span ng-bind="translation.BUILD_TITLE"></span></a>
+                                </dt>
+                                <dd>
+                                    <div class="border_a">
+                                        <table class="tb_tree">
+                                            <thead>
+                                                <tr style="font-size:16px;">
+                                                    <th ng-bind="translation.NAME"></th>
+                                                    <th ng-bind="translation.BUILDBY" class="w_30"></th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                        <div class="table-body">
+                                            <table class="tb_tree">
+                                                <tbody>
+                                                    <tr ng-repeat="item in listBuild" ng-class="item.id == currentBuild.id ? 'selected' : ''" ng-click="buildChanged(item)">
+                                                        <td>
+                                                            <div class="clearfix">
+                                                                <i ng-if="item.released == true" class="bowtie-icon bowtie-build" data-toggle="collapse" data-target="#{{item.name}}" aria-expanded="true" aria-controls="{{item.name}}"></i>
+                                                                <i ng-if="item.released == false" style="padding-left:16px"></i>
+                                                                <span> {{item.name}}</span>
+                                                            </div>
+                                                        </td>
+                                                        <td class="w_30">
+                                                            <div class="clearfix">
+                                                                <span> {{item.buildBy}}</span>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </dd>
+                            </dl>
+
+                        </div>
+                        <div class="build-footer">
+                            <p class="mb-0">
+                                <span> <strong>Build Note: <br></strong> {{currentBuild.note}}</span>                                
+                            </p>
+                        </div>
+                    </div>
+                    <div class="content_6">
+                        <dl class="mb-0">
+                            <dt>
+                                <a class="title_02 bg_gray_01 d-flex" style="justify-content: space-between">
+                                    <span class="d-flex" style="margin-left: 0">
+                                        <span ng-bind="translation.RELEASE_TITLE"></span>
+                                    </span>
+                                    <span>{{translation.BUILD_DATE}}: {{currentBuild.buildDate1}}</span>
+                                </a>
+                            </dt>
+                            <dd class="mb-0">
+                                <div class="gridWrapper border_a">
+                                    <div id="grvWorkItemBuild"></div>
+                                </div>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="tabTestCaseQuery" role="tabpanel" aria-labelledby="tab_05-tab"></div>
+        </div>
+    </div>
+
+    <!-- Modal (detail)-->
+    <div class="modal fade modal_center confirmClose" id="modal-detail" ng-init="initJS()">
+        <div class="modal-dialog" style="width:700px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <p style="font-size:16px;margin:0;line-height:1.9em;" class="float-left"><span ng-bind="(action == 'add') ? translation.MODAL_DETAIL_ADDTITLE : translation.MODAL_DETAIL_EDITTITLE"></span></p>
+                    <div class="box_btn_02">
+                        <button type="button" class="fullscreen" onclick="fullscreen('modal-detail')"><i class="bowtie-icon bowtie-view-full-screen"></i></button>
+                        <button type="button" class="btn_close_02" data-dismiss="modal"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                    </div>
+                </div>
+                <div class="modal-body" style="min-height:260px">
+                    <div class="modal-body-maincontent">
+                        <div class="row form-input-group pd_lr_7">
+                            <div class="col-md-12">
+                                <lv-input field="name" model="data.name" setting="setting" translation="translation" type="text" tab="1" ng-readonly="(setting.readonly.indexOf(field) > -1)"></lv-input>
+                                <!--<p>Major.Minor.Build.Revision</p>-->
+                                <lv-input field="buildDate1" model="data.buildDate1" setting="setting" translation="translation" type="text" tab="2" ng-readonly="(setting.readonly.indexOf(field) > -1)"></lv-input>
+                                <div class="item" ng-if="data.changeLevel == '1'">
+                                    <p>
+                                        <br />
+                                        <i style="font-size:14px;margin-right:5px;width:10px" ng-class="'bowtie-icon bowtie-radio-button'" ng-readonly="true"></i>
+                                        Major change (there are changes in features or add features in a module or a package).
+                                        <br /> &emsp; &ensp; Thay đổi lớn (có sự thay đổi về tính năng hoặc thêm bớt tính năng trong module hoặc một gói)
+                                    </p>
+                                </div>
+                                <div class="item" ng-if="data.changeLevel == '2'">
+                                    <p>
+                                        <br />
+                                        <i style="font-size:14px;margin-right:5px;width:10px" ng-class="'bowtie-icon bowtie-radio-button'" ng-readonly="true"></i>
+                                        Minor changes (that do not change product features, or the absence of features in a module or package).
+                                        <br /> &emsp; &ensp; Thay đổi nhỏ (là các thay đổi không làm thay đổi tính năng của sản phẩm, hay không có sự thêm bớt tính năng trong một module hay một gói)
+                                    </p>
+                                </div>
+                                <div class="item" ng-if="data.changeLevel == '3'">
+                                    <p>
+                                        <br />
+                                        <i style="font-size:14px;margin-right:5px;width:10px" ng-class="'bowtie-icon bowtie-radio-button'" ng-readonly="true"></i>
+                                        Revision change (usually a fix for a previous minor release (no new functionality)).
+                                        <br /> &emsp; &ensp; Phiên bản sửa lỗi (Phiên bản sửa lỗi cho bản build trước đó, sẽ được bàn giao và cài đặt cho khách hàng).
+                                    </p>
+                                </div>
+                                <div class="item" ng-if="data.changeLevel == '4'">
+                                    <p>
+                                        <br />
+                                        <i style="font-size:14px;margin-right:5px;width:10px" ng-class="'bowtie-icon bowtie-radio-button'" ng-readonly="true"></i>
+                                        Build number (this version will be release to developing).
+                                        <br /> &emsp; &ensp; Số lần build được tăng lên cho mỗi bản build mới (Phiên bản dành cho phát triển).
+                                    </p>
+                                </div>
+                                <lv-textarea field="note" model="data.note" setting="setting" translation="translation" block-resize="block-resize" row="3" tab="4" style="margin-bottom: 10px;" class="clearfix"></lv-textarea>
+                                <div class="build-footer" style="position: relative">
+                                    <p class="mb-0">
+                                        <strong>Đối với source code của sản phẩm</strong>: Trong quá trình phát triển sản phẩm, các phiên bản của các source code sẽ được quản lý bởi công cụ TFS. Đối với các bản build sẽ được đánh dấu bằng cách tạo Labels. Các bản build sẽ được đánh phiên bản (tạo Labels) theo version của bản build, dạng 1.0.0_<ngày build>.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a class="btn btn_save_02 advancedDropzoneFile" style="height: 30px;line-height: 30px;padding: 0 10px;"><i class="bowtie-icon bowtie-file-preview advancedDropzoneFile"></i>{{::translation.FILEID}} </a>
+                    <button type="button" class="btn btn_save_02" id="btnSave" ng-click="saveDetail()" click-Once><i class="fa fa-save"></i> <span ng-bind="globalTranslation.BTN_SAVE"></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,438 @@
+﻿<style>
+    .fc-license-message {
+        display: none !important;
+    }
+
+    .form-control:disabled, .form-control[readonly] {
+        background-color: #e9ecef !important;
+    }
+
+    @page {
+        size: auto;
+        margin: 0mm;
+    }
+</style>
+
+<link href='/js/fullcalendar-scheduler/lib/fullcalendar.min.css' rel='stylesheet' />
+<link href='/js/fullcalendar-scheduler/lib/fullcalendar.print.min.css' rel='stylesheet' media='print' />
+<link href='/js/fullcalendar-scheduler/scheduler.min.css' rel='stylesheet' />
+
+<script src="/js/jQuery.print.min.js"></script>
+<script src='/js/fullcalendar-scheduler/lib/fullcalendar.min.js'></script>
+<script src='/js/fullcalendar-scheduler/scheduler.min.js'></script>
+<script src="/js/fullcalendar-scheduler/locale/locale-all.js"></script>
+
+<div id="vehicleEvents" ng-controller="vehicleEventsController">
+    <div class="white_box" style="overflow:auto">
+        <div class="d-flex calendar_header mb_15" style="align-items: center; justify-content: space-between">
+            <div class="d-flex">
+                <a ng-click="prev()" class="btn_refresh btn_30" style="border-radius: 5px 0 0 5px"><i class="bowtie-icon bowtie-chevron-left-light"></i></a>
+                <lv-date field="today" model="today" setting="setting" nolabel="true" change="changeDay()" class="select2_op2"></lv-date>
+                <a ng-click="next()" class="btn_refresh btn_30" style="border-radius: 0 5px 5px 0"><i class="bowtie-icon bowtie-chevron-right-light"></i></a>
+            </div>
+            <div class="d-flex">
+                <div style="margin-right: 2px">
+                    <button type="button" class="bg_blue_02 btn_filter ng-binding" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true" style="border-radius: 5px 0 0 5px">{{translation.VIEW_FORM}}</button>
+                    <ul class="dropdown-menu animated" style="right: 0px; left: 0px; top: 0px; position: absolute; transform: translate3d(5px, 30px, 0px); will-change: transform;" x-placement="bottom-start">
+                        <li style="width: 100%;">
+                            <div class="message-center">
+                                <a ng-click="changeView('timelineDay')" ng-class="typeView =='timelineDay'?'active':''">
+                                    <div class="mail-content"><span class="mail-desc" ng-bind="translation.VIEW_BY_DAY">Xem theo ngày</span> </div>
+                                </a>
+                                <a ng-click="changeView('timelineMonth')" ng-class="typeView =='timelineMonth'?'active':''">
+                                    <div class="mail-content"><span class="mail-desc" ng-bind="translation.VIEW_BY_MONTH">Xem theo tháng</span> </div>
+                                </a>
+                                <a ng-click="changeView('timelineWeek')" ng-class="typeView =='timelineWeek'?'active':''">
+                                    <div class="mail-content"><span class="mail-desc" ng-bind="translation.VIEW_BY_WEEK">Xem theo tuần</span> </div>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <button type="button" class="bg_blue_02 btn_filter ng-binding" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true" style="border-radius: 0 5px 5px 0">{{translation.LIST}}</button>
+                    <ul class="dropdown-menu animated" style="right: 0px; left: 0px; top: 0px; position: absolute; transform: translate3d(5px, 30px, 0px); will-change: transform;" x-placement="bottom-start">
+                        <li style="width: 100%;">
+                            <div class="message-center">
+                                <a ng-click="changeResoruceEvent('my')" ng-class="typeViewEvent =='my'?'active':''">
+                                    <div class="mail-content"><span class="mail-desc" ng-bind="translation.MY_SUBSCRIPTION">Đăng ký của tôi</span> </div>
+                                </a>
+                                <a ng-click="changeResoruceEvent('all')" ng-class="typeViewEvent =='all'?'active':''">
+                                    <div class="mail-content"><span class="mail-desc" ng-bind="translation.ALL_SUBSCRIPTION">Tất cả đăng ký</span> </div>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div id="calendar"></div>
+        <div class="d-flex mt_10" style="justify-content: space-between; align-items: center">
+            <div class="form-group d-flex">
+                <div class="mr_15">
+                    <div style="width: 16px; height: 16px; display: table-cell; background-color: #f1ba27;color: white;"></div>
+                    <div style="padding-left: 8px; display: table-cell; font-size: 14px" ng-bind="translation.STATUS_PENDDING">Chờ duyệt</div>
+                </div>
+                <div class="mr_15">
+                    <div style="width: 16px; height: 16px; display: table-cell; background-color: #5bc0de; color: white;"></div>
+                    <div style="padding-left: 8px; display: table-cell; font-size: 14px" ng-bind="translation.STATUS_APPROVED">Đã phê duyệt</div>
+                </div>
+                <div>
+                    <div style="width: 16px; height: 16px; display: table-cell; background-color: #5cb85c; color: white;"></div>
+                    <div style="padding-left: 8px; display: table-cell; font-size: 14px" ng-bind="translation.STATUS_ARRANGED">Đã điều phối</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal detail -->
+    <div class="modal fadeIn modal_center" id="modal-detail">
+        <div class="modal-dialog" style="width:70%">
+            <div class="modal-content">
+                <div class="modal-header clearfix">
+                    <p class="modal_header_title"><span ng-bind="translation.DETAIL_INFO_TITLE"></span></p>
+                    <div class="box_btn_02">
+                        <button type="button" class="fullscreen" onclick="fullscreen('modal-detail')" title="{{translation.BTN_SCREEN}}">
+                            <i class="bowtie-icon bowtie-view-full-screen"></i>
+                        </button>
+                        <button type="button" class="btn_close_02" data-dismiss="modal" title="{{translation.CLOSE_DIALOG}}">
+                            <i class="bowtie-icon bowtie-edit-remove"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-maincontent" style="height:700px;width:100%">
+                        <div class="form-input-group">
+                            <div class="box_02 col_1 clearfix" ng-if="!data.id">
+                                <div class="item">
+                                    <lv-input element-id="id_creator" field="creator" model="data.creator" setting="setting" translation="translation" type="text" tab="1"></lv-input>
+                                </div>
+                            </div>
+                            <div class="box_02 col_1 clearfix" ng-if="data.id">
+                                <div class="item">
+                                    <lv-input element-id="id_creator" field="creator" model="data.creatorRelated.displayName" setting="setting" translation="translation" type="text" tab="1"></lv-input>
+                                </div>
+                            </div>
+                            <div class="box_02 col_1 clearfix">
+                                <div class="item">
+                                    <lv-select element-id="id_vehicleType" field="vehicleType" model="data.vehicleType" setting="setting" change="changeVehicleType()" translation="translation" tab="2"></lv-select>
+                                </div>
+                            </div>
+                            <div class="box_02 col_1 clearfix" ng-if="isArrange || isArrangeView">
+                                <div class="item">
+                                    <lv-select element-id="id_vehicle" field="vehicle" model="data.vehicle" setting="setting" change="changeVehicle()" translation="translation" tab="3"></lv-select>
+                                </div>
+                            </div>
+                            <div class="box_02 col_1 clearfix" ng-if="isArrange || isArrangeView">
+                                <div class="item">
+                                    <lv-select element-id="id_driver" field="driver" model="data.driver" setting="setting" change="changeDriver()" translation="translation" tab="4"></lv-select>
+                                </div>
+                            </div>
+                            <div class="box_02 col_1 clearfix">
+                                <div class="item">
+                                    <lv-select-muti element-id="id_secretary" field="secretary" model="data.secretary" setting="setting" translation="translation" tab="5"></lv-select-muti>
+                                </div>
+                            </div>
+                            <div class="box_02 col_6 d-flex clearfix">
+                                <div class="item">
+                                    <lv-date element-id="id_startTimeDate" field="startTimeDate" model="data.startTimeDate" setting="setting" translation="translation" tab="6"></lv-date>
+                                </div>
+                                <div class="item">
+                                    <lv-select element-id="id_startTimeDateHours" field="startTimeDateHours" model="data.startTimeDateHours" setting="setting" translation="translation" tab="7"></lv-select>
+                                </div>
+                                <div class="item">
+                                    <lv-select element-id="id_startTimeDateMinutes" field="startTimeDateMinutes" model="data.startTimeDateMinutes" setting="setting" translation="translation" tab="8"></lv-select>
+                                </div>
+                                <div class="item">
+                                    <lv-date element-id="id_endTimeDate" field="endTimeDate" model="data.endTimeDate" setting="setting" translation="translation" tab="9"></lv-date>
+                                </div>
+                                <div class="item">
+                                    <lv-select element-id="id_endTimeDateHours" field="endTimeDateHours" model="data.endTimeDateHours" setting="setting" translation="translation" tab="10"></lv-select>
+                                </div>
+                                <div class="item">
+                                    <lv-select element-id="id_endTimeDateMinutes" field="endTimeDateMinutes" model="data.endTimeDateMinutes" setting="setting" translation="translation" tab="11"></lv-select>
+                                </div>
+                            </div>
+                            <div class="box_02 col_1 clearfix">
+                                <div class="item">
+                                    <lv-select element-id="id_department" field="department" model="data.department" setting="setting" translation="translation" config="configDepartment" tab="12"></lv-select>
+                                </div>
+                            </div>
+                            <div class="box_02 col_1 clearfix">
+                                <div class="item">
+                                    <lv-input element-id="id_title" field="title" model="data.title" setting="setting" translation="translation" type="text" tab="13"></lv-input>
+                                </div>
+                            </div>
+                            <div class="box_02 col_1 clearfix">
+                                <div class="item">
+                                    <lv-input element-id="id_departure" field="departure" model="data.departure" setting="setting" translation="translation" type="text" tab="14"></lv-input>
+                                </div>
+                            </div>
+                            <div class="box_02 col_1 clearfix">
+                                <div class="item">
+                                    <lv-input element-id="id_destination" field="destination" model="data.destination" setting="setting" translation="translation" type="text" tab="15"></lv-input>
+                                </div>
+                            </div>
+                            <div class="box_02 col_2 clearfix">
+                                <div class="item">
+                                    <lv-select element-id="id_contact" field="contact" model="data.contact" setting="setting" translation="translation" tab="16"></lv-select>
+                                </div>
+                                <div class="item">
+                                    <lv-input element-id="id_participantCount" field="participantCount" model="data.participantCount" setting="setting" translation="translation" type="phone" tab="17"></lv-input>
+                                </div>
+                            </div>
+                            <div class="box_02 col_1 clearfix">
+                                <div class="item">
+                                    <lv-select-muti element-id="id_participants" field="participants" model="data.participants" setting="setting" translation="translation" tab="18"></lv-select-muti>
+                                </div>
+                            </div>
+                            <div class="box_02 col_1 clearfix">
+                                <div class="item">
+                                    <lv-input element-id="id_externalParticipants" field="externalParticipants" model="data.externalParticipants" setting="setting" translation="translation" type="text" tab="19"></lv-input>
+                                </div>
+                            </div>
+                            <div class="box_02 col_1 clearfix">
+                                <div class="item">
+                                    <lv-input element-id="id_note" field="note" model="data.note" setting="setting" translation="translation" type="text" tab="20"></lv-input>
+                                </div>
+                            </div>
+                            <div class="box_02 col_1 clearfix" ng-if="isComment">
+                                <div class="item">
+                                    <lv-input element-id="id_Comment" field="comment" model="data.comment" setting="setting" translation="translation" type="text" tab="21"></lv-input>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button ng-if="data.id" type="button" click-Once class="btn btn_save_02" ng-click="history()">
+                        <i class="bowtie-icon bowtie-navigate-history"></i><span ng-bind="translation.HISTORY"></span>
+                    </button>
+
+                    <button ng-if="action == 'add' && isUser" type="button" click-Once class="btn btn_save_02" ng-click="submit()">
+                        <i class="bowtie-icon bowtie-save"></i><span ng-bind="translation.SUBMIT_TO_APPROVE"></span>
+                    </button>
+                    <button ng-if="action == 'reSubmit' && isUser" type="button" click-Once class="btn btn_save_02" ng-click="reSubmit()">
+                        <i class="bowtie-icon bowtie-save"></i><span ng-bind="translation.SUBMIT_TO_APPROVE"></span>
+                    </button>
+                    <button ng-if="action == 'edit' && isUser" type="button" click-Once class="btn btn_save_02" ng-click="update()">
+                        <i class="bowtie-icon bowtie-edit"></i><span ng-bind="translation.BTN_UPDATE"></span>
+                    </button>
+                    <button ng-if="(action == 'edit' || action == 'reSubmit' || isDelete) && isUser" type="button" click-Once class="btn btn_save_02" ng-click="delete()">
+                        <i class="bowtie-icon bowtie-edit-remove"></i><span ng-bind="translation.BTN_DELETE"></span>
+                    </button>
+
+                    <button ng-if="isApprove" type="button" click-Once class="btn btn_save_02" ng-click="approve()">
+                        <i class="fa fa-check-circle"></i><span ng-bind="translation.APPROVE"></span>
+                    </button>
+                    <button ng-if="isApprove" type="button" click-Once class="btn btn_save_02" ng-click="reject()">
+                        <i class="fa fa-times-circle"></i><span ng-bind="translation.REJECT"></span>
+                    </button>
+
+                    <button ng-if="isArrange" type="button" click-Once class="btn btn_save_02" ng-click="approveArrangers()">
+                        <i class="fa fa-check-circle"></i><span ng-bind="translation.ARRANGERS"></span>
+                    </button>
+                    <button ng-if="isArrange" type="button" click-Once class="btn btn_save_02" ng-click="rejectArrangers()">
+                        <i class="fa fa-times-circle"></i><span ng-bind="translation.REJECT"></span>
+                    </button>
+
+                    <button ng-if="data.status == 'arranged'" type="button" click-Once class="btn btn_save_02" ng-click="print()">
+                        <i class="fa fa-print"></i><span ng-bind="translation.PRINT"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end modal detail -->
+    <!-- History-->
+    <div class="modal fadeIn modal_center" role="dialog" id="modal-detail-history">
+        <div class="modal-dialog modal-medium modal-padding" tabindex="-1" style="width:60%;">
+            <div class="modal-content" style="padding-top: 0px !important">
+                <div class="modal-header">
+                    <p class="modal_header_title">
+                        <span ng-bind="translation.HISTORY_TITLE | uppercase "></span>
+                    </p>
+                    <div class="box_btn_02">
+                        <button type="button" class="btn_close_02" data-dismiss="modal" title="{{translation.CLOSE_DIALOG}}">
+                            <i class="bowtie-icon bowtie-edit-remove"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-maincontent" style="height:500px;width:100%">
+                        <table class="table table-bordered">
+                            <tbody id="btlContent"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End History-->
+    <!-- modal print -->
+    <div class="modal fadeIn modal_center" id="modal-print">
+        <div class="modal-dialog" style="width:900px">
+            <div class="modal-content">
+                <div class="modal-header clearfix">
+                    <p class="modal_header_title"><span ng-bind="translation.PRINT_TITLE"></span></p>
+                    <div class="box_btn_02">
+                        <button type="button" class="fullscreen" onclick="fullscreen('modal-print')" title="{{translation.BTN_SCREEN}}">
+                            <i class="bowtie-icon bowtie-view-full-screen"></i>
+                        </button>
+                        <button type="button" class="btn_close_02" data-dismiss="modal" title="{{translation.CLOSE_DIALOG}}">
+                            <i class="bowtie-icon bowtie-edit-remove"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-maincontent" style="height:700px;width:100%;">
+                        <div id="content_print_vehicle" style="padding: 15pt 45pt;">
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td style="width: 25%; text-align: center!important; vertical-align: middle!important; margin: auto!important; border: 1px solid #dee2e6;">
+                                            <img src="/images/logo1.png">
+                                        </td>
+                                        <td style="text-align: center!important; vertical-align: middle!important; margin: auto!important; border: 1px solid #dee2e6;">
+                                            <h2 class="text-center text-uppercase" style="margin: 0px;" ng-bind="translation.VEHICLE_REGISTRATION"></h2>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="border: 1px solid #dee2e6;">
+                                            <table class="table">
+                                                <tr>
+                                                    <td class="border_n">
+                                                        <strong ng-bind="translation.CREATOR"></strong>
+                                                    </td>
+                                                    <td class="border_n">
+                                                        <span id="Label_CreatedBy" ng-bind="dataPrint.creatorRelated.displayName"></span>
+                                                    </td>
+                                                    <td class="border_n">
+                                                        <strong ng-bind="translation.VEHICLETYPE"></strong>
+                                                    </td>
+                                                    <td class="border_n">
+                                                        <span id="Label_VehicleType" ng-bind="dataPrint.vehicleTypeRelated.name"></span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="border_n">
+                                                        <strong ng-bind="translation.VEHICLE"></strong>
+                                                    </td>
+                                                    <td class="border_n">
+                                                        <span id="Label_Secretary" ng-bind="dataPrint.vehicleRelated.name"></span>
+                                                    </td>
+                                                    <td class="border_n">
+                                                        <strong ng-bind="translation.DRIVER"></strong>
+                                                    </td>
+                                                    <td class="border_n">
+                                                        <span id="Label_VehicleType" ng-bind="dataPrint.driverRelated.displayName"></span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="border_n">
+                                                        <strong ng-bind="translation.STARTTIMEDATE"></strong>
+                                                    </td>
+                                                    <td class="border_n">
+                                                        <span id="Label_StartTime" ng-bind="dataPrint.labelStartTime"></span>
+                                                    </td>
+                                                    <td class="border_n">
+                                                        <strong ng-bind="translation.ENDTIMEDATE"></strong>
+                                                    </td>
+                                                    <td class="border_n">
+                                                        <span id="Label_EndTime" ng-bind="dataPrint.labelEndTime"></span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="border_n">
+                                                        <strong ng-bind="translation.DEPARTMENT"></strong>
+                                                    </td>
+                                                    <td class="border_n" colspan="3">
+                                                        <span id="Label_Org" ng-bind="dataPrint.departmentRelated.name"></span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="border_n">
+                                                        <strong ng-bind="translation.TITLE"></strong>
+                                                    </td>
+                                                    <td class="border_n" colspan="3">
+                                                        <span id="Label_Title" ng-bind="dataPrint.title"></span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="border_n">
+                                                        <strong ng-bind="translation.DEPARTURE"></strong>
+                                                    </td>
+                                                    <td class="border_n" colspan="3">
+                                                        <span id="Label_Departure" ng-bind="dataPrint.departure"></span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="border_n">
+                                                        <strong ng-bind="translation.DESTINATION"></strong>
+                                                    </td>
+                                                    <td class="border_n" colspan="3">
+                                                        <span id="Label_Destination" ng-bind="dataPrint.destination"></span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="border_n">
+                                                        <strong ng-bind="translation.CONTACT"></strong>
+                                                    </td>
+                                                    <td class="border_n">
+                                                        <span id="Label_Contact" ng-bind="dataPrint.contactRelated.displayName"></span>
+                                                    </td>
+                                                    <td class="border_n">
+                                                        <strong ng-bind="translation.PARTICIPANTS"></strong>
+                                                    </td>
+                                                    <td class="border_n">
+                                                        <span id="Label_Participants" ng-bind="dataPrint.labelParticipants"></span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="border_n">
+                                                        <strong ng-bind="translation.EXTERNALPARTICIPANTS"></strong>
+                                                    </td>
+                                                    <td class="border_n" colspan="3">
+                                                        <span id="Label_ExternalParticipants" ng-bind="dataPrint.externalParticipants"></span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="border_n">
+                                                        <strong ng-bind="translation.NOTE"></strong>
+                                                    </td>
+                                                    <td class="border_n" colspan="3">
+                                                        <span id="Label_Note" ng-bind="dataPrint.note"></span>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th colspan="5" class="text-center text-uppercase" ng-bind="translation.VEHICLE_BROWSING_PROCESS"></th>
+                                    </tr>
+                                    <tr style="background-color: #f5f5f5;">
+                                        <th style="width: 20%;" ng-bind="translation.ROLE"></th>
+                                        <th style="width: 20%;" ng-bind="translation.DISPLAYNAME"></th>
+                                        <th style="width: 20%;" class="text-center" ng-bind="translation.DATE_FOR_PERFORMANCE"></th>
+                                        <th ng-bind="translation.OPINION"></th>
+                                        <th style="width: 15%;" ng-bind="translation.ACTION"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="BPMBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" click-Once class="btn btn_save_02" ng-click="callPrint()">
+                        <i class="fa fa-print"></i><span ng-bind="translation.PRINT"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end print-->
+</div>

@@ -1,0 +1,97 @@
+﻿<style>
+    .hidden {
+        display: none !important;
+    }
+</style>
+<div id="criteriaCategory" ng-controller="criteriaCategoryController">
+    <div class="white_box" style="overflow:auto">
+        <div id="grvCriteriaCategory" class="control-grid" style="height:100%; width:100%"></div>
+    </div>
+
+    <!-- modal detail -->
+    <div class="modal fadeIn modal_center confirmClose" id="modal_detail">
+        <div class="modal-dialog" style="width:60%">
+            <div class="modal-content requirement-content" style="padding-top: 0px !important">
+                <div class="modal-header clearfix">
+                    <p class="modal_header_title"><span ng-bind="translation.DETAIL_TITLE"></span></p>
+                    <div class="box_btn_02">
+                        <button type="button" class="fullscreen" onclick="fullscreen('modal_detail')" title="{{translation.BTN_SCREEN}}">
+                            <i class="bowtie-icon bowtie-view-full-screen"></i>
+                        </button>
+                        <button type="button" class="btn_close_02" data-dismiss="modal" title="{{translation.BTN_CLOSE}}">
+                            <i class="bowtie-icon bowtie-edit-remove"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-content clearfix">
+                        <div class="modal-body-maincontent clearfix">
+                            <div class="modal-01 box_01 col_1 clearfix">
+                                <div class="item">
+                                    <dl class="mb-0">
+                                        <dt class="dt_pos_re">
+                                            <a class="h_th title_02 bg_gray_01" data-toggle="collapse" data-target="#multiCollapse_businessObjective_01" aria-expanded="true" aria-controls="multiCollapse_businessObjective_01">
+                                                <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i>
+                                                <span ng-bind="translation.GENERAL_INFORMATION"></span>
+                                            </a>
+                                        </dt>
+                                        <dd>
+                                            <div class="multi-collapse collapse show" id="multiCollapse_businessObjective_01" aria-expanded="true">
+                                                <div class="box_02 col_2 clearfix">
+                                                    <div class="item">
+                                                        <lv-input field="name" model="data.name" setting="setting" translation="translation" tab="1"></lv-input>
+                                                    </div>
+                                                    <div class="item">
+                                                        <lv-select element-id="parent_id" field="parent" model="data.parent" setting="setting" translation="translation" tab="2" config="configParent" change="changeParent()"></lv-select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </dd>
+                                    </dl>
+                                </div>
+                            </div>
+                            <div class="modal-01 clearfix mb-0 hidden" id="div_grvCriteriaCategoryDetail">
+                                <div class="box_content" style="width: 100%; margin-top: 20px;">
+                                    <dl class="mb-0" style="">
+                                        <dt class="dt_pos_re">
+                                            <a class="h_th title_02 bg_gray_01" data-toggle="collapse" data-target="#multiCollapse_businessObjective_02" aria-expanded="true" aria-controls="multiCollapse_businessObjective_02">
+                                                <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i>
+                                                <span ng-bind="translation.CRITERIA_INFORMATION"></span>
+                                            </a>
+                                            <ul class="box_btn clearfix mb-0 dt_pos_ab">
+                                                <li>
+                                                    <a href="javascript:;" ng-click="addDetail()" class="left btn_30 btn_add" title="Thêm">
+                                                        <i class="bowtie-icon bowtie-math-plus-light fmIconEnvision"></i>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;" ng-click="deleteDetail()" class="btn_30 btn_del" title="Xóa">
+                                                        <i class="bowtie-icon bowtie-edit-delete fmIconEnvision"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </dt>
+                                        <dd>
+                                            <div class="multi-collapse collapse show" id="multiCollapse_businessObjective_02" aria-expanded="true" tabindex="19" style="">
+                                                <div class="gridWrapper" id="height_grvCriteriaCategoryDetail" style="height:400px;">
+                                                    <div id="grvCriteriaCategoryDetail" class="control-grid" style="height:100%; width:100%"></div>
+                                                </div>
+                                            </div>
+                                        </dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" click-Once class="btn btn_save_02" ng-click="save()">
+                        <i class="bowtie-icon bowtie-save"></i><span ng-bind="translation.BTN_SAVE_CLOSE"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end modal detail -->
+</div>

@@ -1,0 +1,98 @@
+﻿<div id="cashReason" ng-controller="cashReasonController" class="pos">
+    <div class="white_box">
+        <div class="box_filter clearfix">
+            <ul class="box_btn mb-0 d-flex justify-content-start">
+                <li class="w_15 select2_op2">
+                    <div class="btn_search">
+                        <div class="input-group">
+                            <input type="text" id="full_text_filter" class="form-control" placeholder="Tìm danh mục" ng-keypress="search($event, 1)">
+                            <span class="input-group-btn">
+                                <button class="btn" type="button" ng-click="search($event, 1, 1)"><i class="bowtie-icon bowtie-search"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                </li>
+                <!--<li>
+                    <button type="button" class="bg_blue_02 btn_filter w_100" ng-click="searchObject()">Lọc</button>
+                </li>-->
+            </ul>
+        </div>
+        <dl class="mb-0" style="height:100%">
+            <dt>
+                <a class="title_01 bg_blue_01" data-toggle="collapse" data-target="#panel_01" aria-expanded="true" aria-controls="panel_01">
+                    <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>{{translation.TITLE}}</span>                    
+                </a>
+            </dt>
+            <dd style="width:100%;height:calc(100% - 25px)">
+                <div class="collapse show" id="panel_01" style="width:100%;height:100%" aria-expanded="true">
+                    <div class="gridWrapper">
+                        <div id="grvCashReason" class="control-grid" style="width:100%;height:100%"></div>
+                    </div>
+                </div>
+            </dd>
+        </dl>
+    </div>
+
+    <!-- Modal (detail)-->
+    <div class="modal fade modal_center confirmClose" style="" id="modal-detail">
+        <div class="modal-dialog" style="width:600px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <p style="font-size:16px;margin:0;line-height:1.9em;" class="float-left"><span ng-bind="(action == 'add') ? translation.MODAL_DETAIL_ADDTITLE : translation.MODAL_DETAIL_EDITTITLE"></span></p>
+                    <div class="box_btn_02">
+                        <button type="button" class="fullscreen" onclick="fullscreen('modal-detail')"><i class="bowtie-icon bowtie-view-full-screen"></i></button>
+                        <button type="button" class="btn_close_02" data-dismiss="modal"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                    </div>
+                </div>
+                <div class="modal-body" style="min-height:260px">
+                    <div class="modal-body-maincontent">
+                        <div class="form-input-group">
+                            <div class="box_02 col_1 clearfix mb_15">
+                                <div class="pos_item">
+                                    <lv-input field="code" model="data.code" setting="setting" translation="translation" type="text" tab="2" class="clearfix"></lv-input>
+                                </div>
+                            </div>
+                            <div class="box_02 col_1 clearfix mb_15">
+                                <div class="pos_item">
+                                    <lv-input field="name" model="data.name" setting="setting" translation="translation" type="text" tab="3" class="clearfix"></lv-input>
+                                </div>
+                            </div>
+                            <div class="box_02 col_1 clearfix mb_15">
+                                <div class="pos_item" style="width: calc(100% - 170px);margin-left: 170px;">
+                                    <div id="radioType" class="d-flex" style="outline: none;" tabindex="1">
+                                        <label class="container" ng-click="changeType('CR')" style="width: fit-content !important">
+                                            Phiếu thu
+                                            <input type="radio" checked="checked" name="radio" value="CR">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                        <label class="container" ng-click="changeType('CP')" style="width: fit-content !important">
+                                            Phiếu chi
+                                            <input type="radio" name="radio" value="CP">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box_02 col_1 clearfix mb_15">
+                                <div class="pos_item">
+                                    <lv-textarea row="5" style="width: 100%" block-resize="block-resize" field="note" model="data.note" setting="setting" translation="translation" type="text" tab="4"></lv-textarea>
+                                </div>
+                            </div>
+                            <div class="box_02 col_1 clearfix mb_15">
+                                <div class="pos_item">
+                                    <lv-select field="storeId" model="data.storeId" setting="setting" translation="translation" tab="5"></lv-select>
+                                </div>
+                            </div>                          
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button ng-if="action == 'add'" type="button" class="btn btn_save_02" id="btnSaveAndContinue" ng-click="save(1)" click-Once><i class="fa fa-save"></i> <span ng-bind="globalTranslation.BTN_SAVE_CONTINUE">Save & Continue</span></button>
+                    <button type="button" class="btn btn_save_03" id="btnSave" ng-click="save()" click-Once><i class="fa fa-save"></i> <span ng-bind="globalTranslation.BTN_SAVE">Save</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

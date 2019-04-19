@@ -1,0 +1,208 @@
+﻿<style>
+    .split.split-horizontal, .gutter.gutter-horizontal {
+        height: 100%;
+        float: left;
+    }
+
+    .gutter.gutter-horizontal {
+        background-image: url(img/horizontal.png);
+        cursor: ew-resize;
+    }
+
+    .gutter.gutter-vertical {
+        background-image: url(img/vertical.png);
+        cursor: ew-resize;
+    }
+
+    .gutter {
+        background-color: #eee;
+        background-repeat: no-repeat;
+        background-position: 50%;
+    }
+</style>
+
+<div id="role" ng-controller="roleController">
+    <div class="white_box" style="background-color:#edf1f5;padding:0">
+        <ul class="nav nav-tabs" id="main_tab_01" role="tablist">
+
+            <li class="nav-item">
+                <a class="nav-link" href="/pm/areas?pjid={{menuParams.pjid}}{{areaUrl}}&module=pj" id="tab_01-tab" data-toggle="tab" data-target="#tabAreas"
+                   role="tab" aria-controls="tab_01" aria-selected="true">{{translation.AREAS}}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/pm/pjMember?pjid={{menuParams.pjid}}{{areaUrl}}&module=pj" id="tab_01-tab" data-toggle="tab" data-target="#tabMember"
+                   role="tab" aria-controls="tab_01" aria-selected="true">{{translation.MEMBER}}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/pm/workingday?pjid={{menuParams.pjid}}{{areaUrl}}&module=pj" id="tab_01-tab" data-toggle="tab" data-target="#tabWorkingDays"
+                   role="tab" aria-controls="tab_01" aria-selected="true">{{translation.WORKINGDAYS}}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="/pm/role?pjid={{menuParams.pjid}}{{areaUrl}}&module=pj" id="tab_01-tab" data-toggle="tab" data-target="#tabRole"
+                   role="tab" aria-controls="tab_01" aria-selected="true">{{translation.ROLE}}</a>
+            </li>
+        </ul>
+
+        <div id="tab-content" class="tab-content" style="height: calc(100% - 35px);width:100%">
+            <div class="tab-pane" id="tabAreas" style="height:100%;width:100%">
+
+            </div>
+            <div class="tab-pane" id="tabMember" style="height:100%;width:100%">
+            </div>
+            <div class="tab-pane " id="tabWorkingDays" style="height:100%;width:100%">
+            </div>
+            <div class="tab-pane active" id="tabRole" style="height:100%;width:100%">
+                <div class="content_6_4 d-flex mb-0" style="height:100%">
+                    <div class="content_4 mr-10 col-left" id="content-0-1">
+                        <dl class="mb-0" style="height:100%">
+                            <dt class="pos_re" style="padding-top:5px">
+                                <a class="title_02 bg_gray_01 d-flex" style="justify-content: space-between">
+                                    <span class="d-flex" style="margin-left: 0">
+                                        <span ng-bind="translation.ROLEGROUP"></span>
+                                    </span>
+                                </a>
+                                <div style="display: flex; position: absolute; right: 0; bottom: 5px;">
+                                    <div class="btn-small green" title="Add" ng-click="add()"><i class="bowtie-icon bowtie-math-plus"></i></div>
+                                    <div class="btn-small blue" title="edit" ng-click="edit()"><i class="bowtie-icon bowtie-edit"></i></div>
+                                    <div class="btn-small red" title="Delete" ng-click="delete()"><i class="bowtie-icon bowtie-edit-delete"></i></div>
+                                    <div class="btn-small gray mr_0" title="Refresh" ng-click="refresh()"><i class="bowtie-icon bowtie-navigate-refresh"></i></div>
+                                </div>
+                            </dt>
+                            <dd class="mb-0" style="height: calc(100% - 30px);">
+                                <div class="gridWrapper"><div id="grvRole" class="control-grid grid-header-hide" style="width:100%;height:calc(100% + 28px)"></div></div>
+                            </dd>
+                        </dl>
+                    </div>
+                    <div class="float-right content_6" id="content-0-2">
+                        <ul class="nav nav-tabs bg-white pos_re" id="main_tab_01" role="tablist">
+                            <li class="nav-item">
+                                <a ng-click="loadPermissionsByRole();tabChange('tabPermissions')" class="nav-link active" href="javascript:" id="tab_01-tab" data-toggle="tab" data-target="#tabPermissions"
+                                   role="tab" aria-controls="tab_01" aria-selected="true" ng-bind="::translation.PERMISSIONS">Permissions</a>
+                            </li>
+                            <li class="nav-item">
+                                <a ng-click="loadUserByRole();tabChange('tabMembers')" class="nav-link" href="javascript:" id="tab_01-tab" data-toggle="tab" data-target="#tabMembers"
+                                   role="tab" aria-controls="tab_01" aria-selected="true" ng-bind="::translation.MEMBERS">Members</a>
+                            </li>
+                            <div style="display: flex; position: absolute; right: 0; bottom: 5px;">
+                                <div ng-show="activeTabId == 'tabPermissions'" class="btn-small blue" title="{{translation.BTN_SAVE}}" ng-click="savePermissions()"><i class="bowtie-icon bowtie-save"></i></div>
+                                <div ng-show="activeTabId == 'tabMembers'" class="btn-small green" title="{{translation.BTN_ADD}}" ng-click="addUserRole()"><i class="bowtie-icon bowtie-math-plus"></i></div>
+                                <div ng-show="activeTabId == 'tabMembers'" class="btn-small blue" title="{{translation.BTN_EDIT}}" ng-click="editUserRole()"><i class="bowtie-icon bowtie-edit"></i></div>
+                                <div ng-show="activeTabId == 'tabMembers'" class="btn-small red" title="{{translation.BTN_DELETE}}" ng-click="deleteUserRole()"><i class="bowtie-icon bowtie-math-multiply"></i></div>
+                                <div class="btn-small gray mr_0" title="{{translation.BTN_REFRESH}}" ng-click="refreshTab()"><i class="bowtie-icon bowtie-navigate-refresh"></i></div>
+                            </div>
+                        </ul>
+                        <div class="tab-content" style="height: calc(100% - 35px);width: 100%;">
+                            <div class="tab-pane active show" id="tabPermissions" style="height:100%;width:100%">
+                                <div class="content_6_4 d-flex mb-0" style="height:100%">
+
+                                    <div class="content_4 mr-10 col-left" id="content-1-1">
+                                        <dl class="mb-0" style="height:100%">
+                                            <dt style="padding-top:7px">
+                                                <a class="title_02 bg_gray_01 d-flex" style="justify-content: space-between">
+                                                    <span class="d-flex" style="margin-left: 0">
+                                                        <span ng-bind="translation.FUNCTIONNAL"></span>
+                                                    </span>
+                                                </a>
+                                            </dt>
+                                            <dd class="mb-0" style="height:calc(100% - 30px)">
+                                                <div class="gridWrapper" style="width:100%;height:100%">
+                                                    <div id="grvPermissions" class="control-grid grid-header-hide" style="width:100%;height:calc(100% + 28px)"></div>
+                                                </div>
+                                            </dd>
+                                        </dl>
+                                    </div>
+
+                                    <div style="width:calc(100% - 360px)" class="float-right content_6" id="content-1-2">
+                                        <dl class="mb-0" style="height:100%">
+                                            <dt class="pos_re h_35" style="padding-top:7px">
+                                                <a class="title_02 bg_gray_01 d-flex" style="justify-content: space-between">
+                                                    <span class="d-flex" style="margin-left: 0">
+                                                        <span ng-bind="translation.ACTION"></span>
+                                                    </span>
+                                                </a>
+                                            </dt>
+                                            <dd class="mb-0" style="height:calc(100% - 30px)">
+                                                <div class="gridWrapper">
+                                                    <div id="grvAction" style="height:100%; width:100%"></div>
+                                                </div>
+                                            </dd>
+                                        </dl>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="tabMembers" style="height:100%;width:100%">
+                                <div class="gridWrapper">
+                                    <div id="grvUserRole" class="control-grid" style="height:100%; width:100%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="tabAlertsSettings" style="height:100%;width:100%">
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal (Modal detail)-->
+    <div class="modal fade  modal_center confirmClose" id="modal-detail">
+        <div class="modal-dialog" style="width:600px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <p style="font-size:16px;margin:0;line-height:1.9em;" class="float-left">
+                        <span ng-bind="action == 'add' ? translation.MODAL_TITLE : data.name|uppercase "></span>
+                    </p>
+                    <div class="box_btn_02">
+                        <button type="button" class="btn_close_02" data-dismiss="modal"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                    </div>
+                </div>
+                <div class="modal-body" style="min-height:250px">
+                    <div class="modal-body-maincontent">
+                        <div class="col-md-12">
+                            <lv-input field="code" model="data.code" setting="setting" translation="translation" type="text" tab="1"></lv-input>
+                            <lv-input field="name" model="data.name" setting="setting" translation="translation" type="text" tab="2"></lv-input>
+                            <lv-input field="description" model="data.description" setting="setting" translation="translation" tab="3"></lv-input>
+                            <lv-checkbox field="isDefault" model="data.isDefault" setting="setting" translation="translation" type="text" tab="4" style="margin-top:10px"></lv-checkbox>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn_save_02" id="btnSave" ng-click="save()" click-Once>
+                        <i class="fa fa-save"></i>
+                        <span ng-bind="globalTranslation.BTN_SAVE"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal (Modal User)-->
+    <div lv-include path="app/system/user/userForm" name="userForm"></div>
+
+    <div class="modal fade modal_center" style="width:460px" id="modal-remove-user">
+        <div class="modal-dialog" style="width: 100% !important">
+            <div class="modal-content">
+                <div class="modal-header ui-draggable-handle">
+                    <p class="modal_header_title float-left"><span style="text-transform:none">{{translation.TITLE_REMOVE_USER_ROLE + ': '}}<b>{{removeUserRow.displayName}}</b></span></p>
+                    <div class="box_btn_02">
+                        <button type="button" class="btn_close_02 float-right" data-dismiss="modal" title="{{translation.CLOSE}}"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <h4 class="success-message center">
+                        <i class="bowtie-icon bowtie-status-error-outline del_icon"></i>
+                        <span style="margin-left:10px;font-size:14px" ng-bind="::translation.CONFIRM_DELETE"></span>
+                    </h4>
+                </div>
+                <div class="modal-footer confirm-footer">
+                    <button type="button" class="btn confirm-button btn btn_save_02" data-dismiss="modal" id="confirmModal" ng-click="removeUserRole()"><i class="bowtie-icon bowtie-save"></i> <span ng-bind="::translation.BTN_APPLY"></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal (permission)-->
+    <div lv-include path="app/system/permission2" name="permission2"></div>
+    <!--<div lv-include ng-if="initPermission" path="app/system/permission2" name="permission2"></div>-->
+</div>

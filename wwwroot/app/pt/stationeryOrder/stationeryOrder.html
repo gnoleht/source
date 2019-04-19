@@ -1,0 +1,134 @@
+﻿
+<style>
+    .popover {
+        max-width: 100%;
+    }
+</style>
+<div id="stationeryOrder" ng-controller="stationeryOrderController">
+    <div class="white_box">
+        <div class="content_6_4 d-flex mb-0" style="height:100%">
+            <div class="content_4 mr-10 col-left">
+                <dl class="mb-0" style="height:100%">
+                    <dt>
+                        <a class="title_02 bg_gray_01 d-flex" style="justify-content: space-between">
+                            <span class="d-flex" style="margin-left: 0">
+                                <span ng-bind="::translation.LIST_REGISTER"></span>
+                            </span>
+                        </a>
+                    </dt>
+                    <dd class="mb-0" style="height: calc(100% - 30px);">
+                        <div class="search-wrapper" style="padding: 3px 0">
+                            <div class="btn_search">
+                                <div class="input-group">
+                                    <input id="txtSearch" type="text" class="form-control" placeholder="" ng-keypress="search($event)" ng-model="stringSearch" /> <!--ng-keypress="callMethod('search', $event)"-->
+                                    <span class="input-group-btn">
+                                        <button ng-click="callMethod('search')" class="btn" type="button"><i class="bowtie-icon bowtie-search"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="grvStationeryOrder" class="grid-header-hide" style="width:100%;height:100%"></div>
+                        <!--<div class="gridWrapper" style="width:100%;height:calc(100% - 44px)"><div id="grvRole" class="control-grid grid-header-hide" style="width:100%;height:calc(100% + 28px)"></div></div>-->
+                    </dd>
+                </dl>
+            </div>
+            <div class="float-right content_6">
+                <dl class="mb-0" style="height:100%">
+                    <dt class="pos_re">
+                        <a class="title_02 bg_gray_01 d-flex" style="justify-content: space-between">
+                            <span class="d-flex" style="margin-left: 0">
+                                <span ng-bind="translation.LIST_ORDER"></span>
+                            </span>
+                        </a>
+                        <!--<div ng-show="parentData.stationeryStatus != '2'" style="display: flex; position: absolute; right: 0; bottom: 5px;">
+                            <a class="btn_add btn_30" style="margin: 0 5px;" ng-click="add()"><i class="bowtie-icon bowtie-math-plus"></i></a>
+                            <a class="btn_edit btn_30 btn_function" style="margin: 0 5px;" ng-click="edit()"><i class="bowtie-icon bowtie-approve"></i></a>
+                            <a class="btn_del btn_30 btn_function" style="margin: 0 5px;" ng-click="delete()"><i class="bowtie-icon bowtie-edit-delete"></i></a>
+                        </div>-->
+                    </dt>
+                    <dd class="mb-0" style="height:calc(100% - 30px)">
+                        <div class="gridWrapper">
+                            <div id="grvOrder" style="height:100%; width:100%"></div>
+                        </div>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="modal fadeIn modal_center" role="dialog" style="animation-delay:10s;" id="modal-order">
+        <div class="modal-dialog" tabindex="-1" style="width: 1000px">
+            <div class="modal-content" style="padding-top: 0px !important">
+                <div class="modal-header">
+                    <p class="modal_header_title"><span ng-bind="action == 'add' ? translation.ADD_ORDER : translation.EDIT_ORDER"></span></p>
+                    <div class="box_btn_02">
+                        <button type="button" onclick="fullscreen('modal-order')" class="fullscreen btn-modal-screen" title="{{::translation.BTN_SCREEN}}"><i class="bowtie-icon bowtie-view-full-screen"></i></button>
+                        <button type="button" class="btn_close_02" data-dismiss="modal" title="{{::translation.BTN_CLOSE}}"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-content" style="min-height:370px">
+                        <div class="box_content">
+                            <div class="box_02 col_2 clearfix">
+                                <div class="item select2_op2">
+                                    <lv-date field="orderDate" model="dataOrder.orderDate" setting="setting" change="changeDateOrder()" label="{{translation.ORDER_DATE}}" tab="1"></lv-date>
+                                </div>
+                                <div class="item select2_op2">
+                                    <lv-date field="expectedDate" model="dataOrder.expectedDate" setting="setting" change="changeDateOrder()" translation="translation" label="{{translation.EXPECTED_DATE}}" tab="2"></lv-date>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box_content">
+                            <dl class="mb-0" style="height:100%">
+                                <dt class="pos_re h_35" style="padding-top:7px">
+                                    <a class="title_02 bg_gray_01 d-flex" style="justify-content: space-between">
+                                        <span class="d-flex" style="margin-left: 0">
+                                            <span ng-bind="translation.LIST_ORDER_DETAIL"></span>
+                                        </span>
+                                    </a>
+                                </dt>
+                                <dd class="mb-0" style="height:calc(100% - 30px)">
+                                    <div class="gridWrapper">
+                                        <div id="grvOrderDetail" style="width:100%;height:350px"></div>
+                                    </div>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button ng-if="dataOrder.status != '1' && parentData.stationeryStatus != '2'" ng-click="saveOrder()" type="button" class="btn btn_save_02" click-Once><i class="bowtie-icon bowtie-save"></i><span ng-bind="action == 'add' ? translation.BTN_SAVE_CLOSE : translation.BTN_COMPLETE"></span></button>
+                    <button ng-if="action == 'add' && parentData.stationeryStatus != '2'" ng-click="saveAndExport()" type="button" class="btn btn_save_02" click-Once><i class="bowtie-icon bowtie-transfer-download"></i><span ng-bind="::translation.BTN_SAVE_AND_EXPORT"></span></button>
+                    <button ng-if="action == 'edit'" ng-click="exportExcel()" type="button" class="btn btn_save_02" click-Once><i class="bowtie-icon bowtie-transfer-download"></i><span ng-bind="::translation.BTN_EXPORT"></span></button>
+                    <!--<button type="button" class="btn btn_save_02" data-dismiss="modal"><i class="bowtie-icon bowtie-edit-delete"></i><span ng-bind="::translation.BTN_CLOSE"></span></button>-->
+                    <button ng-if="action == 'edit'" ng-click="historyShow()" type="button" class="btn btn_save_02" click-Once title="{{::translation.HISTORY}}"><i style="font-size:18px" class="bowtie-icon bowtie-navigate-history"></i><span ng-bind="::translation.HISTORY"></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fadeIn modal_center" role="dialog" id="order-history">
+        <div class="modal-dialog modal-medium modal-padding" tabindex="-1" style="width:40%;">
+            <div class="modal-content" style="padding-top: 0px !important">
+                <div class="modal-header">
+                    <p class="modal_header_title">
+                        <span ng-bind="translation.HISTORY | uppercase "></span>
+                    </p>
+                    <div class="box_btn_02">
+                        <button type="button" class="btn_close_02" data-dismiss="modal" title="{{translation.BTN_CLOSE}}">
+                            <i class="bowtie-icon bowtie-edit-remove"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-content">
+                        <table class="table table-bordered">
+                            <tbody id="content-history"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

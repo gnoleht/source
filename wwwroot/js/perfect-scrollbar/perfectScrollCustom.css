@@ -1,0 +1,39 @@
+﻿/*perfectscroll*/
+.ps__rail-x:hover {
+    background: none !important;
+}
+
+.ps__thumb-x {
+    height: 6px !important;
+}
+
+.ps__rail-y:hover {
+    background: none !important;
+}
+
+.ps__thumb-y {
+    width: 6px !important;
+}
+
+#dashboard .ps__rail-y {
+    top: 0 !important;
+}
+
+.slick-viewport .ps__rail-x {
+    z-index: 500
+}
+
+.slick-viewport .ps__rail-y {
+    z-index: 500
+}
+
+.modal-body-detail .ps__rail-y {
+}
+
+.slick-tb_kanban_scroll .ps__rail-x {
+    z-index: 9999
+}
+
+.tb_kanban_scroll .ps__rail-y {
+    z-index: 9999
+}

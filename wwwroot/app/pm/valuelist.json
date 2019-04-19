@@ -1,0 +1,1088 @@
+﻿{
+  "privateToken": [
+    {
+      "id": "B37ZFssarsjT7FxFwEZM",
+      "text": "B37ZFssarsjT7FxFwEZM"
+    }
+  ],
+
+  "workItemType": [
+    {
+      "id": "requirement",
+      "text": {
+        "vn": "Yêu cầu",
+        "en": "Requirement"
+      }
+    },
+    {
+      "id": "epic",
+      "text": {
+        "vn": "Phân hệ",
+        "en": "Epic"
+      }
+    },
+    {
+      "id": "function",
+      "text": {
+        "vn": "Chức năng",
+        "en": "Function"
+      }
+    },
+    {
+      "id": "userstory",
+      "text": {
+        "vn": "Kịch bản",
+        "en": "User story"
+      }
+    },
+    {
+      "id": "task",
+      "text": {
+        "vn": "Công việc",
+        "en": "Task"
+      }
+    },
+    {
+      "id": "bug",
+      "text": {
+        "vn": "Lỗi",
+        "en": "Bug"
+      }
+    }
+  ],
+
+  "relatedType": [
+    {
+      "id": "requirement",
+      "text": {
+        "vn": "Yêu cầu",
+        "en": "Requirement"
+      },
+      "entityType": "PM_WorkItem"
+    },
+    {
+      "id": "epic",
+      "text": {
+        "vn": "Epic",
+        "en": "Epic"
+      },
+      "entityType": "PM_WorkItem"
+    },
+    {
+      "id": "function",
+      "text": {
+        "vn": "Function",
+        "en": "Function"
+      },
+      "entityType": "PM_WorkItem"
+    },
+    {
+      "id": "userstory",
+      "text": {
+        "vn": "User story",
+        "en": "User story"
+      },
+      "entityType": "PM_WorkItem"
+    },
+    {
+      "id": "task",
+      "text": {
+        "vn": "Công việc",
+        "en": "Task"
+      },
+      "entityType": "PM_WorkItem"
+    },
+    {
+      "id": "bug",
+      "text": {
+        "vn": "Lỗi",
+        "en": "Bug"
+      },
+      "entityType": "PM_WorkItem"
+    },
+    {
+      "id": "cost",
+      "text": {
+        "vn": "Giá trị",
+        "en": "Cost"
+      },
+      "entityType": "PM_Cost"
+    },
+    {
+      "id": "testCase",
+      "text": {
+        "vn": "Kiểm thử",
+        "en": "Test Case"
+      },
+      "entityType": "PM_WorkItem"
+    }
+  ],
+
+  "linkType": [
+    {
+      "id": "parent",
+      "text": {
+        "vn": "Liên kết cha",
+        "en": "Parent"
+      },
+      "refType": "child"
+    },
+    {
+      "id": "child",
+      "text": {
+        "vn": "Liên kết con",
+        "en": "Child"
+      },
+      "refType": "parent"
+    },
+    {
+      "id": "hyperlink",
+      "text": {
+        "vn": "Hyper link",
+        "en": "Hyper link"
+      },
+      "refType": "hyperlink"
+    },
+    {
+      "id": "effected",
+      "text": {
+        "vn": "Đã thực hiện",
+        "en": "Effected"
+      },
+      "refType": "affectedby"
+    },
+    {
+      "id": "affectedby",
+      "text": {
+        "vn": "Người ảnh hưởng",
+        "en": "Affected by"
+      },
+      "refType": "effected"
+    },
+    {
+      "id": "related",
+      "text": {
+        "vn": "Liên quan",
+        "en": "Related"
+      },
+      "refType": "related"
+    },
+    {
+      "id": "mitigatedby",
+      "text": {
+        "vn": "Người giảm thiểu",
+        "en": "Mitigated by"
+      },
+      "refType": "mitigatedby"
+    },
+    {
+      "id": "contingencyby",
+      "text": {
+        "vn": "Người dự phòng",
+        "en": "Contingency by"
+      },
+      "refType": "contingencyby"
+    },
+    {
+      "id": "causedby",
+      "text": {
+        "vn": "Người gây ra",
+        "en": "Caused by"
+      },
+      "refType": "causedby"
+    },
+    {
+      "id": "verifiedby",
+      "text": {
+        "vn": "Người xác nhận",
+        "en": "Verified by"
+      },
+      "refType": "verifiedby"
+    },
+    {
+      "id": "occurring",
+      "text": {
+        "vn": "Xảy ra",
+        "en": "Occurring"
+      },
+      "refType": "reflect"
+    },
+    {
+      "id": "reflect",
+      "text": {
+        "vn": "Phản ánh",
+        "en": "Reflect"
+      },
+      "refType": "occurring"
+    },
+    {
+      "id": "predecessor",
+      "text": {
+        "vn": "Người tiền nhiệm",
+        "en": "Predecessor"
+      },
+      "refType": "successor"
+    },
+    {
+      "id": "successor",
+      "text": {
+        "vn": "Người kế nhiệm",
+        "en": "Successor"
+      },
+      "refType": "predecessor"
+    },
+    {
+      "id": "test",
+      "text": {
+        "vn": "Kiểm thử",
+        "en": "Test"
+      },
+      "refType": "testedby"
+    },
+    {
+      "id": "testedby",
+      "text": {
+        "vn": "Nguồn kiểm thử",
+        "en": "Tested by"
+      },
+      "refType": "test"
+    }
+  ],
+
+  "priority": [
+    {
+      "id": "1-Urgent",
+      "text": {
+        "vn": "Nghiêm trọng",
+        "en": "Urgent"
+      },
+      "class": "priority priority_01",
+      "icon": "bowtie-icon bowtie-square"
+    },
+    {
+      "id": "2-High",
+      "text": {
+        "vn": "Cao",
+        "en": "High"
+      },
+      "class": "priority priority_02",
+      "icon": "bowtie-icon bowtie-square"
+    },
+    {
+      "id": "3-Normal",
+      "text": {
+        "vn": "Trung bình",
+        "en": "Normal"
+      },
+      "class": "priority priority_03",
+      "icon": "bowtie-icon bowtie-square"
+    },
+    {
+      "id": "4-Low",
+      "text": {
+        "vn": "Thấp",
+        "en": "Low"
+      },
+      "class": "priority priority_04",
+      "icon": "bowtie-icon bowtie-square"
+    }
+  ],
+
+  "state": [
+    {
+      "id": "new",
+      "text": {
+        "vn": "Tạo mới",
+        "en": "New"
+      },
+      "class": "status_new",
+      "icon": "fa fa-circle"
+    },
+    {
+      "id": "active",
+      "text": {
+        "vn": "Kích hoạt",
+        "en": "Active"
+      },
+      "class": "status_active",
+      "icon": "fa fa-circle"
+    },
+    {
+      "id": "resolved",
+      "text": {
+        "vn": "Hoàn thành",
+        "en": "Resolved"
+      },
+      "class": "status_resolved",
+      "icon": "fa fa-circle"
+    },
+    {
+      "id": "closed",
+      "text": {
+        "vn": "Đóng",
+        "en": "Closed"
+      },
+      "class": "status_closed",
+      "icon": "fa fa-circle"
+    },
+    {
+      "id": "removed",
+      "text": {
+        "vn": "Hủy",
+        "en": "Removed"
+      },
+      "class": "status_removed",
+      "icon": "fa fa-circle"
+    }
+  ],
+
+  "testCaseState": [
+    {
+      "id": "new",
+      "text": {
+        "vn": "Tạo mới",
+        "en": "New"
+      },
+      "class": "status_new",
+      "icon": "fa fa-circle"
+    },
+    {
+      "id": "notRun",
+      "text": {
+        "vn": "Chưa chạy",
+        "en": "Not Run"
+      },
+      "class": "status_notrun",
+      "icon": "fa fa-circle"
+    },
+    {
+      "id": "passed",
+      "text": {
+        "vn": "Thông qua",
+        "en": "Passed"
+      },
+      "class": "status_passed",
+      "icon": "fa fa-circle"
+    },
+    {
+      "id": "failed",
+      "text": {
+        "vn": "Lỗi",
+        "en": "Failed"
+      },
+      "class": "status_failed",
+      "icon": "fa fa-circle"
+    },
+    {
+      "id": "inProgress",
+      "text": {
+        "vn": "Đang tiến hành",
+        "en": "In Progress"
+      },
+      "class": "status_inprogress",
+      "icon": "fa fa-circle"
+    },
+    {
+      "id": "blocked",
+      "text": {
+        "vn": "Bị chặn",
+        "en": "Blocked"
+      },
+      "class": "status_removed",
+      "icon": "fa fa-circle"
+    }
+  ],
+
+  "stateKanban": [
+    {
+      "id": "new",
+      "text": "New",
+      "class": "status_new",
+      "icon": "fa fa-circle"
+    },
+    {
+      "id": "active",
+      "text": "Active",
+      "class": "status_active",
+      "icon": "fa fa-circle"
+    },
+    {
+      "id": "resolved",
+      "text": "Resolved",
+      "class": "status_resolved",
+      "icon": "fa fa-circle"
+    },
+    {
+      "id": "closed",
+      "text": "Closed",
+      "class": "status_closed",
+      "icon": "fa fa-circle"
+    }
+  ],
+
+  "risk": [
+    {
+      "id": "Very high",
+      "text": {
+        "vn": "Nghiêm trọng",
+        "en": "Very high"
+      }
+    },
+    {
+      "id": "Medium",
+      "text": {
+        "vn": "Trung bình",
+        "en": "Medium"
+      }
+    },
+    {
+      "id": "High",
+      "text": {
+        "vn": "Cao",
+        "en": "High"
+      }
+    },
+    {
+      "id": "Low",
+      "text": {
+        "vn": "Thấp",
+        "en": "Low"
+      }
+    }
+  ],
+
+  "size": [
+    {
+      "id": 0,
+      "text": {
+        "vn": "(0-UN) Không xác định",
+        "en": "(0-UN) Unknown"
+      }
+    },
+    {
+      "id": 1,
+      "text": {
+        "vn": "(1-XS) Rất nhỏ",
+        "en": "(1-XS) Xtra Small"
+      }
+    },
+    {
+      "id": 2,
+      "text": {
+        "vn": "(2-S) Nhỏ",
+        "en": "(2-S) Small"
+      }
+    },
+    {
+      "id": 3,
+      "text": {
+        "vn": "(3-M) Trung bình",
+        "en": "(3-M) Medium"
+      }
+    },
+    {
+      "id": 5,
+      "text": {
+        "vn": "(5-L) Lớn",
+        "en": "(5-L) Large"
+      }
+    },
+    {
+      "id": 8,
+      "text": {
+        "vn": "(8-XL) Rất lớn",
+        "en": "(8-XL) XtraLarge"
+      }
+    }
+  ],
+
+  "severity": [
+    {
+      "id": "4",
+      "text": {
+        "vn": "4-Nghiêm trọng",
+        "en": "4-Critical"
+      }
+    },
+    {
+      "id": "3",
+      "text": {
+        "vn": "3-Cao",
+        "en": "3-High"
+      }
+    },
+    {
+      "id": "2",
+      "text": {
+        "vn": "2-Trung bình",
+        "en": "2-Medium"
+      }
+    },
+    {
+      "id": "1",
+      "text": {
+        "vn": "1-Thấp",
+        "en": "1-Low"
+      }
+    }
+  ],
+
+  "phase": [
+    {
+      "id": "1",
+      "text": {
+        "vn": "Yêu cầu",
+        "en": "Requirements"
+      }
+    },
+    {
+      "id": "2",
+      "text": {
+        "vn": "Thiết kế",
+        "en": "Design"
+      }
+    },
+    {
+      "id": "3",
+      "text": {
+        "vn": "Phát triển",
+        "en": "Development"
+      }
+    },
+    {
+      "id": "4",
+      "text": {
+        "vn": "Kiểm thử",
+        "en": "Testing"
+      }
+    },
+    {
+      "id": "5",
+      "text": {
+        "vn": "Triển khai",
+        "en": "Deployment"
+      }
+    },
+    {
+      "id": "6",
+      "text": {
+        "vn": "Tài liệu",
+        "en": "Documentation"
+      }
+    }
+  ],
+
+  "retrospective": [
+    {
+      "id": "1",
+      "text": {
+        "vn": "Luôn luôn",
+        "en": "Always"
+      }
+    },
+    {
+      "id": "2",
+      "text": {
+        "vn": "Chưa thử",
+        "en": "Have not tried"
+      }
+    },
+    {
+      "id": "3",
+      "text": {
+        "vn": "Ngẫu nhiên",
+        "en": "Random"
+      }
+    },
+    {
+      "id": "4",
+      "text": {
+        "vn": "Thỉnh thoảng",
+        "en": "Sometimes"
+      }
+    },
+    {
+      "id": "5",
+      "text": {
+        "vn": "Không thể tái hiện",
+        "en": "Unable to reproduce"
+      }
+    }
+  ],
+
+  "bugCategory": [
+    {
+      "id": "1",
+      "text": {
+        "vn": "Lỗi dữ liệu",
+        "en": "Data Error"
+      }
+    },
+    {
+      "id": "2",
+      "text": {
+        "vn": "Lỗi lập trình",
+        "en": "Coding Error"
+      }
+    },
+    {
+      "id": "3",
+      "text": {
+        "vn": "Lỗi thiết kế",
+        "en": "Design Error"
+      }
+    },
+    {
+      "id": "4",
+      "text": {
+        "vn": "Lỗi giao diện hay báo cáo",
+        "en": "UI or Report Error"
+      }
+    },
+    {
+      "id": "5",
+      "text": {
+        "vn": "Lỗi tài liệu",
+        "en": "Doc. Error"
+      }
+    },
+    {
+      "id": "6",
+      "text": {
+        "vn": "Đề xuất",
+        "en": "Suggestions"
+      }
+    },
+    {
+      "id": "7",
+      "text": {
+        "vn": "Không xác định",
+        "en": "Unknown"
+      }
+    }
+  ],
+
+  "reason": [
+    {
+      "id": "new",
+      "text": "New"
+    },
+    {
+      "id": "task",
+      "text": "Task"
+    },
+    {
+      "id": "testing",
+      "text": "Testing"
+    },
+    {
+      "id": "bug",
+      "text": "Bug"
+    }
+  ],
+
+  "requirementSources": [
+    {
+      "id": "1",
+      "text": {
+        "vn": "Yêu cầu của khách hàng",
+        "en": "Customer Requirement"
+      }
+    },
+    {
+      "id": "2",
+      "text": {
+        "vn": "Nghiên cứu",
+        "en": "Research"
+      }
+    },
+    {
+      "id": "3",
+      "text": {
+        "vn": "Sản phẩm khác",
+        "en": "Other Product"
+      }
+    },
+    {
+      "id": "4",
+      "text": {
+        "vn": "Phản hồi của khách hàng",
+        "en": "Customer feedback"
+      }
+    }
+  ],
+
+  "valueArea": [
+    {
+      "id": "Business",
+      "text": {
+        "vn": "Kinh doanh",
+        "en": "Business"
+      }
+    },
+    {
+      "id": "Architectural",
+      "text": {
+        "vn": "Kiến trúc",
+        "en": "Architectural"
+      }
+    }
+  ],
+
+  "bankName": [
+    {
+      "id": "Vietcombank",
+      "text": {
+        "vn": "Vietcombank",
+        "en": "Vietcombank"
+      }
+    },
+    {
+      "id": "Agribank",
+      "text": {
+        "vn": "Agribank",
+        "en": "Agribank"
+      }
+    }
+  ],
+
+  "category": [
+    {
+      "id": "business",
+      "text": {
+        "vn": "Công tác",
+        "en": "Work costs"
+      }
+    },
+    {
+      "id": "staff",
+      "text": {
+        "vn": "Chi phí nhân sự",
+        "en": "Staff costs"
+      }
+    },
+    {
+      "id": "contract",
+      "text": {
+        "vn": "Hợp đồng",
+        "en": "Contract"
+      }
+    }
+  ],
+
+  "stateCost": [
+    {
+      "id": "New",
+      "text": {
+        "vn": "Tạo mới",
+        "en": "New"
+      }
+    },
+    {
+      "id": "Approved",
+      "text": {
+        "vn": "Đã duyệt",
+        "en": "Approved"
+      }
+    },
+    {
+      "id": "Rejected",
+      "text": {
+        "vn": "Từ chối",
+        "en": "Rejected"
+      }
+    },
+    {
+      "id": "Waitting for Approve",
+      "text": {
+        "vn": "Chờ duyệt",
+        "en": "Waitting for Approve"
+      }
+    },
+    {
+      "id": "Waitting for Payment",
+      "text": {
+        "vn": "Chờ thanh toán",
+        "en": "Waitting for Payment"
+      }
+    },
+    {
+      "id": "Payment",
+      "text": {
+        "vn": "Đã thanh toán",
+        "en": "Payment"
+      }
+    }
+  ],
+
+  "activityCapacity": [
+    {
+      "id": "Deployment",
+      "text": {
+        "vn": "Triển khai",
+        "en": "Deployment"
+      }
+    },
+    {
+      "id": "Design",
+      "text": {
+        "vn": "Thiết kế",
+        "en": "Design"
+      }
+    },
+    {
+      "id": "Development",
+      "text": {
+        "vn": "Phát triển",
+        "en": "Development"
+      }
+    },
+    {
+      "id": "Documentation",
+      "text": {
+        "vn": "Tài liệu",
+        "en": "Documentation"
+      }
+    },
+    {
+      "id": "Requirement",
+      "text": {
+        "vn": "Yêu cầu",
+        "en": "Requirement"
+      }
+    },
+    {
+      "id": "Test",
+      "text": {
+        "vn": "Kiểm thử",
+        "en": "Test"
+      }
+    }
+  ],
+
+  "groupKanban": [
+    {
+      "id": "0",
+      "text": "Stories"
+    },
+    {
+      "id": "1",
+      "text": "People"
+    }
+  ],
+
+  "projectType": [
+    {
+      "id": "1",
+      "text": {
+        "vn": "Phát triển phần mềm",
+        "en": "Software development"
+      }
+    },
+    {
+      "id": "2",
+      "text": {
+        "vn": "Triển khai phần mềm",
+        "en": "Software deployment"
+      }
+    },
+    {
+      "id": "3",
+      "text": {
+        "vn": "Triển khai hệ thống",
+        "en": "System deployment"
+      }
+    }
+  ],
+
+  "areaType": [
+    {
+      "id": "1",
+      "text": {
+        "vn": "Phát triển phần mềm",
+        "en": "Software development"
+      }
+    },
+    {
+      "id": "2",
+      "text": {
+        "vn": "Triển khai phần mềm",
+        "en": "Software deployment"
+      }
+    },
+    {
+      "id": "3",
+      "text": {
+        "vn": "Triển khai hệ thống",
+        "en": "System deployment"
+      }
+    }
+  ],
+
+  "myKanbanTaskBug": [
+    {
+      "id": "task",
+      "text": {
+        "vn": "Công việc",
+        "en": "Task"
+      }
+    },
+    {
+      "id": "bug",
+      "text": {
+        "vn": "Lỗi",
+        "en": "Bug"
+      }
+    },
+    {
+      "id": "all",
+      "text": {
+        "vn": "Tất cả",
+        "en": "Task & Bug"
+      }
+    }
+  ],
+
+  "testingType": [
+    {
+      "id": "unitTesting",
+      "text": {
+        "vn": "Unit testing",
+        "en": "Unit testing"
+      }
+    },
+    {
+      "id": "integrationTesting",
+      "text": {
+        "vn": "Integration testing",
+        "en": "Integration testing"
+      }
+    },
+    {
+      "id": "systemTesting",
+      "text": {
+        "vn": "System testing",
+        "en": "System testing"
+      }
+    },
+    {
+      "id": "sanityTesting",
+      "text": {
+        "vn": "Sanity testing",
+        "en": "Sanity testing"
+      }
+    },
+    {
+      "id": "smokeTesting",
+      "text": {
+        "vn": "Smoke testing",
+        "en": "Smoke testing"
+      }
+    },
+    {
+      "id": "interfaceTesting",
+      "text": {
+        "vn": "Interface testing",
+        "en": "Interface testing"
+      }
+    },
+    {
+      "id": "regressionTesting",
+      "text": {
+        "vn": "Regression testing",
+        "en": "Regression testing"
+      }
+    },
+    {
+      "id": "betaTesting",
+      "text": {
+        "vn": "Beta/Acceptance testing",
+        "en": "Beta/Acceptance testing"
+      }
+    },
+    {
+      "id": "performanceTesting",
+      "text": {
+        "vn": "Performance Testing",
+        "en": "Performance Testing"
+      }
+    },
+    {
+      "id": "loadTesting",
+      "text": {
+        "vn": "Load testing",
+        "en": "Load testing"
+      }
+    },
+    {
+      "id": "stressTesting",
+      "text": {
+        "vn": "Stress testing",
+        "en": "Stress testing"
+      }
+    },
+    {
+      "id": "volumeTesting",
+      "text": {
+        "vn": "Volume testing",
+        "en": "Volume testing"
+      }
+    },
+    {
+      "id": "securityTesting",
+      "text": {
+        "vn": "Security testing",
+        "en": "Security testing"
+      }
+    },
+    {
+      "id": "compatibilityTesting",
+      "text": {
+        "vn": "Compatibility testing",
+        "en": "Compatibility testing"
+      }
+    },
+    {
+      "id": "installTesting",
+      "text": {
+        "vn": "Install testing",
+        "en": "Install testing"
+      }
+    },
+    {
+      "id": "recoveryTesting",
+      "text": {
+        "vn": "Recovery testing",
+        "en": "Recovery testing"
+      }
+    },
+    {
+      "id": "reliabilityTesting",
+      "text": {
+        "vn": "Reliability testing",
+        "en": "Reliability testing"
+      }
+    },
+    {
+      "id": "usabilityTesting",
+      "text": {
+        "vn": "Usability testing",
+        "en": "Usability testing"
+      }
+    },
+    {
+      "id": "complianceTesting",
+      "text": {
+        "vn": "Compliance testing",
+        "en": "Compliance testing"
+      }
+    },
+    {
+      "id": "localizationTesting",
+      "text": {
+        "vn": "Localization testing",
+        "en": "Localization testing"
+      }
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+﻿
+var countryTranslation = {
+    "PAGE_TITLE": "CountryConfig",
+    "PAGE_DESCRIPTION": "Quản lý thông tin Country",
+    "TYPE": "Kiểu",
+    "TITLE": "Tiêu đề",
+    "DESCRIPTION": "Miêu tả",
+    "SEARCH": "Tìm kiếm",
+    "OPTIONS": "Tuỳ chọn",
+    "SITE": "Quy Mô",
+    "ERR_CHOOSE_COUNTRY_EDIT": "Chọn EnvisionConfig cần sửa.",
+    "CONFIRM_DELETE_COUNTRY": "Bạn có muốn xoá dữ liệu đã chọn ?",
+    "BTN_ADD": "Thêm",
+    "BTN_EDIT": "Sửa",
+    "BTN_DELETE": "Xoá",
+    "BTN_SETTING": "Cài đặt",
+    "BTN_SAVE": "Lưu",
+    "BTN_CLOSE": "Đóng",
+    "TITLE_MODAL_COUNTRY": "Thông tin Country",
+    "ERR_CHOOSE_COUNTRY_DELETE": "Chọn Country cần xóa.",
+}

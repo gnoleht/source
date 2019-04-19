@@ -1,0 +1,259 @@
+﻿<script src="../../../js/jquery.ui.touch-punch.js"></script>
+
+<style>
+    .footerSprint {
+        background: #008ccb;
+        color: white;
+        height: 30px;
+        line-height: 30px;
+        font-size: 14px;
+    }
+</style>
+
+<div id="releasePlanning" ng-controller="releasePlanningController" ng-init="onLoad()">
+
+    <div class="white_box" style="background-color:#edf1f5;padding:0">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" id="main_tab_01" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link" href="/pm/pblEstimating?pjid={{menuParams.pjid}}{{areaUrl}}&module=pj" id="tab_01-tab" data-toggle="tab" data-target="#tabPblEstimating"
+                   role="tab" aria-controls="tab_01" aria-selected="true">PBL Estimating</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/pm/resourcePlanning?pjid={{menuParams.pjid}}{{areaUrl}}&module=pj" id="tab_01-tab" data-toggle="tab" data-target="#tabResourcePlanning"
+                   role="tab" aria-controls="tab_01" aria-selected="true">Resource Planning</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="/pm/releasePlanning?pjid={{menuParams.pjid}}{{areaUrl}}&module=pj" id="tab_01-tab" data-toggle="tab" data-target="#tabReleasePlanning"
+                   role="tab" aria-controls="tab_01" aria-selected="true">Release Planning</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/pm/costPlanning?pjid={{menuParams.pjid}}{{areaUrl}}&module=pj" id="tab_01-tab" data-toggle="tab" data-target="#tabCostPlanning"
+                   role="tab" aria-controls="tab_01" aria-selected="true">Cost Planning</a>
+            </li>
+        </ul>
+
+        <div id="tab-content" class="tab-content" style="height:calc(100% - 34px);width: 100%">
+            <div class="tab-pane" id="tabPblEstimating" style="height:100%;width:100%">
+
+            </div>
+            <div class="tab-pane" id="tabResourcePlanning" style="height:100%;width:100%">
+
+            </div>
+            <div class="tab-pane active" id="tabReleasePlanning" style="height:100%;width:100%">
+                <img class="page-loader" style="display:none;" />
+
+                <div id="releasePlanning">
+                    <div id="tb_kanban_scroll" class="tb_kanban_scroll" style="position:relative;width:100%;height:100%">
+                        <div class="header_kanban__scroll clearfix">
+                            <div class="tr clearfix">
+                                <div class="th">
+                                    <!--<div><span>Backlog </span>( <span class="sizePoint red">{{TotalSizeKanban}} <b style="color:#000;"> points </b> </span>)</div>-->
+                                    <div><span>Backlog </span></div>
+                                </div>
+                                <div class="th">
+                                    <!--<div><span>Backlog </span>( <span class="sizePoint red">{{TotalSizeKanban}} <b style="color:#000;"> points </b> </span>)</div>-->
+                                    <div><span>Unsprint </span></div>
+                                </div>
+                                <div class="th" ng-repeat="item in data_sprint">
+                                    <span> {{item.sprint.name}} </span>(<span class="sizePoint"><span id="{{item.sprint.id}}">{{item.totalSize}}</span> of {{item.sprint.velocity}}</span>)
+                                    <!-- <div class="sprintDate">{{item.sprint.startDate| date:'dd/MM/yyyy'}} &nbsp;&nbsp; to &nbsp;&nbsp; {{item.sprint.endDate | date:'dd/MM/yyyy'}}</div>-->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="body_kanban_scroll clearfix">
+                            <div class="tr clearfix" ng-show="dataUnParent.length > 0">
+                                <i class="bowtie-icon bowtie-toggle-tree-expanded btn_expanded cus" tabindex="0" title="Collapse this row" ng-click="expanded($event)"></i>
+                                <div class="td box_expanded">
+                                    <p class="content">Unparent</p>
+                                </div>
+                                <div class="td parent">
+                                    <div class="box_kanban clearfix box_blue">
+                                        <p class="content" title="Unparent" style="cursor:pointer;"><span class="txt_bold">Unparent</span></p>
+                                    </div>
+                                </div>
+
+                                <div class="td column" data-row="null" data-column>
+                                    <!--<div ng-class="blockBox(child.type)" class="box_kanban clearfix block" data-type="1" data-indexChild={{$index}} data-size="{{child.size}}" ng-repeat="child in dataUnParent" ng-show="child.sprint==null">-->
+                                    <div ng-class="blockBox(child.type)" class="box_kanban clearfix block" data-type="1" data-child={{child.id}} data-size="{{child.size}}" ng-repeat="child in dataUnParent | filter:{sprint:null}">
+                                        <p class="content" title="{{child.name}}" style="cursor:pointer;" ng-click="editblock(0,child.id,1)"><span class="txt_bold">{{child.no}}</span> - {{child.name}}</p>
+                                        <div class="box_kanban_footer clearfix">
+                                            <p class="float-left mb-0">Priority</p>
+                                            <p class="float-right mb-0"><span ng-class="priorityColor(child.priority)"><i class="bowtie-icon bowtie-record-fill"></i> {{child.priority}}</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="td column" ng-repeat="item in data_sprint" data-row="null" data-column="{{item.sprint.id}}" ng-init="loadKanbanRelease(true,$last)">
+                                    <!--<div ng-class="blockBox(child.type)" class="box_kanban clearfix" data-type="1" data-indexChild={{$index}} data-size="{{child.size}}" ng-repeat="child in dataUnParent" ng-show="item.sprint.id==child.sprint">-->
+                                    <div ng-class="blockBox(child.type)" class="box_kanban clearfix" data-type="1" data-child={{child.id}} data-size="{{child.size}}" ng-repeat="child in dataUnParent | filter:{sprint:item.sprint.id}">
+                                        <p class="content" title="{{child.name}}" style="cursor:pointer;" ng-click="editblock(0,child.id,1)"><span class="txt_bold">{{child.no}}</span> - {{child.name}}</p>
+                                        <div class="box_kanban_footer clearfix">
+                                            <p class="float-left mb-0">Priority</p>
+                                            <p class="float-right mb-0"><span ng-class="priorityColor(child.priority)"><i class="bowtie-icon bowtie-record-fill"></i> {{child.priority}}</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tr clearfix" ng-repeat="data in dataHaveParent" id="{{data.parent.id}}">
+                                <i class="bowtie-icon bowtie-toggle-tree-expanded btn_expanded cus" tabindex="0" title="Collapse this row" ng-click="expanded($event)"></i>
+                                <div class="td box_expanded">
+                                    <p class="content">{{data.parent.name}} </p>
+                                </div>
+                                <div class="td parent">
+                                    <div ng-class="blockBox(data.parent.type)" class="box_kanban clearfix">
+                                        <!--<p class="content" title="{{data.parent.name}}" style="cursor:pointer;" ng-click="editblock($index,0,3)"><span class="txt_bold">{{data.parent.no}}</span> - {{data.parent.name}}</p>-->
+                                        <p class="content" title="{{data.parent.name}}" style="cursor:pointer;"><span class="txt_bold">{{data.parent.no}}</span> - {{data.parent.name}}</p>
+                                    </div>
+                                </div>
+                                <div class="td column" data-row="{{data.parent.id}}" data-column ng-init="loadKanbanRelease($parent.$last,$last)">
+                                    <!--<div ng-class="blockBox(child.type)" class="box_kanban clearfix block" data-type="2" data-indexChild={{$index}} data-indexParent={{$parent.$index}} data-size="{{child.size}}" ng-repeat="child in data.listChild" ng-show="child.sprint==null">-->
+                                    <div ng-class="blockBox(child.type)" class="box_kanban clearfix block" data-type="2" data-child={{child.id}} data-indexParent={{$parent.$index}} data-size="{{child.size}}" ng-repeat="child in data.listChild | filter : {sprint:null}">
+                                        <p class="content" title="{{child.name}}" style="cursor:pointer;" ng-click="editblock($parent.$index,child.id,2)"><span class="txt_bold">{{child.no}}</span> - {{child.name}}</p>
+                                        <div class="box_kanban_footer clearfix">
+                                            <p class="float-left mb-0">Priority</p>
+                                            <p class="float-right mb-0"><span ng-class="priorityColor(child.priority)"><i class="bowtie-icon bowtie-record-fill"></i> {{child.priority}}</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="td column" ng-repeat="item in data_sprint" data-row="{{data.parent.id}}" data-column="{{item.sprint.id}}" ng-init="loadKanbanRelease($parent.$last,$last)">
+                                    <!--<div ng-class="blockBox(child.type)" class="box_kanban clearfix block" data-type="2" data-indexChild={{$index}} data-indexParent={{$parent.$parent.$index}} data-size="{{child.size}}" ng-repeat="child in data.listChild" ng-show="item.sprint.id==child.sprint">-->
+                                    <div ng-class="blockBox(child.type)" class="box_kanban clearfix block" data-type="2" data-child={{child.id}} data-indexParent={{$parent.$parent.$index}} data-size="{{child.size}}" ng-repeat="child in data.listChild | filter:{sprint:item.sprint.id}">
+                                        <p class="content" title="{{child.name}}" style="cursor:pointer;" ng-click="editblock($parent.$parent.$index,child.id,2)"><span class="txt_bold">{{child.no}}</span> - {{child.name}}</p>
+                                        <div class="box_kanban_footer clearfix">
+                                            <p class="float-left mb-0">Priority</p>
+                                            <p class="float-right mb-0"><span ng-class="priorityColor(child.priority)"><i class="bowtie-icon bowtie-record-fill"></i> {{child.priority}}</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="tabCostPlanning" style="height:100%;width:100%">
+
+            </div>
+        </div>
+
+
+    </div>
+
+    <!-- Modal (Modal Sprint Setting)-->
+    <div class="modal fade modal_center confirmClose" id="modal-setting" grid="grvReleasePlanning" ng-init="onLoadModal()">
+        <div class="modal-dialog" style="width:1000px">
+            <div class="modal-content">
+                <div class="modal-header clearfix">
+                    <p class="modal_header_title"><span>Sprint Setting</span></p>
+                    <div class="box_btn_02">
+                        <button type="button" class="fullscreen" onclick="fullscreen('modal-setting')"><i class="bowtie-icon bowtie-view-full-screen"></i></button>
+                        <button type="button" class="btn_close_02" data-dismiss="modal"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-header clearfix">
+                        <span style="font-size:14px;line-height: 30px">Create and manage the iterations for this project.These iteration will be used by teams for sprint planning</span>
+                        <ul class="box_btn clearfix">
+                            <li><a href="" ng-click="refreshSprint()" class="btn_refresh btn_33"><i class="bowtie-icon bowtie-navigate-refresh"></i></a></li>
+                            <li><a href="" ng-click="addSprint()" class="btn_add btn_33"><i class="bowtie-icon bowtie-math-plus"></i></a></li>
+                            <li><a href="" ng-click="editSprint()" class="btn_edit btn_33"><i class="bowtie-icon bowtie-edit-outline"></i></a></li>
+                            <li><a href="" ng-click="deleteSprint()" class="btn_del btn_33"><i class="bowtie-icon bowtie-edit-delete "></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="modal-body-maincontent">
+                        <div id="grvReleasePlanning" class="control-grid" style="height:500px;width:100%"></div>
+                        <!--<ul class="nav nav-tabs nav-tabs-3" id="main_tab_01" role="tablist">
+                            <li class="nav-item"><a class="nav-link active" ng-click="changeTab('sprints')" data-toggle="tab" data-target="#sprints" role="tab" aria-controls="tab_01" aria-selected="true">Sprints</a></li>
+                            <li class="nav-item"><a class="nav-link" ng-click="changeTab('workingDays')" data-toggle="tab" data-target="#workingDays" role="tab" aria-controls="tab_01" aria-selected="true">Working days</a></li>
+                            <li class="nav-item"><a class="nav-link" ng-click="changeTab('workingWithBugs')" data-toggle="tab" data-target="#workingWithBugs" role="tab" aria-controls="tab_01" aria-selected="true">Working with bugs</a></li>
+                        </ul>
+
+                        <div class="tab-content" style="height:500px;width:100%">
+                            <div class="tab-pane active" id="sprints" style="height:100%;width:100%">
+                                <div id="grvReleasePlanning" class="control-grid" style="height:100%;width:100%"></div>
+                            </div>
+                            <div class="tab-pane" id="workingDays" style="height:100%;width:100%">
+
+                            </div>
+                            <div class="tab-pane" id="workingWithBugs" style="height:100%;width:100%">
+
+                            </div>
+                        </div>-->
+                    </div>
+                    <div class="modal-body-footer clearfix footerSprint">
+                        <span style="position:absolute">Total Point: {{totalPoint}} </span>
+                        <span style="position:absolute">{{minStartDate | date: 'dd/MM/yyyy'}}</span>
+                        <span style="position:absolute">{{maxEndDate | date:'dd/MM/yyyy'}}</span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btnSaveClose" class="btn btn_save_02" data-dismiss="modal" ng-click="saveAndClose()"><i class="bowtie-icon bowtie-save"></i><span ng-bind="translation.BTN_SAVE_CLOSE"></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal (Modal detail sprint)-->
+    <div class="modal fade modal_center confirmClose" id="modal-detail-sprint">
+        <div class="modal-dialog" style="width:600px">
+            <div class="modal-content">
+                <div class="modal-header clearfix">
+                    <p class="modal_header_title"><span ng-bind="action == 'add' ? translation.SPRINT_TITLE : data.name|uppercase "></span></p>
+                    <div class="box_btn_02">
+                        <!--<button type="button" class="fullscreen" data-dismiss="modal"><i class="bowtie-icon bowtie-view-full-screen"></i></button>-->
+                        <button type="button" class="btn_close_02" data-dismiss="modal"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-maincontent" style="overflow:initial !important">
+                        <div class="form-input-group">
+                            <div class="box_02 col_1">
+                                <div class="item">
+                                    <lv-input element-id="release-name" field="name" model="data.name" setting="setting" translation="translation" type="text" tab="1"></lv-input>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-input-group">
+                            <div class="box_02 col_1">
+                                <div class="item">
+                                    <lv-input field="velocity" model="data.velocity" setting="setting" translation="translation" type="number" tab="2"></lv-input>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-input-group clearfix">
+                            <div class="box_02 col_2">
+                                <div class="item">
+                                    <lv-datepicker field="startDate" model="data.startDate" change="onChangeDate" setting="setting" translation="translation" tab="3"></lv-datepicker>
+                                </div>
+                                <div class="item">
+                                    <lv-datepicker field="endDate" model="data.endDate" change="onChangeDate" setting="setting" translation="translation" tab="4"></lv-datepicker>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-input-group">
+                            <div class="box_02 col_1">
+                                <div class="item">
+                                    <lv-input field="workingDays" model="data.workingDays" setting="setting" translation="translation" type="number" tab="5"></lv-input>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-input-group" ng-if="!params.area">
+                            <div class="box_02 col_1">
+                                <div class="item">
+                                    <lv-valuelist-multi element-id="areas" field="areas" model="data.areas" setting="setting" translation="translation" tab="6"></lv-valuelist-multi>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn_save_02" id="btnSaveSprint" ng-click="saveSprint()"><i class="bowtie-icon bowtie-save"></i><span ng-bind="translation.BTN_SAVE_CLOSE">Save</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div lv-include path="app/pm/workItem/workItemForm" name="workItemForm"></div>
+</div>

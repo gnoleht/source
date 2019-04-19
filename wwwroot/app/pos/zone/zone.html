@@ -1,0 +1,101 @@
+﻿<div id="zone" ng-controller="zoneController" class="pos">
+    <div class="white_box">
+        <div class="box_filter clearfix">
+            <ul class="box_btn mb-0 d-flex justify-content-start">
+                <li class="w_15 select2_op2">
+                    <div class="btn_search">
+                        <div class="input-group">
+                            <input type="text" id="full_text_filter" class="form-control" placeholder="Tìm danh mục" ng-keypress="search($event, 1)">
+                            <span class="input-group-btn">
+                                <button class="btn" type="button" ng-click="search($event, 1, 1)"><i class="bowtie-icon bowtie-search"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                </li>
+                <!--<li>
+                <button type="button" class="bg_blue_02 btn_filter w_100" ng-click="searchObject()">Lọc</button>
+            </li>-->
+            </ul>
+        </div>
+        <dl class="mb-0 wrapper">
+            <dt>
+                <a class="title_01 bg_blue_01" data-toggle="collapse" data-target="#panel_01" aria-expanded="true" aria-controls="panel_01">
+                    <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>Danh sách khu vực</span>
+                    <ul class="clearfix box_infomation">
+                        <li class="ng-binding ng-scope">
+                            {{translation.TOTALSTATUS}}<span class="cl_red">({{total}})</span>
+                        </li>
+                        <li class="ng-binding ng-scope">
+                            {{translation.ACTIVESTATUS}}<span class="cl_red">({{active}})</span>
+                        </li>
+                        <li class="ng-binding ng-scope">
+                            {{translation.DEACTIVESTATUS}}<span class="cl_red">({{deactive}})</span>
+                        </li>
+                    </ul>
+                </a>
+            </dt>
+            <dd class="wrapper" style="height:calc(100% - 25px)">
+                <div class="collapse show wrapper" id="panel_01" aria-expanded="true">
+                    <div class="gridWrapper">
+                        <div id="grvZone" class="control-grid" style="width:100%;height:100%"></div>
+                    </div>
+                </div>
+            </dd>
+        </dl>
+    </div>
+
+    <!-- Modal (detail)-->
+    <div class="modal fade modal_center confirmClose" style="" id="modal-detail">
+        <div class="modal-dialog" style="width:600px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <p style="font-size:16px;margin:0;line-height:1.9em;" class="float-left"><span ng-bind="(action == 'add') ? translation.MODAL_DETAIL_ADDTITLE : translation.MODAL_DETAIL_EDITTITLE"></span></p>
+                    <div class="box_btn_02">
+                        <button type="button" class="fullscreen" onclick="fullscreen('modal-detail')"><i class="bowtie-icon bowtie-view-full-screen"></i></button>
+                        <button type="button" class="btn_close_02" data-dismiss="modal"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                    </div>
+                </div>
+                <div class="modal-body" style="min-height:260px">
+                    <div class="modal-body-maincontent">
+                        <div class="form-input-group">
+                            <div class="box_02 col_1 clearfix mb_15">
+                                <div class="pos_item">
+                                    <lv-input field="code" model="data.code" setting="setting" translation="translation" type="text" tab="2" class="clearfix"></lv-input>
+                                </div>
+                            </div>
+                            <div class="box_02 col_1 clearfix mb_15">
+                                <div class="pos_item">
+                                    <lv-input field="name" model="data.name" setting="setting" translation="translation" type="text" tab="3" class="clearfix"></lv-input>
+                                </div>
+                            </div>
+                            <!--<div class="box_02 col_1 clearfix mb_15">
+                                <div class="pos_item">
+                                    <lv-select field="storeId" model="data.storeId" setting="setting" translation="translation" valuelist="setting.storeId" tab="5"></lv-select>
+                                </div>
+                            </div>-->
+                            <div class="box_02 col_1 clearfix mb_15">
+                                <div class="pos_item">
+                                    <lv-textarea row="5" style="width: 100%" block-resize="block-resize" field="note" model="data.note" setting="setting" translation="translation" type="text" tab="4"></lv-textarea>
+                                </div>
+                            </div>
+                            <div class="box_02 col_1 clearfix mb_15">
+                                <div class="pos_item">
+                                    <div class="switch-label txt_cut" style="width: 120px;margin-left: 50px;">Đang hoạt động</div>
+                                    <div class="switch" ng-class="data.active ? 'change' : ''" style="width: 60px">
+                                        <input type="checkbox" value="{{data.active}}">
+                                        <p class="slider mb-0"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn_save_02" id="btnSave" ng-click="save()" click-Once><i class="fa fa-save"></i> <span ng-bind="globalTranslation.BTN_SAVE">Save</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

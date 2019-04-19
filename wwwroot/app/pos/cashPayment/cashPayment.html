@@ -1,0 +1,312 @@
+﻿<!--<style>
+    input[type=number]::-webkit-inner-spin-button {
+      display: none;
+    }
+</style>-->
+<div id="cashPayment" ng-controller="cashPaymentController" class="pos">
+    <div class="white_box">
+        <div class="box_filter clearfix">
+            <ul class="box_btn mb-0 d-flex justify-content-end">
+                <li class="w_15 select2_op2">
+                    <div class="btn_search">
+                        <div class="input-group">
+                            <input type="text" id="full_text_filter" class="form-control" placeholder="Tìm phiếu" ng-keypress="search($event, 1)">
+                            <span class="input-group-btn">
+                                <button class="btn" type="button" ng-click="search($event, 1, 1)"><i class="bowtie-icon bowtie-search"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                </li>
+                <li class="w_15 select2_op2">
+                    <lv-combobox field="cmbStoreFilter" option="cmbStoreFilter" model="storeFilter" tab="0" label="">
+                    </lv-combobox>
+                </li>
+                <li class="w_15 select2_op2">
+                    <lv-select field="dateTypeFilter" model="dateTypeFilter" setting="setting" translation="translation" tab="0" change="dateTypeChange()" allowclear="true" placeholder="{{translation.DATETYPEFILTERXXX}}"></lv-select>
+
+                    <!--<select select2>
+                        <option value="1" selected>Mốc thời gian</option>
+                    </select>-->
+                </li>
+                <li class="w_15 select2_op2">
+                    <!--<select select2>
+                        <option value="1" selected>Từ ngày</option>
+                    </select>-->
+                    <lv-datepicker field="dateFromFilterXXX" model="fromDate" setting="setting" translation="translation" nolabel="hidden" tab="0" style="width: 100%" placeholder="{{translation.DATEFROMFILTER}}"></lv-datepicker>
+                </li>
+                <li class="w_15 select2_op2">
+                    <lv-datepicker field="dateToFilterXXX" model="toDate" setting="setting" translation="translation" nolabel="hidden" tab="0" style="width: 100%" placeholder="{{translation.DATETOFILTER}}"></lv-datepicker>
+                    <!--<select select2>
+                        <option value="1" selected>Đến ngày</option>
+                    </select>-->
+                </li>
+                <li>
+                    <button type="button" class="bg_blue_02 btn_filter w_100" ng-click="searchObject()">Lọc</button>
+                </li>
+            </ul>
+        </div>
+        <div class="content_6_4 clearfix">
+            <div class="content_4 mr_10 float-left">
+                <dl class="wrapper">
+                    <dt>
+                        <a class="title_02 bg_gray_01 pos_re">
+                            <span ng-bind="::translation.LISTPAYMENTS"></span>
+                        </a>
+                    </dt>
+                    <dd class="pos_re" style="height: calc(100% - 30px)">
+                        <div class="box_01 scroll" style="height: calc(100% - 50px)">
+                            <div class="item itemCashPayment" id="{{item.id}}" ng-class="dataChoose.id == item.id ? 'active' : ''" ng-repeat="item in dataRoot.data" ng-click="chooseCashPayment(item)" ng-dblclick="setupEdit(item)">
+                                <ul class="clearfix">
+                                    <li class="float-left w-50 txt_cut"><a class="link">{{item.code}}</a></li>
+                                    <li class="float-right">{{item.docDate | date:'dd-MM-yyyy'}}</li>
+                                </ul>
+                                <p class="txt_cut mb_5">{{item.memo}}</p>
+                                <ul class="clearfix">
+                                    <li class="float-right"><b>{{sum(item.cashPaymentDetailRelateds, 'creditAmount') | number:0}}</b></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="box_footer">
+                            <div>
+                                <b>{{translation.TOTALPAGE}}: <span class="link">{{dataRoot.totalItem}}</span></b>
+                            </div>
+                            <div style="font-weight: bold; position: absolute; right: 125px">
+                                {{translation.PAGE}}: <input id="pageInput" type="number" name="page" value="{{dataRoot.pageCurrent}}" /> / {{dataRoot.totalPage}}
+                            </div>
+                            <div class="button-left-wrapper">
+                                <div class="btn_add_02 mr_5" title="Previous"><i class="bowtie-icon bowtie-chevron-left-light" ng-click="prev(dataRoot.pageCurrent - 1)"></i></div>
+                                <div class="btn_add_02" title="Next"> <i class="bowtie-icon bowtie-chevron-right-light" ng-click="next(dataRoot.pageCurrent + 1)"></i></div>
+                            </div>
+                        </div>
+                    </dd>
+                </dl>
+            </div>
+            <div class="content_6 float-right">
+                <div class="modal-02 clearfix mb_20">
+                    <dl class="mb-0 mr-20" style="flex-grow: 1; flex-basis: 0; width: calc(50% - 10px)">
+                        <dt><a class="title_02 bg_gray_01" data-toggle="collapse" data-target="#multiCollapse_01" aria-expanded="true" aria-controls="multiCollapse_01"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow mr_5"></i>{{translation.GENERALINFO}}</a></dt>
+                        <dd>
+                            <div class="multi-collapse show" id="multiCollapse_01" aria-expanded="true">
+                                <div class="d-flex w_100">
+                                    <div class="col-left">
+                                        <!-- <p>Ngành hàng:</p>-->
+                                        <p>{{translation.OBJECTNAME}}:</p>
+                                        <p>{{translation.CASHIERID}}:</p>
+                                        <p>{{translation.CASHTYPE}}:</p>
+                                    </div>
+                                    <div class="col-right">
+                                        <!-- <p class="txt_cut">Hàng hóa</p>-->
+                                        <p class="txt_cut" ng-bind="dataChoose.objectName"></p>
+                                        <p class="txt_cut" ng-bind="dataChoose.employeeRelated.displayName"></p>
+                                        <p class="txt_cut">{{dataChoose.tempCashType}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </dd>
+                    </dl>
+                    <dl class="mb-0" style="flex-grow: 1; flex-basis: 0">
+                        <dt><a class="title_02 bg_gray_01" data-toggle="collapse" data-target="#multiCollapse_02" aria-expanded="true" aria-controls="multiCollapse_02"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow mr_5"></i>{{translation.CERTIFICATE}}</a></dt>
+                        <dd>
+                            <div class="multi-collapse show" id="multiCollapse_02" aria-expanded="true">
+                                <div class="d-flex w_100">
+                                    <div class="col-left">
+                                        <!-- <p>Ngành hàng:</p>-->
+                                        <p>{{translation.CODE}}:</p>
+                                        <p>{{translation.DOCDATE}}:</p>
+                                        <p>{{translation.STOREID}}:</p>
+                                    </div>
+                                    <div class="col-right">
+                                        <!-- <p class="txt_cut">Hàng hóa</p>-->
+                                        <p class="txt_cut" ng-bind="dataChoose.code"></p>
+                                        <p class="txt_cut" ng-bind="dataChoose.docDate | date:'dd/MM/yyyy'"></p>
+                                        <p class="txt_cut" ng-bind="dataChoose.storeRelated.name"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="modal-01 clearfix wrapper">
+                    <dl class="mb-0 wrapper">
+                        <dt><a class="title_02 bg_gray_01" data-toggle="collapse" data-target="#multiCollapse_03" aria-expanded="true" aria-controls="multiCollapse_03"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow mr_5"></i>{{translation.DETAILS}}</a></dt>
+                        <dd style="height: calc(100% - 180px)">
+                            <div class="multi-collapse show wrapper gridWrapper" id="multiCollapse_03" aria-expanded="true">
+                                <div id="grvCashPayment" class="control-grid wrapper"></div>
+                            </div>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal (detail)-->
+    <div class="modal fade modal_center confirmClose" style="" id="modal-detail">
+        <div class="modal-dialog" style="width: 1200px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <p style="font-size:16px;margin:0;line-height:1.9em;" class="float-left"><span ng-bind="(action == 'add') ? translation.MODAL_DETAIL_ADDTITLE : translation.MODAL_DETAIL_EDITTITLE"></span></p>
+                    <div class="box_btn_02">
+                        <button type="button" class="fullscreen" onclick="fullscreen('modal-detail')"><i class="bowtie-icon bowtie-view-full-screen"></i></button>
+                        <button type="button" class="btn_close_02" data-dismiss="modal"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-maincontent">
+                        <div class="form-input-group">
+                            <div class="box_02 col_1 clearfix mb_15">
+                                <div class="pos_item" style="width: calc(100% - 170px); margin-left: 170px; float: none">
+                                    <div id="radioPaymentType" class="d-flex" style="outline: none" tabindex="1">
+                                        <label class="container" ng-click="changePaymentType('1')" style="width: fit-content !important">
+                                            {{translation.PAYMENTTYPE01}}
+                                            <input type="radio" checked="checked" name="radio" value="1">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                        <label class="container" ng-click="changePaymentType('2')" style="width: fit-content !important">
+                                            {{translation.PAYMENTTYPE02}}
+                                            <input type="radio" name="radio" value="2">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box_02 col_2 clearfix mb_15">
+                                <div class="pos_item haveButton">
+                                    <!--<lv-input field="objectName" model="data.objectName" setting="setting" translation="translation" type="text" tab="3" class="clearfix"></lv-input>-->
+                                    <lv-combobox change="vendorChange()" field="cmbVendorId" option="cmbVendorId" model="data.vendorId" tab="0" label="{{translation.VENDORID}}">
+                                    </lv-combobox>
+                                    <a id="btnAddVendor" class="btn_add btn_30" ng-class="data.paymentType == 2 ? 'btn_disable' : ''" ng-click="addVendor()" ><i class="bowtie-icon bowtie-math-plus"></i></a>
+                                </div>
+                                <div class="pos_item">
+                                    <lv-input field="code" model="data.code" setting="setting" translation="translation" type="text" tab="1" class="clearfix"></lv-input>
+                                </div>
+                            </div>
+                            <div class="box_02 col_2 clearfix mb_15">
+                                <div class="pos_item">
+                                    <lv-input field="vendorName" model="vendorName" setting="setting" translation="translation" type="text" tab="3" class="clearfix"></lv-input>
+                                    <!--<lv-input field="memo" model="data.memo" setting="setting" translation="translation" type="text" tab="3" class="clearfix"></lv-input>-->
+                                </div>
+                                <div class="pos_item">
+                                    <lv-datepicker field="docDate" model="data.docDate" setting="setting" translation="translation" tab="2" style="width: 100%"></lv-datepicker>
+                                </div>
+                            </div>
+                            <div class="box_02 col_2 clearfix mb_15">
+                                <div class="pos_item">
+                                    <lv-input field="objectName" model="data.objectName" setting="setting" translation="translation" type="text" tab="3" class="clearfix"></lv-input>
+                                    <!--<lv-select field="cashType" model="data.cashType" setting="setting" translation="translation" tab="5"></lv-select>-->
+                                </div>
+                                <div class="pos_item">
+                                    <lv-select field="cashierId" model="data.cashierId" setting="setting" translation="translation" tab="4"></lv-select>
+                                </div>
+                            </div>
+                            <div class="box_02 col_2 clearfix mb_15">
+                                <div class="pos_item">
+                                    <lv-input field="memo" model="data.memo" setting="setting" translation="translation" type="text" tab="3" class="clearfix"></lv-input>
+                                </div>
+                                <div class="pos_item" style="float: none">
+                                    <lv-select field="storeId" model="data.storeId" setting="setting" translation="translation" valuelist="setting.storeId" tab="7"></lv-select>
+                                </div>
+                            </div>
+                            <div class="box_02 col_2 clearfix mb_15">
+                                <div class="pos_item" style="width: calc(100% - 170px); margin-left: 170px; float: none">
+                                    <div id="radioCashType" class="d-flex" tabindex="1" style="outline: none">
+                                        <label class="container" ng-click="changeCashType('TM')" style="width: fit-content !important">
+                                            {{translation.CASHTYPE01}}
+                                            <input type="radio" checked="checked" name="radio" value="TM">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                        <label class="container" ng-click="changeCashType('CK')" style="width: fit-content !important">
+                                            {{translation.CASHTYPE02}}
+                                            <input type="radio" name="radio" value="CK">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="wrapper">
+                                <div class="box_content">
+                                    <div class="title_01 bg_blue_01 mt-10" style="position: relative;">
+                                        <!--<span>Thông tin nhà cung cấp</span>-->
+                                        <ul class="box_btn mb-0" style="right: 0;position: absolute;bottom: 5px;">
+                                            <li><a title="{{translation.BTN_ADD}}" ng-click="addRow()" class="btn_add btn_30" data-toggle="modal" data-target="#myModal"><i class="bowtie-icon bowtie-math-plus"></i></a></li>
+                                            <li><a title="{{translation.BTN_DELETE}}" ng-click="removeRow()" class="btn_del btn_30"><i class="bowtie-icon bowtie-edit-remove"></i></a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="gridWrapper">
+                                        <div id="grvCashPaymentDetail" class="control-grid" style="width: 100%; height: 420px;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button ng-if="action == 'add'" type="button" class="btn btn_save_02" id="btnSaveAndContinue" ng-click="save(1)" click-Once><i class="fa fa-save"></i> <span ng-bind="globalTranslation.BTN_SAVE_CONTINUE">Save & Continue</span></button>
+                    <button type="button" class="btn btn_save_03" id="btnSave" ng-click="save()" click-Once><i class="fa fa-save"></i> <span ng-bind="globalTranslation.BTN_SAVE">Save</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal group (detail)-->
+    <div class="modal fade modal_center confirmClose" style="" id="modal-vendor">
+        <div class="modal-dialog" style="width:600px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <p style="font-size:16px;margin:0;line-height:1.9em;" class="float-left"><span ng-bind="translation.MODAL_VENDOR_ADD"></span></p>
+                    <div class="box_btn_02">
+                        <!--<button type="button" class="fullscreen" onclick="fullscreen('modal-detail')"><i class="bowtie-icon bowtie-view-full-screen"></i></button>-->
+                        <button type="button" class="btn_close_02" data-dismiss="modal"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                    </div>
+                </div>
+                <div class="modal-body" style="min-height:260px">
+                    <div class="modal-body-maincontent">
+                        <div class="form-input-group">
+                            <div class="box_02 col_2 clearfix mb_15">
+                                <div class="pos_item" style="width: calc(100% - 170px); margin-left: 170px; float: none">
+                                    <div id="radioKind" class="d-flex" style="outline: none" tabindex="1">
+                                        <label class="container" ng-click="changeKind('1')" style="width: fit-content !important">
+                                            Cá nhân
+                                            <input type="radio" checked="checked" name="radio" value="1">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                        <label class="container" ng-click="changeKind('2')" style="width: fit-content !important">
+                                            Doanh nghiệp
+                                            <input type="radio" name="radio" value="2">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box_02 col_1 clearfix mb_15">
+                                <div class="pos_item" style="float: none">
+                                    <lv-input field="name" model="dataVendor.name" setting="setting" translation="translation" change="" type="text" tab="2"></lv-input>
+                                </div>
+                            </div>
+                            <div class="box_02 col_1 clearfix mb_15">
+                                <div class="pos_item" style="float: none">
+                                    <lv-input field="primaryStreet" model="dataVendor.primaryStreet" setting="setting" translation="translation" change="" type="text" tab="3"></lv-input>
+                                </div>
+                            </div>
+
+                            <div class="box_02 col_1 clearfix mb_15">
+                                <div class="pos_item">
+                                    <lv-input field="primaryPhone" model="dataVendor.primaryPhone" setting="setting" translation="translation" change="" type="text" tab="4"></lv-input>
+                                </div>
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn_save_02" id="btnSave" ng-click="saveVendor()" click-Once><i class="fa fa-save"></i> <span ng-bind="globalTranslation.BTN_SAVE">Save</span></button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+

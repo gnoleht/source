@@ -1,0 +1,26 @@
+﻿<div id="exportSetting" class="modal modal_center fade" ng-controller="exportSettingController">
+    <div class="modal-dialog" style="width:500px">
+        <div class="modal-content">
+            <div class="modal-header clearfix">
+                <p style="font-size:16px;margin:0;line-height:1.9em;" class="float-left">
+                    <span ng-bind="translation.MODAL_TITLE"></span>
+                </p>
+                <div class="box_btn_02">
+                    <button type="button" class="btn_close_02" data-dismiss="modal"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-body-maincontent" style="min-height:250px">
+                    <div ng-repeat="item in listData">
+                        <i ng-class="item.id == data.selectId?'bowtie-icon bowtie-radio-button' : 'bowtie-icon bowtie-radio-button-empty'" ng-click="data.selectId = item.id">
+                            {{item.name}}
+                        </i>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn_save_02" id="btnSave" ng-click="save()" click-Once><i class="fa fa-save"></i> <span ng-bind="globalTranslation.BTN_APPLY"></span></button>
+            </div>
+        </div>
+    </div>
+</div>

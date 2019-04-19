@@ -1,0 +1,27 @@
+﻿<link rel="stylesheet" type="text/css" href="../../../css/jquery.atwho.css">
+<script src="../../../js/jquery.caret.js"></script>
+<script src="../../../js/jquery.atwho.min.js"></script>
+
+<!--POPOVER-->
+<div id="popover-comment" class="context-popover">
+    <div class="popover-title clearfix">
+        <b ng-bind="::translation.COMMENT" class="mb-0"></b>
+        <a href="javascript:;" ng-click="closeComment()" style="float:right"><i class="bowtie-icon bowtie-edit-remove"></i></a>
+    </div>
+    <div class="popover-content">
+        <div class="form-group clearfix">
+            <div id="inputorComment" contenteditable="true" class="form-control box-comment" placeholder="Add a comment. Use # to link a work item or @ to mention a person."></div>
+            <!--<textarea ng-model="comment.content" class="form-control" rows="3" id="comment-content" style="resize:none" onfocus="this.placeholder = ''" placeholder="Add a comment. Use # to link a work item or @ to mention a person." onblur="this.placeholder = 'Add a comment. Use # to link a work item or @ to mention a person.'"></textarea>-->
+            <button ng-click="btnPostComment()" class="btn btn_save_02 float-right" ng-bind="::translation.BTN_POST">Post</button>
+        </div>
+
+        <div style="overflow:auto; max-height:250px; width:100%" class="box_item">
+            <div ng-repeat="item in discussion" class="comment-group clearfix">
+                <span class="img_user_tb img_over" style="background-image: url('/api/system/viewfile?id={{item.createdByRelated.avatarThumb}}&def=/img/no_avatar.png')"></span>
+                <b>{{item.createdByRelated.displayName}}</b><span class="epoch-time"> ({{item.createdTime}})</span><br />                
+                <div ng-bind-html="item.content | trustAsHtml">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

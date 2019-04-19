@@ -1,0 +1,722 @@
+﻿{
+  "storeType": [
+    {
+      "id": "1",
+      "text": {
+        "vn": "Thời trang",
+        "en": "Thời trang"
+      }
+    },
+    {
+      "id": "2",
+      "text": {
+        "vn": "Nhà hàng, Bar, Coffee, Billard, Karaoke",
+        "en": "Nhà hàng, Bar, Coffee, Billard, Karaoke"
+      }
+    },
+    {
+      "id": "3",
+      "text": {
+        "vn": "Tạp hóa",
+        "en": "Tạp hóa"
+      }
+    },
+    {
+      "id": "4",
+      "text": {
+        "vn": "Siêu thị, điện máy",
+        "en": "Siêu thị, điện máy"
+      }
+    },
+    {
+      "id": "5",
+      "text": {
+        "vn": "Sách, văn phòng phẩm",
+        "en": "Sách, văn phòng phẩm"
+      }
+    },
+    {
+      "id": "6",
+      "text": {
+        "vn": "Nhà thuốc",
+        "en": "Nhà thuốc"
+      }
+    },
+    {
+      "id": "7",
+      "text": {
+        "vn": "Điện tử, điện lạnh, điện dân dụng",
+        "en": "Điện tử, điện lạnh, điện dân dụng"
+      }
+    },
+    {
+      "id": "8",
+      "text": {
+        "vn": "Mẹ và bé",
+        "en": "Mẹ và bé"
+      }
+    },
+    {
+      "id": "9",
+      "text": {
+        "vn": "Ngành tiêu dùng khác",
+        "en": "Ngành tiêu dùng khác"
+      }
+    }
+  ],
+  "kind": [
+    {
+      "id": "1",
+      "text": {
+        "vn": "Cá nhân",
+        "en": "Cá nhân"
+      }
+    },
+    {
+      "id": "2",
+      "text": {
+        "vn": "Doanh nghiệp",
+        "en": "Doanh nghiệp"
+      }
+    }
+  ],
+  "kindItem": [
+    {
+      "id": "1",
+      "text": {
+        "vn": "Hàng hóa",
+        "en": "Item"
+      }
+    },
+    {
+      "id": "2",
+      "text": {
+        "vn": "Dịch vụ",
+        "en": "Dịch vụ"
+      }
+    },
+    {
+      "id": "3",
+      "text": {
+        "vn": "Voucher",
+        "en": "Voucher"
+      }
+    },
+    {
+      "id": "4",
+      "text": {
+        "vn": "Hàng khuyến mãi",
+        "en": "Hàng khuyến mãi"
+      }
+    }
+  ],
+  "gender": [
+    {
+      "id": "1",
+      "text": {
+        "vn": "Nam",
+        "en": "Male"
+      }
+    },
+    {
+      "id": "2",
+      "text": {
+        "vn": "Nữ",
+        "en": "Female"
+      }
+    },
+    {
+      "id": "3",
+      "text": {
+        "vn": "Khác",
+        "en": "Orther"
+      }
+    }
+  ],
+  "maritalStatus": [
+    {
+      "id": "1",
+      "text": {
+        "vn": "Độc thân",
+        "en": "Độc thân"
+      }
+    },
+    {
+      "id": "2",
+      "text": {
+        "vn": "Kết hôn",
+        "en": "Kết hôn"
+      }
+    }
+  ],
+  "expireTo": [
+    {
+      "id": "day",
+      "text": {
+        "vn": "Ngày",
+        "en": "Day"
+      }
+    },
+    {
+      "id": "month",
+      "text": {
+        "vn": "Tháng",
+        "en": "Month"
+      }
+    },
+    {
+      "id": "year",
+      "text": {
+        "vn": "Năm",
+        "en": "Year"
+      }
+    }
+  ],
+  "cashType": [
+    {
+      "id": "TM",
+      "text": {
+        "vn": "Tiền mặt",
+        "en": "Cash"
+      }
+    },
+    {
+      "id": "CK",
+      "text": {
+        "vn": "Chuyển khoản",
+        "en": "Transfer"
+      }
+    }
+  ],
+  "paymentType": [
+    {
+      "id": "1",
+      "text": {
+        "vn": "Chi trả nợ nhà cung cấp",
+        "en": "Chi trả nợ nhà cung cấp"
+      }
+    },
+    {
+      "id": "2",
+      "text": {
+        "vn": "Chi trả chi phí",
+        "en": "Chi trả chi phí"
+      }
+    }
+  ],
+  "objectType": [
+    {
+      "id": "1",
+      "text": {
+        "vn": "Nhà cung cấp",
+        "en": "Vendor"
+      }
+    },
+    {
+      "id": "2",
+      "text": {
+        "vn": "Khách hàng",
+        "en": "Customer"
+      }
+    },
+    {
+      "id": "3",
+      "text": {
+        "vn": "Nhân viên",
+        "en": "Employee"
+      }
+    }
+  ],
+  "status": [
+    {
+      "id": "S",
+      "text": {
+        "vn": "Phòng tạm ngưng phục vụ",
+        "en": "Stop"
+      }
+    },
+    {
+      "id": "D",
+      "text": {
+        "vn": "Phòng bẩn tạm ngưng phục vụ",
+        "en": "Dirty"
+      }
+    },
+    {
+      "id": "0",
+      "text": {
+        "vn": "Phòng sẵn sàng nhận khách",
+        "en": "Phòng sẵn sàng nhận khách"
+      }
+    },
+    {
+      "id": "1",
+      "text": {
+        "vn": "Phòng đang có khách",
+        "en": "Phòng đang có khách"
+      }
+    },
+    {
+      "id": "P",
+      "text": {
+        "vn": "Phòng đang có khách & đã in phiếu tạm tính",
+        "en": "Phòng đang có khách & đã in phiếu tạm tính"
+      }
+    },
+    {
+      "id": "R",
+      "text": {
+        "vn": "Phòng đặt trước",
+        "en": "Reserved"
+      }
+    }
+  ],
+  "statusCounting": [
+    {
+      "id": "N",
+      "text": {
+        "vn": "Tạo mới",
+        "en": "Create new"
+      }
+    },
+    {
+      "id": "D",
+      "text": {
+        "vn": "Đã xử lý",
+        "en": "Final"
+      }
+    }
+  ],
+  "timeMark": [
+    {
+      "id": "1",
+      "text": {
+        "vn": "Ngày",
+        "en": "Day"
+      }
+    },
+    {
+      "id": "2",
+      "text": {
+        "vn": "Tuần",
+        "en": "Week"
+      }
+    },
+    {
+      "id": "3",
+      "text": {
+        "vn": "Tháng",
+        "en": "Month"
+      }
+    },
+    {
+      "id": "4",
+      "text": {
+        "vn": "Quý",
+        "en": "Quarter"
+      }
+    },
+    {
+      "id": "5",
+      "text": {
+        "vn": "Năm",
+        "en": "Year"
+      }
+    }
+  ],
+  "typeSearchPrint": [
+    {
+      "id": "1",
+      "text": {
+        "vn": "Nhóm hàng",
+        "en": "Group iteam"
+      }
+    },
+    {
+      "id": "2",
+      "text": {
+        "vn": "Phiếu nhập kho",
+        "en": "Inventory import"
+      }
+    },
+    {
+      "id": "3",
+      "text": {
+        "vn": "Bảng giá",
+        "en": "Price"
+      }
+    }
+  ],
+  "pageSize": [
+    {
+      "id": "1",
+      "text": {
+        "vn": "Mẫu 1 tem (Khổ 50 x 30 mm)",
+        "en": "Mẫu 1 tem (Khổ 50 x 30 mm)"
+      }
+    },
+    {
+      "id": "2",
+      "text": {
+        "vn": "Mẫu 2 tem (Khổ 105 x 30 mm)",
+        "en": "Mẫu 2 tem (Khổ 105 x 30 mm)"
+      }
+    },
+    {
+      "id": "3",
+      "text": {
+        "vn": "Mẫu 3 tem (Khổ 108 x 25 mm)",
+        "en": "Mẫu 3 tem (Khổ 108 x 25 mm)"
+      }
+    },
+    {
+      "id": "4",
+      "text": {
+        "vn": "Mẫu A5-40 tem (Khổ 202 x 168 mm, Tomy 108)",
+        "en": "Mẫu A5-40 tem (Khổ 202 x 168 mm, Tomy 108)"
+      }
+    },
+    {
+      "id": "5",
+      "text": {
+        "vn": "Mẫu A4-65 tem (Khổ 210 x 297 mm, Tomy 145)",
+        "en": "Mẫu A4-65 tem (Khổ 210 x 297 mm, Tomy 145)"
+      }
+    },
+    {
+      "id": "6",
+      "text": {
+        "vn": "Tem chữ T (Khổ 84 x 13 mm)",
+        "en": "Tem chữ T (Khổ 84 x 13 mm)"
+      }
+    }
+  ],
+  "templatePrint": [
+    {
+      "id": "1",
+      "text": {
+        "vn": "Tên hàng hóa, mã vạch, giá bán",
+        "en": "Tên hàng hóa, mã vạch, giá bán"
+      }
+    },
+    {
+      "id": "2",
+      "text": {
+        "vn": "Tên cửa hàng, Tên hàng hóa , mã vạch, giá bán",
+        "en": "Tên cửa hàng, Tên hàng hóa , mã vạch, giá bán"
+      }
+    }
+  ],
+  "typePrint": [
+    {
+      "id": "1",
+      "text": {
+        "vn": "mm",
+        "en": "mm"
+      }
+    },
+    {
+      "id": "2",
+      "text": {
+        "vn": "inch",
+        "en": "inch"
+      }
+    }
+  ],
+  "titleMonth": [
+    {
+      "id": "1",
+      "text": {
+        "vn": "Tháng 1",
+        "en": "January"
+      }
+    },
+    {
+      "id": "2",
+      "text": {
+        "vn": "Tháng 2",
+        "en": "February"
+      }
+    },
+    {
+      "id": "3",
+      "text": {
+        "vn": "Tháng 3",
+        "en": "March"
+      }
+    },
+    {
+      "id": "4",
+      "text": {
+        "vn": "Tháng 4",
+        "en": "April"
+      }
+    },
+    {
+      "id": "5",
+      "text": {
+        "vn": "Tháng 5",
+        "en": "May"
+      }
+    },
+    {
+      "id": "6",
+      "text": {
+        "vn": "Tháng 6",
+        "en": "June"
+      }
+    },
+    {
+      "id": "7",
+      "text": {
+        "vn": "Tháng 7",
+        "en": "July"
+      }
+    },
+    {
+      "id": "8",
+      "text": {
+        "vn": "Tháng 8",
+        "en": "August"
+      }
+    },
+    {
+      "id": "9",
+      "text": {
+        "vn": "Tháng 9",
+        "en": "September"
+      }
+    },
+    {
+      "id": "10",
+      "text": {
+        "vn": "Tháng 10",
+        "en": "October"
+      }
+    },
+    {
+      "id": "11",
+      "text": {
+        "vn": "Tháng 11",
+        "en": "November"
+      }
+    },
+    {
+      "id": "12",
+      "text": {
+        "vn": "Tháng 12",
+        "en": "December"
+      }
+    }
+  ],
+  "dashboardTimeMark": [
+    {
+      "id": "1",
+      "text": {
+        "vn": "Hôm nay",
+        "en": "Today"
+      }
+    },
+    {
+      "id": "2",
+      "text": {
+        "vn": "Tuần này",
+        "en": "This week"
+      }
+    },
+    {
+      "id": "3",
+      "text": {
+        "vn": "Tháng này",
+        "en": "This month"
+      }
+    },
+    {
+      "id": "4",
+      "text": {
+        "vn": "Quý này",
+        "en": "This quarter"
+      }
+    },
+    {
+      "id": "5",
+      "text": {
+        "vn": "Năm này",
+        "en": "This year"
+      }
+    },
+    {
+      "id": "6",
+      "text": {
+        "vn": "Quý 1",
+        "en": "Quarter 1"
+      }
+    },
+    {
+      "id": "7",
+      "text": {
+        "vn": "Quý 2",
+        "en": "Quarter 2"
+      }
+    },
+    {
+      "id": "8",
+      "text": {
+        "vn": "Quý 3",
+        "en": "Quarter 3"
+      }
+    },
+    {
+      "id": "9",
+      "text": {
+        "vn": "Quý 4",
+        "en": "Quarter 4"
+      }
+    },
+    {
+      "id": "10",
+      "text": {
+        "vn": "6 tháng đầu năm",
+        "en": "First 6 months"
+      }
+    },
+    {
+      "id": "11",
+      "text": {
+        "vn": "6 tháng cuối năm",
+        "en": "Last 6 months"
+      }
+    },
+    {
+      "id": "12",
+      "text": {
+        "vn": "Hôm qua",
+        "en": "Yesterday"
+      }
+    },
+    {
+      "id": "13",
+      "text": {
+        "vn": "Tuần trước",
+        "en": "Last week"
+      }
+    },
+    {
+      "id": "14",
+      "text": {
+        "vn": "Tháng trước",
+        "en": "Last month"
+      }
+    },
+    {
+      "id": "15",
+      "text": {
+        "vn": "Quý trước",
+        "en": "Last quarter"
+      }
+    },
+    {
+      "id": "16",
+      "text": {
+        "vn": "Năm trước",
+        "en": "Last year"
+      }
+    }
+  ],
+
+  "topItemByTypeFilter": [
+    {
+      "id": "0",
+      "text": {
+        "vn": "Cao nhất",
+        "en": "Best sell"
+      }
+    },
+    {
+      "id": "1",
+      "text": {
+        "vn": "Thấp nhất",
+        "en": "Sell at least"
+      }
+    }
+  ],
+
+  "sizeTopItemFilter": [
+    {
+      "id": "3",
+      "text": {
+        "vn": "Top 3",
+        "en": "Top 3"
+      }
+    },
+    {
+      "id": "5",
+      "text": {
+        "vn": "Top 5",
+        "en": "Top 5"
+      }
+    },
+    {
+      "id": "10",
+      "text": {
+        "vn": "Top 10",
+        "en": "Top 10"
+      }
+    }
+  ],
+  "typeCashReason": [
+    {
+      "id": "CR",
+      "text": {
+        "vn": "Phiếu thu",
+        "en": "Cash Receipt"
+      }
+    },
+    {
+      "id": "CP",
+      "text": {
+        "vn": "Phiếu chi",
+        "en": "Cash Payment"
+      }
+    }
+  ],
+  "docType": [
+    {
+      "id": "CR",
+      "text": {
+        "vn": "Phiếu thu",
+        "en": "Cash Receipt"
+      }
+    },
+    {
+      "id": "CP",
+      "text": {
+        "vn": "Phiếu chi",
+        "en": "Cash Payment"
+      }
+    },
+    {
+      "id": "SO",
+      "text": {
+        "vn": "Phiếu bán lẻ",
+        "en": "Retail Slip"
+      }
+    }
+  ],
+  "promoType": [
+    {
+      "id": "1",
+      "text": {
+        "vn": "Theo số lượng",
+        "en": "Quantity"
+      }
+    },
+    {
+      "id": "2",
+      "text": {
+        "vn": "Theo số tiền",
+        "en": "Amount"
+      }
+    }
+  ]
+}

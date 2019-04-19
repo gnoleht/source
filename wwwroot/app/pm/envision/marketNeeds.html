@@ -1,0 +1,201 @@
+﻿
+<div id="marketNeeds" style="position:relative;height:100%;width:100%" ng-init="onload()">
+    <div style="height:100%;width:100%">
+        <div class="row pd_lr_7">
+            <div class="col-6">
+                <div class="box_content">
+                    <dl class="mb-0">
+                        <dt>
+                            <a class="title_01 bg_blue_01" data-toggle="collapse" data-target="#multiCollapse_marketNeeds_01" aria-expanded="true" aria-controls="multiCollapse_marketNeeds_01">
+                                <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i>
+                                <span ng-bind="translation.NEEDS">Nhu cầu</span>
+                            </a>
+                        </dt>
+                        <dd>
+                            <div class="multi-collapse show" id="multiCollapse_marketNeeds_01" aria-expanded="true" style="">
+                                <textarea ui-tinymce="tinymceNoResizeOptions" id="needsDescription" ng-model="envision.marketNeeds.needsDescription"></textarea>
+                            </div>
+                        </dd>
+                    </dl>
+                </div>
+            </div><div class="col-6">
+                <div class="box_content">
+                    <dl class="mb-0">
+                        <dt>
+                            <a class="title_01 bg_blue_01" data-toggle="collapse" data-target="#multiCollapse_marketNeeds_04" aria-expanded="true" aria-controls="multiCollapse_marketNeeds_04">
+                                <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i>
+                                <span ng-bind="translation.TREND">Xu hướng</span>
+                            </a>
+                        </dt>
+                        <dd>
+                            <div class="multi-collapse show" id="multiCollapse_marketNeeds_04" aria-expanded="true" style="">
+                                <textarea ui-tinymce="tinymceNoResizeOptions" id="trends" ng-model="envision.marketNeeds.trends"></textarea>
+                            </div>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <div class="box_content clearfix" style="width:100%;margin-top:20px">
+            <dl class="mb-0">
+                <dt>
+                    <a class="title_01 bg_blue_01" data-toggle="collapse" data-target="#multiCollapse_marketNeeds_02" aria-expanded="true" aria-controls="multiCollapse_marketNeeds_02">
+                        <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i>
+                        <span ng-bind="translation.CUSTOMER_SIZE">Quy mô</span>
+                    </a>
+                </dt>
+                <dd class="clearfix" style="padding:10px;">
+                    <div class="multi-collapse show clearfix" id="multiCollapse_marketNeeds_02" aria-expanded="true" style="">
+                        <div class="float-left">
+                            <div style="border:none;" ng-repeat="item in sizes" ng-if="(item.index + 1) % 2 != 0">
+                                <div ng-if="(item.index % 8) != 0 || item.index == 0">
+                                    <label class="checkbox-label">
+                                        <i id="i_{{item.id}}" ng-class="item.selected? 'bowtie-icon bowtie-checkbox':'bowtie-icon bowtie-checkbox-empty'"
+                                           style="font-size:17px;margin-right:5px;width:10px" ng-click="changeSelectedSize(item)">
+                                        </i>
+                                        {{item.name}}<label class="chkStyle" for="{{item.id}}"></label>
+                                    </label>
+                                </div>
+                                <div style="margin-top:15px;" ng-if="(item.index % 8) == 0 && item.index != 0">
+                                    <label class="checkbox-label">
+                                        <i id="i_{{item.id}}" ng-class="item.selected? 'bowtie-icon bowtie-checkbox':'bowtie-icon bowtie-checkbox-empty'"
+                                           style="font-size:17px;margin-right:5px;width:10px" ng-click="changeSelectedSize(item)">
+                                        </i>
+                                        {{item.name}}<label class="chkStyle" for="{{item.id}}"></label>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="float-left">
+                            <div style="border:none;margin-left:100px" ng-repeat="item in sizes" ng-if="(item.index + 1) % 2 == 0">
+                                <div ng-if="(item.index + 1) % 10 != 0">
+                                    <label class="checkbox-label">
+                                        <i id="i_{{item.id}}" ng-class="item.selected? 'bowtie-icon bowtie-checkbox':'bowtie-icon bowtie-checkbox-empty'"
+                                           style="font-size:17px;margin-right:5px;width:10px" ng-click="changeSelectedSize(item)">
+                                        </i>
+                                        {{item.name}}<label class="chkStyle" for="{{item.id}}"></label>
+                                    </label>
+                                </div>
+                                <div style="margin-top:15px;" ng-if="(item.index + 1) % 10 == 0">
+                                    <label class="checkbox-label">
+                                        <i id="i_{{item.id}}" ng-class="item.selected? 'bowtie-icon bowtie-checkbox':'bowtie-icon bowtie-checkbox-empty'"
+                                           style="font-size:17px;margin-right:5px;width:10px" ng-click="changeSelectedSize(item)">
+                                        </i>
+                                        {{item.name}}<label class="chkStyle" for="{{item.id}}"></label>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </dd>
+            </dl>
+        </div>
+
+        <div class="box_content" style="margin-top:20px;width:100%">
+            <dl class="mb-0">
+                <dt>
+                    <a class="title_01 bg_blue_01" data-toggle="collapse" data-target="#multiCollapse_marketNeeds_03" aria-expanded="true" aria-controls="multiCollapse_marketNeeds_03">
+                        <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i>
+                        <span ng-bind="translation.COMPETITION">Đối thủ cạnh tranh</span>
+                    </a>
+                </dt>
+                <dd>
+                    <div class="multi-collapse show" id="multiCollapse_marketNeeds_03" aria-expanded="true" style="">
+                        <table id="tbCompetition" class="tb_tree">
+                            <colgroup>
+                                <col style="width:20%">
+                                <col ng-repeat="item in competitions" style="width:10%">
+                                <col style="width:10px">
+                            </colgroup>
+                            <thead>
+                                <tr style="font-size:16px;">
+                                    <th ng-bind="translation.CRITERIA">Tên sản phẩm</th>
+                                    <th ng-repeat="item in competitions" style="border: 1px dotted #ddd;">
+                                        <div class="clearfix">
+                                            <div class="input-group" style="height:34px;">
+                                                <input class="style-input iput" type="text" ng-model="item.name" />
+                                                <div class="input-group-addon" style="border-bottom:none;">
+                                                    <label>
+                                                        <a href="javascript:;" ng-click="removeCompetition($index)">
+                                                            <i class="bowtie-icon bowtie-edit-remove"></i>
+                                                        </a>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <a href="javascript:;" ng-click="addCompetition()" class="btn_add btn_30">
+                                            <i class="bowtie-icon bowtie-math-plus-light fmIconEnvision"></i>
+                                        </a>
+                                    </th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr>
+                                    <th ng-bind="translation.DEPLOYMENT_COSTS">Chi phí triển khai</th>
+                                    <td ng-repeat="item in competitions" style="border: 1px dotted #ddd;">
+                                        <div class="clearfix">
+                                            <input class="style-input input-mask-cost iput" type="text" ng-model="item.cost" ng-init="loadInputMask()" style="width:100%;text-align:right;" />
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th ng-bind="translation.GUEST_SATISFACTION_LEVEL">Mức độ hài lòng khách</th>
+                                    <td ng-repeat="item in competitions" style="border: 1px dotted #ddd;">
+                                        <div class="clearfix">
+                                            <select class="form-control iput" ng-model="item.glad">
+                                                <option ng-repeat="val in setting.valuelist.glads" value="{{val.id}}">{{val.text}}</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th ng-bind="translation.THE_MARKET_IS_OCCUPYING">Thị trường đang chiếm lĩnh</th>
+                                    <td ng-repeat="item in competitions" style="border: 1px dotted #ddd;">
+                                        <div class="clearfix">
+                                            <input class="style-input iput" type="text" ng-model="item.market" style="width:100%;" />
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr style="border-top:1px solid #ddd;">
+                                    <th ng-bind="translation.PRODUCT_FEATURES">Tính năng sản phẩm</th>
+                                    <td ng-repeat="item in competitions" style="border: 1px dotted #ddd;">
+                                        <div style="text-align:center;color:red;font-weight:700;">
+                                            {{item.total}}
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr ng-repeat="items in criteria[0]">
+                                    <th style="padding-left:20px;">
+                                        <div class="clearfix">
+                                            <input id="{{items.id}}" class="style-input iput" type="text" ng-model="items.name" style="width:100%;" />
+                                        </div>
+                                    </th>
+                                    <td align="center" ng-repeat="item in criteria" ng-if="$index >= 1" style="border: 1px dotted #ddd;">
+                                        <label class="checkbox-label">
+                                            <i id="i_{{item[$parent.$parent.$index]}}" ng-class="item[$parent.$parent.$index].selected? 'bowtie-icon bowtie-checkbox':'bowtie-icon bowtie-checkbox-empty'"
+                                               style="font-size:17px;margin-right:5px;width:10px" ng-click="checkCriteria($index,item[$parent.$parent.$index].selected, item[$parent.$parent.$index])">
+                                            </i>
+                                        </label>
+                                    </td>
+                                    <td class="border_n">
+                                        <a href="javascript:;" ng-click="removeCriteria($index)"><span><i class="bowtie-icon bowtie-edit-remove fmIconEnvision"></i></span></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a href="javascript:;" class="btn_add_func" ng-click="addCriteria()">
+                                            <i class="bowtie-icon bowtie-math-plus-light fmIconEnvision btn_33 btn_add float-left"></i>{{::translation.ADDING_FUNCTION}}
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </dd>
+            </dl>
+        </div>
+    </div>
+</div>

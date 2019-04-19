@@ -1,0 +1,31 @@
+﻿
+<div class="modal fade modal_center" role="dialog" id="modalAddFile" ng-init="onLoad()">
+    <div class="modal-dialog" style="width:980px" tabindex="-1">
+        <div class="modal-content" style="height:600px">
+            <div class="modal-header">
+                <p style="font-size:16px;margin:0;line-height:1.9em;" class="float-left"><span ng-bind="::translation.TITLE_HEADER_ADD_FILE"></span></p>
+                <div class="box_btn_02">
+                    <button type="button" class="btn_close_02" ng-click="hideAttachment()"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                </div>
+            </div>
+            <div class="modal-body" style="height: calc(100% - 90px);">
+                <div class="modal-body-header" style="width:100%">
+                    <a class="btn btn_save_02 advancedDropzoneAttachment"><i class="bowtie-icon bowtie-file-preview advancedDropzoneAttachment" style="margin-right: 5px;"></i>Upload file</a>
+                </div>
+                <div class="modal-body-box clearfix" style="height: calc(100% - 65px);">
+                    <div class="modal-body-box_01 float-left">
+                        <div id="treeView" style="width:100%;float:left; overflow:auto; height:100%" class="clearfix">
+                            <ul id="tree" lv-folder="listFolder" class="mb-0 lv_folder_01 clearfix" onchanged="folderChanged(oldItem, newItem)"></ul>
+                        </div>
+                    </div>
+                    <div class="modal-body-box_02 float-right" style="height:100%;position:relative">
+                        <div id="grvDocument" style="height:100%;width:100%;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button ng-click="saveAttachment()" type="button" class="btn btn_save_02" click-Once><i class="bowtie-icon bowtie-save"></i><span ng-bind="::translation.BTN_SAVE_CLOSE">Lưu & đóng</span></button>
+            </div>
+        </div>
+    </div>
+</div>

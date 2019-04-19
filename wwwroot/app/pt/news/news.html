@@ -1,0 +1,133 @@
+﻿<style>
+    input:disabled {
+        background-color: #f9f9f9;
+    }
+</style>
+<div id="news" ng-controller="newsController">
+    <div class="white_box">
+
+        <div id="grvNews" style="width:100%;height:100%"></div>
+    </div>
+
+    <div class="modal fadeIn modal_center" role="dialog" id="modal-detail" style="animation-delay:10s;" ng-init="onLoad()">
+        <div class="modal-dialog" tabindex="-1" style="width: 1200px; max-width: 1200px">
+            <div class="modal-content" style="padding-top: 0px !important">
+                <div class="modal-header">
+                    <p class="modal_header_title"><span ng-bind="action == 'add' ? translation.ADD : translation.EDIT | uppercase "></span></p>
+                    <div class="box_btn_02">
+                        <button type="button" onclick="fullscreen('modal-detail')" class="fullscreen btn-modal-screen" title="{{::translation.BTN_SCREEN}}"><i class="bowtie-icon bowtie-view-full-screen"></i></button>
+                        <button type="button" class="btn_close_02" data-dismiss="modal" title="{{::translation.BTN_CLOSE}}"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-maincontent">
+                        <div class="clearfix box_group_flex">
+                            <dl class="mb_10" style="flex-grow: 2">
+                                <dt><a class="title_01 bg_blue_01" data-toggle="collapse" data-target="#panel_01" aria-expanded="true" aria-controls="panel_01"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span ng-bind="::translation.INFOMATION"></span></a></dt>
+                                <dd>
+                                    <div class="collapse show" id="panel_01" aria-expanded="true">
+                                        <div class="box_02 col_1 clearfix mb_15">
+                                            <div class="item">
+                                                <lv-input element-id="txtTitle" field="title" model="data.title" setting="setting" class="mb-15" translation="translation" tab="1"></lv-input>
+                                            </div>
+                                        </div>
+                                        <div class="box_02 col_1 clearfix mb_15">
+                                            <div class="item">
+                                                <div class="form-group">
+                                                    <label ng-bind="::translation.DESCRIBE" for="reason"></label>
+                                                    <textarea rows="2" class="style-input form-control"
+                                                              id="txtDescribe"
+                                                              tabindex="2"
+                                                              ng-model="data.describe"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </dd>
+                            </dl>
+                            <dl style="margin: 0">
+                                <dt><a class="title_01 bg_blue_01" data-toggle="collapse" data-target="#panel_02" aria-expanded="true" aria-controls="panel_02"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span ng-bind="::translation.PICTURE"></span></a></dt>
+                                <dd>
+                                    <div class="collapse show" id="panel_02" aria-expanded="true">
+                                        <div class="box_02 col_2 clearfix">
+                                            <div class="item">
+                                                <div class="form-group">
+                                                    <label ng-bind="::translation.PICTURENAME" disable="disable" for="reason"></label>
+                                                    <input class="iput" id="txtPicName" disabled="disabled" ng-model="data.pictureName" type="text" />
+                                                </div>
+                                            </div>
+                                            <div class="item">
+                                                <div class="w180 img_over_180" style="height:150px; margin: auto">
+                                                    <div class="droppable-area advancedDropzonePicture">
+                                                        <img id="imgPicture" src="{{data.pictureSrc ? data.pictureSrc : '/api/system/viewfile?id='+ data.pictureThumb + '&def=/img/pic_upload.png' }}" class="img-inline dz-message img_full" style="padding:5px" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </dd>
+                            </dl>
+                        </div>
+                        <div class="box_02 col_1 clearfix mb_15">
+                            <div class="item">
+                                <div class="form-group" style="border:1px solid #ced4da; border-radius:2px; padding:2px;">
+                                    <label ng-bind="::translation.CONTENT" for="reason"></label>
+                                    <textarea id="contentDetail" ui-tinymce="tinymceOptions" ng-model="data.content" tabindex="3" style="max-height:100px"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <dl class="mb_10">
+                            <dt><a class="title_01 bg_blue_01" data-toggle="collapse" data-target="#panel_03" aria-expanded="true" aria-controls="panel_03"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span ng-bind="::translation.OPTION">Thiết lập</span></a></dt>
+                            <dd>
+                                <div class="collapse show" id="panel_03" aria-expanded="true">
+                                    <div class="box_02 col_3 clearfix mb_15">
+                                        <div class="item">
+                                            <lv-combobox option="cmbCategory"
+                                                         element-id="cmbCategory"
+                                                         field="category"
+                                                         model="data.category"
+                                                         setting="setting"
+                                                         label="{{translation.CATEGORY}}" tab="4">
+                                            </lv-combobox>
+                                        </div>
+                                        <div class="item">
+                                            <lv-select config="configStatus" element-id="vllStatus" field="newsStatus" label="{{translation.STATUS}}" model="data.status" setting="setting" translation="translation" tab="4"></lv-select>
+                                        </div>
+                                        <div class="item" style="padding-left: 30px">
+                                            <div class="form-group fn">
+                                                <label ng-bind="::translation.HOTNEWS"></label>
+                                                <div class="switch mr_40" ng-class="data.hot ? 'change' : ''" ng-click="data.hot = !data.hot" style="display: block">
+                                                    <input type="checkbox" ng-model="data.hot" class="ng-pristine ng-untouched ng-valid ng-not-empty">
+                                                    <p class="slider mb-0 text-top"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="box_02 col_3 clearfix mb_15">
+                                        <div class="item">
+                                            <lv-select field="newsType"
+                                                       model="data.type"
+                                                       setting="setting"
+                                                       label="{{translation.TYPE}}" tab="5">
+                                            </lv-select>
+                                        </div>
+                                        <div class="item">
+                                            <lv-date field="publicationTime" model="data.publicationTime" setting="setting" translation="translation" tab="6"></lv-date>
+                                        </div>
+                                        <div class="item">
+                                            <lv-input element-id="txtSource" field="source" model="data.source" setting="setting" translation="translation" tab="7"></lv-input>
+                                        </div>
+                                    </div>
+                                </div>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnSaveClose" ng-click="save()" type="button" class="btn btn_save_02" click-Once><i class="bowtie-icon bowtie-save" tabindex="8"></i><span ng-bind="::translation.BTN_SAVE_CLOSE"></span></button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

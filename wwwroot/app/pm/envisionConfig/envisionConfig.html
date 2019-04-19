@@ -1,0 +1,51 @@
+﻿<div id="envisionConfig" ng-controller="envisionConfigController">
+    <div class="page-title" ng-include="'app/pm/header.html'" onload="loadHeaderComplete()"></div>
+    <div class="panel panel-default flexLV">
+        <div id=" selectionMenu">
+            <div ng-include="'app/pm/leftMenu.html'" onload="loadMenuComplete()"></div>
+        </div>
+        <div style="width: 100% ">
+            <div class="fmDiv">
+                <div id="fmDivRight" class="flexLV form-group">
+                    <input type="text" class="form-control global_filter style-input searchInput" id="searchValue" placeholder="{{::translation.SEARCH}}... " ng-keypress="search($event)">
+                    <a href="javacript:;" ng-click="search()"><i class="fa-search seachIcon"></i></a>
+                </div>
+            </div>
+            <div class="panel-body">
+                <table id="grvEnvisionConfig" width="100%"></table>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade confirmClose" id="modal-detail" ng-init="initJS()">
+        <div class="modal-dialog" style="width: 700px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                    <h2 class="modal-title" ng-bind="::translation.TITLE_MODAL_ENVISIONCONFIG">Envision Info</h2>
+                </div>
+                <div class="modal-body">
+                    <input type="submit" class="submit-form" />
+                    <div class="row form-input-group">
+                        <div class="col-md-12 none-padding">
+                            <div class="col-md-4 none-padding">
+                                <div class="droppable-area advancedDropzone" style="background:none;border:none">
+
+                                </div>
+                            </div>
+                            <div class="col-md-8 none-padding">                                
+                                <div form-group-input model="data.title" label="{{::translation.TITLE}}" type="text" inputid="txtTitle"></div>
+                                <div form-group-select2 model="data.type" value="types" option2="select2Options" label="{{::translation.TYPE}}" inputid="vllType"></div>
+                                <div form-group-input model="data.description" label="{{::translation.DESCRIPTION}}" type="text" inputid="txtDescription"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" id="btnSave" ng-click="save()" click-Once><i class="fa fa-save"></i> <span ng-bind="::translation.BTN_SAVE">Save</span></button>
+                    <button type="button" class="btn btn-white" data-dismiss="modal"><i class="fa fa-close"></i> <span ng-bind="::translation.BTN_CLOSE">Close</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

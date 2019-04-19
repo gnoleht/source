@@ -1,0 +1,179 @@
+﻿<div id="vendor" ng-controller="vendorController" ng-init="onload()">
+    <div class="white_box">
+        <div id="main_vendor" class="fn">
+            <div class="box_control clearfix">
+                <div class="row pd_lr_5 clearfix">
+                    <div class="col-10">
+                        <ul class="box_btn mb-0"> 
+                            <li>
+                                <button type="button" class="bg_blue_02 btn_filter">Truy vấn</button>
+                            </li>
+                            <li>
+                                <button type="button" class="bg_blue_02 btn_filter">Báo cáo</button>
+                            </li>
+                            <li class="h_28">
+                                <div class="switch" ng-class="checkSwitch ? 'change' : ''" ng-click="checkSwitch = !checkSwitch">
+                                    <input type="checkbox">
+                                    <p class="slider mb-0"><span class="text text_release">Ngưng HT</span><span class="text text_accept">Hoạt động</span></p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-2">
+                        <ul class="box_btn mb-0 float-right">
+                            <li><a href="#" class="btn_default btn_30 btn_search_click" ng-click="toogleFilter()"><i class="bowtie-icon bowtie-search-filter"></i></a></li>
+                            <li><a href="" class="btn_default btn_30"><i class="bowtie-icon bowtie-chart-column"></i></a></li>
+                            <li class="btn_menu btn_collapse_02"><a href="#" class="bg_blue_01 m-0" ng-click="toogleRight()"><i class="bowtie-icon bowtie-menu"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="box_filter clearfix" >
+                    <ul class="box_btn mb-0">
+                        <li class="w_15">
+
+                            <input type="text" class="form-control" model="object.objectID" style="height: 28px;line-height: 28px;font-size: 12px;padding: 0 5px;border-color: #aaa;color: #444;" name="" placeholder="{{translation.Object_ObjectID}}">
+                        </li>
+                        
+                        <li class="w_15">
+                            <input type="text"  model="object.taxCode" class="form-control" style="height: 28px;line-height: 28px;font-size: 12px;padding: 0 5px;border-color: #aaa;color: #444;" name="" placeholder="{{translation.Object_taxCode}}">
+                        </li>
+                        <li class="w_15 select2_op2">
+                            <select select2 name="state">
+                                <option value="" disabled selected>{{translation.Object_PrimaryProvince}}</option>
+                                <option value="1">VIP</option>
+                                <option value="2">Phổ thông</option>
+                            </select>
+                        </li>
+                        <li class="w_15 select2_op2">
+                            <select select2 name="state">
+                                <option value="" disabled selected>{{translation.Object_PrimaryCountry}}</option>
+                                <option value="1">VIP</option>
+                                <option value="2">Phổ thông</option>
+                            </select>
+                        </li>
+                        <li class="w_10">
+                            <button type="button" class="w_100 bg_blue_02 btn_filter" ng-click="searchObject()">Tra cứu</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- main_box start -->
+            <div class="main_box clearfix content_7_3 scroll">
+                <div class="main_box_body content_7 float-left" ng-class="checkRight ? 'h_s_relate' : 'hide'">
+                   
+                    <lv-directive-pannel-left lv-id="ObjectPanelId" lv-header="headerObject" lv-style="styleObject">
+                        <lv-directive-grid lv-id="ObjectId" lv-panel-id="ObjectPanelId" select-row-change="selectChange(e)" lv-data-source="dataSourceObject" lv-style="styleObject">
+                        </lv-directive-grid>
+                    </lv-directive-pannel-left>
+              </div>
+                <div class="content_3 float-right" ng-class="checkRight ? 'h_s_relate' : 'hide'">
+                    <div class="main_box_relate">
+                        <dl class="box_tb box_tb_02 mb_5">
+                            <dt>
+                                <p class="title_01 cus mb-0" data-toggle="collapse" data-target="#panel_02" aria-expanded="true" aria-controls="panel_02"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>Chứng từ hóa đơn</span><span class="cl_red ml-2">(0)</span></p>
+                            </dt>
+                            <dd>
+                                <div class="collapse show" id="panel_02" aria-expanded="true" style="">
+                                    <div id="grvVendor" class="control-grid" style="width:100%;height:100%">
+                                        <!--TODO GRID-->
+                                       
+                                    </div>
+                                </div>
+                            </dd>
+                        </dl>
+                    </div>
+                    <div class="main_box_relate">
+                        <dl class="box_tb box_tb_02 mb_5">
+                            <dt>
+                                <p class="title_01 cus mb-0" data-toggle="collapse" data-target="#panel_03" aria-expanded="true" aria-controls="panel_03"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>Yêu cầu thanh toán</span><span class="cl_red ml-2">(0)</span></p>
+                            </dt>
+                            <dd>
+                                <div class="collapse show" id="panel_03" aria-expanded="true" style="">
+                                    <!--TODO GRID-->
+                                   
+                                </div>
+                            </dd>
+                        </dl>
+                    </div>
+                    <div class="main_box_relate">
+                        <dl class="box_tb box_tb_02 mb_5">
+                            <dt>
+                                <p class="title_01 cus mb-0" data-toggle="collapse" data-target="#panel_04" aria-expanded="true" aria-controls="panel_04"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>Ủy nhiệm thu</span><span class="cl_red ml-2">(0)</span></p>
+                            </dt>
+                            <dd>
+                                <div class="collapse show" id="panel_04" aria-expanded="true" style="">
+                                    <!--TODO GRID-->
+                                  
+                                </div>
+                            </dd>
+                        </dl>
+                    </div>
+                    <div class="main_box_relate">
+                        <dl class="box_tb box_tb_02 mb_5">
+                            <dt>
+                                <p class="title_01 cus mb-0" data-toggle="collapse" data-target="#panel_05" aria-expanded="true" aria-controls="panel_05"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>Đơn hàng liên quan</span><span class="cl_red ml-2">(0)</span></p>
+                            </dt>
+                            <dd>
+                                <div class="collapse show" id="panel_05" aria-expanded="true" style="">
+                                    <!--TODO GRID-->
+                                  
+                                </div>
+                            </dd>
+                        </dl>
+                    </div>
+                    <div class="main_box_relate">
+                        <dl class="box_tb box_tb_02 mb_5">
+                            <dt>
+                                <p class="title_01 cus mb-0" data-toggle="collapse" data-target="#panel_06" aria-expanded="true" aria-controls="panel_06">
+                                <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i>
+                                 <span>Hợp đồng liên quan</span>
+                                <span class="cl_red ml-2">(0)</span>
+                                </p>
+                            </dt>
+                            <dd>
+                                <div class="collapse show" id="panel_06" aria-expanded="true" style="">
+                                    <!--TODO GRID-->
+                                   
+                                </div>
+                            </dd>
+                        </dl>
+                    </div>
+                    <lv-directive-panel-right lv-id="ObjectContactId" lv-header="headerObjectContact">
+                        <lv-directive-grid lv-id="ObjectContactId" llv-panel-id="ObjectContactPanelId" lv-grid-view="ObjectContactId" lv-data-source="dataSourceObjectContact" lv-style="stylePublic">
+                        </lv-directive-grid>
+                    </lv-directive-panel-right>
+                    <lv-directive-panel-right lv-id="ObjectCreditLimitPanelId" lv-header="headerObjectCreditLimit">
+                        <lv-directive-grid lv-id="ObjectCreditLimitId" lv-panel-id="ObjectCreditLimitPanelId" lv-grid-view="ObjectCreditLimitId" lv-data-source="dataSourceObjectCreditLimit" lv-style="stylePublic">
+                        </lv-directive-grid>
+                    </lv-directive-panel-right>
+
+                    <lv-directive-panel-right lv-id="ObjAddressPanelId" lv-header="headerObjAddress">
+                        <lv-directive-grid lv-id="ObjAddressId" lv-panel-id="ObjAddressPanelId" lv-grid-view="ObjAddressId" lv-data-source="dataSourceObjAddress" lv-style="stylePublic">
+                        </lv-directive-grid>
+                    </lv-directive-panel-right>
+
+                    <lv-directive-panel-right lv-id="ObjBankAccountPanelId" lv-header="headerObjBankAccount">
+                        <lv-directive-grid lv-id="ObjBankAccountId" lv-panel-id="ObjBankAccountPanelId" lv-grid-view="ObjBankAccountId" lv-data-source="dataSourceObjBankAccount" lv-style="stylePublic">
+                        </lv-directive-grid>
+                    </lv-directive-panel-right>
+
+                </div>
+            </div>
+            <!-- main_box end -->
+        </div>
+    </div>
+</div>
+  <!--<script>
+      $(document).ready(function () {
+          "use strict";
+          $(".switch").click(function () {
+              $(this).toggleClass("change");
+          });
+          $(".btn_collapse_02 a").click(function () {
+              $(".content_7,.content_3").toggleClass("h_s_relate");
+          });
+          $(".btn_search_click").click(function () {
+              $(".box_filter").toggleClass("show");
+          });
+      });
+  </script>-->

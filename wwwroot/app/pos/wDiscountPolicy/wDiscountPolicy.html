@@ -1,0 +1,363 @@
+﻿<div id="wDiscountPolicy" ng-controller="wDiscountPolicyController" class="pos">
+    <div class="white_box">
+        <div class="box_filter clearfix" style="height: initial; margin-top: -5px;">
+            <ul class="box_btn mb-0 d-flex justify-content-start" style="align-items: flex-end">
+                <li class="w_15 select2_op2">
+                    <div class="btn_search">
+                        <div class="input-group">
+                            <input type="text" id="full_text_filter" class="form-control" placeholder="{{translation.SEARCH}}" ng-keypress="searchFull($event)" tab="1">
+                            <span class="input-group-btn">
+                                <button class="btn" type="button" ng-click="searchFull()"><i class="bowtie-icon bowtie-search"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                </li>
+                <li class="w_15 select2_op2">
+                    <lv-combobox element-id="cmbStoreId" field="storeFilter" option="cmbStoreId" model="storeFilter" tab="2" label=" ">
+                    </lv-combobox>
+                </li>
+                <li class="w_15 select2_op2">
+                    <lv-select element-id="timeMark" field="timeMark" model="timeMark" setting="setting" change="changeTimeMark()" translation="translation" tab="1" nolabel="hidden" allowclear="true" placeholder="{{translation.TIMEMARK}}"></lv-select>
+                </li>
+                <li class="w_15 select2_op2">
+                    <lv-date field="fromDate" model="fromDate" setting="setting" nolabel="hidden" placeholder="{{translation.FROMDATE}}" translation="translation" tab="3"></lv-date>
+                </li>
+                <li class="w_15 select2_op2">
+                    <lv-date field="toDate" model="toDate" setting="setting" nolabel="hidden" placeholder="{{translation.TODATE}}" translation="translation" tab="4"></lv-date>
+                </li>
+                <li>
+                    <button type="button" class="bg_blue_02 btn_filter w_100" ng-click="searchObject()">{{translation.FILTER}}</button>
+                </li>
+            </ul>
+        </div>
+        <div class="content_6_4 clearfix">
+            <div class="content_4 mr_10 float-left">
+                <dl class="wrapper">
+                    <dt class="pos_re">
+                        <a class="title_02 bg_gray_01 pos_re">
+                            <span>Danh sách chính sách</span>
+                        </a>
+
+                        <div class="btn-small green" ng-click="changeStatus()" style="position: absolute;right: -5px;top: -4px;"><i class="bowtie-icon mr_5" ng-class="statusPolicy == '0' ? 'bowtie-transfer-upload' : 'bowtie-math-multiply'" aria-hidden="true" style="font-size: 12px"></i>{{statusPolicy == '0' ? 'Phát hành' : 'Hủy phát hành'}}</div>
+                    </dt>
+                    <dd class="pos_re" style="height: calc(100% - 30px)">
+                        <div class="box_01 scroll" style="height: calc(100% - 50px)">
+                            <div id="{{item.id}}" ng-repeat="item in listData" class="item" ng-class="classActive(item.id)" ng-click="changeRow(item)" ng-dblclick="edit()">
+                                <ul class="clearfix">
+                                    <li class="float-left w-50 txt_cut"><a class="link">{{item.code}}</a></li>
+                                    <li class="float-right">{{item.policyDate | date :"dd/MM/yyyy"}}</li>
+                                </ul>
+                                <p class="txt_cut mb_5" style="height: 20px;">{{item.name_Desc}}</p>
+                                <ul class="clearfix">
+                                    <li class="float-left"><b>{{item.effFromDate | date :"dd/MM/yyyy"}} - {{item.effToDate | date :"dd/MM/yyyy"}}</b></li>
+                                    <li class="float-right"><b>{{item.effFromTime | date :"HH:mm"}} - {{item.effToTime | date :"HH:mm"}}</b></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="box_footer">
+                            <div>
+                                <b>{{translation.TOTALPAGE}}: <span class="link">{{totalItem}}</span></b>
+                            </div>
+                            <div style="font-weight: bold; position: absolute; right: 125px">
+                                {{translation.PAGE}}: <input id="pageInput" type="number" name="page" value="{{pageCurrent}}" /> / {{totalPage}}
+                            </div>
+                            <div class="button-left-wrapper">
+                                <div class="btn_add_02 mr_5" title="Previous" ng-click="prev(pageCurrent -1)"><i class="bowtie-icon bowtie-chevron-left-light"></i></div>
+                                <div class="btn_add_02" title="Next" ng-click="next(pageCurrent +1)"> <i class="bowtie-icon bowtie-chevron-right-light"></i></div>
+                            </div>
+                        </div>
+                    </dd>
+                </dl>
+            </div>
+            <div class="content_6 float-right scroll" style="padding-right: 10px">
+                <div class="modal-02 clearfix mb_20">
+                    <dl class="mb-0 mr-20 w_50">
+                        <dt><a class="title_02 bg_gray_01" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="true" aria-controls="multiCollapse_01 multiCollapse_02 multiCollapse_03"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow mr_5"></i>Thông tin chi tiết</a></dt>
+                        <dd style="height: calc(100% - 360px)">
+                            <div class="multi-collapse show" id="multiCollapse_01" aria-expanded="true">
+                                <div class="d-flex w_100">
+                                    <div class="col-left">
+                                        <p>{{translation.CODE}}:</p>
+                                        <p>{{translation.NAME}}:</p>
+                                        <p>{{translation.PRIORITY}}:</p>
+                                        <p>{{translation.PROMOTYPE}}:</p>
+                                        <p>{{translation.NOTE}}:</p>
+                                        <p>{{translation.DAYINMONTH}}:</p>
+                                    </div>
+                                    <div class="col-right">
+                                        <p class="txt_cut">{{defaultFirstData.code}}</p>
+                                        <p class="txt_cut">{{defaultFirstData.name}}</p>
+                                        <p class="txt_cut">{{defaultFirstData.priority}}</p>
+                                        <p class="txt_cut">{{setting.valuelist.promoType[defaultFirstData.promoType - 1].text}}</p>
+                                        <p class="txt_cut">{{defaultFirstData.name_Desc}}</p>
+                                        <p class="txt_cut" title="{{defaultFirstData.dayInMonth.join(', ')}}">{{defaultFirstData.dayInMonth.join(', ')}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </dd>
+                    </dl>
+                    <dl class="mb-0 w_50">
+                        <dt><a class="title_02 bg_gray_01" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="true" aria-controls="multiCollapse_01 multiCollapse_02 multiCollapse_03"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow mr_5"></i>HIỆU LỰC</a></dt>
+                        <dd>
+                            <div class="multi-collapse show" id="multiCollapse_02" aria-expanded="true">
+                                <div class="d-flex w_100">
+                                    <div class="col-left">
+                                        <p>{{translation.FROMDATE}}:</p>
+                                        <p>{{translation.TODATE}}:</p>
+                                        <p>{{translation.EFFFROMTIME}}:</p>
+                                        <p>{{translation.EFFTOTIME}}:</p>
+                                        <p>{{translation.DAYINWEEK}}:</p>
+                                        <p>{{translation.STATUS}}:</p>
+                                    </div>
+                                    <div class="col-right">
+                                        <p class="txt_cut">{{defaultFirstData.effFromDate | date:"dd/MM/yyyy"}}</p>
+                                        <p class="txt_cut">{{defaultFirstData.effToDate | date:"dd/MM/yyyy"}}</p>
+                                        <p class="txt_cut">{{defaultFirstData.effFromTime | date:"HH:mm"}}</p>
+                                        <p class="txt_cut">{{defaultFirstData.effToTime | date:"HH:mm"}}</p>
+                                        <p class="txt_cut" ng-bind="showDayInWeek()" title="{{showDayInWeek()}}"></p>
+                                        <p class="txt_cut"><span class="status mr_5" ng-class="statusPolicy == '1' ? 'status_closed': 'status_new'"><i class="bowtie-icon bowtie-record-fill"></i></span>{{statusPolicy=='1'? translation.PUBLIC : translation.CREATENEW }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="modal-02 clearfix mb_20">
+                    <dl class="mb-0" style="flex-grow: 1; flex-basis: 0">
+                        <dt><a class="title_02 bg_gray_01" data-toggle="collapse" data-target="#multiCollapse_03" aria-expanded="true" aria-controls="multiCollapse_01 multiCollapse_02 multiCollapse_03"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow mr_5"></i>Đối tượng</a></dt>
+                        <dd>
+                            <div class="show" id="multiCollapse_03" aria-expanded="true">
+                                <div class="d-flex">
+                                    <div class="d-flex col_item_1">
+                                        <div class="col-left">
+                                            <p>{{translation.AllCUSTOMER}}:</p>
+                                        </div>
+                                        <div class="col-right">
+                                            <p class="txt_cut"><span ng-show="defaultFirstData.custType=='1'"><i class="fa fa-check status_closed" aria-hidden="true" style="font-size: 18px"></i></span></p>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex col_item_1">
+                                        <div class="col-left" style="width: fit-content">
+                                            <p style="white-space: nowrap">{{translation.FORGROUPCUSTOMER}}:</p>
+                                        </div>
+                                        <div class="col-right">
+                                            <p class="txt_cut"><span ng-show="defaultFirstData.custType=='2'"><i class="fa fa-check status_closed" aria-hidden="true" style="font-size: 18px"></i></span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-flex col_item_1">
+                                    <div class="col-left w_20">
+                                        <p>{{translation.GROUPCUSTOMER}}:</p>
+                                    </div>
+                                    <div class="col-right w_80">
+                                        <p class="txt_cut" ng-bind="showGroupCustomer()"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="modal-01 clearfix">
+                    <dl class="mb-0 wrapper">
+                        <dt>
+                            <a class="title_02 bg_gray_01" data-toggle="collapse" data-target="#multiCollapse_04" aria-expanded="true" aria-controls="multiCollapse_04">
+                                <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow mr_5"></i>{{translation.DETAILS}}<span class="cl_red">({{rowCountPromoBreakPoint}})</span>
+                            </a>
+                        </dt>
+                        <dd style="height: calc(100% - 270px)">
+                            <div class="show wrapper" id="multiCollapse_04" aria-expanded="true">
+                                <div class="gridWrapper">
+                                    <div id="grvWDiscDetail" class="control-grid wrapper" style="width: 100%;height:200px;"></div>
+                                </div>
+                            </div>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="modal-01 clearfix">
+                    <dl class="mb-0 wrapper">
+                        <dt>
+                            <a class="title_02 bg_gray_01" data-toggle="collapse" data-target="#multiCollapse_06" aria-expanded="true" aria-controls="multiCollapse_06">
+                                <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow mr_5"></i>Phạm vi áp dụng<span class="cl_red">({{rowCountPolicyStore}})</span>
+                            </a>
+                        </dt>
+                        <dd style="height: calc(100% - 270px)">
+                            <div class="show wrapper" id="multiCollapse_06" aria-expanded="true">
+                                <div class="gridWrapper">
+                                    <div id="grvPolicyStore" class="control-grid wrapper" style="width: 100%;height:200px;"></div>
+                                </div>
+                            </div>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal (detail)-->
+    <div class="modal fade modal_center confirmClose" style="" id="modal-detail" ng-init="initModal()">
+        <div class="modal-dialog" style="width:1200px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <p style="font-size:16px;margin:0;line-height:1.9em;" class="float-left"><span ng-bind="(action == 'add' || action == 'addChild') ? translation.MODAL_DETAIL_ADDTITLE : translation.MODAL_DETAIL_EDITTITLE"></span></p>
+                    <div class="box_btn_02">
+                        <button type="button" class="fullscreen" onclick="fullscreen('modal-detail')"><i class="bowtie-icon bowtie-view-full-screen"></i></button>
+                        <button type="button" class="btn_close_02" data-dismiss="modal"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-maincontent autoHeight">
+                        <ul class="nav nav-tabs bg-white" id="main_tab_01" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="tab_01-tab" data-toggle="tab" data-target="#tab1"
+                                   role="tab" aria-controls="tab_01" aria-selected="true" ng-click="resizeTab()">Thông tin chính sách</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="tab_02-tab" data-toggle="tab" data-target="#tab2"
+                                   role="tab" aria-controls="tab_02" aria-selected="false" ng-click="resizeTab()">Hiệu lực chính sách</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="tab_03-tab" data-toggle="tab" data-target="#tab3"
+                                   role="tab" aria-controls="tab_03" aria-selected="false" ng-click="resizeTab()">Đối tượng áp dụng</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content mb_40" id="tabTop">
+                            <div class="tab-pane active clearfix" id="tab1" role="tabpanel" aria-labelledby="tab1">
+                                <div class="form-input-group">
+                                    <div class="box_02 col_2 clearfix mb_15">
+                                        <div class="pos_item">
+                                            <lv-input field="name" model="data.name" setting="setting" translation="translation" change="" type="text" tab="1"></lv-input>
+                                        </div>
+                                        <div class="pos_item">
+                                            <lv-input field="code" model="data.code" setting="setting" translation="translation" change="" type="text" tab="2"></lv-input>
+                                        </div>
+
+                                    </div>
+                                    <div class="box_02 col_2 clearfix mb_15">
+                                        <div class="pos_item">
+                                            <lv-select field="priority" model="data.priority" setting="setting" translation="translation" tab="3" allowclear="true"></lv-select>
+                                        </div>
+                                        <div class="pos_item">
+                                            <lv-datepicker field="policyDate" model="data.policyDate" setting="setting" translation="translation" tab="5"></lv-datepicker>
+                                        </div>
+                                        <!--<div class="pos_item">
+                                            <lv-select field="promoType" model="data.promoType" setting="setting" translation="translation" tab="4"></lv-select>
+                                        </div>-->
+                                    </div>
+                                    <div class="box_02 col_2 clearfix mb_15">
+                                        <div class="pos_item">
+                                            <lv-input field="name_Desc" model="data.name_Desc" setting="setting" translation="translation" change="" type="text" tab="6"></lv-input>
+                                        </div>
+                                        <div class="pos_item">
+                                            <label>{{translation.STATUS}}</label>
+                                            <span class="status mr_5" ng-class="statusPolicy == '1' ? 'status_closed': 'status_new'"><i class="bowtie-icon bowtie-record-fill"></i></span>{{statusPolicy == '1'? translation.PUBLIC : translation.CREATENEW }}
+                                        </div>
+                                    </div>     
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="tab2" role="tabpanel" aria-labelledby="tab2">
+                                <div class="form-input-group">
+                                    <div class="box_02 col_2 clearfix mb_15">
+                                        <div class="pos_item">
+                                            <lv-datepicker field="effFromDate" model="data.effFromDate" setting="setting" translation="translation" tab="7"></lv-datepicker>
+                                        </div>
+                                        <div class="pos_item pos_re">
+                                            <label>{{translation.EFFFROMTIME}}</label>
+                                            <span style="position: absolute;left: 155px;top: 5px;">
+                                                <span class="size-per-80"><sup> (</sup></span><span class="red">*</span><span class="size-per-80"><sup>)</sup></span>
+                                            </span>
+                                            <input id="effFromTime" type="time" name="name" />
+                                        </div>
+                                    </div>
+                                    <div class="box_02 col_2 clearfix mb_15">
+                                        <div class="pos_item">
+                                            <lv-datepicker field="effToDate" model="data.effToDate" setting="setting" translation="translation" tab="8"></lv-datepicker>
+                                        </div>
+                                        <div class="pos_item pos_re">
+                                            <label>{{translation.EFFTOTIME}}</label>
+                                            <span style="position: absolute;left: 155px;top: 5px;">
+                                                <span class="size-per-80"><sup> (</sup></span><span class="red">*</span><span class="size-per-80"><sup>)</sup></span>
+                                            </span>
+                                            <input id="effToTime" type="time" name="name" />
+                                        </div>
+                                    </div>
+                                    <div class="box_02 col_2 clearfix mb_15">
+                                        <div class="pos_item">
+                                            <lv-valuelist-multi style="width:100%;" field="dayInWeek" model="data.dayInWeek" setting="setting" translation="translation" tab="9"></lv-valuelist-multi>
+                                        </div>
+                                        <div class="pos_item">
+                                            <lv-valuelist-multi style="width:100%;" field="dayInMonth" model="data.dayInMonth" setting="setting" translation="translation" tab="10"></lv-valuelist-multi>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="tab3" role="tabpanel" aria-labelledby="tab3">
+                                <div class="form-input-group">
+                                    <div class="box_02 col_1 clearfix mb_15">
+                                        <div class="pos_item">
+                                            <div class="switch mr-10" style="width: 60px" ng-class="data.custType == '1' ? 'change' : ''" ng-click="changecustType(data.custType)">
+                                                <input type="checkbox">
+                                                <p class="slider mb-0"></p>
+                                            </div>
+                                            <div class="switch-label txt_cut">Tất cả khách hàng</div>
+
+                                            <div class="switch mr-10" style="width: 60px" ng-class="data.custType == '2' ? 'change' : ''" ng-click="changecustType(data.custType)">
+                                                <input type="checkbox">
+                                                <p class="slider mb-0"></p>
+                                            </div>
+                                            <div class="switch-label txt_cut">Nhóm khách hàng</div>
+                                        </div>
+                                    </div>
+                                    <div class="box_02 col_2 clearfix mb_5" ng-show="data.custType == '2'">
+                                        <div class="pos_item" style="float: none">
+                                            <lv-valuelist-multi style="width:100%;" field="custApplied" model="data.custApplied" setting="setting" translation="translation" tab="5"></lv-valuelist-multi>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ul class="nav nav-tabs bg-white" id="main_tab_02" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="tab_04-tab" data-toggle="tab" data-target="#tab4"
+                                   role="tab" aria-controls="tab_04" aria-selected="true" ng-click="resizeGrid('grvPromoBreakPointDetail')">Chi tiết</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="tab_06-tab" data-toggle="tab" data-target="#tab6"
+                                   role="tab" aria-controls="tab_06" aria-selected="false" ng-click="resizeGrid('grvPolicyStoreDetail')">Phạm vi áp dụng</a>
+                            </li>
+                         
+                        </ul>
+                        <div class="tab-content" id="tabBottom">
+                            <div class="tab-pane active clearfix wrapper" id="tab4" role="tabpanel" aria-labelledby="tab4">
+                                <div class="title_01 bg_blue_01" style="position: relative; height: 35px">
+                                    <ul class="box_btn mb-0" style="right: 0;position: absolute;bottom: 5px;">
+                                        <li><a title="{{translation.BTN_ADD}}" ng-click='addRow("BreakPointDetail")' class="btn_add btn_30" data-toggle="modal" data-target="#myModal"><i class="bowtie-icon bowtie-math-plus"></i></a></li>
+                                        <li><a title="{{translation.BTN_DELETE}}" ng-click='deleteRow("BreakPointDetail")' class="btn_del btn_30"><i class="bowtie-icon bowtie-edit-remove"></i></a></li>
+                                    </ul>
+                                </div>
+                                <div class="box_content wrapper" style="height: calc(100% - 35px)">
+                                    <div class="gridWrapper">
+                                        <div id="grvWDiscDetailDetail" class="control-grid" style="width: 100%;height: 100%;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane wrapper" id="tab6" role="tabpanel" aria-labelledby="tab6">
+                                <div class="box_content wrapper">
+                                    <div class="gridWrapper">
+                                        <div id="grvPolicyStoreDetail" class="control-grid" style="width: 100%;height: 100%;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                        
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn_save_02" id="btnSave" ng-click="save('1')" click-Once><i class="fa fa-save"></i> <span ng-bind="globalTranslation.BTN_PUBLISH">Phát hành</span></button>
+                    <button type="button" class="btn btn_save_03" id="btnSave" ng-click="save('0')" click-Once><i class="fa fa-save"></i> <span ng-bind="globalTranslation.BTN_SAVE">Save</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

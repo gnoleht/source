@@ -1,0 +1,11 @@
+﻿<div id="dashboardCostProfit" ng-controller="dashboardCostProfitController" class="pos">
+    <p class="cbb_filter select2_op2 clearfix" style="position: absolute;right: 0;top: -5px;">
+        <lv-select field="costProfitByDayFilter" model="costProfitByDayFilter" data="setting.valuelist.costProfitByDayFilter" translation="translation" tab="11" change="changeTimeMark()"></lv-select>
+    </p>
+    <div style="width:100%;" id="divChart1">
+        <canvas id="chartDashboardCostProfit"></canvas>
+        <!--<canvas id="chartDashboardCostProfit" style="width: 90%; height: 500px"></canvas>-->
+    </div>
+</div>
+
+

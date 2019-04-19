@@ -1,0 +1,319 @@
+﻿<script src="../../../js/JsBarcode.all.min.js"></script>
+<script src="../../../js/printArea.js"></script>
+
+<div id="barcodePrint" ng-controller="barcodePrintController" class="pos">
+    <div class="white_box">
+        <div class="box_filter clearfix" style="display: block;">
+            <ul class="box_btn mb-0 d-flex justify-content-start">
+                <li class="w_15 select2_op2">
+                    <div class="btn_search">
+                        <div class="input-group">
+                            <input type="text" id="full_text_filter" class="form-control" placeholder="{{translation.SEARCH}}" ng-keypress="searchItem($event)" tab="1">
+                            <span class="input-group-btn">
+                                <button class="btn" type="button" ng-click="searchItem()"><i class="bowtie-icon bowtie-search"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                </li>
+                <li class="w_15 select2_op2">
+                    <lv-select element-id="typeSearchPrint" field="typeSearchPrint" model="typeSearchPrint" setting="setting" change="changeTypeSearch()" translation="translation" tab="1" label=" " allowclear="true" placeholder="{{translation.TYPESEARCHPRINT}}"></lv-select>
+                </li>
+
+                <li class="w_15 select2_op2" ng-show="typeSearchPrint == '1'">
+                    <lv-combobox element-id="cmbGroupItem" option="cmbGroupItem" field="cmbGroupItem" model="groupItem" tab="3" label="">
+                    </lv-combobox>
+                </li>
+
+                <li class="w_15 select2_op2" ng-show="typeSearchPrint == '2'">
+                    <lv-combobox element-id="cmbInventoryImport" option="cmbInventoryImport" field="cmbInventoryImport" model="inventoryImport" tab="3" label="">
+                    </lv-combobox>
+                </li>
+
+                <li class="w_15 select2_op2" ng-show="typeSearchPrint == '3'">
+                    <select select2>
+                        <option value="1">Chọn bảng giá</option>
+                    </select>
+                </li>
+
+                <li class="w_15 select2_op2 btn_filter_fix" ng-show="typeSearchPrint == '2'">
+                    <button type="button" class="bg_blue_02 btn_filter w_100" ng-click="showInventoryImport()">Tìm nâng cao</button>
+                </li>
+                <li class="btn_filter_fix">
+                    <button type="button" class="bg_blue_02 btn_filter w_100" ng-click="searchObject()">Lọc</button>
+                </li>
+            </ul>
+        </div>
+        <div class="content_6_4 d-flex mb_0" style="justify-content: space-between;">
+            <div class="content_6 wrapper">
+                <dl class="mb_0 wrapper">
+                    <dt>
+                        <a class="title_01 bg_blue_01" data-toggle="collapse" data-target="#panel_01" aria-expanded="true" aria-controls="panel_02">
+                            <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>Danh sách mặt hàng in</span>
+                        </a>
+                    </dt>
+                    <dd class="wrapper">
+                        <div class="collapse show wrapper" id="panel_01" aria-expanded="true">
+                            <div class="gridWrapper">
+                                <div id="grvBarcodePrint" class="control-grid" style="width:100%;height:100%"></div>
+                            </div>
+                        </div>
+                    </dd>
+                </dl>
+            </div>
+            <div class="content_4 scroll pos_re">
+                <dl class="mb-0">
+                    <dt>
+                        <a class="title_01 bg_blue_01" data-toggle="collapse" data-target="#panel_02" aria-expanded="true" aria-controls="panel_05">
+                            <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>Xem bản in</span>
+                        </a>
+                    </dt>
+                    <dd>
+                        <div class="collapse show wrapper box_pd" aria-expanded="true">
+                            <img id="imgItem" src="../../../images/print/templatePrint_01.PNG" alt="Alternate Text" style="max-width: 100%; display: block; margin: auto;height:115px;" />
+                        </div>
+                    </dd>
+                </dl>
+                <dl class="mb-10 clearfix">
+                    <dt>
+                        <a class="title_01 bg_blue_01" data-toggle="collapse" data-target="#panel_03" aria-expanded="true" aria-controls="panel_03">
+                            <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>Thiết lập in</span>
+                        </a>
+                    </dt>
+                    <dd>
+                        <div class="collapse show wrapper" id="panel_03" aria-expanded="true">
+                            <div class="d-flex" style="align-items: center">
+                                <div class="clearfix w_100">
+                                    <div class="item select2_op2 mt-5">
+                                        <lv-select element-id="typePrint" field="typePrint" model="typePrint" setting="setting" translation="translation" tab="1" readonly="true"></lv-select>
+                                    </div>
+                                    <div class="item select2_op2 mt-5">
+                                        <lv-select element-id="pageSize" field="pageSize" model="pageSize" setting="setting" translation="translation" tab="2"></lv-select>
+                                    </div>
+                                    <div class="item select2_op2 mt-5">
+                                        <lv-select element-id="templatePrint" field="templatePrint" model="templatePrint" setting="setting" change="changeTemplatePrint()" translation="translation" tab="3"></lv-select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </dd>
+                </dl>
+                <dl class="clearfix mb-0">
+                    <dt>
+                        <a class="title_01 bg_blue_01" data-toggle="collapse" data-target="#panel_04" aria-expanded="true" aria-controls="panel_04">
+                            <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>Điều chỉnh in</span>
+                        </a>
+                    </dt>
+                    <dd>
+                        <div class="collapse show wrapper" id="panel_04" aria-expanded="true">
+                            <div class="clearfix w_100 print_resize">
+                                <table>
+                                    <tr>
+                                        <td></td>
+                                        <td>
+                                            <div class="item select2_op2 mb_0 up">
+                                                <label>Trên</label>
+                                                <input type="number" name="name" ng-model="marginTop" class="iput" />
+                                            </div>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="item select2_op2 mb_0 left">
+                                                <label>Trái</label>
+                                                <input type="number" name="name" ng-model="marginLeft" class="iput" />
+                                            </div>
+                                        </td>
+                                        <td> <button type="button" class="btn btn_save_02 center" ng-click="setMarginDefault()"><span>Mặc định</span></button></td>
+                                        <td>
+                                            <div class="item select2_op2 mb_0 right">
+                                                <label>Phải</label>
+                                                <input type="number" name="name" ng-model="marginRight" class="iput" />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>
+                                            <div class="item select2_op2 mb_0 bottom">
+                                                <input type="number" name="name" ng-model="marginBottom" class="iput" />
+                                                <label>Dưới</label>
+                                            </div>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                </table>
+
+
+                            </div>
+                            <!--<div class="clearfix">
+                                <div class="item select2_op2 mb_0">
+                                    <label>In từ phiếu</label>
+                                    <select select2>
+                                        <option value="1">Số 1</option>
+                                    </select>
+                                </div>
+
+                            </div>-->
+
+                        </div>
+                    </dd>
+                </dl>
+                <button type="button" class="btn btn_save_02" style="margin: 0;position: absolute; bottom: 5px; right: calc(50% - 50px);" ng-click="printBarcode()"><span>In Barcode</span></button>
+            </div>
+        </div>
+
+        <!-- Modal (detail)-->
+        <div class="modal fade modal_center confirmClose" style="" id="modal-detail" ng-init="initModal()">
+            <div class="modal-dialog" style="width:1100px">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <p style="font-size:16px;margin:0;line-height:1.9em;" class="float-left"><span ng-bind="translation.MODAL_DETAIL_SEARCHTITLE"></span></p>
+                        <div class="box_btn_02">
+                            <button type="button" class="fullscreen" onclick="fullscreen('modal-detail')"><i class="bowtie-icon bowtie-view-full-screen"></i></button>
+                            <button type="button" class="btn_close_02" data-dismiss="modal"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                        </div>
+                    </div>
+                    <div class="modal-body" style="min-height:260px">
+                        <div class="modal-body-maincontent">
+                            <div class="box_filter clearfix" style="display:block;">
+                                <ul class="box_btn mb-0 d-flex justify-content-start" style="align-items: flex-end">
+                                    <li class="w_15 select2_op2">
+                                        <div class="btn_search">
+                                            <div class="input-group">
+                                                <input type="text" id="full_text_filter2" class="form-control" placeholder="{{translation.SEARCH}}" ng-keypress="searchInvImport($event)" tab="1">
+                                                <span class="input-group-btn">
+                                                    <button class="btn" type="button" ng-click="searchInvImport()"><i class="bowtie-icon bowtie-search"></i></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                    <li class="w_15 select2_op2">
+                                        <lv-combobox element-id="cmbStoreId" field="storeFilter" option="cmbStoreId" model="storeFilter" tab="1" label="">
+                                        </lv-combobox>
+                                    </li>
+                                    <li class="w_15 select2_op2">
+                                        <lv-select element-id="timeMark" field="timeMark" model="timeMark" setting="setting" change="changeTimeMark()" translation="translation" tab="2" nolabel="hidden" allowclear="true" placeholder="{{translation.TIMEMARK}}"></lv-select>
+                                    </li>
+
+                                    <li class="w_15 select2_op2">
+                                        <lv-datepicker field="fromDate" model="fromDate" setting="setting" translation="translation" nolabel="hidden" tab="3" placeholder="{{translation.FROMDATE}}"></lv-datepicker>
+                                    </li>
+                                    <li class="w_15 select2_op2">
+                                        <lv-datepicker field="toDate" model="toDate" setting="setting" translation="translation" tab="4" nolabel="hidden" placeholder="{{translation.TODATE}}"></lv-datepicker>
+                                    </li>
+                                    <li>
+                                        <button type="button" class="bg_blue_02 btn_filter w_100" ng-click="searchInventoryImport()">{{translation.FILTER}}</button>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="gridWrapper" style="height:100%;">
+                                <div id="grvInventoryImport" class="control-grid" style="width: 100%; height: 420px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn_save_02" id="btnSave" ng-click="saveSearchInventoryImport()" click-Once><i class="fa fa-save"></i> <span ng-bind="globalTranslation.BTN_SAVE">Save</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div hidden>
+        <div id="printArea">
+            <style type="text/css">
+                body {
+                    margin: 0 !important;
+                }
+
+                .page {
+                    margin: 0;
+                }
+
+                .pageSize2 {
+                    width: 105mm;
+                }
+
+                    .pageSize2 .label:nth-child(even) {
+                        margin-right: 0 !important;
+                    }
+
+                    .pageSize2 .label:last-child, .pageSize2 .label:nth-last-child(2) {
+                        margin-bottom: 0 !important;
+                    }
+
+                .pageSize3 {
+                    width: 132px;
+                }
+
+                .label {
+                    /* Avery 5160 labels -- CSS and HTML by MM at Boulder Information Services */
+                    width: 50%;
+                    height: 29mm;
+                    padding: 10px 0;
+                    float: left;
+                    text-align: center;
+                    overflow: hidden;
+                    font-size: 13px;
+                    box-sizing: border-box;
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: center;
+                    align-items: center;
+                }
+
+                .page-break {
+                    clear: left;
+                    display: block;
+                    page-break-after: always;
+                }
+
+                svg {
+                    height: 55px;
+                    max-width: 50mm;
+                    margin: auto;
+                    display: block;
+                }
+
+                @page {
+                    size: portrait 7in 9.25in;
+                    margin: 5mm;
+                }
+            </style>
+
+            <div class="page" ng-class="pageSize == 2 ? 'pageSize2' : 'pageSize3'">
+                <div ng-repeat="item in listItemPrint">
+                    <div ng-repeat="a in [] | range: item.quantityPrint"  class="label" style="margin-top: {{marginTop}};margin-left: {{marginLeft}}; margin-right: {{marginRight}};margin-bottom: {{marginBottom}};">
+                        <div style="text-align: center; padding: 0 2px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;padding: 0 10px;" ng-if="templatePrint != 1 && item.store != null">{{item.store}}</div>
+                        <div style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;padding: 0 10px">
+                            {{item.name}}
+                        </div>
+                        <svg class="barcode"
+                             jsbarcode-format="CODE128"
+                             jsbarcode-value="{{item.barcode}}"
+                             jsbarcode-text="{{item.barcode}}"
+                             jsbarcode-width=2,
+                             jsbarcode-height=80,
+                             jsbarcode-displayValue=true
+                             jsbarcode-font="sans-serif"
+                             jsbarcode-textAlign="center"
+                             jsbarcode-textPosition="bottom"
+                             jsbarcode-textMargin=5
+                             jsbarcode-fontSize=20
+                             jsbarcode-background="#ffffff"
+                             jsbarcode-lineColor="#000000"
+                             jsbarcode-marginTop=0
+                             jsbarcode-marginBottom=0
+                             jsbarcode-marginLeft=0
+                             jsbarcode-marginRight=0>
+                        </svg>
+                        <div style="text-align: center;font-weight: bold">{{item.sellPrice|number:0}} VNĐ</div>
+                    </div>
+                </div>
+                <div class="page-break"></div>
+            </div>
+        </div>
+    </div>
+
+

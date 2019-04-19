@@ -1,0 +1,37 @@
+﻿<!-- Modal (detail)-->
+<div class="modal fade confirmClose" id="modal-documentQA" ng-init="initJS" ng-controller="documentController">
+    <div class="modal-dialog" style="width: 900px">
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom-color:rgba(104,184,40,.5)">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                <h3 class="modal-title">{{::translation.EDITTITLE}}</h3>
+            </div>
+            <div class="modal-body">
+                <div class="row form-input-group">
+                    <div class="col-md-12 none-padding">
+                        <div class="col-md-2">
+                            <div class="droppable-area advancedDropzone" style="background:none;border:none;width:80px;height:99.3px;margin-top:12px">
+                                <div class="documentImage img-inline dz-message" style="width:100%;height:100%">
+                                    <i id="docIcon" class="documentIconBig"></i>
+                                    <div id="docExtension" class="documentExtensionBig">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-10" style="padding-right:0;padding-left:25px">
+                            <div form-group-input field="fileName" model="data.fileName" label="{{::translation.NAME}}" type="text" inputid="txtName"></div>
+                            <div form-group-select2 field="category" model="data.category" value="valuelist.category" label="{{::translation.CATEGORY}}" inputid="vllCategory"></div>
+                            <div form-group-select2 field="objectId" model="data.objectId" value="valuelist.object" label="{{::translation.OBJECTID}}" inputid="vllObjectId"></div>
+                            <div form-group-input label="{{::translation.FILENAME}}" type="text" inputid="txtFileName"></div>
+                        </div>
+                    </div>
+                    <div form-group-textarea model="data.note" label="{{::translation.NOTE}}" field="note" inputid="txtNote"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" ng-click="save()" click-Once><i class="fa fa-save"></i> {{::translation.BTN_SAVE}}</button>
+                <button type="button" class="btn btn-white" data-dismiss="modal"><i class="fa fa-close"></i> <span ng-bind="::translation.BTN_CLOSE">Close</span></button>
+            </div>
+        </div>
+    </div>
+</div>

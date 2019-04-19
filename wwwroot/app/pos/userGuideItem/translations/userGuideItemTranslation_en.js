@@ -1,0 +1,5 @@
+﻿
+var userGuideItemTranslation = {
+    //field
+
+}

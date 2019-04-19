@@ -1,0 +1,106 @@
+﻿<script src="../../../js/jquery.ui.touch-punch.js"></script>
+
+<div id="pblEstimating" ng-controller="pblEstimatingController" ng-init="onLoad()">
+
+    <div class="white_box" style="background-color:#edf1f5;padding:0">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" id="main_tab_01" role="tablist">
+
+            <li class="nav-item">
+                <a class="nav-link active" href="/pm/pblEstimating?pjid={{menuParams.pjid}}{{areaUrl}}&module=pj" id="tab_01-tab" data-toggle="tab" data-target="#tabPblEstimating"
+                   role="tab" aria-controls="tab_01" aria-selected="true">PBL Estimating</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/pm/resourcePlanning?pjid={{menuParams.pjid}}{{areaUrl}}&module=pj" id="tab_01-tab" data-toggle="tab" data-target="#tabResourcePlanning"
+                   role="tab" aria-controls="tab_01" aria-selected="true">Resource Planning</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/pm/releasePlanning?pjid={{menuParams.pjid}}{{areaUrl}}&module=pj" id="tab_01-tab" data-toggle="tab" data-target="#tabReleasePlanning"
+                   role="tab" aria-controls="tab_01" aria-selected="true">Release Planning</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/pm/costPlanning?pjid={{menuParams.pjid}}{{areaUrl}}&module=pj" id="tab_01-tab" data-toggle="tab" data-target="#tabCostPlanning"
+                   role="tab" aria-controls="tab_01" aria-selected="true">Cost Planning</a>
+            </li>
+        </ul>
+
+        <div id="tab-content" class="tab-content" style="height: calc(100% - 34px);width: 100%;">
+            <div class="tab-pane active" id="tabPblEstimating" style="height:100%;width:100%">
+                <img class="page-loader" style="display:none;" />
+
+                <div id="tb_kanban_scroll" class="tb_kanban_scroll" style="position:relative;width:100%;height:100%">
+                    <div class="header_kanban__scroll clearfix">
+                        <div class="tr clearfix">
+                            <div class="th">
+                                <div><span>Backlog </span>( <span class="sizePointPBL red">{{TotalSizeKanban}} </span> <b style="color:#000;"> points </b>)</div>
+                            </div>
+                            <div class="th" ng-repeat="item in setting.valuelist.size"><span>{{item.text}}</span></div>
+                        </div>
+                    </div>
+                    <div class="body_kanban_scroll clearfix">
+                        <div class="tr clearfix" ng-show="dataUnParent.length > 0">
+                            <i class="bowtie-icon bowtie-toggle-tree-expanded btn_expanded cus" tabindex="0" title="Collapse this row" ng-click="expanded($event)"></i>
+                            <div class="td box_expanded">
+                                <p class="content">Unparent</p>
+                            </div>
+                            <div class="td parent">
+                                <div class="box_kanban clearfix box_blue">
+                                    <p class="content" title="Unparent" style="cursor:pointer;"><span class="txt_bold">Unparent</span></p>
+                                </div>
+                            </div>
+
+                            <div class="td columnPBL" ng-repeat="size in setting.valuelist.size" data-rowPBL="null" data-columnPBL="{{size.id}}" ng-init="loadKanbanPBL(true,$last)">
+                                <!--<div ng-class="blockBox(child.type)" class="box_kanban clearfix" data-typePBL="1" data-indexChildPBL={{$index}} ng-repeat="child in dataUnParent" ng-show="size.id==child.size">-->
+                                <div ng-class="blockBox(child.type)" class="box_kanban clearfix" data-typePBL="1" data-childPBL={{child.id}} ng-repeat="child in dataUnParent | filter:{size:size.id}">
+                                    <p class="content" title="{{child.name}}" style="cursor:pointer;" ng-click="editblock(0,child.id,1)"><span class="txt_bold">{{child.no}}</span> - {{child.name}}</p>
+                                    <div class="box_kanban_footer clearfix">
+                                        <p class="float-left mb-0">Priority</p>
+                                        <p class="float-right mb-0"><span ng-class="priorityColorPBL(child.priority)"><i class="bowtie-icon bowtie-record-fill"></i> {{child.priority}}</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tr clearfix" ng-repeat="data in dataHaveParent">
+                            <i class="bowtie-icon bowtie-toggle-tree-expanded btn_expanded cus" tabindex="0" title="Collapse this row" ng-click="expanded($event)"></i>
+                            <div class="td box_expanded">
+                                <!--<p class="content">{{data.parent.name}} <span style="padding-left:40px;">2 not started</span> (27hrs)  <span style="padding-left:40px;"> 4 in progress</span> (27hrs)</p>-->
+                                <p class="content">{{data.parent.name}} </p>
+                            </div>
+                            <div class="td parent">
+                                <div ng-class="blockBox(data.parent.type)" class="box_kanban clearfix">
+                                    <!--<p class="content" title="{{data.parent.name}}" style="cursor:pointer;" ng-click="editblock($index,0,3)"><span class="txt_bold">{{data.parent.no}}</span> - {{data.parent.name}}</p>-->
+                                    <p class="content" title="{{data.parent.name}}" style="cursor:pointer;"><span class="txt_bold">{{data.parent.no}}</span> - {{data.parent.name}}</p>
+                                </div>
+                            </div>
+
+                            <div class="td columnPBL" ng-repeat="size in setting.valuelist.size" data-rowPBL="{{data.parent.id}}" data-columnPBL="{{size.id}}" ng-init="loadKanbanPBL($parent.$last,$last)">
+                                <!--<div ng-class="blockBox(child.type)" class="box_kanban clearfix" data-typePBL="2" data-indexChildPBL={{$index}} data-indexParentPBL={{$parent.$parent.$index}} ng-repeat="child in data.listChild" ng-show="size.id==child.size">-->
+                                <div ng-class="blockBox(child.type)" class="box_kanban clearfix" data-typePBL="2" data-childPBL={{child.id}} data-indexParentPBL={{$parent.$parent.$index}} ng-repeat="child in data.listChild | filter :{size:size.id}">
+                                    <p class="content" title="{{child.name}}" style="cursor:pointer;" ng-click="editblock($parent.$parent.$index,child.id,2)"><span class="txt_bold">{{child.no}}</span> - {{child.name}}</p>
+                                    <div class="box_kanban_footer clearfix">
+                                        <p class="float-left mb-0">Priority</p>
+                                        <p class="float-right mb-0"><span ng-class="priorityColorPBL(child.priority)"><i class="bowtie-icon bowtie-record-fill"></i> {{child.priority}}</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="tabResourcePlanning" style="height:100%;width:100%">
+
+            </div>
+            <div class="tab-pane" id="tabReleasePlanning" style="height:100%;width:100%">
+
+            </div>
+            <div class="tab-pane" id="tabCostPlanning" style="height:100%;width:100%">
+
+            </div>
+        </div>
+
+
+    </div>
+
+    <div lv-include path="app/pm/workItem/workItemForm" name="workItemForm"></div>
+</div>

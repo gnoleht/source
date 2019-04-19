@@ -1,0 +1,89 @@
+﻿<!--<script src="../../../../js/html2canvas.js"></script>-->
+<style>
+    .testcase-list .attachment .bowtie-edit-delete{
+        display: none
+    }
+    .testcase-list .attachment:hover .bowtie-edit-delete {
+        display: inline-flex
+    }
+</style>
+<div class="modal fade modal_center confirmClose" role="dialog" id="runTestModal" ng-init="onloadModal()" style="animation-delay:10s;">
+    <div class="modal-dialog" ng-class="showWindow ? '' : 'small'">
+        <div class="modal-content">
+            <div class="modal-header clearfix">
+                <p class="modal_header_title">
+                    Run Test
+                </p>
+                <div class="box_btn_02">
+                    <button type="button" class="btn_close_02" data-dismiss="modal" title="{{translation.BTN_CLOSE}}"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="content_6_4 clearfix mb_0">
+                    <div class="content_4 float-left">
+                        <dl class="mb-0">
+                            <dt class="title mb_10">
+                                <a class="title_02 bg_gray_01">
+                                    <span class="txt_cut" ng-bind="data.name" title="{{data.name}}"></span>
+                                    <div class="button-wrapper">
+                                        <button type="button" class="fullscreen mr_5" title="Fullscreen Mode"><i class="bowtie-icon bowtie-view-full-screen"></i></button>
+                                        <button type="button" class="fullscreen" ng-click="showWindow = true" title="Open Window Mode" ng-show="!showWindow"><i class="bowtie-icon bowtie-chevron-right-light"></i></button>
+                                    </div>
+                                </a>
+                            </dt>
+                            <dd class="mb_0">
+                                <div class="testcase-list">
+                                    <div ng-repeat="item in lstTestSteps" style="width:100%;" class="testcase-wrapper" ng-class="$index == currentStep.id? 'active' : ''" ng-click="selectStep(item)">
+                                        <div class="name-wrapper">
+                                            <span class="number">{{$index+1}}.</span>
+                                            <span class="name txt_cut">{{item.action}}</span>
+                                            <i id="chkResult_{{$index}}" class="bowtie-icon" ng-class="item.result == 'Passed'? 'bowtie-check': (item.result == 'Failed' ? 'bowtie-math-multiply': 'bowtie-pause')" ng-click='resultChanged(item, $index)'></i>
+                                        </div>
+                                        <div class="text" ng-if="item.expectedResults != '' && item.expectedResults != null"><strong class="mr_5">{{translation.EXPECTEDRESULTS}}:</strong>{{item.expectedResults}}</div>
+                                        <div class="text" ng-if="item.note != '' && item.note != null"><strong class="mr_5">{{translation.NOTE}}:</strong>{{item.note}}</div>
+                                        <div class="attachment" ng-if="item.screenshotName != '' && item.screenshotName != null"><a href="/api/system/ViewFile/{{item.screenshotId}}/{{item.screenshotName}}" target="_blank" class="link"><i class="bowtie-icon bowtie-attach"></i>{{item.screenshotName}}</a> <i class="bowtie-icon bowtie-edit-delete" style="color:red;font-size:12px" ng-click="removeFile('screenshot', item)"></i></div>
+                                        <div class="attachment" ng-if="item.voiceName != '' && item.voiceName != null"><a href="/api/system/ViewFile/{{item.voiceId}}/{{item.voiceName}}" target="_blank" class="link"><i class="bowtie-icon bowtie-attach"></i>{{item.voiceName}}</a> <i class="bowtie-icon bowtie-edit-delete" style="color:red;font-size:12px" ng-click="removeFile('voice', item)"></i></div>
+                                        <div class="attachment" ng-if="item.attachFileName != '' && item.attachFileName != null"><a href="/api/system/ViewFile/{{item.attachFileId}}/{{item.attachFileName}}" target="_blank" class="link"><i class="bowtie-icon bowtie-attach"></i>{{item.attachFileName}}</a> <i class="bowtie-icon bowtie-edit-delete" style="color:red;font-size:12px" ng-click="removeFile('attachFile', item)"></i></div>
+                                    </div>
+                                </div>
+                                <div class="comment-input">
+                                    <textarea ng-model="currentStep.note" ng-change="noteChanged()"></textarea>
+                                </div>
+                                <div class="button-wrapper">
+                                    <!--<button ng-click="screenshot()"><i class="fa fa-desktop" aria-hidden="true"></i>{{translation.SCREENSHOT}}</button>-->
+                                    <button ng-click="recorder()"><i class="fa fa-microphone" aria-hidden="true"></i> {{translation.VOICE}}</button>
+                                    <button class="droppable-area advancedDropzoneFile img_over_180"><i class="bowtie-icon bowtie-attach"></i>{{translation.ATTACHFILE}}</button>
+                                    <button ng-click='newBug()'><i class="fa fa-bug" aria-hidden="true"></i>{{translation.NEWBUG}}</button>
+                                </div>
+                            </dd>
+                        </dl>
+                    </div>
+                    <div class="content_6 float-right">
+                        <dl class="mb-0">
+                            <dt class="title">
+                                <a class="title_02 bg_gray_01">
+                                    <span class="txt_cut"></span>
+                                    <div class="button-wrapper">
+                                        <button type="button" class="fullscreen" ng-click="showWindow = false" title="Close Window Mode"><i class="bowtie-icon bowtie-chevron-left-light"></i></button>
+                                    </div>
+                                </a>
+                            </dt>
+                            <dd>
+                                <div>
+                                    <div class="gridWrapper" style="height: fit-content; height: -moz-fit-content;">
+                                        <div id="grvTestResults" class="control-grid" style="width:100%;overflow: auto"></div>
+                                    </div>
+                                </div>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="btnSaveClose" ng-click="save()" type="button" class="btn btn_save_02" click-Once><i class="bowtie-icon bowtie-save"></i><span ng-bind="::translation.BTN_SAVE_CLOSE"></span></button>
+            </div>
+        </div>
+    </div>
+
+
+</div>

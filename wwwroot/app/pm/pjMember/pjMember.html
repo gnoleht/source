@@ -1,0 +1,60 @@
+﻿<div id="pjMember" ng-controller="pjMemberController">
+
+    <div class="white_box" style="background-color:#edf1f5;padding:0">
+        <ul class="nav nav-tabs" id="main_tab_01" role="tablist">
+
+            <li class="nav-item">
+                <a class="nav-link" href="/pm/areas?pjid={{menuParams.pjid}}{{areaUrl}}&module=pj" id="tab_01-tab" data-toggle="tab" data-target="#tabAreas"
+                   role="tab" aria-controls="tab_01" aria-selected="true">{{translation.AREAS}}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="/pm/pjMember?pjid={{menuParams.pjid}}{{areaUrl}}&module=pj" id="tab_01-tab" data-toggle="tab" data-target="#tabMember"
+                   role="tab" aria-controls="tab_01" aria-selected="true">{{translation.MEMBER}}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/pm/workingday?pjid={{menuParams.pjid}}{{areaUrl}}&module=pj" id="tab_01-tab" data-toggle="tab" data-target="#tabWorkingDays"
+                   role="tab" aria-controls="tab_01" aria-selected="true">{{translation.WORKINGDAYS}}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/pm/role?pjid={{menuParams.pjid}}{{areaUrl}}&module=pj" id="tab_01-tab" data-toggle="tab" data-target="#tabRole"
+                   role="tab" aria-controls="tab_01" aria-selected="true">{{translation.ROLE}}</a>
+            </li>
+        </ul>
+
+        <div id="tab-content" class="tab-content" style="height: calc(100% - 35px);width:100%">
+            <div class="tab-pane" id="tabAreas" style="height:100%;width:100%">
+
+            </div>
+            <div class="tab-pane active" id="tabMember" style="height:100%;width:100%">
+                <div id="grvMember" class="control-grid" style="width:100%;height:100%"></div>
+            </div>
+            <div class="tab-pane " id="tabWorkingDays" style="height:100%;width:100%">
+            </div>
+            <div class="tab-pane " id="tabRole" style="height:100%;width:100%">
+            </div>
+            <div class="tab-pane" id="tabAlertsSettings" style="height:100%;width:100%">
+            </div>
+        </div>
+    </div>
+    <!--show full Roles-->
+    <div id="contextListCurrentRole" class="context-menu" style="width:300px;">
+        <ul class="context-menu_items">
+            <li class="context-menu_item" ng-repeat="item1 in listCurrentRole">
+                <a class="context-menu_link" title=""><i class="bowtie-icon bowtie-math-minus-light " style="color:#660066;padding-right:10px;"></i>{{item1.text}}</a>
+            </li>
+        </ul>
+    </div>
+    <!--show full Roles-->
+    <div id="contextListCurrentArea" class="context-menu" style="width:300px;">
+        <ul class="context-menu_items">
+            <li class="context-menu_item" ng-repeat="item1 in listCurrentArea">
+                <a class="context-menu_link" title=""><i class="bowtie-icon bowtie-math-minus-light " style="color:#660066;padding-right:10px;"></i>{{item1.text}}</a>
+            </li>
+        </ul>
+    </div>
+
+
+    <!-- Modal (Modal detail)-->
+    <div lv-include path="app/pm/pjMember/memberForm" name="memberForm"></div>
+
+</div>

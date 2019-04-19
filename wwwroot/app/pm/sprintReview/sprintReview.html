@@ -1,0 +1,274 @@
+﻿<div id="sprintReview" ng-controller="sprintReviewController">
+    <div class="white_box" style="background-color:#edf1f5;padding:0">
+        <ul class="nav nav-tabs" id="main_tab_01" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link" href="/pm/sprintPlan?pjid={{menuParams.pjid}}{{areaUrl}}{{sprUrl}}&module=pj" id="tab_01-tab" data-toggle="tab" data-target="#tabSprintPlan"
+                   role="tab" aria-controls="tab_01" aria-selected="true">Sprint Plan</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/pm/kanban?pjid={{menuParams.pjid}}{{areaUrl}}{{sprUrl}}&module=pj" id="tab_02-tab" data-toggle="tab" data-target="#tabKanban"
+                   role="tab" aria-controls="tab_02" aria-selected="false">Kanban</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="/pm/sprintReview?pjid={{menuParams.pjid}}{{areaUrl}}{{sprUrl}}&module=pj" id="tab_03-tab" data-toggle="tab" data-target="#tabSprintReview"
+                   role="tab" aria-controls="tab_03" aria-selected="false">Sprint Review</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/pm/teamCapacity?pjid={{menuParams.pjid}}{{areaUrl}}{{sprUrl}}&module=pj" id="tab_04-tab" data-toggle="tab" data-target="#tabTeamCapacity"
+                   role="tab" aria-controls="tab_04" aria-selected="false">Team Capacity</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/pm/sprintReport?pjid={{menuParams.pjid}}{{areaUrl}}{{sprUrl}}&module=pj" id="tab_05-tab" data-toggle="tab" data-target="#tabSprintReport"
+                   role="tab" aria-controls="tab_05" aria-selected="false">Sprint Report</a>
+            </li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content tab-content-sprint" id="tab-content">
+            <div class="tab-pane active" id="tabSprintReview" role="tabpanel" aria-labelledby="tab_03-tab">
+                <div class="clearfix content_7_3" style="height:calc(100% - 70px)">
+                    <div class="content_7 float-left {{hiddenListSprint}}">
+                        <div id="grvSprintReview" class="control-grid" style="width:100%;height:100%"></div>
+                    </div>
+                    <div class="sprint_plan_main float-right content_3 {{hiddenListSprint}}" style="height:100%;">
+                        <div class="clearfix bg_blue_01 h_th">
+                            <p class="title_01 float-left mb-0 display_n" ng-bind="translation.SPRINTS"></p>
+                            <ul class="float-right clearfix mb-0 title_01">
+                                <li class="float-left mr-2 cus display_n btn_30 btn_default" ng-click="changeSetting()">
+                                    <i class="bowtie-icon bowtie-settings-gear-outline"></i>
+                                </li>
+                                <li class="float-left cus btn_full btn_30 btn_default" ng-click="toogleSprint()">
+                                    <i class="bowtie-icon bowtie-menu"></i><span class="menu_min" ng-bind="translation.SPRINTS"></span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div id="accordion" class="sprint_plan {{hiddenTemcapacity}}">
+                            <dl class="m-0">
+                                <dt data-toggle="collapse" data-target="#collapse_01" aria-expanded="false" aria-controls="collapse_01" class="collapsed">
+                                    <div class="bg_gray_02" data-toggle="collapse" data-target="#collapse_01" aria-expanded="false" aria-controls="collapse_01">
+                                        <p class="title_02 mb-0" ng-bind="translation.PAST"></p>
+                                    </div>
+                                </dt>
+                                <dd id="collapse_01" class="collapse mb-0" aria-labelledby="collapse_01">
+                                    <div class="content" ng-repeat="item in lstSprintPast">
+                                        <div class="content_title clearfix">
+                                            <a href="/pm/sprintReview?pjid={{menuParams.pjid}}&spr={{item.code}}&module=pj">
+                                                <p class="mb-0 float-left">{{item.name}}</p>
+                                            </a>
+                                            <p class="mb-0 float-right">{{item.workingDays}} {{translation.DAYS}}</p>
+                                        </div>
+                                        <div class="content_main">
+                                            <p class="time">
+                                                <i class="bowtie-icon bowtie-status-waiting"></i><span class="ml-1">{{ item.startDate | date:'dd-MM'}}</span>
+                                                <span class="ml-3">-</span><span class="ml-3">{{ item.endDate | date:'dd-MM'}}</span>
+                                            </p>
+                                            <ul class="row_status clearfix mb-0">
+                                                <li ng-if="item.newCount > 0" class="bg_status_new"
+                                                    style="width:{{(100*(item.newCount)/(item.newCount + item.activeCount + item.resolvedCount + item.closedCount + item.removedCount))}}%">
+                                                    <span>{{item.newCount}}</span>
+                                                </li>
+                                                <li ng-if="item.activeCount > 0" class="bg_status_active"
+                                                    style="width:{{(100*(item.activeCount)/(item.newCount + item.activeCount + item.resolvedCount + item.closedCount + item.removedCount))}}%">
+                                                    <span>{{item.activeCount}}</span>
+                                                </li>
+                                                <li ng-if="item.resolvedCount > 0" class="bg_status_resolved"
+                                                    style="width:{{(100*(item.resolvedCount)/(item.newCount + item.activeCount + item.resolvedCount + item.closedCount + item.removedCount))}}%">
+                                                    <span>{{item.resolvedCount}}</span>
+                                                </li>
+                                                <li ng-if="item.closedCount > 0" class="bg_status_close"
+                                                    style="width:{{(100*(item.closedCount)/(item.newCount + item.activeCount + item.resolvedCount + item.closedCount + item.removedCount))}}%">
+                                                    <span>{{item.closedCount}}</span>
+                                                </li>
+                                                <li ng-if="item.removedCount > 0" class="bg_status_remove"
+                                                    style="width:{{(100*(item.removedCount)/(item.newCount + item.activeCount + item.resolvedCount + item.closedCount + item.removedCount))}}%">
+                                                    <span>{{item.removedCount}}</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </dd>
+                            </dl>
+                            <dl class="m-0">
+                                <dt class="arrow" data-toggle="collapse" data-target="#collapse_02" aria-expanded="true" aria-controls="collapse_02">
+                                    <div class="bg_gray_02" data-toggle="collapse" data-target="#collapse_02" aria-expanded="true" aria-controls="collapse_02">
+                                        <p class="title_02 mb-0" ng-bind="translation.CURRENT"></p>
+                                    </div>
+                                </dt>
+                                <dd id="collapse_02" class="collapse mb-0 show" aria-labelledby="collapse_02">
+                                    <div class="content" ng-repeat="item in lstSprintCurrent">
+                                        <div class="content_title clearfix">
+                                            <a href="/pm/sprintReview?pjid={{menuParams.pjid}}&spr={{item.code}}&module=pj">
+                                                <p class="mb-0 float-left">{{item.name}}</p>
+                                            </a>
+                                            <p class="mb-0 float-right">{{item.workingDays}} {{translation.DAYS}}</p>
+                                        </div>
+                                        <div class="content_main">
+                                            <p class="time">
+                                                <i class="bowtie-icon bowtie-status-waiting"></i><span class="ml-1">{{ item.startDate | date:'dd-MM'}}</span>
+                                                <span class="ml-3">-</span><span class="ml-3">{{ item.endDate | date:'dd-MM'}}</span>
+                                            </p>
+                                            <ul class="row_status clearfix mb-0">
+                                                <li ng-if="item.newCount > 0" class="bg_status_new"
+                                                    style="width:{{(100*(item.newCount)/(item.newCount + item.activeCount + item.resolvedCount + item.closedCount + item.removedCount))}}%">
+                                                    <span>{{item.newCount}}</span>
+                                                </li>
+                                                <li ng-if="item.activeCount > 0" class="bg_status_active"
+                                                    style="width:{{(100*(item.activeCount)/(item.newCount + item.activeCount + item.resolvedCount + item.closedCount + item.removedCount))}}%">
+                                                    <span>{{item.activeCount}}</span>
+                                                </li>
+                                                <li ng-if="item.resolvedCount > 0" class="bg_status_resolved"
+                                                    style="width:{{(100*(item.resolvedCount)/(item.newCount + item.activeCount + item.resolvedCount + item.closedCount + item.removedCount))}}%">
+                                                    <span>{{item.resolvedCount}}</span>
+                                                </li>
+                                                <li ng-if="item.closedCount > 0" class="bg_status_close"
+                                                    style="width:{{(100*(item.closedCount)/(item.newCount + item.activeCount + item.resolvedCount + item.closedCount + item.removedCount))}}%">
+                                                    <span>{{item.closedCount}}</span>
+                                                </li>
+                                                <li ng-if="item.removedCount > 0" class="bg_status_remove"
+                                                    style="width:{{(100*(item.removedCount)/(item.newCount + item.activeCount + item.resolvedCount + item.closedCount + item.removedCount))}}%">
+                                                    <span>{{item.removedCount}}</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </dd>
+                            </dl>
+                            <dl class="m-0">
+                                <dt class="arrow" data-toggle="collapse" data-target="#collapse_03" aria-expanded="true" aria-controls="collapse_03">
+                                    <div class="bg_gray_02" data-toggle="collapse" data-target="#collapse_03" aria-expanded="true" aria-controls="collapse_03">
+                                        <p class="title_02 mb-0" ng-bind="translation.FUTURE"></p>
+                                    </div>
+                                </dt>
+                                <dd id="collapse_03" class="collapse mb-0 show" aria-labelledby="collapse_03">
+                                    <div class="content" ng-repeat="item in lstSprintFuture">
+                                        <div class="content_title clearfix">
+                                            <a href="/pm/sprintReview?pjid={{menuParams.pjid}}&spr={{item.code}}&module=pj">
+                                                <p class="mb-0 float-left">{{item.name}}</p>
+                                            </a>
+                                            <p class="mb-0 float-right">{{item.workingDays}} {{translation.DAYS}}</p>
+                                        </div>
+                                        <div class="content_main">
+                                            <p class="time">
+                                                <i class="bowtie-icon bowtie-status-waiting"></i><span class="ml-1">{{ item.startDate | date:'dd-MM'}}</span>
+                                                <span class="ml-3">-</span><span class="ml-3">{{ item.endDate | date:'dd-MM'}}</span>
+                                            </p>
+                                            <ul class="row_status clearfix mb-0">
+                                                <li ng-if="item.newCount > 0" class="bg_status_new"
+                                                    style="width:{{(100*(item.newCount)/(item.newCount + item.activeCount + item.resolvedCount + item.closedCount + item.removedCount))}}%">
+                                                    <span>{{item.newCount}}</span>
+                                                </li>
+                                                <li ng-if="item.activeCount > 0" class="bg_status_active"
+                                                    style="width:{{(100*(item.activeCount)/(item.newCount + item.activeCount + item.resolvedCount + item.closedCount + item.removedCount))}}%">
+                                                    <span>{{item.activeCount}}</span>
+                                                </li>
+                                                <li ng-if="item.resolvedCount > 0" class="bg_status_resolved"
+                                                    style="width:{{(100*(item.resolvedCount)/(item.newCount + item.activeCount + item.resolvedCount + item.closedCount + item.removedCount))}}%">
+                                                    <span>{{item.resolvedCount}}</span>
+                                                </li>
+                                                <li ng-if="item.closedCount > 0" class="bg_status_close"
+                                                    style="width:{{(100*(item.closedCount)/(item.newCount + item.activeCount + item.resolvedCount + item.closedCount + item.removedCount))}}%">
+                                                    <span>{{item.closedCount}}</span>
+                                                </li>
+                                                <li ng-if="item.removedCount > 0" class="bg_status_remove"
+                                                    style="width:{{(100*(item.removedCount)/(item.newCount + item.activeCount + item.resolvedCount + item.closedCount + item.removedCount))}}%">
+                                                    <span>{{item.removedCount}}</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+                <div id="id_sprint_team" class="team_member clearfix {{hiddenTemcapacity}}">
+                    <p class="cus mb-0"><a href="#" class="bg_blue_01" ng-click="toogleTeam()"><i class="bowtie-icon bowtie-chevron-right-end"></i> <span>member</span></a></p>
+                    <div class="scroll clearfix" id="scroll_team_member">
+                        <div class="item">
+                            <p class="name">Team Capacity</p>
+                            <div class="row_status_01">
+                                <div class="row_status_01_01">
+                                    <div ng-if="teamCapacity.remaining == 0">
+                                        <div class="time">(<span title="Total task remaining">0</span>/<span title="Team capacity remaining">{{teamCapacity.capacity}}</span> hrs)</div>
+                                    </div>
+                                    <div ng-if="teamCapacity.remaining != 0" style="width: {{100*(teamCapacity.remaining/teamCapacity.capacity)}}%;"
+                                         ng-class="{'progress-current':teamCapacity.remaining <= teamCapacity.capacity,'progress-overload':teamCapacity.remaining > teamCapacity.capacity}">
+                                        <div class="time">(<span title="Total task remaining">{{teamCapacity.remaining}}</span>/<span title="Team capacity remaining">{{teamCapacity.capacity}}</span> hrs)</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item" ng-repeat="item in workdetails">
+                            <p class="name">{{item.displayName}} (<span title="Original">{{item.original}}</span>/<span title="Capacity">{{item.totalCapacity}}</span>)</p>
+                            <div class="row_status_01">
+                                <div class="row_status_01_01">
+                                    <div ng-if="item.remaining == 0">
+                                        <div class="time">(<span title="Task remaining">0</span>/<span title="Capacity remaining">{{item.capacity}}</span> hrs)</div>
+                                    </div>
+                                    <div ng-if="item.remaining != 0" style="width: {{100*(item.remaining/item.capacity)}}%;"
+                                         ng-class="{'progress-current':item.remaining <= item.capacity,'progress-overload':item.remaining > item.capacity}">
+                                        <div class="time">(<span title="Task remaining">{{item.remaining}}</span>/<span title="Capacity remaining">{{item.capacity}}</span> hrs)</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal (Modal detail)-->
+    <div lv-include path="app/pm/workItem/workItemForm" name="workItemForm"></div>
+
+    <!-- Modal (Modal Sprint Setting)-->
+    <div lv-include path="app/pm/pm_share/sprintSetting" name="sprintSetting" id="sprintSetting"></div>
+
+    <!-- Context menu sprint -->
+    <div id="contextMenuSprint" class="context-menu" style="width:300px;">
+        <ul class="context-menu_items">
+            <li class="context-menu_item" ng-repeat="item in lstSprint">
+                <a ng-click="selectSprint(item.id)" class="context-menu_link" title="">&nbsp;&nbsp;{{item.name}}&nbsp;&nbsp;({{item.startDate | date:"dd/MM/yyyy"}} - {{item.endDate | date:"dd/MM/yyyy"}})</a>
+            </li>
+        </ul>
+    </div>
+
+
+    <!--context menu-->
+    <div id="contextMenu" class="context-menu">
+        <ul class="context-menu_items">
+            <li ng-show="(parentType == 'userstory' && isApproveSprint == false) || (parentType == 'userstory' && isApproveSprint == true && approveStatus != 'approved')"
+                class="bug context-menu_item no-padding">
+                <a ng-click="add('userstory')" class="context-menu_link type_userstory" title="Add User Story">User Story</a>
+            </li>
+            <li ng-show="isApproveSprint == false || (isApproveSprint == true && approveStatus != 'approved')"
+                class="task context-menu_item no-padding">
+                <a ng-click="add('task')" class="context-menu_link type_task" title="Add task">Task</a>
+            </li>
+            <li ng-show="parentType == 'userstory'" class="bug context-menu_item no-padding">
+                <a ng-click="add('bug')" class="context-menu_link type_bug" title="Add bug">Bug</a>
+            </li>
+        </ul>
+    </div>
+
+    <!--POPOVER-->
+    <div id="popover-comment-sprint" class="context-popover">
+        <div class="popover-title clearfix">
+            <b ng-bind="::translation.COMMENT" class="mb-0"></b>
+            <a href="javascript:;" ng-click="closeComment()" style="float:right"><i class="bowtie-icon bowtie-edit-remove"></i></a>
+        </div>
+        <div class="popover-content">
+            <div class="form-group clearfix">
+                <textarea ng-model="comment.content" class="form-control" rows="3" id="comment-content" style="resize:none" onfocus="this.placeholder = ''" placeholder="Add a comment. Use # to link a work item or @ to mention a person." onblur="this.placeholder = 'Add a comment. Use # to link a work item or @ to mention a person.'"></textarea>
+                <button ng-disabled="!comment.content" ng-click="postComment()" class="btn bg_blue_02 btn_filter float-right" ng-bind="::translation.BTN_POST">Post</button>
+            </div>
+
+            <div style="overflow:auto; max-height:250px; width:100%" class="box_item">
+                <div ng-repeat="item in discussion" class="clearfix">
+                    <span class="img_user_tb img_over"><img class="img-circle" src="/api/system/viewfile?id={{item.createdByRelated.avatarThumb}}&def=/img/no_avatar.png" alt="user-image"></span>
+                    <b>{{item.createdByRelated.displayName}}</b><span class="epoch-time"> ({{item.createdTime}})</span><br />
+                    <p class="mb-0 cut_txt">{{item.content}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,136 @@
+﻿<div id="basic" ng-controller="basicController">
+    <div class="white_box">
+        <div id="grvBasic" style="width:100%;height:100%"></div>
+    </div>
+
+    <!-- Modal (Modal detail)-->
+    <div class="modal fade  modal_center confirmClose" id="modal-detail" style="font-size:13px">
+        <div class="modal-dialog" style="width:600px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <p style="font-size:16px;margin:0;line-height:1.9em;" class="float-left">
+                        <span>SURVEY</span>
+                    </p>
+                </div>
+                <div class="modal-body" style="min-height:250px">
+                    <div class="modal-body-maincontent">
+                        <div ng-repeat="data in lstData" style="margin-bottom:20px">
+                            <div style="font-weight:600">{{data.name|uppercase}} ({{data.age}}t): {{data.roleObject.description}}</div>
+                            <div ng-repeat="(key, value) in data.skills" style="margin-bottom:5px">
+                                <div ng-bind="key|uppercase"></div>
+                                <div style="display:grid">
+                                    <div class="radio_box" ng-repeat="item in setting.valuelist.skill">
+                                        <input ng-model="data.skills[key]" class="radio_01" type="radio" value="{{item.id}}"><lable ng-bind="::item.text.vn"></lable>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn_save_02" id="btnSave" ng-click="save()" click-Once>
+                        <i class="fa fa-save"></i>
+                        <span ng-bind="globalTranslation.BTN_SAVE"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal (Modal detail2)-->
+    <div class="modal fade  modal_center confirmClose" id="modal-detail2" style="font-size:13px">
+        <div class="modal-dialog" style="width:600px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <p style="font-size:16px;margin:0;line-height:1.9em;" class="float-left">
+                        <span>SURVEY</span>
+                    </p>
+                    <div class="box_btn_02">
+                        <button type="button" class="btn_close_02" data-dismiss="modal"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                    </div>
+                </div>
+                <div class="modal-body" style="min-height:250px">
+                    <div class="modal-body-maincontent">
+                        <div ng-repeat="data in lstData" style="margin-bottom:30px">
+                            <div style="font-weight:600">{{data.name|uppercase}} ({{data.age}}t): {{data.roleObject.description}}</div>
+                            <table style="margin-top:10px">
+                                <tr>
+                                    <th style="width:100px;border:none"></th>
+                                    <th style="width:100px;border:none" ng-repeat="item in setting.valuelist.skill"><lable ng-bind="::item.text.vn"></lable></th>
+                                </tr>
+                                <tr ng-repeat="(key, value) in data.skills">
+                                    <td style="border:none">
+                                        {{key|uppercase}}
+                                    </td>
+                                    <td ng-repeat="item in setting.valuelist.skill" style="text-align:-webkit-center;border:none">
+                                        <input ng-model="data.skills[key]" class="radio_01" type="radio" value="{{item.id}}">
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn_save_02" id="btnSave" ng-click="save()" click-Once>
+                        <i class="fa fa-save"></i>
+                        <span ng-bind="globalTranslation.BTN_SAVE"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal (Modal permission)-->
+    <div class="modal fade  modal_center confirmClose" id="modal-detail-permission" style="font-size:13px">
+        <div class="modal-dialog" style="width:700px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <p style="font-size:16px;margin:0;line-height:1.9em;" class="float-left">
+                        <span>DETAIL</span>
+                    </p>
+                    <div class="box_btn_02">
+                        <button type="button" class="btn_close_02" data-dismiss="modal"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                    </div>
+                </div>
+                <div class="modal-body" style="min-height:250px">
+                    <div class="modal-body-maincontent">
+                        <div class="clearfix">
+                            <div class="box_02 col_2 clearfix">
+                                <div class="item">
+                                    <lv-select field="role" model="data.role" setting="setting" translation="translation" permission="data.fieldPermission" tab="1"></lv-select>
+                                </div>
+                                <div class="item">
+                                    <lv-input field="name" model="data.name" setting="setting" translation="translation" permission="data.fieldPermission" type="text" tab="2"></lv-input>
+                                </div>
+                            </div>
+                            <div class="box_02 col_2 clearfix">
+                                <div class="item">
+                                    <lv-date field="birthday" model="data.birthday" setting="setting" permission="data.fieldPermission" translation="translation" tab="3"></lv-date>
+                                </div>
+                                <div class="item">
+                                    <lv-number2 field="age" model="data.age" setting="setting" permission="data.fieldPermission" translation="translation" tab="4"></lv-number2>
+                                </div>
+                            </div>
+                            <div class="box_02 col_2 clearfix">
+                                <div class="item">
+                                    <lv-checkbox field="active" model="data.active" setting="setting" permission="data.fieldPermission" translation="translation" tab="5"></lv-checkbox>
+                                </div>
+                                <div class="item">
+                                    <!--<lv-radio field="skills.dotnet" model="data.skills.dotnet" setting="setting" permission="data.fieldPermission" translation="translation" tab="6"></lv-radio>
+                                    <lv-radio field="skills.html" model="data.skills.html" setting="setting" permission="data.fieldPermission" translation="translation" tab="6"></lv-radio>
+                                    <lv-radio field="skills.javascript" model="data.skills.javascript" setting="setting" permission="data.fieldPermission" translation="translation" tab="6"></lv-radio>-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <!--<button type="button" class="btn btn_save_02" id="btnSave" ng-click="save()" click-Once>
+                        <i class="fa fa-save"></i>
+                        <span ng-bind="globalTranslation.BTN_SAVE"></span>
+                    </button>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

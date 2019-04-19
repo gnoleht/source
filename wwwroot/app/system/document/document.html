@@ -1,0 +1,336 @@
+﻿<style>
+    #grvFolder .slick-header-columns {
+        display: none;
+    }
+</style>
+
+<div id="document" ng-controller="documentController">
+    <div class="white_box">
+        <div id="panelTree">
+            <div style="width:100%;height:100%; border: 1px solid #ddd;">
+                <div class="slick-header-column ui-state-default" ng-bind="translation.FOLDER_TITLE" style="height:37px"></div>
+                <div ng-if="allowEdit" class="panelTree_content">
+                    <ul id="divHeader" class="box_btn mb-0" style="height:100%">
+                        <li><a ng-click="addFolder()" class="btn_add btn_33"><i class="bowtie-icon bowtie-math-plus"></i></a></li>
+                        <li><a ng-click="editFolder()" class="btn_edit btn_33"><i class="bowtie-icon bowtie-edit-outline"></i></a></li>
+                        <li><a ng-click="deleteFolder()" class="btn_del btn_33"><i class="bowtie-icon bowtie-edit-delete "></i></a></li>
+                    </ul>
+                </div>
+                <div class="gridWrapper" style="width:100%;height:calc(100% - 81px);float:left">
+                    <div id="grvFolder" style="width:100%;height:100%"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="grvDocument" style="height:100%;width:calc(100% - 350px);float:left;border:1px solid #ddd"></div>
+    </div>
+
+    <!-- Modal (detail)-->
+    <div class="modal fade modal_center confirmClose" id="modal-detail" ng-init="initJS()">
+        <div class="modal-dialog" style="width:900px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <p style="font-size:16px;margin:0;line-height:1.9em;" class="float-left">
+                        <span ng-bind="action == 'add' ? translation.MODAL_DETAIL_ADD : translation.MODAL_DETAIL_EDIT"></span>
+                    </p>
+                    <div class="box_btn_02">
+                        <button type="button" class="btn_close_02" data-dismiss="modal"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-content clearfix">
+                        <div class="modal-body-header">
+                            <p ng-bind="::translation.NAME"></p>
+                            <div class="clearfix">
+                                <input id="name" ng-model="data.name" type="text" tabindex="1" class="form-control ip_requirement iput" readonly style="width:100%" />
+                            </div>
+                        </div>
+                        <div class="modal-body-maincontent">
+                            <div class="clearfix" style="width:100%">
+                                <div class="w180 float-left">
+                                    <div class="droppable-area advancedDropzone img_over_180">
+                                        <img id="imgAvatar" src="/img/no-product.jpg" class="img-inline dz-message img_full" />
+                                    </div>
+                                </div>
+                                <div class="w100_180 float-right">
+                                    <lv-select field="folder" model="data.folder" setting="setting" translation="translation" config="configFolder" typeof="combobox" tab="1"></lv-select>
+                                    <lv-textarea field="note" model="data.note" setting="setting" translation="translation" block-resize="block-resize" row="3" tab="2"></lv-textarea>
+                                    <lv-textarea field="comment" model="data.comment" setting="setting" translation="translation" block-resize="block-resize" row="3" tab="3"></lv-textarea>
+                                </div>
+                            </div>
+                            <div ng-if="action!='add'" class="row" style="width:100%">
+                                <div class="col-md-12" style="padding-left:15px !important;margin-top:15px;font-size:12px">
+                                    <span style="width:100%;float:left" ng-bind="translation.VERSION + ': '+  getVersion(data.version)"></span>
+                                    <span style="width:100%;float:left" ng-bind="translation.CREATEDBY + ': '+  data.createdBy + ' (' + data.createdTimeString + ')'"></span>
+                                    <span style="width:100%;float:left" ng-bind="translation.MODIFIEDBY + ': '+  data.modifiedBy + ' (' + data.modifiedTimeString + ')'"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-content-plus clearfix animated bounceInDown" style="height:calc(100% - 30px);border:1px solid #ddd;top:15px">
+                        <ul class="title m-0">
+                            <li><a class="btn_link btn_modal" ng-bind="translation.ADD_RELATE"></a></li>
+                            <li style="visibility:hidden"><a class="btn_link btn_modal"></a></li>
+                        </ul>
+                        <div class="modal-content-link-data clearfix">
+                            <div class="content_link">
+                                <p class="mb-0">
+                                    <a href="javascript:;" ng-click="addLink()" class="link">
+                                        <i class="bowtie-icon bowtie-link"></i>
+                                        <span ng-bind="::translation.BTN_ADD_LINK">Thêm liên kết</span>
+                                    </a>
+                                </p>
+                                <div class="content_link_main">
+                                    <a href="javascript:;" class="item">
+                                        <dl class="child_link" ng-repeat="item in relatedList" ng-style="!$first? 'margin-top:10px': ''">
+                                            <dt ng-bind="item.key"></dt>
+                                            <dd ng-repeat="childItem in item.listData" class="item_main" ng-class="childItem.objectInfo.isCheck? 'item_new':''">
+                                                <p class="mb-0">
+                                                    <span class="type_{{childItem.objectInfo.type}} txt_file" ng-bind="item.key == 'PM_WorkItem'? (childItem.objectInfo.no + ': ' + childItem.objectInfo.name) : childItem.objectInfo.name "></span>
+                                                </p>
+                                                <p class="mb-0 clearfix">
+                                                    <span class="date_update" ng-bind="translation.UPDATE + (childItem.objectInfo.modifiedTime == null? (childItem.objectInfo.createdTime | date:'dd/MM/yyyy') : (childItem.objectInfo.modifiedTime | date:'dd/MM/yyyy'))"></span>
+                                                    <span class="status status_{{childItem.objectInfo.state}}">
+                                                        <i class="bowtie-icon bowtie-record-fill"></i> {{childItem.objectInfo.state | capitalize}}
+                                                    </span>
+                                                </p>
+                                                <span class="mb-0 btn_item_del red" ng-click="removeLink(item.key, $index)">
+                                                    <i class="bowtie-icon bowtie-status-failure"></i>
+                                                </span>
+                                            </dd>
+                                        </dl>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="content_data"><attachment id="work-attachment"></attachment></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnSaveClose" ng-click="save()" type="button" class="btn btn_save_02" click-Once><i class="bowtie-icon bowtie-save"></i><span ng-bind="::globalTranslation.BTN_SAVE" class="ng-binding"></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal (folder)-->
+    <div class="modal fade modal_center confirmClose" id="modal-folder" target="defaultFolder" model="folder">
+        <div class="modal-dialog" style="width:500px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <p style="font-size:16px;margin:0;line-height:1.9em;" class="float-left">
+                        <span ng-bind="action == 'addFolder' ? translation.MODAL_FOLDER_ADD : translation.MODAL_FOLDER_EDIT"></span>
+                    </p>
+                    <div class="box_btn_02">
+                        <button type="button" class="fullscreen" onclick="fullscreen('modal-folder')"><i class="bowtie-icon bowtie-view-full-screen"></i></button>
+                        <button type="button" class="btn_close_02" data-dismiss="modal"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-maincontent">
+                        <lv-input field="text" model="folder.text" setting="setting" translation="translation" type="text" tab="0"></lv-input>
+                        <lv-select element-id="folderParent" field="folder" model="folder.parent" setting="setting" translation="translation" tab="1" config="configFolder" change="parentFolderChange()"></lv-select>
+                        <lv-valuelist-multi element-id="vllViewRole" field="viewRole" model="folder.viewRole" setting="setting" translation="translation" tab="2"></lv-valuelist-multi>
+                        <lv-valuelist-multi element-id="vllEditRole" field="editRole" model="folder.editRole" setting="setting" translation="translation" tab="3"></lv-valuelist-multi>
+                        <lv-valuelist-multi element-id="vllDeleteRole" field="deleteRole" model="folder.deleteRole" setting="setting" translation="translation" tab="4"></lv-valuelist-multi>
+                        <lv-valuelist-multi element-id="vllApproveRole" field="approveRole" model="folder.approveRole" setting="setting" translation="translation" tab="5"></lv-valuelist-multi>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn_save_02" id="btnSave" ng-click="saveFolder()"><i class="fa fa-save"></i> <span ng-bind="globalTranslation.BTN_SAVE"></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--context menu-->
+    <div id="contextMenu" class="context-menu" style="z-index:6000">
+        <ul class="context-menu_items">
+            <li class="context-menu_item">
+                <a id="aViewFile" href="api/system/ViewFile/{{data.fileId}}/{{data.fileName}}" target="_blank" class="context-menu_link" data-action="View"><i class="bowtie-icon bowtie-transfer-download"></i> {{::translation.BTN_DOWNLOAD}}</a>
+            </li>
+            <li id="aCheckOut" ng-if="data.checkOutStatus == '0'" class="context-menu_item">
+                <a ng-click="checkOut()" class="context-menu_link"><i class="bowtie-icon bowtie-format-indent-decrease"></i> {{::translation.BTN_CHECKOUT}}</a>
+            </li>
+            <li id="aCheckIn" ng-if="data.checkOutStatus != '0' && data.checkOutBy == setting.options.userId" class="context-menu_item">
+                <a ng-click="checkIn()" class="context-menu_link"><i class="bowtie-icon bowtie-format-indent-increase"></i> {{::translation.BTN_CHECKIN}}</a>
+            </li>
+            <li id="aApproveStatus" ng-if="data.status=='new' && data.modifiedBy == loginInfo.id" class="context-menu_item">
+                <a ng-click="approveStatus()" class="context-menu_link"><i class="bowtie-icon bowtie-checkbox"></i> {{::translation.BTN_PENDING}}</a>
+            </li>
+            <li id="aApproveStatus" ng-if="folder.allowApprove && data.status!='new'" class="context-menu_item">
+                <a ng-click="approveStatus()" class="context-menu_link"><i class="bowtie-icon bowtie-checkbox"></i> {{::translation.BTN_APPROVE}}</a>
+            </li>
+            <li class="context-menu_item">
+                <a ng-click="viewHistory()" class="context-menu_link"><i class="bowtie-icon bowtie-editor-list-bullet"></i> {{::translation.BTN_VIEWHISTORY}}</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Modal (history)-->
+    <div class="modal fade modal_center" id="modal-history" grid="grvHistory">
+        <div class="modal-dialog" style="width:1000px">
+            <div class="modal-content">
+                <div class="modal-header clearfix">
+                    <p style="font-size:16px;margin:0;line-height:1.9em;" class="float-left">
+                        <span ng-bind="data.name"></span>
+                    </p>
+                    <div class="box_btn_02">
+                        <button type="button" class="fullscreen" onclick="fullscreen('modal-history')" title="Maximize/Minimize"><i class="bowtie-icon bowtie-view-full-screen"></i></button>
+                        <button type="button" class="btn_close_02" data-dismiss="modal" title="Close"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-header clearfix">
+                        <div>
+                            <ul id="divHeader" class="box_btn mb-0" style="height:100%">
+                                <li id="btnEdit"><a href="" ng-click="rollback()" class="btn_edit btn_30"><i class="bowtie-icon bowtie-navigate-history"></i></a></li>
+                                <li id="btnDelete"><a href="" ng-click="deleteHistory()" class="btn_del btn_30"><i class="bowtie-icon bowtie-edit-delete"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="modal-body-maincontent autoHeight">
+                        <div id="grvHistory" style="width:100%;height:100%"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn_save_02" data-dismiss="modal"><i class="bowtie-icon bowtie-save"></i> <span ng-bind="::translation.BTN_SAVE_CLOSE">Close</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal (rollback) -->
+    <div class="modal fade modal_center" id="modal-rollback">
+        <div class="modal-dialog" style="width:400px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <p style="font-size:16px;margin:0;line-height:1.9em;" class="float-left">
+                        <span ng-bind="::translation.MODAL_ROLLBACK"></span>
+                    </p>
+                    <div class="box_btn_02">
+                        <button type="button" class="btn_close_02" data-dismiss="modal"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <p class="center del_icon"><i class="bowtie-icon bowtie-status-error-outline"></i></p>
+                    <h4 class="success-message center">
+                        <span style="margin-left:20px;font-size:14px" ng-bind="::translation.ROLLBACK_CONFIRM"></span>
+                    </h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn confirm-button btn btn_save_02" data-dismiss="modal" ng-click="rollbackData()"><i class="bowtie-icon bowtie-save"></i> <span ng-bind="::globalTranslation.BTN_SAVE"></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal (deleteHistory) -->
+    <div class="modal fade modal_center" id="modal-deleteHistory">
+        <div class="modal-dialog" style="width:400px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <p style="font-size:16px;margin:0;line-height:1.9em;" class="float-left">
+                        <span ng-bind="::translation.MODAL_DELHISTORY"></span>
+                    </p>
+                    <div class="box_btn_02">
+                        <button type="button" class="btn_close_02" data-dismiss="modal"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <p class="center del_icon"><i class="bowtie-icon bowtie-status-error-outline"></i></p>
+                    <h4 class="success-message center">
+                        <span style="margin-left:20px;font-size:14px" ng-bind="::translation.DELETE_CONFIRM"></span>
+                    </h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn confirm-button btn btn_save_02" data-dismiss="modal" ng-click="deleteHistoryData()"><i class="bowtie-icon bowtie-save"></i> <span ng-bind="::globalTranslation.BTN_SAVE"></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal (Status)-->
+    <div class="modal fade confirmClose" id="modal-status">
+        <div class="modal-dialog" style="width:750px">
+            <div class="modal-content none-padding">
+                <div class="modal-header clearfix">
+                    <button type="button" class="btn_close_02 float-right" data-dismiss="modal" title="Close"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                    <p class="modal_header_title">{{data.fileName}}</p>
+                </div>
+                <div class="modal-body">
+                    <div style="display:block;width:100%;float:left">
+                        <p class="title_02 mb-0"><b>{{::translation.APPROVE_TITLE}}</b></p>
+                        <div style="float:left;width:40%;padding-right:20px;margin-top:3px">
+                            <p>{{::translation.APPROVE_DISCREPTION}}</p>
+                        </div>
+                        <div style="float:left;width:60%">
+                            <span ng-if="data.oldStatus=='new'" style="float:left;width:100%;line-height:20px;margin-bottom:5px;font-size:12px">
+                                <i ng-class="data.status == 'pending'?'bowtie-icon bowtie-radio-button' : 'bowtie-icon bowtie-radio-button-empty'" ng-click="data.status = 'pending'"></i>
+                                {{::translation.APPROVE_PENDING}}
+                            </span>
+                            <span ng-if="data.oldStatus=='pending' || data.oldStatus=='approved'" style="float:left;width:100%;line-height:20px;margin-bottom:5px;font-size:12px">
+                                <i ng-class="data.status == 'rejected'?'bowtie-icon bowtie-radio-button' : 'bowtie-icon bowtie-radio-button-empty'" ng-click="data.status = 'rejected'"></i>
+                                {{::translation.APPROVE_REJECTED}}
+                            </span>
+                            <span ng-if="data.oldStatus=='pending' || data.oldStatus=='rejected'" style="float:left;width:100%;line-height:20px;margin-bottom:5px;font-size:12px">
+                                <i ng-class="data.status == 'approved'?'bowtie-icon bowtie-radio-button' : 'bowtie-icon bowtie-radio-button-empty'" ng-click="data.status = 'approved'"></i>
+                                {{::translation.APPROVE_APPROVED}}
+                            </span>
+                        </div>
+                    </div>
+                    <hr style="float:left;width:100%;margin-top:5px;margin-bottom:10px" />
+                    <div style="width:100%;float:left;margin-bottom:5px">
+                        <p class="title_02 mb-0"><b>{{::translation.APPROVE_NOTETITLE}}</b></p>
+                        <div style="float:left;width:40%;padding-right:20px">
+                            <p>{{::translation.APPROVE_NOTE}}</p>
+                        </div>
+                        <div style="float:right;width:60%">
+                            <textarea id="txtApproveComment" ng-model="data.comment" style="height:100px;resize:none;width:100%"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn confirm-button btn btn_save_02" data-dismiss="modal" ng-click="approveStatusData()"><i class="bowtie-icon bowtie-save"></i> <span ng-bind="::translation.BTN_APPROVE"></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--modal (add link)-->
+    <div class="modal fade modal_center" role="dialog" grid="gridWorkItemLink" id="modal-add-link">
+        <div class="modal-dialog" style="width:1000px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <p style="font-size:16px;margin:0;line-height:1.9em;" class="float-left"><span ng-bind="">ADD NEW RELATED</span></p>
+                    <div class="box_btn_02">
+                        <button type="button" class="fullscreen" onclick="fullscreen('modal-add-link')"><i class="bowtie-icon bowtie-view-full-screen"></i></button>
+                        <button type="button" class="btn_close_02" data-dismiss="modal"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-header">
+                        <h5>Add Link to <b>{{data.name}}</b></h5>
+                    </div>
+                    <div class="modal-body-maincontent autoHeight" style="max-height:300px">
+                        <div class="modal-body-box clearfix" style="height:100%">
+                            <div class="modal-body-box_01 float-left" style="position:relative">
+                                <lv-select ng-if="params.pid" element-id="vllProject" field="project" model="findLink.project" setting="setting" translation="translation" tab="0"></lv-select>
+                                <lv-select element-id="vllEntityType" field="entityType" model="findLink.entityType" setting="setting" translation="translation" tab="1"></lv-select>
+                                <lv-select ng-if="findLink.entityType=='PM_WorkItem'" element-id="vllWorkItemType" field="workItemType" model="findLink.workItemType" setting="setting" translation="translation" tab="2"></lv-select>
+                                <button style="position:absolute;bottom:10px;right:10px" class="btn btn_save_02 float-right" type="button" ng-click="getLink()"><i class="bowtie-icon bowtie-search"></i><span style="padding-left:5px" ng-bind="translation.BTN_FIND"></span></button>
+                            </div>
+                            <div class="modal-body-box_02 float-right">
+                                <div id="gridWorkItemLink" style="width:100%;height:100%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn_save_02" type="button" ng-click="saveLink()"><i class="bowtie-icon bowtie-save"></i><span ng-bind="::globalTranslation.BTN_SAVE"></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

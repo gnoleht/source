@@ -1,0 +1,21 @@
+﻿<div id="teamKPI" ng-controller="teamKPIController">
+    <div class="white_box" id="main_KPI">
+        <ul id="selectContent" class="box_cbb clearfix mb_10">
+            <li>
+                <select id="select-project" class="lv-select" multiple ng-model="project" ng-change="ChangeProject()"
+                        ng-options="option.id as option.text for option in setting.valuelist.project"></select>
+            </li>
+            <li>
+                <select id="select-sprint" class="lv-select" multiple ng-model="sprint" ng-change="ChangeSprint()">
+                    <optgroup ng-repeat="option in setting.valuelist.sprint" label="{{option.name}}">
+                        <option ng-repeat="child in option.childrens" value="{{child.id}}">{{child.name}}</option>
+                    </optgroup>
+                </select>
+            </li>
+            <li><lv-select element-id="task-bug-kpi" field="myTaskListTaskBug" model="type" setting="setting" tab="3" change="ChangeType()"></lv-select></li>
+        </ul>
+        <div class="gridWrapper">
+            <div id="grvKPI"></div>
+        </div>
+    </div>
+</div>

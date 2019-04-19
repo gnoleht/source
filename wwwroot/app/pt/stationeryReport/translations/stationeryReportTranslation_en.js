@@ -1,0 +1,78 @@
+﻿
+var stationeryReportTranslation = {
+    //title
+    "NO": "NO",
+    "REASON": "Reason",
+    "COMPANY": "Company",
+    "CREATED_BY": "Created by",
+    "APPROVED_BY": "Approved by",
+    "DEPARTMENT": "Department",
+    "STATUS": "Status",
+    "STATIONERY_STATUS": "Stationery item status",
+    "AMOUNT": "Amount",
+
+    "CATEGORY": "Category",
+    "NAME": "Name",
+    "UNIT": "Unit",
+    "QUANTITY": "Quantity",
+    "QUANTITY_ORDER": "Order",
+    "DELIVERED": "Delivered",
+    "COST": "Cost",
+    "PERCENT_VAT": "VAT(%)",
+    "PRICES": "Prices",
+    "PRICES_VAT": "Prices VAT",
+    "NOTE": "Note",
+    "ACTION": "Action",
+    "PRODUCER": "Producer",
+    "TOTAL": "Total",
+    "COMMENT": "Comment",
+    "MONTH": "Month",
+    "YEAR": "Year",
+    "UNIT_VND": "VND",
+
+    "ACTION": "Action",
+    "ORDER": "Order",
+    "ORDER_DATE": "Order date",
+    "DELIVERY_DATE": "Delivery date",
+    "EXPECTED_DATE": "Expected date",
+    "ORDER_BY": "Order by",
+    "ADD_ORDER": "Add order",
+    "EDIT_ORDER": "Edit order",
+    "ALL": "All",
+
+    "LIST_REGISTER": "List register",
+    "LIST_ORDER": "List order",
+    "LIST_ORDER_DETAIL": "List detail",
+
+    //button
+    "BTN_REGISTER": "Register",
+    "BTN_BY_ME": "By me",
+    "BTN_WAITING": "Waiting",
+    "BTN_ORDER": "Order",
+    "BTN_ORDERED": "Ordered",
+    "BTN_ALL": "All",
+    "BTN_EXPORT": "Export excel",
+
+    "BTN_ADD": "Add",
+    "BTN_EDIT": "Edit",
+    "BTN_DELETE": "Delete",
+    "BTN_SAVE": "Save",
+    "BTN_CLOSE": "Close",
+    "BTN_CANCEL": "Cancel",
+    "BTN_SAVE_CLOSE": "Save & Close",
+    "BTN_SCREEN": "Maximize / Minimize",
+    "BTN_COMPLETE": "Complete",
+    "BTN_SAVE_AND_EXPORT": "Save and export",
+    "BTN_EXPORT": "Export",
+
+    "SAVE_SUCCESS": "Save success",
+    "SEND_APPROVE_SUCCESS": "Send approve success",
+    "APPROVE_SUCCESS": "Approve success",
+    "SEND_REJECT_SUCCESS": "Reject success",
+
+    "DELETE_SUCCESS": "Delete success",
+    "ADD_ORDER_SUCCESS": "Add order success",
+    "COMPLETE_ORDER_SUCCESS": "Complete order success",
+
+    "ERR_SELECT_DATA_DELETE": "Select data delete!"
+}

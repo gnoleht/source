@@ -1,0 +1,59 @@
+﻿<script src="../../../js/jquery.ui.touch-punch.js"></script>
+
+<div id="myKanban" class="tb_kanban" ng-controller="myKanbanController" ng-init="onLoad()">
+    <div class="white_box" style="background-color:#edf1f5;padding:0">
+        <ul class="box_cbb box_pd clearfix">
+            <li>
+                <select id="select-project" class="lv-select" multiple ng-model="project" tab="1" ng-change="ChangeProject()"
+                        ng-options="option.id as option.text for option in setting.valuelist.project"></select>
+            </li>
+            <li>
+                <select id="select-sprint" class="lv-select" multiple ng-model="sprint" tab="2" ng-change="ChangeSprint()">
+                    <optgroup ng-repeat="option in setting.valuelist.sprint" label="{{option.name}}">
+                        <option ng-repeat="child in option.childrens" value="{{child.id}}">{{child.name}}</option>
+                    </optgroup>
+                </select>
+            </li>
+            <li><lv-select field="projectMember" model="projectMember" setting="setting" tab="3" change="ChangeMember()"></lv-select></li>
+            <li> <lv-select field="myKanbanTaskBug" model="type" setting="setting" tab="4" change="ChangeType()"></lv-select></li>
+        </ul>
+        <div class="header_kanban clearfix d-flex">
+            <div class="th" ng-repeat="item in setting.valuelist.stateKanban"><span> {{item.text}} </span>  <span class="totalRemaining" ng-repeat="item2 in total_Remaining" ng-if="item.id==item2.state"> &nbsp; (<span id="{{item.id}}">{{item2.remaining}}</span> Hrs)</span></div>
+        </div>
+        <div class="body_kanban clearfix">
+            <div class="tr clearfix">
+                <div class="td column" ng-repeat="state in setting.valuelist.stateKanban" ng-init="loadKanbanColumn($last)" data-column="{{state.id}}">
+                    <!--<div data-indexBlock={{$index}} ng-repeat="block in dataKanban" ng-show="state.id==block.state" ng-class="blockBox(block.type,block.approved)" ng-if="type == 'all' || type == block.type" class="box_kanban clearfix">-->
+                    <div data-blockId={{block.id}} ng-repeat="block in dataKanban | filter:{state:state.id}" ng-class="blockBox(block.type)" ng-show="block.assign == projectMember" ng-if="type == 'all' || type == block.type" class="box_kanban clearfix">
+                        <p class="content" title="{{block.name}}" ng-click="editblock(block.id)" style="cursor:pointer;"><span class="txt_bold">{{block.no}}</span> - {{block.name}}</p>
+                        <div class="box_kanban_footer clearfix">
+                            <p class="float-left mb-0 cut_txt"><span class="img_user_tb img_over" style="background-image: url('/api/system/viewfile?id={{block.assignRelated == null ? null : block.assignRelated.avatarThumb}}&def=/img/no_avatar.png')"></span><span class="txt_user_tb">{{block.assignRelated == null ? 'Unassigned' : block.assignRelated.displayName }}</span></p>
+                            <p class="float-right mb-0"><span class="status"><span class="priority" ng-if="block.type=='bug'" ng-class="priorityStyle(block)"><i class="bowtie-icon bowtie-square"></i></span><i class="bowtie-icon bowtie-status-waiting"></i>{{block.remaining}}</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--context menu-->
+        <div id="contextMenuTB" class="context-menu">
+            <ul class="context-menu_items">
+                <li class="epic context-menu_item no-padding">
+                    <a ng-click="addWorkItemByType('task')" class="context-menu_link type_task" title="Add task">Task</a>
+                </li>
+                <li class="function context-menu_item no-padding">
+                    <a ng-click="addWorkItemByType('bug')" class="context-menu_link type_bug" title="Add bug">Bug</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Modal (Modal detail)-->
+        <div lv-include path="app/pm/workItem/workItemForm" name="workItemForm"></div>
+    </div>
+</div>
+
+
+
+
+
+

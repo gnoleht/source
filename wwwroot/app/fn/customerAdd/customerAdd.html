@@ -1,0 +1,399 @@
+﻿<!--check-->
+<div id="customerAdd" ng-controller="customerAddController" ng-init="onload()">
+    <div class="white_box">
+        <div class="fn">
+            <div class="box_control clearfix">
+                <div class="row pd_lr_5 clearfix">
+                    <div class="col-10">
+                        <ul class="box_btn mb-0 d-flex justify-content-start">
+                            <li>
+                                <button type="button" class="bg_blue_02 btn_filter">Truy vấn</button>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-2">
+                        <ul class="box_btn mb-0 float-right">
+                            <li><a class="btn_default btn_30 btn_search_click" ng-click="toogleFilter()"><i class="bowtie-icon bowtie-search-filter"></i></a></li>
+                            <li><a href="" class="btn_edit btn_30"><i class="bowtie-icon bowtie-chevron-left-light"></i></a></li>
+                            <li><a href="" class="btn_edit btn_30"><i class="bowtie-icon bowtie-chevron-right-light"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="box_filter clearfix">
+                    <ul class="box_btn mb-0 d-flex justify-content-start"">
+                        <li class="w_15 select2_op2">
+                            <select class="select" name="state" select2>
+                                <option value="" disabled selected>Nhóm khách hàng</option>
+                                <option value="1">VIP</option>
+                                <option value="2">Phổ thông</option>
+                            </select>
+                        </li>
+                        <li class="w_20 select2_op2">
+                            <select class="select" name="state" select2>
+                                <option value="" disabled selected>Khách hàng</option>
+                                <option value="2">Khách hàng 001</option>
+                                <option value="2">Khách hàng 002</option>
+                            </select>
+                        </li>
+                        <li class="w_15 select2_op2">
+                            <select class="select" name="state" select2>
+                                <option value="" disabled selected>Loại doanh nghiệp</option>
+                                <option value="2">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </li>
+                        <li class="w_15 select2_op2">
+                            <select class="select" name="state" select2>
+                                <option value="" disabled selected>Nghề nghiệp</option>
+                                <option value="2">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </li>
+                        <li class="w_15 select2_op2">
+                            <select class="select" name="state" select2>
+                                <option value="" disabled selected>Quy mô</option>
+                                <option value="2">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </li>
+                        <li class="w_10">
+                            <button type="button" class="btn_w100 bg_blue_02 btn_filter">Tra cứu</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="main_box clearfix main_container_w100 scroll">
+                <div class="main_box_body w_100">
+                    <div class="main_box_item_01">
+                        <div class="clearfix box_group_02">
+                            <dl class="box_tb">
+                                <dt>
+                                    <p class="title_01 cus mb-0" data-toggle="collapse" data-target="#panel_add_pc_01" aria-expanded="true" aria-controls="panel_add_pc_01"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>Thông tin chung</span></p>
+                                </dt>
+                                <dd class="m_10">
+                                    <div class="collapse show" id="panel_add_pc_01" aria-expanded="true" style="">
+                                        <div class="box_03 content_8_2 clearfix">
+                                            <div class="item border-0 content_2 float-left box_img pos_re">
+                                                <img src="../images/img_1.png" alt="img" class="w-100">
+                                                <ul class="clearfix mb-0 box_btn">
+                                                    <li><a href="#"><i class="bowtie-icon bowtie-diff-image-pixel cl_blue"></i></a></li>
+                                                    <li><a href="#"><i class="bowtie-icon bowtie-status-failure cl_red"></i></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="item border-0 content_8 float-right">
+                                                <div class="box_03 col_2 clearfix">
+                                                    <div class="item mt-0">
+                                                        <p class="label">Mã khách hàng <span class="cl_red">(*)</span></p>
+                                                        <input type="text" class="iput" placeholder="LVAP0199780">
+                                                    </div>
+                                                    <div class="item mt-0">
+                                                        <p class="label">Tên khách hàng <span class="cl_red">(*)</span></p>
+                                                        <input type="text" class="iput" placeholder="Công ty CP Tin Học Lạc Việt">
+                                                    </div>
+                                                </div>
+                                                <div class="box_03 col_1 clearfix">
+                                                    <div class="item txt_cut">
+                                                        <p class="label">Địa chỉ <span class="cl_red">(*)</span></p>
+                                                        <input type="text" class="iput" placeholder="23 Nguyễn Thị Huỳnh, Phường 8, Quận Phú Nhuận">
+                                                    </div>
+                                                </div>
+                                                <div class="box_03 col_2 clearfix">
+                                                    <div class="item">
+                                                        <p class="label">Tỉnh thành <span class="cl_red">(*)</span></p>
+                                                        <input type="text" class="iput" placeholder="Hồ Chí Minh">
+                                                    </div>
+                                                    <div class="item">
+                                                        <p class="label">Quốc gia <span class="cl_red">(*)</span></p>
+                                                        <select class="select" name="state" select2>
+                                                            <option value="" disabled selected>Việt Nam</option>
+                                                            <option value="2">1</option>
+                                                            <option value="2">2</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="box_03 col_2 clearfix">
+                                                    <div class="item">
+                                                        <p class="label">Số điện thoại</p>
+                                                        <input type="text" class="iput" placeholder="0123456789">
+                                                    </div>
+                                                    <div class="item">
+                                                        <p class="label">Số Fax</p>
+                                                        <input type="text" class="iput" placeholder="0134679258">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </dd>
+                            </dl>
+                            <dl class="box_tb">
+                                <dt>
+                                    <p class="title_01 cus mb-0" data-toggle="collapse" data-target="#panel_add_pc_02" aria-expanded="true" aria-controls="panel_add_pc_02"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>Thông tin liên hệ</span></p>
+                                </dt>
+                                <dd class="m_10">
+                                    <div class="collapse show" id="panel_add_pc_02" aria-expanded="true" style="">
+                                        <div class="box_03 w_100 col_1 clearfix">
+                                            <div class="item border-0 w_100">
+                                                <div class="box_03 col_2 clearfix">
+                                                    <div class="item mt-0">
+                                                        <p class="label">Mã số thuế <span class="cl_red">(*)</span></p>
+                                                        <input type="text" class="iput" placeholder="19395858575">
+                                                    </div>
+                                                    <div class="item mt-0">
+                                                        <p class="label">Giấy phép kinh doanh <span class="cl_red">(*)</span></p>
+                                                        <input type="text" class="iput" placeholder="GPKD19395858575">
+                                                    </div>
+                                                </div>
+                                                <div class="box_03 col_2 clearfix">
+                                                    <div class="item txt_cut">
+                                                        <p class="label">Người liên hệ <span class="cl_red">(*)</span></p>
+                                                        <input type="text" class="iput" placeholder="Nguyễn Cao Trí Thông Minh">
+                                                    </div>
+                                                    <div class="item txt_cut">
+                                                        <p class="label">Chức vụ <span class="cl_red">(*)</span></p>
+                                                        <input type="text" class="iput" placeholder="Tổng giám đốc">
+                                                    </div>
+                                                </div>
+                                                <div class="box_03 col_2 clearfix">
+                                                    <div class="item">
+                                                        <p class="label">Email <span class="cl_red">(*)</span></p>
+                                                        <input type="text" class="iput" placeholder="Nvthanh@lacviet.com.vn">
+                                                    </div>
+                                                    <div class="item">
+                                                        <p class="label">Website <span class="cl_red">(*)</span></p>
+                                                        <input type="text" class="iput" placeholder="www.lacviet.vn">
+                                                    </div>
+                                                </div>
+                                                <div class="box_03 col_2 clearfix" style="margin-top: 10px;">
+                                                    <div class="item border-0">
+                                                        <div class="switch" ng-class="checkSwitch1 ? 'change' : ''" ng-click="checkSwitch1 = !checkSwitch1">
+                                                            <input type="checkbox">
+                                                            <p class="slider mb-0 text-top"><span class="text text_release">Ngưng hoạt động</span><span class="text text_accept">Đang hoạt động</span></p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="item border-0">
+                                                        <div class="switch" ng-class="checkSwitch2 ? 'change' : ''" ng-click="checkSwitch2 = !checkSwitch2">
+                                                            <input type="checkbox">
+                                                            <p class="slider mb-0 text-top"><span class="text text_release">Không phải NCC</span><span class="text text_accept">Nhà cung cấp</span></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="main_box_item_02">
+                        <ul class="box_btn mb-0">
+                            <li><a href="" class="btn_add btn_30" data-toggle="modal" data-target="#myModal"><i class="bowtie-icon bowtie-math-plus"></i></a></li>
+                            <li><a href="" class="btn_copy btn_30"><i class="bowtie-icon bowtie-edit-copy"></i></a></li>
+                            <li><a href="" class="btn_edit btn_30"><i class="bowtie-icon bowtie-edit-outline"></i></a></li>
+                            <li><a href="" class="btn_del btn_30"><i class="bowtie-icon bowtie-edit-remove"></i></a></li>
+                            <li><a href="" class="btn_default btn_30"><i class="bowtie-icon bowtie-view-full-screen"></i></a></li>
+                        </ul>
+                        <ul class="nav nav-tabs bg-white" id="myTab" role="tablist">
+                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab_06" role="tab" aria-controls="tab_06" aria-selected="true" aria-expanded="true">Liên hệ</a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab_07" role="tab" aria-controls="tab_07" aria-selected="false" aria-expanded="false">Chi nhánh</a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab_08" role="tab" aria-controls="tab_08" aria-selected="false" aria-expanded="false">Hạn mức công nợ</a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab_15" role="tab" aria-controls="tab_15" aria-selected="false" aria-expanded="false">Hạn mức nợ quá hạn</a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab_09" role="tab" aria-controls="tab_09" aria-selected="true" aria-expanded="true">Hóa đơn</a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab_10" role="tab" aria-controls="tab_10" aria-selected="false" aria-expanded="false">Đơn hàng</a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab_11" role="tab" aria-controls="tab_11" aria-selected="false" aria-expanded="false">Hợp đồng</a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab_12" role="tab" aria-controls="tab_12" aria-selected="true" aria-expanded="true">Tham số thiết lập</a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab_14" role="tab" aria-controls="tab_14" aria-selected="false" aria-expanded="false">Phân tích</a> </li>
+                        </ul>
+                        <div class="tab-content border_r border_l border_b">
+                            <div class="tab-pane active" id="tab_06" role="tabpanel" aria-labelledby="Chi tiết" aria-expanded="true">
+                                Liên hệ
+                                <!--TODO GRID-->
+                            </div>
+                            <div class="tab-pane" id="tab_07" role="tabpanel" aria-labelledby="Chi nhánh" aria-expanded="false">
+                                Chi nhánh
+                                <!--TODO GRID-->
+                            </div>
+                            <div class="tab-pane" id="tab_08" role="tabpanel" aria-labelledby="Hạn mức công nợ" aria-expanded="false">
+                                Hạn mức công nợ
+                                <!--TODO GRID-->
+                            </div>
+                            <div class="tab-pane" id="tab_15" role="tabpanel" aria-labelledby="Hạn mức công nợ" aria-expanded="false">
+                                Hạn mức nợ quá hạn
+                                <!--TODO GRID-->
+                            </div>
+                            <div class="tab-pane" id="tab_09" role="tabpanel" aria-labelledby="Hóa đơn" aria-expanded="false">
+                                Hóa đơn
+                                <!--TODO GRID-->
+                            </div>
+                            <div class="tab-pane" id="tab_10" role="tabpanel" aria-labelledby="Đơn hàng" aria-expanded="false">
+                                Đơn hàng
+                                <!--TODO GRID-->
+                            </div>
+                            <div class="tab-pane" id="tab_11" role="tabpanel" aria-labelledby="Hợp đồng" aria-expanded="false">
+                                Hợp đồng
+                                <!--TODO GRID-->
+                            </div>
+                            <div class="tab-pane" id="tab_12" role="tabpanel" aria-labelledby="Thông số thiết lập" aria-expanded="false">
+                                <div class="clearfix box_group">
+                                    <dl class="box_tb box_tb_01 mb-0">
+                                        <dt class="clearfix pos_re">
+                                            <p class="title_01 cus mb-0" data-toggle="collapse" data-target="#panel_05" aria-expanded="true" aria-controls="panel_05"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>Đối tượng hóa đơn</span></p>
+                                        </dt>
+                                        <dd class="mb_10">
+                                            <div class="collapse show" id="panel_05" aria-expanded="true" style="">
+                                                <div class="box_03 col_2 clearfix">
+                                                    <div class="item txt_cut">
+                                                        <p class="label">Đối tượng xuất hóa đơn</p>
+                                                        <select class="select" name="state" select2>
+                                                            <option value="1" selected>Công ty CP tin học Lạc Việt</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="item txt_cut">
+                                                        <p class="label">Nguyên tắc cấn trừ HD</p>
+                                                        <select class="select" name="state" select2>
+                                                            <option value="1" selected>FIFO</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="box_03 col_2 clearfix">
+                                                    <div class="item txt_cut">
+                                                        <p class="label">Cập nhật hóa đơn</p>
+                                                        <select class="select" name="state" select2>
+                                                            <option value="1" selected>Theo hóa đơn</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="item txt_cut">
+                                                        <p class="label">Tiền tệ</p>
+                                                        <select class="select" name="state" select2>
+                                                            <option value="1" selected>VND</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </dd>
+                                    </dl>
+                                    <dl class="box_tb box_tb_01 mb-0">
+                                        <dt class="clearfix pos_re">
+                                            <p class="title_01 cus mb-0" data-toggle="collapse" data-target="#panel_05" aria-expanded="true" aria-controls="panel_05"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>Thanh toán và giao hàng</span></p>
+                                        </dt>
+                                        <dd class="mb_10">
+                                            <div class="collapse show" id="panel_05" aria-expanded="true" style="">
+                                                <div class="box_03 col_3 clearfix">
+                                                    <div class="item txt_cut">
+                                                        <p class="label">Hình thức thanh toán</p>
+                                                        <select class="select" name="state" select2>
+                                                            <option value="1" selected>Tiền mặt/Chuyển khoản</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="item txt_cut">
+                                                        <p class="label">Điều khoản thanh toán</p>
+                                                        <select class="select" name="state" select2>
+                                                            <option value="1" selected>Thời gian thanh toán 30 ngày</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="item txt_cut">
+                                                        <p class="label">Chiết khấu thanh toán</p>
+                                                        <input type="text" class="iput" placeholder="5%">
+                                                    </div>
+                                                </div>
+                                                <div class="box_03 col_2 clearfix">
+                                                    <div class="item txt_cut">
+                                                        <p class="label">Hình thức giao hàng</p>
+                                                        <select class="select" name="state" select2>
+                                                            <option value="1" selected></option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="item txt_cut">
+                                                        <p class="label">Điều khoản giao hàng</p>
+                                                        <select class="select" name="state" select2>
+                                                            <option value="1" selected></option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </dd>
+                                    </dl>
+                                </div>
+                                
+                            </div>
+                            <div class="tab-pane" id="tab_14" role="tabpanel" aria-labelledby="Phân tích" aria-expanded="false">
+                                <dl class="box_tb box_tb_01 mb-0">
+                                    <dd class="mb_10">
+                                        <div class="collapse show" id="panel_05" aria-expanded="true" style="">
+                                            <div class="box_03 col_5 clearfix">
+                                                <div class="item txt_cut">
+                                                    <p class="label">Nguồn khách hàng</p>
+                                                    <select class="select" name="state" select2>
+                                                        <option value="1" selected>Chiến dịch email marketing</option>
+                                                    </select>
+                                                </div>
+                                                <div class="item txt_cut">
+                                                    <p class="label">Thị trường</p>
+                                                    <select class="select" name="state" select2>
+                                                        <option value="1" selected>Châu Á</option>
+                                                    </select>
+                                                </div>
+                                                <div class="item txt_cut">
+                                                    <p class="label">Quy mô nhân sự</p>
+                                                    <input type="text" class="iput" placeholder="500">
+                                                </div>
+                                                <div class="item txt_cut">
+                                                    <p class="label">Mã phân tích 7</p>
+                                                    <select class="select" name="state" select2>
+                                                        <option value="1" selected></option>
+                                                    </select>
+                                                </div>
+                                                <div class="item txt_cut">
+                                                    <p class="label">Mã phân tích 9</p>
+                                                    <select class="select" name="state" select2>
+                                                        <option value="1" selected></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl class="box_tb box_tb_01 mb-0">
+                                    <dd class="mb_10">
+                                        <div class="collapse show" id="panel_05" aria-expanded="true" style="">
+                                            <div class="box_03 col_5 clearfix">
+                                                <div class="item txt_cut">
+                                                    <p class="label">Loại hình</p>
+                                                    <input type="text" class="iput" placeholder="Cổ phần">
+                                                </div>
+                                                <div class="item txt_cut">
+                                                    <p class="label">Nhóm khách hàng</p>
+                                                    <select class="select" name="state" select2>
+                                                        <option value="1" selected>Khách hàng sỉ</option>
+                                                    </select>
+                                                </div>
+                                                <div class="item txt_cut">
+                                                    <p class="label">Mã phân tích 6</p>
+                                                    <select class="select" name="state" select2>
+                                                        <option value="1" selected></option>
+                                                    </select>
+                                                </div>
+                                                <div class="item txt_cut">
+                                                    <p class="label">Mã phân tích 8</p>
+                                                    <select class="select" name="state" select2>
+                                                        <option value="1" selected></option>
+                                                    </select>
+                                                </div>
+                                                <div class="item txt_cut">
+                                                    <p class="label">Mã phân tích 10</p>
+                                                    <select class="select" name="state" select2>
+                                                        <option value="1" selected></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

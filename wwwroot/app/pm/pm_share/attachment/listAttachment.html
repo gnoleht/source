@@ -1,0 +1,25 @@
+﻿
+<p class="mb-0" ng-click="addAttachment()"><a href="javascript:;" class="link dz-message"> <i class="bowtie-icon bowtie-attach"></i><span ng-bind="::translation.BTN_ADD_FILE">Add file</span></a></p>
+
+<div class="content_data_main" id="content_data_attachment">
+    <div class="item item_main clearfix" ng-repeat="item in attachments">
+        <div class="clearfix">
+            <a href="{{'api/system/ViewFile/'+ item.documentInfo.fileId + '/'+ item.documentInfo.fileName}}" target="_blank">
+                <div class="item_left" ng-show="!item.documentInfo.type.includes('image')">
+                    <p class="img_over_34"><img ng-src="{{imageFileType(item.documentInfo.fileExtension)}}" alt="{{item.documentInfo.fileExtension}}"></p>
+                    <p>V {{item.documentInfo.version | number : 2}}</p>
+                </div>
+                <div class="item_left" ng-if="item.documentInfo.type.includes('image')">
+                    <p ng-if="item.url != undefined" class="img_over_34"><img ng-src="{{item.url}}" /></p>
+                    <p ng-if="item.url == undefined" class="img_over_34"><img src="/api/system/viewfile?id={{item.documentInfo.fileId}}" /></p>
+                    <p ng-bind="'V ' + item.documentInfo.version"></p>
+                </div>
+                <div class="item_right">
+                    <p>{{item.documentInfo.name}}</p>
+                    <p class="m-0"><span class="img_user_tb img_over" style="background-image: url('/api/system/viewfile?id={{item.userInfo.avatarThumb}}&def=/img/no_avatar.png')"></span><span class="txt_user_tb">{{item.userInfo.displayName}}</span></p>
+                </div>
+            </a>
+            <span class="mb-0 btn_item_del red" ng-click="removeAttachment($index)"><i class="bowtie-icon bowtie-status-failure"></i></span>
+        </div>
+    </div>
+</div>

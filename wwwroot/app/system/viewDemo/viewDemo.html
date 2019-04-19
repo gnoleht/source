@@ -1,0 +1,88 @@
+﻿<div id="viewDemo" ng-controller="viewDemoController">
+    <div class="page-title" ng-include="'app/system/header.html'" onload="loadHeaderComplete()"></div>
+    <div class="panel panel-default flexLV">
+        <div id="sectionMenu" class="">
+            <div ng-include="'app/system/leftMenu.html'" onload="loadMenuComplete()"></div>
+        </div>
+        <div class="content-body">
+            <div class="fmDiv">
+                <div id="fmDivLeft">
+                    <span class="title" id="title"></span>
+                </div>
+                <div id="fmDivRight" class="flexLV form-group">
+                    <a ng-click="updatePermissionRole()" class="moreFunctionIcon" title="{{::translation.BTN_PERMISSION}}"><i class="a fa-lock"></i></a>
+                    <a ng-click="updateUserRole()" class="moreFunctionIcon" title="{{::translation.BTN_ADDUSER}}"><i class="fa fa-users"></i></a>
+                    <input type="text" class="form-control global_filter style-input searchInput" id="searchValue" placeholder="{{::translation.SEARCH}}... " ng-keypress="search($event)">
+                    <a href="javascript:;" ng-click="search()"><i class="fa-search seachIcon"></i></a>
+                </div>
+            </div>
+
+            <div class="panel-body">
+                <div id="grvviewDemo" width="100%"></div>
+                <div id="grvviewDemoSub" width="100%"></div>
+            </div>
+        </div>
+    </div> 
+
+    <!-- Modal (Modal viewDemo)-->
+    <div class="modal fade confirmClose" id="modal-detail" ng-init="initJS()">
+        <div class="modal-dialog" style="width: 900px">
+            <div class="modal-content">
+                <div class="modal-header" style="border-bottom-color:rgba(104,184,40,.5)">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close"></i></button>
+                    <h2 class="modal-title">{{::translation.ROLE_INFO}}</h2>
+                </div>
+                <div class="modal-body">
+                    <div class="row form-input-group">
+                        <div class="col-md-4 text-center">
+                            <div class="droppable-area advancedDropzone" style="background:none;border:none">
+                                <img id="imgAvatar" src="/img/no_avatar.png" class="img-avatar img-inline dz-message" />
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div form-group-input model="data.name" label="{{::translation.NAME}}" type="text" inputid="txtName"></div>
+                            <div ng-model="data.description" class="ng-isolate-scope">
+                                <div class="form-group">
+                                    <label class="control-label ng-binding">{{::translation.DESCRIPTION}}</label>
+                                    <textarea ng-model="data.description" class="form-control ng-pristine ng-valid" style="height:80px;resize:vertical"></textarea>
+                                </div>
+                            </div>
+
+                            <div ng-model="data.content" class="ng-isolate-scope">
+                                <div class="form-group">
+                                    <label class="control-label ng-binding">{{::translation.CONTENT}}</label>
+                                    <textarea ng-model="data.content" class="form-control ng-pristine ng-valid" style="height:80px;resize:vertical"></textarea>
+                                </div>
+                            </div>
+                            <!--<div form-group-input model="data.bool01" label="bool01" type="checkbox" inputid="bool01"></div>-->
+                        </div>
+                    </div>
+
+                    <div class="tabs-vertical-env tabs-vertical-bordered" ng-init="vertical_tabs_1 = 1" style="margin-bottom:10px">
+                        <ul class="nav tabs-vertical">
+                            <li ng-class="{active: vertical_tabs_1 == 1}"><a href="" ng-click="vertical_tabs_1 = 1">Group 1</a></li>
+                            <li ng-class="{active: vertical_tabs_1 == 2}"><a href="" ng-click="vertical_tabs_1 = 2">Group 2</a></li>
+                        </ul>
+
+                        <div class="tab-content" style="padding-left:44px;padding-top:6px;padding-bottom:6px;padding-right:5px">
+                            <div class="tab-pane active" ng-class="{active: vertical_tabs_1 == 1}" style="height:300px">
+                                <div ng-repeat="item in valuelist.groupList" ng-if="item.id == 'bool01' || item.id == 'bool02'" style="width:100%;line-height:30px">
+                                    <input type="checkbox" ng-model="data[item.id]" /><span>{{item.text}}</span>
+                                </div>
+                            </div>
+                            <div class="tab-pane" ng-class="{active: vertical_tabs_1 == 2}" style="height:300px">
+                                <div ng-repeat="item in valuelist.groupList" ng-if="item.id != 'bool01' && item.id != 'bool02'" style="width:100%;line-height:30px">
+                                    <input type="checkbox" ng-model="data[item.id]" /><span>{{item.text}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" ng-click="save()" click-Once><i class="fa fa-save"></i> {{::translation.SAVE}}</button>
+                    <button type="button" class="btn btn-sad" data-dismiss="modal" ng-click="reviewDemo()"><i class="fa fa-close"></i> {{::translation.CLOSE}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

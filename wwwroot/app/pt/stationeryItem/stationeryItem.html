@@ -1,0 +1,82 @@
+﻿<div id="stationeryItem" ng-controller="stationeryItemController">
+    <div class="white_box">
+        
+        <div id="grvStationeryItem" style="width:100%;height:100%"></div>
+    </div>
+
+    <div class="modal fadeIn modal_center" role="dialog" id="modal-detail" style="animation-delay:10s;" ng-init="onLoad()">
+        <div class="modal-dialog" tabindex="-1">
+            <div class="modal-content" style="padding-top: 0px !important">
+                <div class="modal-header">
+                    <p class="modal_header_title"><span ng-bind="action == 'add' ? translation.ADD : translation.EDIT | uppercase "></span></p>
+                    <div class="box_btn_02">
+                        <button type="button" onclick="fullscreen('modal-detail')" class="fullscreen btn-modal-screen" title="{{::translation.BTN_SCREEN}}"><i class="bowtie-icon bowtie-view-full-screen"></i></button>
+                        <button type="button" class="btn_close_02" data-dismiss="modal" title="{{::translation.BTN_CLOSE}}"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-content">
+                        <div class="box_content">
+                            <div class="box_02 col_2 clearfix">
+                                <div class="item">
+                                    <!--<div class="form-group">
+                                        <label ng-bind="::translation.NAME"></label><sup> (<span class="red">*</span>)</sup>
+                                        <input tabindex="1" type="text" class="style-input form-control ip_txt" id="txtName" ng-model="data.name">
+                                    </div>-->
+                                    <lv-input element-id="txtName" field="name" model="data.name" setting="setting" translation="translation"></lv-input>
+                                </div>
+                                <div class="item">
+                                    <lv-select element-id="vllCategory" field="category" model="data.category" setting="setting" translation="translation" tab="2"></lv-select>
+                                </div>
+                            </div>
+                            <div class="box_02 col_2 clearfix">
+                                <div class="item">
+                                    <lv-select element-id="vllUnit" field="stationeryUnit" model="data.unit" setting="setting" translation="translation" tab="2"></lv-select>
+                                    <!--<div class="form-group">
+                                        <label ng-bind="::translation.UNIT"></label>
+                                        <input tabindex="3" type="text" class="style-input form-control ip_txt" id="txtUnit" ng-model="data.unit">
+                                    </div>-->
+                                </div>
+                                <div class="item">
+                                    <div class="form-group">
+                                        <label ng-bind="::translation.PRODUCER"></label>
+                                        <input tabindex="4" type="text" class="style-input form-control ip_txt" id="txtProducer" ng-model="data.producer">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box_02 col_2 clearfix">
+                                <div class="item">
+                                    <lv-money element-id="txtCost"
+                                               field="cost"
+                                               model="data.cost"
+                                               setting="setting"
+                                               translation="translation"
+                                               type="decimal" tab="5"></lv-money>
+                                </div>
+                                <div class="item">
+                                    <!--<div class="form-group">
+                                        <label ng-bind="::translation.PERCENTVAT"></label>
+                                        <input tabindex="6" type="text" class="style-input form-control ip_txt" id="txtProducer" ng-model="data.percentVAT">
+                                    </div>-->
+                                    <lv-number element-id="txtPercentVAT"
+                                               field="percentVAT"
+                                               model="data.percentVAT"
+                                               setting="setting"
+                                               translation="translation"
+                                               change="percentChange()"
+                                               type="decimal"
+                                               tab="5" max-num="3" max-dec="2"></lv-number>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnSaveClose" ng-click="save()" type="button" class="btn btn_save_02" click-Once><i class="bowtie-icon bowtie-save"></i><span ng-bind="::translation.BTN_SAVE_CLOSE"></span></button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

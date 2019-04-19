@@ -1,0 +1,263 @@
+﻿<div id="document" ng-controller="documentController">
+    <div class="page-title" ng-include="'app/pm/header.html'" onload="loadHeaderComplete()"></div>
+
+    <div class="panel panel-default flexLV">
+        <div id="sectionMenu">
+            <div id="idLeftMenu"></div>
+            <!--<div ng-include="'app/pm/leftMenu.html'" onload="loadMenuComplete()"></div>-->
+        </div>
+
+        <!--page body-->
+        <div class="content-body">
+            <div class="panel-body">
+                <div id="panelTree" style="display:block;width:20%;float:left;padding-right:10px;height:100%;padding-bottom:7px">
+                    <div style="width:100%;height:100%;border:1px solid #ddd;box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)">
+                        <div style="height:40px;width:100%;line-height:40px;text-align:center;float:left;background-color:#ddd">
+                            Thư mục
+                        </div>
+                        <div style="float:left;height:30px;width:100%;line-height:30px; background-color:#ebebeb">
+                            <i class="bowtie-icon bowtie-trash" style="float:right;cursor:pointer;margin:7px;font-size:22px" title="hủy thư mục" ng-click="deleteFolder()"></i>
+                            <i class="bowtie-icon bowtie-edit-outline" style="float:right;cursor:pointer;margin:7px;font-size:22px" title="cập nhật thư mới" ng-click="editFolder()"></i>
+                            <i class="bowtie-icon bowtie-math-plus-light" style="float:right;cursor:pointer;margin:7px;font-size:22px" title="thư mục mới" ng-click="addFolder()"></i>
+                        </div>
+                        <div id="treeView" style="float:left;height:auto;width:100%"></div>
+                    </div>
+                </div>
+
+                <div id="panelGrid" style="width:80%;height:100%;float:left;padding-left:10px;overflow:auto;padding-bottom:5px"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal (detail)-->
+    <div class="modal fade confirmClose" id="modal-detail" ng-init="initJS()">
+        <div class="modal-dialog" style="width: 970px">
+            <div class="modal-content" style="padding:10px">
+                <div class="modal-header" style="border-bottom-color:rgba(104,184,40,.5)">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                    <h3 class="modal-title">{{::translation.EDITTITLE}}</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row form-input-group">
+                        <div class="col-md-12 none-padding">
+                            <div class="col-md-2">
+                                <div class="droppable-area advancedDropzone" style="background:none;border:none;width:80px;height:99.3px;margin-top:12px">
+                                    <div class="documentImage img-inline dz-message" style="width:100%;height:100%">
+                                        <i id="docIcon" class="documentIconBig"></i>
+                                        <div id="docExtension" class="documentExtensionBig">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-10" style="padding-right:0;padding-left:25px">
+                                <lv-input field="fileName" model="data.fileName" setting="setting" translation="translation" change="" type="text" tab="1" placeholder=""></lv-input>
+
+                                <!--<div form-group-select2 field="category" model="data.category" value="valuelist.category" label="{{::translation.CATEGORY}}" inputid="vllCategory"></div>-->
+                                <lv-select field="category" model="data.category" setting="setting" translation="translation" readonly="false" change="" tab="2"></lv-select>
+                                <!--<div form-group-select2 field="objectId" model="data.objectId" value="valuelist.object" label="{{::translation.OBJECTID}}" inputid="vllObjectId"></div>-->
+                                <lv-select field="objectId" model="data.objectId" setting="setting" translation="translation" readonly="false" change="" tab="3"></lv-select>
+                                <lv-input field="name" model="data.name" setting="setting" translation="translation" change="" type="text" tab="4" placeholder=""></lv-input>
+                            </div>
+                        </div>
+
+                        <!--<div form-group-textarea field="note" model="data.note" label="{{::translation.NOTE}}" inputid="txtNote"></div>-->
+                        <lv-textarea field="note" model="data.note" setting="setting" translation="translation" change="" type="text" tab="5" placeholder=""></lv-textarea>
+                        <!--<div form-group-textarea field="comment" model="data.comment" label="{{::translation.COMMMENT}}" inputid="txtNote"></div>-->
+                        <lv-textarea field="comment" model="data.comment" setting="setting" translation="translation" change="" type="text" tab="6" placeholder=""></lv-textarea>
+
+                        <div ng-if="action!='add'" style="margin-top:25px">
+                            <div style="width:100%">{{::translation.VERSION}}: {{data.version}}</div>
+                            <div style="width:100%">{{::translation.CREATEDBY}}: {{data.createdBy}} ({{data.createdTimeString}})</div>
+                            <div style="width:100%">{{::translation.MODIFIEDBY}}: {{data.modifiedBy}} ({{data.modifiedTimeString}})</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" ng-click="save()" click-Once><i class="fa fa-save"></i> {{::translation.BTN_SAVE}}</button>
+                    <button type="button" class="btn btn-white" data-dismiss="modal"><i class="fa fa-close"></i> <span ng-bind="::translation.BTN_CLOSE">Close</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal (folder)-->
+    <div class="modal fade confirmClose" id="modal-folder" target="defaultFolder" model="folder">
+        <div class="modal-dialog" style="width:350px">
+            <div class="modal-content" style="padding:10px">
+                <div class="modal-header" style="border-bottom-color:rgba(104,184,40,.5)">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                    <h3 class="modal-title">{{::translation.EDITTITLE}}</h3>
+                </div>
+                <div class="modal-body">
+                    <div form-group-input field="text.vn" model="folder.text.vn" label="Tên thư mục (vn)"></div>
+                    <div form-group-input field="text.en" model="folder.text.en" label="Tên thư mục (en)"></div>
+                    <div form-group-select2 field="parent" model="folder.parent" value="valuelist.folder" label="Thư mục cha"></div>
+                    <div form-group-select2 field="view" model="folder.view" value="valuelist.member" label="Cho phép xem"></div>
+                    <div form-group-select2 field="edit" model="folder.edit" value="valuelist.member" label="Cho phép chỉnh sửa"></div>
+                    <div form-group-select2 field="approve" model="folder.approve" value="valuelist.member" label="Cho phép duyệt"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" ng-click="saveFolder()"><i class="fa fa-save"></i> {{::translation.BTN_SAVE}}</button>
+                    <button type="button" class="btn btn-white" data-dismiss="modal"><i class="fa fa-close"></i> <span ng-bind="::translation.BTN_CLOSE">Close</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal (delete) -->
+    <div class="modal fade" id="modal-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document" ng-style="modal.style" style="width: 350px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                    <h3 class="modal-title"><i class="fa fa-question-circle-o" aria-hidden="true"></i> {{::translation.COMFIRM}}</h3>
+                    <hr style="width:100%;height:5px;margin:0" />
+                </div>
+
+                <div class="modal-body">
+                    <h4 class="success-message">{{::translation.DELETE_CONFIRM}}</h4>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" data-dismiss="modal" ng-click="deleteData()">{{::translation.BTN_APPLY}}</button>
+                    <button type="button" class="btn btn-white" data-dismiss="modal"><i class="fa fa-close"></i> <span ng-bind="::translation.BTN_CLOSE">Close</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--context menu-->
+    <div id="contextMenu" class="context-menu">
+        <ul class="context-menu_items">
+            <li class="context-menu_item">
+                <a id="aViewFile" href="" target="_blank" class="context-menu_link" data-action="View"><i class="fa fa-eye"></i> {{::translation.BTN_DOWNLOAD}}</a>
+            </li>
+            <li class="context-menu_item">
+                <a id="btn_changePass" ng-click="changePass()" class="context-menu_link" title="Đổi mật khẩu tài khoản"><i class="fa fa-key"></i> đổi mật khẩu</a>
+            </li>
+            <li id="aCheckOut" class="context-menu_item">
+                <a ng-click="checkOut()" class="context-menu_link"><i class="fa fa-sign-out" style=" transform: rotate(180deg)"></i> {{::translation.BTN_CHECKOUT}}</a>
+            </li>
+            <li id="aCheckIn" class="context-menu_item">
+                <a ng-click="checkIn()" class="context-menu_link"><i class="fa fa-sign-in"></i> {{::translation.BTN_CHECKIN}}</a>
+            </li>
+            <li id="aApproveStatus" class="context-menu_item">
+                <a ng-click="approveStatus()" class="context-menu_link"><i class="fa-check-square-o "></i> {{::translation.BTN_APPROVE}}</a>
+            </li>
+            <li class="context-menu_item">
+                <hr style="margin:1px" />
+            </li>
+            <li class="context-menu_item">
+                <a ng-click="edit()" class="context-menu_link"><i class="fa fa-edit"></i> {{::translation.BTN_EDIT}}</a>
+            </li>
+            <li class="context-menu_item">
+                <a ng-click="delete()" class="context-menu_link"><i class="fa fa-trash-o"></i> {{::translation.BTN_DELETE}}</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Modal (history)-->
+    <div class="modal fade" id="modal-history">
+        <div class="modal-dialog" style="width:700px">
+            <div class="modal-content" style="padding:10px">
+                <div class="modal-header" style="border-bottom-color:rgba(104,184,40,.5)">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                    <h3 class="modal-title">{{data.fileName}}</h3>
+                </div>
+                <div class="modal-body">
+                    <div style="width:100%; height:30px">
+                        <i class="fa fa-trash-o" style="font-size:25px;float:right;cursor:pointer" ng-click="deleteHistory()"></i> <i class="fa fa-history" style="font-size:25px;margin-right:15px;float:right;cursor:pointer" ng-click="rollback()"></i>
+                    </div>
+                    <div id="grvHistory" style="margin-bottom:10px; width:100%;height:300px"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal"><i class="fa fa-close"></i> <span ng-bind="::translation.BTN_CLOSE">Close</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal (rollback) -->
+    <div class="modal fade" id="modal-rollback" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document" ng-style="modal.style" style="width: 350px">
+            <div class="modal-content" style="padding:10px">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                    <h3 class="modal-title"><i class="fa fa-question-circle-o" aria-hidden="true"></i> {{::translation.COMFIRM}}</h3>
+                    <hr style="width:100%;height:5px;margin:0" />
+                </div>
+                <div class="modal-body">
+                    <h4 class="success-message">{{::translation.ROLLBACK_CONFIRM}}</h4>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" data-dismiss="modal" ng-click="rollbackData()">{{::translation.BTN_APPLY}}</button>
+                    <button type="button" class="btn btn-white" data-dismiss="modal"><i class="fa fa-close"></i> <span ng-bind="::translation.BTN_CLOSE">Close</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal (deleteHistory) -->
+    <div class="modal fade" id="modal-deleteHistory" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document" ng-style="modal.style" style="width: 350px">
+            <div class="modal-content" style="padding:10px">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                    <h3 class="modal-title"><i class="fa fa-question-circle-o" aria-hidden="true"></i> {{::translation.COMFIRM}}</h3>
+                    <hr style="width:100%;height:5px;margin:0" />
+                </div>
+                <div class="modal-body">
+                    <h4 class="success-message">{{::translation.DELETE_CONFIRM}}</h4>
+                </div>
+                <div class="modal-footer">
+                    <div class="divConfirmFooter" style="background-color:#33689b">
+                        <san class="divConfirmFooterAccept" data-dismiss="modal" ng-click="deleteHistoryData()">{{::translation.BTN_APPLY}}</san>
+                        <san style="color:#fff;background-color:#fff;float:left;width:0.5%;line-height:30px;">.</san>
+                        <san class="divConfirmFooterClose" data-dismiss="modal">{{::translation.BTN_CLOSE}}</san>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal (Status)-->
+    <div class="modal fade confirmClose" id="modal-status">
+        <div class="modal-dialog" style="width:750px">
+            <div class="modal-content none-padding">
+                <div class="modal-header" style="border-bottom-color:rgba(104,184,40,.5)">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                    <h3 class="modal-title">{{data.fileName}}</h3>
+                </div>
+                <div class="modal-body">
+                    <div style="display:block;width:100%;float:left">
+                        <h4 style="margin-top:0;margin-bottom:5px">{{::translation.APPROVE_TITLE}}</h4>
+                        <div style="float:left;width:40%;padding-right:20px;margin-top:3px">
+                            <p>{{::translation.APPROVE_DISCREPTION}}</p>
+                        </div>
+                        <div style="float:left;width:60%">
+                            <span style="float:left;width:100%;line-height:18px;margin-bottom:5px"><input type="radio" id="rdbApproved" name="aproveData" ng-click="approve('Approved')" value="Approved" /> {{::translation.APPROVE_APPROVED}}</span>
+                            <span style="float:left;width:100%;line-height:18px;margin-bottom:5px"><input type="radio" id="rdbRejected" name="aproveData" ng-click="approve('Rejected')" value="Rejected" /> {{::translation.APPROVE_REJECTED}}</span>
+                            <span style="float:left;width:100%;line-height:18px;margin-bottom:5px"><input type="radio" id="rdbPending" name="aproveData" ng-click="approve('Pending')" value="Pending" /> {{::translation.APPROVE_PENDING}}</span>
+                        </div>
+                    </div>
+                    <hr style="float:left;width:100%;margin-top:5px;margin-bottom:10px" />
+                    <div style="width:100%;float:left;margin-bottom:5px">
+                        <h4 style="margin-top:0;margin-bottom:5px">{{::translation.APPROVE_NOTETITLE}}</h4>
+                        <div style="float:left;width:40%;padding-right:20px">
+                            <p>{{::translation.APPROVE_NOTE}}</p>
+                        </div>
+                        <div style="float:right;width:60%">
+                            <textarea id="txtApproveComment" ng-model="data.comment" style="height:100px;resize:vertical;width:100%"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" ng-click="approveStatusData()"><i class="fa fa-save"></i> {{::translation.BTN_APPROVE}}</button>
+                    <button type="button" class="btn btn-white" data-dismiss="modal"><i class="fa fa-close"></i> <span ng-bind="::translation.BTN_CANCEL"></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

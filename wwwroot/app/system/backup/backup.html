@@ -1,0 +1,93 @@
+﻿<style>
+    #modal-detail {
+        opacity: 1 !important;
+    }
+</style>
+
+<div id="backup" ng-controller="backupController" layout="column" layout-padding="" ng-cloak="" class="inputdemoIcons" ng-app="MyApp" ng-init="initJS()">
+    <div class="white_box" style="overflow: auto">
+        <div class="clearfix bg_blue_01 mb_10">
+            <p class="title_01 float-left mb-0 display_n">Scheduled Backups Wizard</p>
+        </div>
+        <div id="accordion" class="sprint_plan sprint_plan_2" style="overflow: hidden; max-height: initial">
+            <dl class="mb_10">
+                <dt data-toggle="collapse" data-target="#collapse_01" aria-expanded="false" aria-controls="collapse_01">
+                    <div class="bg_gray_02" data-toggle="collapse" data-target="#collapse_01" aria-expanded="false" aria-controls="collapse_01">
+                        <p class="title_02 title_03 mb-0">Step 1: <strong>Provide Scheduled Backups Initial Configuration Settings</strong></p>
+                    </div>
+                </dt>
+                <dd id="collapse_01" class="collapse mb-0 show" aria-labelledby="collapse_01">
+                    <div class="box_pd">
+                        <div class="desc">You must specify a network path for the backup path. Be sure that folder you specify has sufficient free space to store backup files.</div>
+                        <div class="item">
+                            <span>Network Backup Path:</span> <input class="iput" style="width: 250px" type="text" name="name" value="" ng-model="data.backupPath" />
+                            <!--<button class="btn btn_save_02" style="text-transform: capitalize">Browse...</button>-->
+                        </div>
+                        <div class="item"><span>Backups Retentin Days:</span> <input class="iput" style="width: 100px" type="number" name="name" value="" ng-model="data.retentinDay" /> (Days)</div>
+                    </div>
+                </dd>
+            </dl>
+            <dl class="mb_10">
+                <dt data-toggle="collapse" data-target="#collapse_02" aria-expanded="false" aria-controls="collapse_02">
+                    <div class="bg_gray_02" data-toggle="collapse" data-target="#collapse_02" aria-expanded="false" aria-controls="collapse_02">
+                        <p class="title_02 title_03 mb-0">Step 2: <strong>Provide Scheduled Backups Alert Settings</strong></p>
+                    </div>
+                </dt>
+                <dd id="collapse_02" class="collapse mb-0 show" aria-labelledby="collapse_02">
+                    <div class="box_pd">
+                        <div class="desc">Email alerts can notify administrators in the event of backup failure. Notifications must be configured to enable this feature.</div>
+                        <div class="item"><span>Send email to user if backup job fails:</span> <input class="iput" style="width: 250px" type="email" ng-model="data.mailForFail" /></div>
+                        <div class="item"><span>Send email to user when a backup job succeeds:</span> <input class="iput" style="width: 250px" type="email" name="name" value="" ng-model="data.mailForSucceed" /></div>
+                    </div>
+                </dd>
+            </dl>
+            <dl class="mb_10">
+                <dt data-toggle="collapse" data-target="#collapse_03" aria-expanded="false" aria-controls="collapse_03">
+                    <div class="bg_gray_02" data-toggle="collapse" data-target="#collapse_03" aria-expanded="false" aria-controls="collapse_03">
+                        <p class="title_02 title_03 mb-0">Step 3: <strong>Select A Backup Schedule</strong></p>
+                    </div>
+                </dt>
+                <dd id="collapse_03" class="collapse mb-0 show" aria-labelledby="collapse_03">
+                    <div class="box_pd">
+                        <div class="item mb_15">
+                            <i class="bowtie-icon mr-10" ng-class="data.timeBackup.fullDays ? 'bowtie-checkbox' : 'bowtie-checkbox-empty'" style="font-size:18px;margin-bottom: 3px" ng-click="data.timeBackup.fullDays = !data.timeBackup.fullDays"></i>
+                            <span style="width: fit-content">Full backup Schedule at</span>
+                            <input class="iput" style="width: 100px" type="time" name="name" ng-model="data.timeBackup.time"/>
+                        </div>
+                        <div class="item" style="padding-left: 30px" ng-if="!data.timeBackup.fullDays">
+                            <div class="day">
+                                <i class="bowtie-icon mr_5" ng-class="data.timeBackup.suDay ? 'bowtie-checkbox' : 'bowtie-checkbox-empty'" style="font-size:18px;" ng-click="data.timeBackup.suDay = !data.timeBackup.suDay"></i>
+                                <span>Sunday</span>
+                            </div>
+                            <div class="day">
+                                <i class="bowtie-icon mr_5" ng-class="data.timeBackup.moDay ? 'bowtie-checkbox' : 'bowtie-checkbox-empty'" style="font-size:18px;" ng-click="data.timeBackup.moDay = !data.timeBackup.moDay"></i>
+                                <span>Monday</span>
+                            </div>
+                            <div class="day">
+                                <i class="bowtie-icon mr_5" ng-class="data.timeBackup.tuDay ? 'bowtie-checkbox' : 'bowtie-checkbox-empty'" style="font-size:18px;" ng-click="data.timeBackup.tuDay = !data.timeBackup.tuDay"></i>
+                                <span>Tuesday</span>
+                            </div>
+                            <div class="day">
+                                <i class="bowtie-icon mr_5" ng-class="data.timeBackup.weDay ? 'bowtie-checkbox' : 'bowtie-checkbox-empty'" style="font-size:18px;" ng-click="data.timeBackup.weDay = !data.timeBackup.weDay"></i>
+                                <span>Wednesday</span>
+                            </div>
+                            <div class="day">
+                                <i class="bowtie-icon mr_5" ng-class="data.timeBackup.thDay ? 'bowtie-checkbox' : 'bowtie-checkbox-empty'" style="font-size:18px;" ng-click="data.timeBackup.thDay = !data.timeBackup.thDay"></i>
+                                <span>Thursday</span>
+                            </div>
+                            <div class="day">
+                                <i class="bowtie-icon mr_5" ng-class="data.timeBackup.frDay ? 'bowtie-checkbox' : 'bowtie-checkbox-empty'" style="font-size:18px;" ng-click="data.timeBackup.frDay = !data.timeBackup.frDay"></i>
+                                <span>Friday</span>
+                            </div>
+                            <div class="day">
+                                <i class="bowtie-icon mr_5" ng-class="data.timeBackup.saDay ? 'bowtie-checkbox' : 'bowtie-checkbox-empty'" style="font-size:18px;" ng-click="data.timeBackup.saDay = !data.timeBackup.saDay"></i>
+                                <span>Saturday</span>
+                            </div>
+                        </div>
+                    </div>
+                </dd>
+            </dl>
+            <button type="button" class="btn btn_save_02" id="btnSave" ng-click="updateBackup()" click-Once style="margin: 0 auto;"><i class="fa fa-save mr_5"></i> <span ng-bind="globalTranslation.BTN_SAVE">Save</span></button>
+        </div>
+    </div>
+</div>

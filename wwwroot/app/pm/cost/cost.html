@@ -1,0 +1,645 @@
+﻿
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/PrintArea/2.4.1/PrintArea.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PrintArea/2.4.1/jquery.PrintArea.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/printThis/1.14.0/printThis.js"></script>
+<style>
+    .header-progress {
+        background-color: #0074A9;
+        color: white;
+    }
+
+    .cost-progress-contex {
+        border: 1px solid #0074A9;
+        min-width: 400px;
+    }
+
+    #areas>label{
+        font-weight: bold;
+    }
+    @page {
+        size: auto;
+        margin: 0mm;
+    }
+</style>
+<!--check-->
+<div id="cost" ng-controller="costController" ng-init="onload()">
+    <div id="cost-context-menu" class="context-menu context-menu-task-list">
+        <ul class="context-menu_items">
+            <li class="epic context-menu_item no-padding">
+                <a href="/pm/pjCostDetail?pjid={{menuParams.pjid}}&time={{params.time}}&area={{menuParams.area}}" class="context-menu_link type_epic">{{translation.STAFF_COST}}</a>
+            </li>
+            <li class="function context-menu_item no-padding">
+                <a ng-click="addOtherCost()" class="context-menu_link type_function">{{translation.OTHER_COST}}</a>
+            </li>
+
+        </ul>
+    </div>
+    <!--tiến độ thu chi-->
+
+    <div class="white_box">
+        <div id="grvCost" class="control-grid" style="width:100%;height:100%"></div>
+
+        <div id="cost-progress-context" class="context-menu context-menu-task-list">
+            <div class="header-progress"><p>TIẾN ĐỘ THU CHI</p></div>
+            <div class="body-progress">
+                <div class="modal-02 box_03 col_2 clearfix">
+                    <div class="item">
+                        <dl class="mb-0">
+                            <dd>
+                                <p>Giá trị hợp đồng:</p>
+                                <div>{{project.contractValue | number:2}} VND</div>
+                                <div class="progress">
+                                    <div class="progress-bar bg-danger" id="contractValue" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </dd>
+                            <dd>
+                                <p>Kế hoạch chi phí:</p>
+                                <div>{{project.costPlan | number:2}} VND</div>
+                                <div class="progress">
+                                    <div class="progress-bar bg-info" id="costPlan" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </dd>
+                        </dl>
+                    </div>
+                    <div class="item">
+                        <dl class="mb-0">
+                            <dd>
+                                <p>Thực tế thu:</p>
+                                <div>{{project.actualRevenue | number:2}} VND</div>
+                                <div class="progress">
+                                    <div class="progress-bar bg-warning" id="actualRevenue" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </dd>
+                            <dd>
+                                <p>Thực tế chi:</p>
+                                <div>{{project.actualExpenditure | number:2}} VND</div>
+                                <div class="progress">
+                                    <div class="progress-bar bg-success" id="actualExpenditure" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal (Modal pjCost)-->
+    <div class="modal fade modal_center confirmClose" id="modal-cost">
+        <div class="modal-dialog" style="width: 1300px">
+            <div class="modal-content requirement-content" style="padding-top: 0px !important">
+                <div class="modal-header clearfix">
+
+                    <p class="modal_header_title"><span ng-bind="action == 'add' ? (params.module=='pm'?translation.MODAL_TITLE_ADD + translation.PRODUCT:translation.MODAL_TITLE_ADD + ' ' +  translation.PROJECT) : (params.module=='pm'?translation.MODAL_TITLE_EDIT + translation.PRODUCT:translation.MODAL_TITLE_EDIT  + ' '+ translation.PROJECT) "></span></p>
+                    <div class="box_btn_02">
+                        <!--<button type="button" class="fullscreen" data-dismiss="modal"><i class="bowtie-icon bowtie-view-full-screen"></i></button>-->
+                        <button type="button" class="fullscreen" onclick="fullscreen('modal-cost')"><i class="bowtie-icon bowtie-view-full-screen"></i></button>
+                        <button type="button" class="btn_close_02" data-dismiss="modal"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-content clearfix">
+                        <div class="modal-body-header">
+                            <p ng-bind="::params.module=='pm'?translation.NAME_P:translation.NAME_PJ"></p>
+                            <div class="clearfix">
+                                <input type="text" class="form-control ip_requirement" id="txtNamePS" ng-model="data.name" placeholder="" tabindex="1">
+                                <ul class="box_btn_03 clearfix">
+                                    <li><a href="" class="btnHistory" ng-class="action == 'add' ? 'btn_30  btn_disable':'btn_30 btn_default'" ng-click="action == 'edit' && openHistory($event)" data-target="popover-history"><i class="bowtie-icon bowtie-navigate-history"></i> </a></li>
+                                    <li><a href="" class="btnComment" ng-class="action == 'add' ? 'btn_30  btn_disable':'btn_30 btn_default'" ng-click="action == 'edit' && openComment($event)" data-target="popover-comment"><i class="bowtie-icon bowtie-comment-discussion"></i> </a></li>
+                                    <li><a href="" class="btn_30 btn_default" ng-click="collapseButton()"><i class="bowtie-icon bowtie-toggle-collapse-all"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="clearfix modal-body-maincontent">
+                            <div class="modal-02 box_02 col_3 clearfix">
+                                <!--PAYMENT_INFO-->
+                                <div class="item">
+                                    <dl class="mb-0">
+                                        <dt>
+                                            <a class="title_02 bg_gray_01" aria-expanded="true" data-target="#panel-paymentInfo" id="btnControl" aria-controls="panel-paymentInfo" data-toggle="collapse">
+                                                <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span ng-bind="::translation.PAYMENT_INFO" class="ng-binding">Control</span>
+                                            </a>
+                                        </dt>
+                                        <dd>
+                                            <div class="multi-collapse collapse show" id="panel-paymentInfo" aria-expanded="true" style="">
+                                                <div class="box_02 clearfix">
+                                                    <div class="item">
+                                                        <lv-input element-id="txt_beneficiaryName" field="beneficiaryName" model="data.beneficiaryName" setting="setting" translation="translation" type="text" tab="2"></lv-input>
+                                                    </div>
+                                                    <div class="item">
+                                                        <lv-input element-id="txtAdress" field="address" model="data.address" setting="setting" translation="translation" type="text" tab="3"></lv-input>
+                                                    </div>
+                                                </div>
+                                                <div class="box_02 col_2 clearfix">
+                                                    <div class="item">
+                                                        <lv-input class="none-padding" element-id="txt_tax" field="tax" model="data.tax" setting="setting" translation="translation" type="text" tab="4"></lv-input>
+                                                    </div>
+                                                    <div class="item">
+                                                        <lv-input class="none-padding" element-id="txt_phone" field="phone" model="data.phone" setting="setting" translation="translation" type="phone" tab="4"></lv-input>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </dd>
+                                    </dl>
+                                </div>
+                                <!--PAYMENT_METHOD-->
+                                <div class="item">
+                                    <dl class="mb-0">
+                                        <dt>
+                                            <a class="title_02 bg_gray_01" aria-expanded="true" data-target="#panel-paymentMethod" id="btnPlanning" aria-controls="panel-paymentMethod" data-toggle="collapse">
+                                                <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span ng-bind="::translation.PAYMENT_METHOD" class="ng-binding">Control</span>
+                                            </a>
+                                        </dt>
+                                    </dl>
+                                    <dd>
+                                        <div class="multi-collapse collapse show" id="panel-paymentMethod" aria-expanded="true" style="">
+                                            <div class="item">
+                                                <lv-radio field="paymentMethod" model="data.paymentMethod" setting="setting" translation="translation" tab="5"></lv-radio>
+                                                <!--<div class="form-group ">
+                                                    <label ng-bind="translation['PAYMENTMETHOD']"></label>
+                                                    <span ng-if="1==1"><span class="size-per-80"><sup> (</sup></span><span class="red">*</span><span class="size-per-80"><sup>)</sup></span></span>
+                                                    <div class="clearfix">
+                                                        <div class="radio-inline radio_box" ng-repeat="item in setting.valuelist['paymentMethod']">
+                                                            <input class="radio_01" name="paymentMethod" type="radio" tabindex="2" ng-model="data.paymentMethod" value="{{item.id}}"><span ng-bind="::translation.{{item.text
+                                                    uppercase}}"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>-->
+                                            </div>
+                                            <div class="item">
+                                                <!--<lv-select field="bankName" model="data.bankName" setting="setting" translation="translation" tab="9"></lv-select>-->
+                                                <lv-input ng-if="data.paymentMethod=='transfer'?true:false" field="bankName" model="data.bankName" setting="setting" translation="translation" type="text" tab="6"></lv-input>
+                                            </div>
+                                            <div class="clearfix box_02 col_2">
+                                                <div class="item mt-0">
+                                                    <lv-input ng-if="data.paymentMethod=='transfer'?true:false" field="bankBranch" model="data.bankBranch" setting="setting" translation="translation" type="text" tab="7"></lv-input>
+                                                </div>
+                                                <div class="item mt-0">
+                                                    <lv-input ng-if="data.paymentMethod=='transfer'?true:false" field="bankNo" model="data.bankNo" setting="setting" translation="translation" type="text" tab="8"></lv-input>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </dd>
+                                </div>
+                                <!--STATUS-->
+                                <div class="item">
+                                    <dl class="mb-0">
+                                        <dt>
+                                            <a class="title_02 bg_gray_01" aria-expanded="true" data-target="#panel-btnClassification" id="btnClassification" aria-controls="panel-btnClassification" data-toggle="collapse">
+                                                <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span ng-bind="::translation.STATUS" class="ng-binding">Control</span>
+                                            </a>
+                                        </dt>
+                                    </dl>
+                                    <dd>
+                                        <div class="multi-collapse collapse show" id="panel-btnClassification" aria-expanded="true" style="">
+                                            <div class="item">
+                                                <lv-select change="testFunction()" config="configState" element-id="vllState" field="state" model="data.state" setting="setting" translation="translation" tab="9"></lv-select>
+                                            </div>
+                                            <div class="item">
+                                                <lv-select config="configReason" element-id="vllReason" field="reason" model="data.reason" setting="setting" translation="translation" tab="10"></lv-select>
+                                                <!--<lv-select config="configState" element-id="vllState" field="state" model="data.state" setting="setting" translation="translation" tab="12"></lv-select>-->
+                                            </div>
+                                            <div class="item">
+                                                <lv-input class="none-padding" element-id="txt_createdBy" field="createdBy" model="data.createdBy" setting="setting" translation="translation" type="text" tab="14"></lv-input>
+                                            </div>
+                                        </div>
+                                    </dd>
+                                </div>
+                            </div>
+                            <div class="modal-02 clearfix">
+                                <!--CONTROL_DEBIT-->
+                                <div class="box_02 col_2 clearfix">
+                                    <div class="item">
+                                        <dl class="mb-0">
+                                            <dt>
+                                                <a class="title_02 bg_gray_01" aria-expanded="true" data-target="#panel-controlDebit" id="btnAssignto" aria-controls="panel-controlDebit" data-toggle="collapse">
+                                                    <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span ng-bind="::translation.CONTROL_DEBIT" class="ng-binding">Control</span>
+                                                </a>
+                                            </dt>
+                                        </dl>
+                                        <dd>
+                                            <div class="multi-collapse collapse show" id="panel-controlDebit" aria-expanded="true" style="">
+                                                <div class="clearfix box_02 col_2">
+                                                    <div class="item">
+                                                        <!--<lv-select class="none-padding" tab="11" element-id="txt_departmentDebit" field="departmentDebit" model="data.departmentDebit" setting="setting" translation="translation"></lv-select>-->
+                                                        <lv-input class="none-padding" element-id="txt_departmentDebit" field="departmentDebit" model="data.departmentRelated.name" setting="setting" translation="translation" type="text" tab="11"></lv-input>
+                                                    </div>
+                                                    <div class="item">
+                                                        <!--<lv-valuelist-multi ng-if="!params.area" element-id="areas" field="areas" model="data.areas" setting="setting" translation="translation" tab="10"></lv-valuelist-multi>-->
+                                                        <lv-input ng-if="(params.module == 'pj')" class="none-padding" element-id="txt_project" field="project" model="data.projectCode.code" setting="setting" translation="translation" type="text" tab="10"></lv-input>
+                                                        <lv-input ng-if="(params.module == 'pm')" class="none-padding" element-id="txt_project" field="product" model="data.productCode.code" setting="setting" translation="translation" type="text" tab="10"></lv-input>
+                                                    </div>
+                                                    
+                                                </div>
+                                                <div class="clearfix box_02 col_2">
+
+                                                    <div class="item">
+                                                        <lv-select class="none-padding" element-id="txt_category" field="category" model="data.category" setting="setting" translation="translation" tab="13"></lv-select>
+                                                    </div>
+                                                    <div class="item">
+                                                        <!--<lv-input class="none-padding" element-id="txt_project" field="project" model="data.projectCode.code" setting="setting" translation="translation" type="text" tab="12"></lv-input>-->
+                                                        <lv-select ng-if="!params.area" field="area" model="data.area" setting="setting" translation="translation" tab="12"></lv-select>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </dd>
+                                    </div>
+
+                                    <div class="item">
+                                        <dl class="mb-0">
+                                            <dt>
+                                                <a class="title_02 bg_gray_01" aria-expanded="true" data-target="#panel-btnPlanning" id="btnPlanning" aria-controls="panel-btnPlanning" data-toggle="collapse">
+                                                    <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span ng-bind="::translation.NOTES" class="ng-binding">Control</span>
+                                                </a>
+                                            </dt>
+                                        </dl>
+                                        <dd class="border_n">
+                                            <div class="multi-collapse collapse show" id="panel-btnPlanning" aria-expanded="true" style="">
+                                                <div class="item m-0">
+                                                    <lv-textarea-no-label style="min-height:101px;" row="5" block-resize="block-resize" element-id="idNotes" field="notes" model="data.notes" setting="setting" translation="translation" type="text" tab="15"></lv-textarea-no-label>
+                                                </div>
+                                            </div>
+                                        </dd>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-01 clearfix mb-0">
+                                <div class="box_content" style="width:100%;margin-top:20px">
+                                    <dl class="mb-0">
+                                        <dt class="dt_pos_re">
+                                            <a class=" h_th title_02 bg_gray_01" data-toggle="collapse" data-target="#multiCollapse_businessObjective_02" aria-expanded="true" aria-controls="multiCollapse_businessObjective_02">
+                                                <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i>
+                                                <span ng-bind="::translation.DETAIL01"></span>
+                                            </a>
+                                            <ul class="box_btn clearfix mb-0 dt_pos_ab">
+                                                <li>
+                                                    <a href="javascript:;" ng-click="addDetail()" class="left btn_30 btn_add" title="{{::translation.BTN_ADD}}" tabindex="16">
+                                                        <i class="bowtie-icon bowtie-math-plus-light fmIconEnvision"></i>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;" ng-click="editDetail()" class="left btn_30 btn_edit" title="{{::translation.BTN_EDIT}}" tabindex="17">
+                                                        <i class="bowtie-icon bowtie-edit-outline fmIconEnvision"></i>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;" ng-click="deleteDetail()" class="btn_30 btn_del" title="{{::translation.BTN_DELETE}}" tabindex="18">
+                                                        <i class="bowtie-icon bowtie-edit-delete fmIconEnvision"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </dt>
+                                        <dd>
+                                            <!--<div class="white_box">
+
+                                            </div>-->
+                                            <div class="multi-collapse collapse show" id="multiCollapse_businessObjective_02" aria-expanded="true" tabindex="19">
+                                                <div class="gridWrapper">
+                                                    <div id="grvDetail" class="cost_popup_grid" style="width:100%;height:100%"></div>
+                                                </div>
+                                            </div>
+                                        </dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-content-plus clearfix animated bounceInDown" style="height:calc(100% - 20px);border:1px solid #ddd;top:10px">
+                            <ul class="title m-0">
+                                <li><a class="btn_data btn_modal">{{::translation.ATTACHMENTS}}</a></li>
+                                <li><a class="btn_link btn_modal">{{::translation.RELATED_WORK}}</a></li>
+                            </ul>
+                            <div class="modal-content-link-data clearfix">
+                                <div class="content_data">
+                                    <!-- Include Attachment list -->
+                                    <list-attachment id="costAttachment"></list-attachment>
+                                </div>
+                                <div class="content_link">
+                                    <!-- Include related list -->
+                                    <list-related-work id="related-cost"></list-related-work>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnSaveClose" ng-click="save()" type="button" class="btn btn_save_02" click-Once><i class="bowtie-icon bowtie-save"></i><span ng-bind="::translation.BTN_SAVE_CLOSE">Lưu & đóng</span></button>
+                    <!--<button id="btnSaveClose" ng-if="data.state != 'approved'" ng-click="save()" type="button" class="btn btn_save_02" click-Once><i class="bowtie-icon bowtie-save"></i><span ng-bind="::translation.BTN_SAVE_CLOSE">Lưu & đóng</span></button>-->
+                </div>
+            </div>
+        </div>
+        <!-- Comment -->
+        <comment></comment>
+        <!-- history -->
+        <history></history>
+    </div>
+
+    <!-- modal attachment -->
+    <div lv-include path="app/pm/pm_share/attachment" name="attachment" id="costAttachment"></div>
+    <!-- modal relatedWork -->
+    <div lv-include path="app/pm/pm_share/relatedWork" name="relatedWork"></div>
+
+    <!-- Modal (Modal Detail)-->
+    <div class="modal fade modal_center confirmClose" id="modal-detail">
+        <div class="modal-dialog" style="width:400px">
+            <div class="modal-content">
+                <div class="modal-header clearfix">
+                    <p class="modal_header_title"><span ng-bind="translation.COST_DETAIL_TITLE"></span></p>
+                    <div class="box_btn_02">
+                        <!--<button type="button" class="fullscreen" data-dismiss="modal"><i class="bowtie-icon bowtie-view-full-screen"></i></button>-->
+                        <button type="button" class="btn_close_02" data-dismiss="modal"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="form-input-group">
+                        <div class="clearfix">
+                            <lv-input class="clearfix" element-id="txt_name" field="itemDescription" model="detail.itemDescription" setting="setting" translation="translation" type="text" tab="22" style="margin-bottom: 10px !important"></lv-input>
+
+                            <lv-input class="clearfix" element-id="txt_invoiceNo" field="invoiceNo" model="detail.invoiceNo" setting="setting" translation="translation" type="text" tab="23" style="margin-bottom: 10px !important"></lv-input>
+
+                            <lv-datepicker class="clearfix" field="dated" model="detail.dated" setting="setting" translation="translation" tab="24" style="margin-bottom: 10px !important"></lv-datepicker>
+
+                            <lv-number field="price" model="detail.price" setting="setting" translation="translation" type="number" tab="25" element-Id="txtPrice" style="margin-bottom: 10px !important"></lv-number>
+
+                            <lv-number field="qty" model="detail.qty" setting="setting" translation="translation" type="number" tab="26" element-Id="txtQty" style="margin-bottom: 10px !important"></lv-number>
+
+                            <div class="form-group" ng-if="translation.PRICE != null">
+                                <label class="control-label mr_5"><span ng-bind="::translation.AMOUNT"></span></label>
+                                : <span id="txtAmount" style="font-size: 14px"><b>{{(detail.price * detail.qty).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " VNĐ"}}</b></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnSaveClose" ng-click="saveDetail()" type="button" class="btn btn_save_02" tabindex="27"><i class="bowtie-icon bowtie-save"></i><span ng-bind="::translation.BTN_SAVE_CLOSE">Lưu & đóng</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal (Confirm delete detail) -->
+    <!--modal print cost-->
+    <!--<div class="modal fade modal_center confirmClose" id="modal-print">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header clearfix">
+                    <p class="modal_header_title"><span ng-bind="translation.SPRINT_TITLE"></span></p>
+                    <div class="box_btn_02">
+                        <button type="button" class="btn_close_02" data-dismiss="modal"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div lv-include path="app/pm/cost/printSuggest" name="printSuggest"></div>
+                </div>
+            </div>
+        </div>
+    </div>-->
+    <!-- Modal (Confirm delete detail) -->
+    <div class="modal fade modal_center" id="modal-confirmDetail">
+        <div class="modal-dialog" style="width:460px">
+            <div class="modal-content">
+                <div class="modal-header ui-draggable-handle">
+                    <p class="modal_header_title float-left"><span ng-bind="globalTranslation.DELETE_TITLE" class="ng-binding">Delete</span></p>
+                    <div class="box_btn_02">
+                        <button type="button" class="btn_close_02 float-right" data-dismiss="modal" title="Đóng"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <p class="center del_icon"><i class="bowtie-icon bowtie-status-error-outline"></i></p>
+                    <h4 class="success-message center">
+                        <span style="margin-left:20px;font-size:14px" ng-bind="::globalTranslation.CONFIRM_DELETE" class="ng-binding">Are you sure to delete this?</span>
+                    </h4>
+                </div>
+                <div class="modal-footer confirm-footer">
+                    <button type="button" class="btn confirm-button btn btn_save_02" data-dismiss="modal" id="btnConfirmModal" ng-click="deleteDetailExe()"><i class="bowtie-icon bowtie-save"></i> <span ng-bind="::globalTranslation.BTN_APPLY" class="ng-binding">Apply</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div hidden>
+        <div id="printArea">
+            <style type="text/css">
+                @font-face {
+                    font-family: 'Segoe UI';
+                    src: url('./font/segoeui/SegoeUI-Italic.eot');
+                    src: url('./font/segoeui/SegoeUI-Italic.eot?#iefix') format('embedded-opentype'), url('./font/segoeui/SegoeUI-Italic.woff2') format('woff2'), url('./font/segoeui/SegoeUI-Italic.woff') format('woff'), url('./font/segoeui/SegoeUI-Italic.ttf') format('truetype'), url('./font/segoeui/SegoeUI-Italic.svg#SegoeUI-Italic') format('svg');
+                    font-weight: normal;
+                    font-style: italic;
+                }
+
+                @font-face {
+                    font-family: 'Segoe UI';
+                    src: url('./font/segoeui/SegoeUI.eot');
+                    src: url('./font/segoeui/SegoeUI.eot?#iefix') format('embedded-opentype'), url('./font/segoeui/SegoeUI.woff2') format('woff2'), url('./font/segoeui/SegoeUI.woff') format('woff'), url('./font/segoeui/SegoeUI.ttf') format('truetype'), url('./font/segoeui/SegoeUI.svg#SegoeUI') format('svg');
+                    font-weight: normal;
+                    font-style: normal;
+                }
+
+                @font-face {
+                    font-family: 'Segoe UI';
+                    src: url('./font/segoeui/SegoeUI-Light.eot');
+                    src: url('./font/segoeui/SegoeUI-Light.eot?#iefix') format('embedded-opentype'), url('./font/segoeui/SegoeUI-Light.woff2') format('woff2'), url('./font/segoeui/SegoeUI-Light.woff') format('woff'), url('./font/segoeui/SegoeUI-Light.ttf') format('truetype'), url('./font/segoeui/SegoeUI-Light.svg#SegoeUI-Light') format('svg');
+                    font-weight: 300;
+                    font-style: normal;
+                }
+
+                @font-face {
+                    font-family: 'Segoe UI';
+                    src: url('./font/segoeui/SegoeUI-Bold.eot');
+                    src: url('./font/segoeui/SegoeUI-Bold.eot?#iefix') format('embedded-opentype'), url('./font/segoeui/SegoeUI-Bold.woff2') format('woff2'), url('./font/segoeui/SegoeUI-Bold.woff') format('woff'), url('./font/segoeui/SegoeUI-Bold.ttf') format('truetype'), url('./font/segoeui/SegoeUI-Bold.svg#SegoeUI-Bold') format('svg');
+                    font-weight: bold;
+                    font-style: normal;
+                }
+
+                .page {
+                    font-size: 9pt;
+                    padding: 15pt 45pt;
+                    font-family: 'Segoe UI', sans-serif;
+                    line-height: 1.4;
+                }
+
+                    .page .logo {
+                        padding-bottom: 5pt;
+                        border-bottom: 1pt solid #ddd;
+                        margin-bottom: 30pt;
+                    }
+
+                        .page .logo img {
+                            width: 400pt;
+                        }
+
+                    .page .title {
+                        text-align: center;
+                        font-weight: bold;
+                        font-size: 14pt;
+                        margin-bottom: 10pt;
+                    }
+
+                    .page .wrapper {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                    }
+
+                    .page .center {
+                        width: 35%;
+                        margin: 0 auto 20pt;
+                    }
+
+                    .page .underline {
+                        text-decoration: underline;
+                    }
+
+                    .page .label {
+                        margin-right: 10pt;
+                        display: inline-block;
+                    }
+
+                    .page .wrapper .label {
+                        margin-bottom: 0;
+                    }
+
+                    .page table {
+                        border-collapse: collapse;
+                        width: 100%;
+                    }
+
+                    .page table, th, td {
+                        border: 1pt solid black;
+                        text-align: center;
+                    }
+
+                    .page .red {
+                        color: red;
+                    }
+
+                    .page input {
+                        border: 0;
+                    }
+
+                    .page button {
+                        font-size: 12pt;
+                        font-family: 'Segoe UI', sans-serif;
+                    }
+
+                    .page p {
+                        margin: 5pt 0;
+                    }
+
+                    .page strong {
+                        font-weight: normal !important;
+                    }
+
+                @page {
+                    size: auto;
+                    margin: 0mm;
+                }
+            </style>
+
+            <div id="printSuggest">
+                <div class="page">
+                    <div class="logo">
+                        <img src="/images/logo.jpg">
+                    </div>
+                    <div class="title">PHIẾU ĐỀ NGHỊ TẠM ỨNG</div>
+                    <div class="wrapper center" style="align-items: flex-start;">
+                        <strong class="underline label">Kính gửi:</strong>
+                        <div class="text">
+                            - BAN GIÁM ĐỐC CÔNG TY<br>
+                            - TRƯỞNG TRUNG TÂM/PHÒNG<br>
+                            - PHÒNG KẾ TOÁN<br>
+                        </div>
+                    </div>
+                    <div class="wrapper" style="margin-bottom: 5pt;">
+                        <span>
+                            <strong class="label" style="width: 55pt">Tôi tên:</strong>
+                            <label style="width: 180pt">{{data.beneficiaryName}}</label>
+                        </span>
+                        <span>
+                            <strong class="label" style="margin-left: 20pt">Phòng ban:</strong>
+                            <label style="width: 200pt">{{data.departmentRelated.name}}</label>
+                        </span>
+                    </div>
+                    <div class="wrapper" style="margin-bottom: 5pt;">
+                        <strong class="label" style="width: 55pt;">Dự án:</strong>
+                        <label style="width: 100%">{{params.module == 'pj' ? data.projectCode.code : data.productCode.code}}{{data.area!=(""|| null)? "." + data.areaCode.code : ""}}</label>
+                    </div>
+                    <strong class="label" style="margin-bottom: 5pt">Các khoản đề nghị:</strong>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Khoản chi</th>
+                                <th>Số tiền</th>
+                                <th>Số lượng</th>
+                                <th style="width: 30%">Tổng tiền</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="(key, value) in data.details">
+                                <td>{{key+1}}</td>
+                                <td>{{value.itemDescription}}</td>
+                                <td>{{value.price | number:2}}</td>
+                                <td>{{value.qty}}</td>
+                                <td>{{value.qty * value.price | number:2}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!--<button style="float: right;margin-top: 5pt;">+ Thêm dòng</button>-->
+                    <div style="margin: 10pt 0 5pt">
+                        <strong class="label">Đề nghị tạm ứng số tiền:</strong>
+                        <label>{{data.sumTotal | number:2}} (VNĐ)</label>
+                    </div>
+                    <div style="margin: 5pt 0; display: flex;">
+                        <strong class="label" style="width: 70pt">Bằng chữ:</strong>
+                        <label style="width: 100%">{{data.sumTotalChar}}</label>
+                    </div>
+                    <div>
+                        <strong class="label" style="margin-bottom: 5pt">Lí do:</strong>
+                        <textarea style="display: block; border: 1px solid #ddd;padding: 10pt;resize: none;width: calc(100% - 25pt);height: 50pt;" ng-model="data.notes"></textarea>
+                    </div>
+                    <div class="wrapper" style="margin: 10pt 0;">
+                        <div class="wrapper">
+                            <strong class="label">Thời hạn tạm ứng:</strong>
+                            <label style="width: 110pt"></label>
+                        </div>
+                        <div class="wrapper">
+                            <strong class="label">Phòng ban chịu phí:</strong>
+                            <label style="width: 200pt">{{data.departmentRelated.name}} {{data.departmentRelated.description}}</label>
+                        </div>
+                    </div>
+                    <div class="red">
+                        <p>Lưu ý: nếu tạm ứng phục vụ công tác thì:</p>
+                        <div class="wrapper" style="justify-content: flex-start; margin-bottom: 0;">
+                            <p>- Gửi kèm file kế hoạch công tác ở đây:</p>
+                            <div>
+                                <span style="color: #000; font-style: italic;font-weight: bold;margin-left: 10pt;text-decoration: underline;" ng-repeat="item in data.attachments">{{item.documentInfo.fileName}}</span>
+                            </div>
+                        </div>
+                        <p>- Giữ lại thẻ Broading pass nếu đi bằng máy bay để làm thủ tục hoàn ứng.</p>
+                    </div>
+                    <div style="float: right;font-style: italic;padding-right: 20pt;margin-top: 10pt;">Ngày: {{data.dateSign | date:'dd-MM-yyyy'}}</div>
+                    <div style="margin-top: 50pt;display: flex;justify-content: space-between;padding: 0 20pt;font-weight: bold;">
+                        <div style="text-align: center;">
+                            Người làm đơn
+                            <div style="margin-top: 80pt">{{data.beneficiaryName}}</div>
+                        </div>
+                        <div style="text-align: center;">Trung tâm/Phòng ban</div>
+                        <div style="text-align: center;">Phòng kế toán</div>
+                        <div style="text-align: center;">Phê duyệt</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    jQuery.each(jQuery('textarea[data-autoresize]'), function () {
+        var offset = this.offsetHeight - this.clientHeight;
+
+        var resizeTextarea = function (el) {
+            jQuery(el).css('height', 'auto').css('height', el.scrollHeight + offset);
+        };
+        jQuery(this).on('keyup input', function () { resizeTextarea(this); }).removeAttr('data-autoresize');
+    });
+</script>

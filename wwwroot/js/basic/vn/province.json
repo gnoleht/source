@@ -1,0 +1,324 @@
+﻿{
+  "provinces": [
+    {
+      "id": "089",
+      "text": "An Giang",
+      "zipcode": "880000"
+    },
+    {
+      "id": "077",
+      "text": "Bà Rịa-Vũng Tàu",
+      "zipcode": "790000"
+    },
+    {
+      "id": "095",
+      "text": "Bạc Liêu",
+      "zipcode": "960000"
+    },
+    {
+      "id": "006",
+      "text": "Bắc Kạn",
+      "zipcode": "260000"
+    },
+    {
+      "id": "024",
+      "text": "Bắc Giang",
+      "zipcode": "230000"
+    },
+    {
+      "id": "027",
+      "text": "Bắc Ninh",
+      "zipcode": "220000"
+    },
+    {
+      "id": "083",
+      "text": "Bến Tre",
+      "zipcode": "930000"
+    },
+    {
+      "id": "074",
+      "text": "Bình Dương",
+      "zipcode": "820000"
+    },
+    {
+      "id": "052",
+      "text": "Bình Định",
+      "zipcode": "590000"
+    },
+    {
+      "id": "070",
+      "text": "Bình Phước",
+      "zipcode": "830000"
+    },
+    {
+      "id": "060",
+      "text": "Bình Thuận",
+      "zipcode": "800000"
+    },
+    {
+      "id": "096",
+      "text": "Cà Mau",
+      "zipcode": "970000"
+    },
+    {
+      "id": "004",
+      "text": "Cao Bằng",
+      "zipcode": "270000"
+    },
+    {
+      "id": "092",
+      "text": "Cần Thơ",
+      "zipcode": "900000"
+    },
+    {
+      "id": "048",
+      "text": "Đà Nẵng",
+      "zipcode": "550000"
+    },
+    {
+      "id": "066",
+      "text": "Đắk Lắk",
+      "zipcode": "630000"
+    },
+    {
+      "id": "067",
+      "text": "Đắk Nông",
+      "zipcode": "640000"
+    },
+    {
+      "id": "011",
+      "text": "Điện Biên",
+      "zipcode": "380000"
+    },
+    {
+      "id": "075",
+      "text": "Đồng Nai",
+      "zipcode": "810000"
+    },
+    {
+      "id": "087",
+      "text": "Đồng Tháp",
+      "zipcode": "870000"
+    },
+    {
+      "id": "064",
+      "text": "Gia Lai",
+      "zipcode": "600000"
+    },
+    {
+      "id": "002",
+      "text": "Hà Giang",
+      "zipcode": "310000"
+    },
+    {
+      "id": "035",
+      "text": "Hà Nam",
+      "zipcode": "400000"
+    },
+    {
+      "id": "001",
+      "text": "Hà Nội",
+      "zipcode": "100000"
+
+    },
+    {
+      "id": "042",
+      "text": "Hà Tĩnh",
+      "zipcode": "480000"
+    },
+    {
+      "id": "030",
+      "text": "Hải Dương",
+      "zipcode": "170000"
+    },
+    {
+      "id": "031",
+      "text": "Hải Phòng",
+      "zipcode": "180000"
+    },
+    {
+      "id": "093",
+      "text": "Hậu Giang",
+      "zipcode": "910000"
+    },
+    {
+      "id": "017",
+      "text": "Hòa Bình",
+      "zipcode": "350000"
+    },
+    {
+      "id": "079",
+      "text": "Thành phố Hồ Chí Minh",
+      "zipcode": "700000"
+
+    },
+    {
+      "id": "033",
+      "text": "Hưng Yên",
+      "zipcode": "160000"
+    },
+    {
+      "id": "056",
+      "text": "Khánh Hoà",
+      "zipcode": "650000"
+    },
+    {
+      "id": "091",
+      "text": "Kiên Giang",
+      "zipcode": "920000"
+    },
+    {
+      "id": "062",
+      "text": "Kon Tum",
+      "zipcode": "580000"
+    },
+    {
+      "id": "012",
+      "text": "Lai Châu",
+      "zipcode": "390000"
+    },
+    {
+      "id": "020",
+      "text": "Lạng Sơn",
+      "zipcode": "240000"
+    },
+    {
+      "id": "010",
+      "text": "Lào Cai",
+      "zipcode": "330000"
+    },
+    {
+      "id": "068",
+      "text": "Lâm Đồng",
+      "zipcode": "670000"
+    },
+    {
+      "id": "080",
+      "text": "Long An",
+      "zipcode": "850000"
+    },
+    {
+      "id": "036",
+      "text": "Nam Định",
+      "zipcode": "420000"
+    },
+    {
+      "id": "040",
+      "text": "Nghệ An",
+      "zipcode": "460000"
+
+    },
+    {
+      "id": "037",
+      "text": "Ninh Bình",
+      "zipcode": "430000"
+    },
+    {
+      "id": "058",
+      "text": "Ninh Thuận",
+      "zipcode": "660000"
+    },
+    {
+      "id": "025",
+      "text": "Phú Thọ",
+      "zipcode": "290000"
+    },
+    {
+      "id": "054",
+      "text": "Phú Yên",
+      "zipcode": "620000"
+    },
+    {
+      "id": "044",
+      "text": "Quảng Bình",
+      "zipcode": "610000"
+    },
+    {
+      "id": "049",
+      "text": "Quảng Nam",
+      "zipcode": "560000"
+    },
+    {
+      "id": "051",
+      "text": "Quảng Ngãi",
+      "zipcode": "570000"
+    },
+    {
+      "id": "022",
+      "text": "Quảng Ninh",
+      "zipcode": "200000"
+    },
+    {
+      "id": "045",
+      "text": "Quảng Trị",
+      "zipcode": "520000"
+    },
+    {
+      "id": "094",
+      "text": "Sóc Trăng",
+      "zipcode": "950000"
+    },
+    {
+      "id": "014",
+      "text": "Sơn La",
+      "zipcode": "360000"
+    },
+    {
+      "id": "072",
+      "text": "Tây Ninh",
+      "zipcode": "840000"
+    },
+    {
+      "id": "034",
+      "text": "Thái Bình",
+      "zipcode": "410000"
+    },
+    {
+      "id": "019",
+      "text": "Thái Nguyên",
+      "zipcode": "250000"
+    },
+    {
+      "id": "038",
+      "text": "Thanh Hoá",
+      "zipcode": "440000"
+
+    },
+    {
+      "id": "046",
+      "text": "Thừa Thiên-Huế",
+      "zipcode": "530000"
+    },
+    {
+      "id": "082",
+      "text": "Tiền Giang",
+      "zipcode": "860000"
+    },
+    {
+      "id": "084",
+      "text": "Trà Vinh",
+      "zipcode": "940000"
+    },
+    {
+      "id": "008",
+      "text": "Tuyên Quang",
+      "zipcode": "300000"
+    },
+    {
+      "id": "086",
+      "text": "Vĩnh Long",
+      "zipcode": "890000"
+    },
+    {
+      "id": "026",
+      "text": "Vĩnh Phúc",
+      "zipcode": "280000"
+    },
+    {
+      "id": "015",
+      "text": "Yên Bái",
+      "zipcode": "320000"
+    }
+
+  ]
+}

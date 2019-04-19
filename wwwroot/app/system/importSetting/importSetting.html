@@ -1,0 +1,32 @@
+﻿<div id="importSetting" class="modal modal_center fade" ng-controller="importSettingController" ng-init="initJS()">
+    <div class="modal-dialog" style="width:500px">
+        <div class="modal-content">
+            <div class="modal-header clearfix">
+                <p style="font-size:16px;margin:0;line-height:1.9em;" class="float-left">
+                    <span ng-bind="translation.MODAL_TITLE"></span>
+                </p>
+                <div class="box_btn_02">
+                    <button type="button" class="btn_close_02" data-dismiss="modal"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-body-maincontent box_content">
+                    <div class="clearfix" style="width:100%;height:200px">
+                        <div class="w180 float-left">
+                            <div id="imgDropzone" class="droppable-area advancedDropzone img_over_180">
+                                <img id="imgAvatar" src="/img/no-product.jpg" class="img-inline dz-message img_full" />
+                            </div>
+                        </div>
+                        <div class="w100_180 float-right">
+                            <lv-input element-id="fileName" field="fileName" model="data.fileName" setting="setting" translation="translation" tab="0"></lv-input>
+                            <lv-input field="tableName" model="data.tableName" setting="setting" translation="translation" tab="1"></lv-input>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn_save_02" id="btnSave" ng-click="save()" click-Once><i class="fa fa-save"></i> <span ng-bind="globalTranslation.BTN_APPLY"></span></button>
+            </div>
+        </div>
+    </div>
+</div>

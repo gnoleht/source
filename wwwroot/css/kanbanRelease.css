@@ -1,0 +1,228 @@
+﻿/*for test only. After test complate: undo, no check-in.*/
+
+ #kanban_Release {
+    width: 100%;
+    margin: auto;
+}
+
+#kanban_Release thead {
+    width: 100%;
+    display: table;
+}
+
+#kanban_Release thead tr {
+    /**/
+}
+
+#kanban_Release thead tr th {
+    padding-left: 10px;
+    padding-bottom: 10px;
+    width: 200px;
+    border-bottom: 2px solid #F09659;
+}
+
+#kanban_Release thead tr:first-child th:first-child {
+    border-bottom: none;
+}
+
+#kanban_Release tbody {
+    width: 100%;
+    height: 560px;
+    overflow: auto;
+    display: block;
+}
+
+#kanban_Release tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+
+#kanban_Release tbody tr td {
+    vertical-align: top;
+    padding-left: 0px;
+    height: 100px;
+    width: 200px;
+    border-right: 1px solid #CCC;
+}
+
+
+#kanban_Release tbody tr td:first-child {
+    height: 40px;
+    padding-top: 0;
+    border-right: 2px solid #F09659;
+}
+
+
+
+#kanban_Release tbody tr td div.tooltip.bottom .tooltip-inner {
+    background-color: #fff;
+    color: red;
+    border: 1px solid #ccc;
+}
+
+#kanban_Release tbody tr td div.tooltip.bottom .tooltip-arrow {
+    border-bottom: 5px solid #ccc;
+}
+
+
+.column {
+    width: 100%;
+    float: left;
+    padding: 10px;
+    height: 100%;
+}
+
+.block {
+    width: 100%;
+    height: auto;
+    margin: 0 0 15px;
+    display: inline-block;
+    padding: 10px;
+    background: #FFF;
+    border: 1px solid #009CCC;
+    border-left: 6px solid #009CCC;
+    font-size: 14px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+.block-header {
+    color: #337ab7;
+
+    display: block;
+    word-wrap: break-word;
+    max-height: 3.6em;
+    /*line-height: 1em;*/
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.block-header:hover {
+    cursor: pointer;
+    text-decoration-line: underline;
+}
+
+.block-content {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.block-placeholder {
+    border: 1px dashed black;
+    margin: 0 0 10px;
+    height: 100px;
+    width: 100%;
+    display: block;
+    clear: both;
+}
+
+.priority {
+   opacity:0.6;
+}
+
+
+.priority-value {
+    float: right;
+    color: #000;
+}
+
+.backlog_F {
+    width: 100%;
+    height: auto;
+    /*margin: 0 0 10px;*/
+    display: inline-block;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-left: 6px solid #773B93;
+    /*margin-top: 10px;*/
+}
+
+.backlog_U {
+    width: 100%;
+    height: auto;
+    /*margin: 0 0 10px;*/
+    display: inline-block;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-left: 6px solid #009ccc;
+    /*margin-top: 10px;*/
+}
+
+.parent_text {
+    white-space: nowrap;
+    width: 95%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-left: 10px;
+}
+
+.parent_text:hover {
+    cursor: pointer;
+    text-decoration-line: underline;
+}
+
+
+#modal-setting > .modal-dialog > .modal-content > .modal-footer {
+    background-color: #33689B;
+    padding-right: 20px;
+    color: white;
+    display: inline-block;
+    width: 100%;
+}
+
+#modal-setting > .modal-dialog > .modal-content > .modal-footer > div {
+    cursor: pointer;
+    display: inline-block;
+}
+
+#modal-setting > .modal-dialog > .modal-content > .modal-footer > .totalPoint {
+    float: left;
+    padding-left: 150px;
+}
+
+#modal-setting > .modal-dialog > .modal-content > .modal-footer > .minDay {
+    float: left;
+    padding-left: 80px;
+}
+
+#modal-setting > .modal-dialog > .modal-content > .modal-footer > .maxDay {
+    float: left;
+    padding-left: 125px;
+}
+
+.styleCellSlick {
+    border: none !important;
+}
+
+.styleCellSlick > input {
+    border: none;
+    background-color:#CEE7F8;
+    width:100%;
+    height:100%;
+}
+
+.sizePoint {
+    float: right;
+    color: red;
+    padding-right: 15px;
+}
+
+.sprintDate {
+   font-size:13px;
+   font-weight:normal;
+}
+
+
+
+@media screen and (max-width: 1366px) {
+    .priority {
+        display: none;
+    }
+
+    .priority-value {
+        float: left !important;
+        padding-bottom: 10px;
+    }
+}

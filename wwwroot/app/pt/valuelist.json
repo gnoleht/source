@@ -1,0 +1,926 @@
+﻿{
+  "period": [
+    {
+      "id": "1",
+      "text": {
+        "vn": "Tháng",
+        "en": "Month"
+      }
+    },
+    {
+      "id": "2",
+      "text": {
+        "vn": "Phát sinh",
+        "en": "Incurred"
+      }
+    }
+  ],
+  "stationeryCategory": [
+    {
+      "id": "-1",
+      "text": {
+        "vn": "Tất cả",
+        "en": "All"
+      }
+    },
+    {
+      "id": "1",
+      "text": {
+        "vn": "Giấy",
+        "en": "Paper"
+      }
+    },
+    {
+      "id": "2",
+      "text": {
+        "vn": "Viết",
+        "en": "Pen"
+      }
+    },
+    {
+      "id": "3",
+      "text": {
+        "vn": "Vật dụng",
+        "en": "Implement"
+      }
+    },
+    {
+      "id": "100",
+      "text": {
+        "vn": "Khác",
+        "en": "Other"
+      }
+    }
+  ],
+  "category": [
+    {
+      "id": "1",
+      "text": {
+        "vn": "Giấy",
+        "en": "Paper"
+      }
+    },
+    {
+      "id": "2",
+      "text": {
+        "vn": "Viết",
+        "en": "Pen"
+      }
+    },
+    {
+      "id": "3",
+      "text": {
+        "vn": "Vật dụng",
+        "en": "Implement"
+      }
+    },
+    {
+      "id": "100",
+      "text": {
+        "vn": "Khác",
+        "en": "Other"
+      }
+    }
+  ],
+  "stationeryUnit": [
+    {
+      "id": "1",
+      "text": {
+        "vn": "Cái",
+        "en": "Oneness"
+      }
+    },
+    {
+      "id": "2",
+      "text": {
+        "vn": "Hộp",
+        "en": "Box"
+      }
+    },
+    {
+      "id": "3",
+      "text": {
+        "vn": "Thùng",
+        "en": "Crate"
+      }
+    },
+    {
+      "id": "4",
+      "text": {
+        "vn": "Tờ",
+        "en": "Sheet"
+      }
+    },
+    {
+      "id": "5",
+      "text": {
+        "vn": "Xấp",
+        "en": "Sheaf"
+      }
+    },
+    {
+      "id": "6",
+      "text": {
+        "vn": "Cuộn",
+        "en": "Roll"
+      }
+    },
+    {
+      "id": "7",
+      "text": {
+        "vn": "Viên",
+        "en": "Pill"
+      }
+    },
+    {
+      "id": "8",
+      "text": {
+        "vn": "Lốc",
+        "en": "Rolls"
+      }
+    },
+    {
+      "id": "9",
+      "text": {
+        "vn": "Cây",
+        "en": "Oneness"
+      }
+    },
+    {
+      "id": "999",
+      "text": {
+        "vn": "Khác",
+        "en": "Other"
+      }
+    }
+  ],
+  "stationeryStatus": [
+    {
+      "id": "0",
+      "text": {
+        "vn": "Chờ duyệt",
+        "en": "Pending"
+      },
+      "icon": "bowtie-icon bowtie-record-fill orange"
+    },
+    {
+      "id": "1",
+      "text": {
+        "vn": "Đã duyệt",
+        "en": "Approved"
+      },
+      "icon": "bowtie-icon bowtie-record-fill green"
+    },
+    {
+      "id": "2",
+      "text": {
+        "vn": "Từ chối",
+        "en": "Reject"
+      },
+      "icon": "bowtie-icon bowtie-record-fill red"
+    }
+  ],
+  "stationeryOrderStatus": [
+    {
+      "id": "0",
+      "text": {
+        "vn": "Chưa đặt hàng",
+        "en": "New"
+      },
+      "icon": "bowtie-icon bowtie-square brown"
+    },
+    {
+      "id": "1",
+      "text": {
+        "vn": "Nhận một phần",
+        "en": "Received a part"
+      },
+      "icon": "bowtie-icon bowtie-square orange"
+    },
+    {
+      "id": "2",
+      "text": {
+        "vn": "Hoàn thành",
+        "en": "Completed"
+      },
+      "icon": "bowtie-icon bowtie-square green"
+    }
+  ],
+  "orderStatus": [
+    {
+      "id": "0",
+      "text": {
+        "vn": "Tạo mới",
+        "en": "New"
+      },
+      "icon": "bowtie-icon bowtie-triangle brown"
+    },
+    {
+      "id": "1",
+      "text": {
+        "vn": "Hoàn thành",
+        "en": "Completed"
+      },
+      "icon": "bowtie-icon bowtie-triangle green"
+    }
+  ],
+  "month": [
+    {
+      "id": "1",
+      "text": {
+        "vn": "1",
+        "en": "1"
+      }
+    },
+    {
+      "id": "2",
+      "text": {
+        "vn": "2",
+        "en": "2"
+      }
+    },
+    {
+      "id": "3",
+      "text": {
+        "vn": "3",
+        "en": "3"
+      }
+    },
+    {
+      "id": "4",
+      "text": {
+        "vn": "4",
+        "en": "4"
+      }
+    },
+    {
+      "id": "5",
+      "text": {
+        "vn": "5",
+        "en": "5"
+      }
+    },
+    {
+      "id": "6",
+      "text": {
+        "vn": "6",
+        "en": "6"
+      }
+    },
+    {
+      "id": "7",
+      "text": {
+        "vn": "7",
+        "en": "7"
+      }
+    },
+    {
+      "id": "8",
+      "text": {
+        "vn": "8",
+        "en": "8"
+      }
+    },
+    {
+      "id": "9",
+      "text": {
+        "vn": "9",
+        "en": "9"
+      }
+    },
+    {
+      "id": "10",
+      "text": {
+        "vn": "10",
+        "en": "10"
+      }
+    },
+    {
+      "id": "11",
+      "text": {
+        "vn": "11",
+        "en": "11"
+      }
+    },
+    {
+      "id": "12",
+      "text": {
+        "vn": "12",
+        "en": "12"
+      }
+    }
+  ],
+  "hours": [
+    {
+      "id": "00",
+      "text": {
+        "vn": "00",
+        "en": "00"
+      }
+    },
+    {
+      "id": "01",
+      "text": {
+        "vn": "01",
+        "en": "01"
+      }
+    },
+    {
+      "id": "02",
+      "text": {
+        "vn": "02",
+        "en": "02"
+      }
+    },
+    {
+      "id": "03",
+      "text": {
+        "vn": "03",
+        "en": "03"
+      }
+    },
+    {
+      "id": "04",
+      "text": {
+        "vn": "04",
+        "en": "04"
+      }
+    },
+    {
+      "id": "05",
+      "text": {
+        "vn": "05",
+        "en": "05"
+      }
+    },
+    {
+      "id": "06",
+      "text": {
+        "vn": "06",
+        "en": "06"
+      }
+    },
+    {
+      "id": "07",
+      "text": {
+        "vn": "07",
+        "en": "07"
+      }
+    },
+    {
+      "id": "08",
+      "text": {
+        "vn": "08",
+        "en": "08"
+      }
+    },
+    {
+      "id": "09",
+      "text": {
+        "vn": "09",
+        "en": "09"
+      }
+    },
+    {
+      "id": "10",
+      "text": {
+        "vn": "10",
+        "en": "10"
+      }
+    },
+    {
+      "id": "11",
+      "text": {
+        "vn": "11",
+        "en": "11"
+      }
+    },
+    {
+      "id": "12",
+      "text": {
+        "vn": "12",
+        "en": "12"
+      }
+    },
+    {
+      "id": "13",
+      "text": {
+        "vn": "13",
+        "en": "13"
+      }
+    },
+    {
+      "id": "14",
+      "text": {
+        "vn": "14",
+        "en": "14"
+      }
+    },
+    {
+      "id": "15",
+      "text": {
+        "vn": "15",
+        "en": "15"
+      }
+    },
+    {
+      "id": "16",
+      "text": {
+        "vn": "16",
+        "en": "16"
+      }
+    },
+    {
+      "id": "17",
+      "text": {
+        "vn": "17",
+        "en": "17"
+      }
+    },
+    {
+      "id": "18",
+      "text": {
+        "vn": "18",
+        "en": "18"
+      }
+    },
+    {
+      "id": "19",
+      "text": {
+        "vn": "19",
+        "en": "19"
+      }
+    },
+    {
+      "id": "20",
+      "text": {
+        "vn": "20",
+        "en": "20"
+      }
+    },
+    {
+      "id": "21",
+      "text": {
+        "vn": "21",
+        "en": "21"
+      }
+    },
+    {
+      "id": "22",
+      "text": {
+        "vn": "22",
+        "en": "22"
+      }
+    },
+    {
+      "id": "23",
+      "text": {
+        "vn": "23",
+        "en": "23"
+      }
+    }
+  ],
+  "minutes": [
+    {
+      "id": "00",
+      "text": {
+        "vn": "00",
+        "en": "00"
+      }
+    },
+    {
+      "id": "05",
+      "text": {
+        "vn": "05",
+        "en": "05"
+      }
+    },
+    {
+      "id": "10",
+      "text": {
+        "vn": "10",
+        "en": "10"
+      }
+    },
+    {
+      "id": "15",
+      "text": {
+        "vn": "15",
+        "en": "15"
+      }
+    },
+    {
+      "id": "20",
+      "text": {
+        "vn": "20",
+        "en": "20"
+      }
+    },
+    {
+      "id": "25",
+      "text": {
+        "vn": "25",
+        "en": "25"
+      }
+    },
+    {
+      "id": "30",
+      "text": {
+        "vn": "30",
+        "en": "30"
+      }
+    },
+    {
+      "id": "35",
+      "text": {
+        "vn": "35",
+        "en": "35"
+      }
+    },
+    {
+      "id": "40",
+      "text": {
+        "vn": "40",
+        "en": "40"
+      }
+    },
+    {
+      "id": "45",
+      "text": {
+        "vn": "45",
+        "en": "45"
+      }
+    },
+    {
+      "id": "50",
+      "text": {
+        "vn": "50",
+        "en": "50"
+      }
+    },
+    {
+      "id": "55",
+      "text": {
+        "vn": "55",
+        "en": "55"
+      }
+    }
+  ],
+  "scope": [
+    {
+      "id": "1",
+      "text": {
+        "vn": "Nội bộ",
+        "en": "Internal"
+      }
+    },
+    {
+      "id": "2",
+      "text": {
+        "vn": "Bên ngoài",
+        "en": "External"
+      }
+    }
+  ],
+  "vehicleCategory": [
+    {
+      "id": "1",
+      "text": {
+        "vn": "Nội bộ",
+        "en": "Internal"
+      }
+    },
+    {
+      "id": "2",
+      "text": {
+        "vn": "Taxi",
+        "en": "Taxi"
+      }
+    },
+    {
+      "id": "3",
+      "text": {
+        "vn": "Bên ngoài",
+        "en": "External"
+      }
+    }
+  ],
+  "portalAction": [
+    {
+      "id": "new",
+      "text": {
+        "vn": "Gửi duyệt",
+        "en": "Submit"
+      }
+    },
+    {
+      "id": "reSubmit",
+      "text": {
+        "vn": "Gửi duyệt lại",
+        "en": "ReSubmit"
+      }
+    },
+    {
+      "id": "edit",
+      "text": {
+        "vn": "Cập nhật",
+        "en": "Edit"
+      }
+    },
+    {
+      "id": "delete",
+      "text": {
+        "vn": "Xóa",
+        "en": "delete"
+      }
+    },
+    {
+      "id": "approved",
+      "text": {
+        "vn": "Đã duyệt",
+        "en": "Approved"
+      }
+    },
+    {
+      "id": "reApproved",
+      "text": {
+        "vn": "Điều chỉnh phê duyệt",
+        "en": "ReApproved"
+      }
+    },
+    {
+      "id": "rejected",
+      "text": {
+        "vn": "Đã từ chối",
+        "en": "Rejected"
+      }
+    },
+    {
+      "id": "reRejected",
+      "text": {
+        "vn": "Điều chỉnh từ chối phê duyệt",
+        "en": "ReRejected"
+      }
+    },
+    {
+      "id": "arranged",
+      "text": {
+        "vn": "Điều phối",
+        "en": "Arranged"
+      }
+    },
+    {
+      "id": "reArranged",
+      "text": {
+        "vn": "Điều chỉnh điều phối",
+        "en": "ReArranged"
+      }
+    },
+    {
+      "id": "rejectArranged",
+      "text": {
+        "vn": "Từ chối điều phối",
+        "en": "Reject Arrangers"
+      }
+    },
+    {
+      "id": "reRejectArranged",
+      "text": {
+        "vn": "Điều chỉnh từ chối điều phối",
+        "en": "ReReject Arrangers"
+      }
+    }
+  ],
+  "portalRole": [
+    {
+      "id": "creator",
+      "text": {
+        "vn": "Người đề nghị",
+        "en": "Creator"
+      }
+    },
+    {
+      "id": "approve",
+      "text": {
+        "vn": "Trưởng phòng duyệt",
+        "en": "Approve"
+      }
+    },
+    {
+      "id": "arrange",
+      "text": {
+        "vn": "Điều phối viên",
+        "en": "Arrange"
+      }
+    }
+  ],
+  "criteriaLevel": [
+    {
+      "id": 1,
+      "text": {
+        "vn": "Mức độ 1",
+        "en": "Level 1"
+      },
+      "backgroundColor": "#6c757d"
+    },
+    {
+      "id": 2,
+      "text": {
+        "vn": "Mức độ 2",
+        "en": "Level 2"
+      },
+      "backgroundColor": "#543D98"
+    },
+    {
+      "id": 3,
+      "text": {
+        "vn": "Mức độ 3",
+        "en": "Level 3"
+      },
+      "backgroundColor": "#EF4438"
+    },
+    {
+      "id": 4,
+      "text": {
+        "vn": "Mức độ 4",
+        "en": "Level 4"
+      },
+      "backgroundColor": "#F8981D"
+    },
+    {
+      "id": 5,
+      "text": {
+        "vn": "Mức độ 5",
+        "en": "Level 5"
+      },
+      "backgroundColor": "#FDD836"
+    }
+  ],
+  "criteriaStatus": [
+    {
+      "id": "undeveloped",
+      "text": {
+        "vn": "Chưa triển khai",
+        "en": "Undeveloped"
+      },
+      "icon": "bowtie-icon bowtie-record-fill orange"
+    },
+    {
+      "id": "complete ",
+      "text": {
+        "vn": "Hoàn thành",
+        "en": "Complete "
+      },
+      "icon": "bowtie-icon bowtie-record-fill green"
+    },
+    {
+      "id": "notCompleted",
+      "text": {
+        "vn": "Không hoàn thành",
+        "en": "Not Completed"
+      },
+      "icon": "bowtie-icon bowtie-record-fill red"
+    },
+    {
+      "id": "isDoing",
+      "text": {
+        "vn": "Đang thực hiện",
+        "en": "Is Doing"
+      },
+      "icon": "bowtie-icon bowtie-record-fill yellow"
+    },
+    {
+      "id": "unfulfilled",
+      "text": {
+        "vn": "Chưa thực hiện",
+        "en": "Unfulfilled"
+      },
+      "icon": "bowtie-icon bowtie-record-fill brown"
+    }
+  ],
+  "implementationPlan": [
+    {
+      "id": "consolidate",
+      "text": {
+        "vn": "Củng cố",
+        "en": "Consolidate"
+      }
+    },
+    {
+      "id": "execute",
+      "text": {
+        "vn": "Thực hiện",
+        "en": "Execute"
+      }
+    }
+  ],
+  "priority": [
+    {
+      "id": "1-Urgent",
+      "text": {
+        "vn": "Nghiêm trọng",
+        "en": "Urgent"
+      },
+      "class": "priority priority_01",
+      "icon": "bowtie-icon bowtie-square"
+    },
+    {
+      "id": "2-High",
+      "text": {
+        "vn": "Cao",
+        "en": "High"
+      },
+      "class": "priority priority_02",
+      "icon": "bowtie-icon bowtie-square"
+    },
+    {
+      "id": "3-Normal",
+      "text": {
+        "vn": "Trung bình",
+        "en": "Normal"
+      },
+      "class": "priority priority_03",
+      "icon": "bowtie-icon bowtie-square"
+    },
+    {
+      "id": "4-Low",
+      "text": {
+        "vn": "Thấp",
+        "en": "Low"
+      },
+      "class": "priority priority_04",
+      "icon": "bowtie-icon bowtie-square"
+    }
+  ],
+  "typeOfQuestion": [
+    {
+      "id": "1",
+      "text": {
+        "vn": "Trả lời ngắn",
+        "en": "Short answer"
+      }
+    },
+    {
+      "id": "2",
+      "text": {
+        "vn": "Đoạn",
+        "en": "Paragraph"
+      }
+    },
+    {
+      "id": "3",
+      "text": {
+        "vn": "Trắc nghiệm",
+        "en": "Multiple-choice"
+      }
+    },
+    {
+      "id": "4",
+      "text": {
+        "vn": "Hộp kiểm",
+        "en": "Check box"
+      }
+    }
+  ],
+  "newsType": [
+    {
+      "id": "1",
+      "text": {
+        "vn": "Tin tức",
+        "en": "News"
+      }
+    },
+    {
+      "id": "2",
+      "text": {
+        "vn": "Video / Hình ảnh",
+        "en": "Video / Picture"
+      }
+    },
+    {
+      "id": "3",
+      "text": {
+        "vn": "Giới thiệu",
+        "en": "Introduce"
+      }
+    }
+  ],
+  "newsStatus": [
+    {
+      "id": "1",
+      "text": {
+        "vn": "Xuất bản",
+        "en": "Published"
+      },
+      "icon": "fa fa-circle green"
+    },
+    {
+      "id": "3",
+      "text": {
+        "vn": "Đóng",
+        "en": "Closed"
+      },
+      "icon": "fa fa-circle red"
+    }
+  ]
+}

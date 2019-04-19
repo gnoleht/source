@@ -1,0 +1,46 @@
+﻿<div id="exportData" ng-controller="exportDataController">
+    <div class="white_box">
+        <div id="grvExportData" style="width:100%;height:100%"></div>
+    </div>
+
+    <!-- Modal (Modal detail)-->
+    <div class="modal fade  modal_center confirmClose" id="modal-detail" ng-init="initJS()">
+        <div class="modal-dialog" style="width:700px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <p style="font-size:16px;margin:0;line-height:1.9em;" class="float-left">
+                        <span ng-bind="action == 'add' ? translation.MODAL_TITLE : data.name|uppercase "></span>
+                    </p>
+                    <div class="box_btn_02">
+                        <button type="button" class="btn_close_02" data-dismiss="modal"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                    </div>
+                </div>
+                <div class="modal-body" style="overflow: auto">
+                    <div class="box_content">
+                        <div class="clearfix" style="width:100%">
+                            <div class="w180 float-left">
+                                <div id="imgDropzone" class="droppable-area advancedDropzone img_over_180">
+                                    <img id="imgAvatar" src="/img/no-product.jpg" class="img-inline dz-message img_full" />
+                                </div>
+                            </div>
+                            <div class="w100_180 float-right">
+                                <lv-input element-id="fileName" field="fileName" model="data.fileName" setting="setting" disabled translation="translation" tab="0" class="clearfix" style="margin-bottom: 10px !important"></lv-input>
+                                <lv-input field="name" model="data.name" setting="setting" translation="translation" tab="1" class="clearfix" style="margin-bottom: 10px !important"></lv-input>
+                                <lv-input field="module" model="data.module" setting="setting" translation="translation" tab="2" class="clearfix" style="margin-bottom: 10px !important"></lv-input>
+                                <lv-input field="page" model="data.page" setting="setting" translation="translation" tab="3" class="clearfix" style="margin-bottom: 10px !important"></lv-input>
+                                <lv-input field="grid" model="data.grid" setting="setting" translation="translation" tab="4" class="clearfix" style="margin-bottom: 10px !important"></lv-input>
+                                <lv-number field="baseRowIndex" model="data.baseRowIndex" setting="setting" translation="translation" tab="5" style="margin-bottom: 10px !important"></lv-number>
+                                <lv-select field="format" model="data.format" setting="setting" translation="translation" tab="6" style="margin-bottom: 10px !important"></lv-select>
+                                <lv-checkbox field="active" model="data.active" setting="setting" translation="translation" tab="7" class="clearfix" style="margin-bottom: 10px !important"></lv-checkbox>
+                            </div>
+                        </div>
+                        <lv-textarea style="width:100%" class="clearfix" field="description" model="data.description" setting="setting" translation="translation" block-resize="block-resize" row="3" tab="4"></lv-textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn_save_02" id="btnSave" ng-click="save()" click-Once><i class="fa fa-save"></i> <span ng-bind="globalTranslation.BTN_SAVE">Save</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

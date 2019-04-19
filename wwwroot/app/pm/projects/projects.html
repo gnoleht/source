@@ -1,0 +1,703 @@
+﻿<link rel="stylesheet" type="text/css" href="css/jquery.atwho.css">
+<script src="js/jquery.caret.js"></script>
+<script src="js/jquery.atwho.min.js"></script>
+
+<style>
+    .popover {
+        max-width: 100%;
+    }
+</style>
+
+<div id="projects" ng-controller="projectsController" ng-init="onLoad()">
+    <div class="white_box" style="padding: 0; overflow-x: hidden; overflow-y: auto">
+        <div id="main_project" style="position:relative;height:100%; margin-right:-10px; padding-right: 10px;">
+            <div class="content_7_3 clearfix feed-wrapper">
+                <div class="list-wrapper content_3 float-left">
+                    <dl class="mb-0">
+                        <dt><a class="title_01 bg_blue_01" data-toggle="collapse" data-target="#panel_PM_01" aria-expanded="true" aria-controls="panel_PM_01"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span ng-bind="::translation.PROJECTLIST" class="ng-binding"></span></a></dt>
+                        <dd>
+                            <div class="collapse show" id="panel_PM_01" aria-expanded="true">
+                                <div id="projectList" class="list long-list">
+                                    <div class="search-wrapper">
+                                        <div class="btn_search">
+                                            <div class="input-group">
+                                                <input id="inputSearch" type="text" class="form-control" placeholder="" ng-model="stringSearch" /> <!--ng-keypress="callMethod('search', $event)"-->
+                                                <span class="input-group-btn">
+                                                    <button ng-click="callMethod('search')" class="btn" type="button"><i class="bowtie-icon bowtie-search"></i></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="people-wrapper">
+                                        <div class="people align-items-center" ng-repeat="item in listData">
+                                            <div id="project_{{item.project.projectOrArea.id}}" ng-if="stringSearch == '' || (item.project.projectOrArea.name.toLowerCase().includes(stringSearch.toLowerCase()))" class="content-wrapper" ng-class="checkActive(item.project.projectOrArea.id)">
+                                                <div class="icon" data-toggle="collapse" data-target="#project{{item.project.projectOrArea.id}}" aria-expanded="true" aria-controls="project{{item.project.projectOrArea.id}}">
+                                                    <i ng-if="item.listAreas.length != 0" class="bowtie-icon bowtie-chevron-up"></i>
+                                                </div>
+                                                <div class="content" ng-dblclick="edit(item.project.projectOrArea)" ng-click="changeProject(item.project,'project',$index)">
+                                                    <div class="img" style="background-image: url('/api/system/viewfile?id={{item.project.projectOrArea.pictureThumb}}&def=/img/no_avatar.png')"></div>
+                                                    <div class="info">
+                                                        <div class="name txt_cut">{{item.project.projectOrArea.name}}</div>
+                                                    </div>
+                                                    <span id="notificationProject" ng-class="showNotification(item.project.notification)">
+                                                        <span class="heartbit"></span>
+                                                        <span class="point"></span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="subpeople-wrapper collapse show" id="project{{item.project.projectOrArea.id}}">
+                                                <div id="project_{{area.projectOrArea.id}}" ng-if="stringSearch == '' || (area.projectOrArea.name.toLowerCase().includes(stringSearch.toLowerCase()))" ng-class="checkActive(area.projectOrArea.id)" ng-dblclick="edit(area.projectOrArea)" ng-click="changeProject(area,'area',$parent.$parent.$index)" class="sub-people" ng-repeat="area in item.listAreas">
+                                                    <div class="icon"><i class="bowtie-icon bowtie-users"></i></div>
+                                                    <div class="info">
+                                                        <div class="name txt_cut">{{area.projectOrArea.name}}</div>
+                                                    </div>
+                                                    <span id="notificationArea" ng-class="showNotification(area.notification)">
+                                                        <span class="heartbit"></span>
+                                                        <span class="point"></span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </dd>
+                    </dl>
+                </div>
+
+                <div class="content_7 float-right">
+                    <dl class="mb-0">
+                        <dt><a class="title_01 bg_blue_01" data-toggle="collapse" data-target="#panel_PM_02" aria-expanded="true" aria-controls="panel_PM_02"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span ng-bind="::translation.PROJECT" class="ng-binding"></span></a></dt>
+                        <dd>
+                            <div class="collapse show" id="panel_PM_02" aria-expanded="true" style="">
+                                <div class="box_content border_n">
+                                    <div class="clearfix pr_content_title">
+                                        <p class="float-left mb-0" ng-if="defaultFirstData.projectOrArea.type=='project'"><a href="pm/plan?pjid={{defaultFirstData.projectOrArea.code}}&module=pj" ng-bind="defaultFirstData.projectOrArea.name"></a></p>
+                                        <p class="float-left mb-0" ng-if="defaultFirstData.projectOrArea.type=='area'"><a href="pm/plan?pjid={{defaultFirstData.projectOrArea.parentRelated.code}}&area={{defaultFirstData.projectOrArea.code}}&module=pj" ng-bind="defaultFirstData.projectOrArea.name"></a></p>
+                                        <p class="float-right mb-0" ng-bind="defaultFirstData.projectOrArea.ownerRelated == null ? '' : 'PM: ' + defaultFirstData.projectOrArea.ownerRelated.lastName + '&nbsp;' + defaultFirstData.projectOrArea.ownerRelated.firstName "></p>
+                                    </div>
+                                    <div class="pr_content_detail">
+                                        <div class="clearfix mb-15">
+
+                                            <div class="time_percent float-left">
+                                                <p class="mb-0" ng-bind="defaultFirstData.projectOrArea.percent + ' %'"></p>
+                                                <span ng-style="showPercent(defaultFirstData.projectOrArea)"></span>
+                                            </div>
+                                            <div class="content float-right">
+                                                <p ng-bind="clearHtml(defaultFirstData.projectOrArea.description)"></p>
+                                            </div>
+                                        </div>
+                                        <div class="box_item clearfix d-flex">
+                                            <a href="{{countData.sprint.url}}" style="flex-grow: 1; margin-right: 10px">
+                                                <div class="item item_sprint" style="width: 100%">
+                                                    <p ng-bind="countData.sprint.count + '%'"></p>
+                                                    <p>Sprint</p>
+                                                </div>
+                                            </a>
+                                            <a href="{{countData.epic.url}}" style="flex-grow: 1; margin-right: 10px">
+                                                <div class="item item_epic" style="width: 100%">
+                                                    <p ng-bind="countData.epic.count + '%'"></p>
+                                                    <p>Epic</p>
+                                                </div>
+                                            </a>
+                                            <a ng-href="{{countData.function.url}}" style="flex-grow: 1; margin-right: 10px">
+                                                <div class="item item_function" style="width: 100%">
+                                                    <p ng-bind="countData.function.count + '%'"></p>
+                                                    <p>Function</p>
+                                                </div>
+                                            </a>
+                                            <a href="{{countData.userStory.url}}" style="flex-grow: 1; margin-right: 10px">
+                                                <div data-toggle="popover" class="item item_userstory" style="width: 100%">
+                                                    <p ng-bind="countData.userStory.count + '%'"></p>
+                                                    <p>User Story</p>
+                                                </div>
+                                            </a>
+                                            <a href="{{countData.task.url}}" style="flex-grow: 1; margin-right: 10px">
+                                                <div class="item item_requirement" style="width: 100%">
+                                                    <p ng-bind="countData.task.count + '%'"></p>
+                                                    <p>Task</p>
+                                                </div>
+                                            </a>
+                                            <a href="{{countData.bug.url}}" style="flex-grow: 1">
+                                                <div class="item item_document" style="width: 100%">
+                                                    <p ng-bind="countData.bug.count + ' %'"></p>
+                                                    <p>Bug</p>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </dd>
+                    </dl>
+                    <dl id="feedData" class="mb-0">
+                        <dt><a class="title_01 bg_blue_01" data-toggle="collapse" data-target="#panel_PM_03" aria-expanded="true" aria-controls="panel_PM_02"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span ng-bind="::translation.FEED" class="ng-binding"></span></a></dt>
+                        <dd style="padding: 10px 0 0; margin: 0">
+                            <div class="collapse show" id="panel_PM_03" aria-expanded="true" style="">
+                                <div class="newfeed">
+                                    <!-- <textarea id="inputor" class="form-control" placeholder="Dùng @ để tag 1 người và # để thêm Work Item"></textarea>-->
+                                    <div id="inputor" contenteditable="true" class="form-control newfeed-box" placeholder="Dùng @ để tag 1 người và # để thêm Work Item"></div>
+                                    <div class="button-group" style="margin-bottom:10px;border-bottom:none">
+                                        <div class="d-flex" style="width: calc(100% - 190px); justify-content: flex-end">
+                                            <!--<dl>
+                                                <dt><i class="bowtie-icon bowtie-attach"></i>Attachment files</dt>
+                                                <dd>
+                                                    <div class="file-wrapper">
+                                                        <div class="name">
+                                                            <img src="/images/ic_word.png" />
+                                                            <span>Customer Personal</span>
+                                                        </div>
+                                                        <button type="button" class="cl_red btn_add_02" ng-click="removeLink($index)"><i class="bowtie-icon bowtie-math-plus-circle-outline"></i></button>
+                                                    </div>
+                                                    <div class="file-wrapper">
+                                                        <div class="name">
+                                                            <img src="/images/ic_excel.png" />
+                                                            <span>Customer Personal</span>
+                                                        </div>
+                                                        <button type="button" class="cl_red btn_add_02" ng-click="removeLink($index)"><i class="bowtie-icon bowtie-math-plus-circle-outline"></i></button>
+                                                    </div>
+                                                </dd>
+                                            </dl>-->
+                                            <dl ng-if="relateData.new && relateData.new.length > 0">
+                                                <dt><i class="bowtie-icon bowtie-link"></i>Link to Work Items</dt>
+                                                <dd>
+                                                    <div class="link-wrapper" ng-repeat="item in relateData.new" title="{{item.data.name}}">
+                                                        <span ng-if="item.data.type == 'cost'" class="type_cost txt_cut link">{{'Cost: ' + item.data.name}}</span>
+                                                        <span ng-if="item.data.type != 'cost'" class="type_{{item.data.type}} txt_cut link">{{item.data.no + ': ' + item.data.name}}</span>
+                                                        <!--<span class="d-flex"><svg class="svg-inline--fa fa-circle fa-w-16 status_{{item.data.state}} status" aria-hidden="true" data-prefix="fa" data-icon="circle" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z"></path></svg>Active</span>-->
+                                                        <span class="status status_{{item.data.state}} d-flex align-items-center"><i class="bowtie-icon bowtie-record-fill"></i> {{item.data.state | capitalize}}</span>
+                                                        <button type="button" class="cl_red btn_add_02" ng-click="removeLink('new',$index)"><i class="bowtie-icon bowtie-math-plus-circle-outline"></i></button>
+                                                    </div>
+                                                </dd>
+                                            </dl>
+                                        </div>
+                                        <div class="d-flex">
+                                            <!--<div class="icon-wrapper" ng-click="recorder()" title="{{translation.RECODER}}">
+                                                <i class="fas fa-microphone"></i>
+                                            </div>-->
+                                            <div class="icon-wrapper">
+                                                <i class="fa fa-cloud-upload" aria-hidden="true" title="{{translation.UPLOAD}}"></i>
+                                            </div>
+                                            <div class="icon-wrapper" ng-click="addLink()" title="{{translation.ATTACHMENT}}">
+                                                <i class="fa fa-link" aria-hidden="true"></i>
+                                            </div>
+                                            <div class="bg_blue_02 btn_filter send" ng-click="addFeed()" ng-bind="::translation.SEND"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="chat-wrapper">
+                                    <div class="chat" ng-repeat="item in feeds" ng-class="checkUnread(item.feed)">
+                                        <div>
+                                            <div class="title">
+                                                <div class="info">
+                                                    <div class="img" style="background-image: url('/api/system/viewfile?id={{item.feed.relatedCreatedBy.avatarThumb}}&def=/img/no_avatar.png');"></div>
+                                                    <div class="name">
+                                                        {{item.feed.relatedCreatedBy.displayName}} <span class="normal">
+                                                            add new feed
+                                                            <!--<a href="#" class="link" ng-repeat="related in item.feed.listRelated">{{related.data.name}}&nbsp;&nbsp;</a>-->
+                                                            via PC in {{item.feed.groupType}} <strong ng-bind="groupName"></strong>
+                                                        </span> - <span>{{item.feed.sendTime}}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="button-wrapper">
+                                                    <div class="time">
+                                                        <span>{{item.feed.createdTime  | date:'HH:mm:ss - dd/MM/yyyy' }}</span>
+                                                    </div>
+
+                                                    <div ng-click="showReply(item.feed)" class="reply" ng-bind="::translation.REPLY"></div>
+                                                </div>
+                                            </div>
+                                            <div class="content">
+                                                <div id="contentFeed" ng-bind-html="item.feed.content | trustAsHtml">
+                                                </div>
+
+                                                <div class="d-flex clearfix attach-wrapper" ng-class="item.feed.listRelated.length ? '' : 'no-content'">
+                                                    <!--<dl style="flex-grow: 1">
+                                                        <dt><i class="bowtie-icon bowtie-attach"></i>Attachment files</dt>
+                                                        <dd>
+                                                            <div class="file-wrapper">
+                                                                <div class="name">
+                                                                    <img src="/images/ic_word.png" />
+                                                                    <span>Customer Personal</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="file-wrapper">
+                                                                <div class="name">
+                                                                    <img src="/images/ic_excel.png" />
+                                                                    <span>Customer Personal</span>
+                                                                </div>
+                                                            </div>
+                                                        </dd>
+                                                    </dl>-->
+                                                    <dl ng-if="item.feed.listRelated.length" style="flex-grow: 1">
+                                                        <dt><i class="bowtie-icon bowtie-link"></i>Link to Work Items</dt>
+                                                        <dd>
+                                                            <div class="link-wrapper" ng-repeat="related in item.feed.listRelated" title="{{related.data.name}}">
+                                                                <span ng-if="related.data.type == 'cost'" class="type_cost txt_cut link">{{'Cost: ' + related.data.name}}</span>
+                                                                <span ng-if="related.data.type != 'cost'" class="type_{{related.data.type}} txt_cut link">{{related.data.no + ': ' + related.data.name}}</span>
+                                                                <span style="text-transform:capitalize">
+                                                                    <i class="fa fa-circle status_{{related.data.state}} status"></i>{{related.data.state}}
+                                                                </span>
+                                                            </div>
+                                                        </dd>
+                                                    </dl>
+                                                </div>
+                                            </div>
+                                            <div id="{{item.feed.id}}" class="newfeed" style="display: none;">
+                                                <div id="inputorReply_{{item.feed.id}}" contenteditable="true" class="form-control newfeed-box"></div>
+                                                <div class="button-group" style="border-bottom:none">
+                                                    <!--<dl>
+                                                        <dt><i class="bowtie-icon bowtie-attach"></i>Attachment files</dt>
+                                                        <dd>
+                                                            <div class="file-wrapper">
+                                                                <div class="name">
+                                                                    <img src="/images/ic_word.png" />
+                                                                    <span>Customer Personal</span>
+                                                                </div>
+                                                                <button type="button" class="cl_red btn_add_02" ng-click="removeLink($index)"><i class="bowtie-icon bowtie-math-plus-circle-outline"></i></button>
+                                                            </div>
+                                                            <div class="file-wrapper">
+                                                                <div class="name">
+                                                                    <img src="/images/ic_excel.png" />
+                                                                    <span>Customer Personal</span>
+                                                                </div>
+                                                                <button type="button" class="cl_red btn_add_02" ng-click="removeLink($index)"><i class="bowtie-icon bowtie-math-plus-circle-outline"></i></button>
+                                                            </div>
+                                                        </dd>
+                                                    </dl>-->
+
+                                                    <dl ng-if="relateData[item.feed.id] && relateData[item.feed.id].length > 0">
+                                                        <dt><i class="bowtie-icon bowtie-link"></i>Link to Work Items</dt>
+                                                        <dd>
+                                                            <div class="link-wrapper" ng-repeat="related in relateData[item.feed.id]" title="{{related.data.name}}">
+                                                                <span ng-if="related.data.type == 'cost'" class="type_cost txt_cut link">{{'Cost: ' + related.data.name}}</span>
+                                                                <span ng-if="related.data.type != 'cost'" class="type_{{related.data.type}} txt_cut link">{{related.data.no + ': ' + related.data.name}}</span>
+                                                                <span class="status status_{{related.data.state}} d-flex align-items-center">
+                                                                    <i class="bowtie-icon bowtie-record-fill"></i> {{related.data.state}}
+                                                                </span>
+                                                                <button type="button" class="cl_red btn_add_02" ng-click="removeLink(item.feed.id,$index)"><i class="bowtie-icon bowtie-math-plus-circle-outline"></i></button>
+                                                            </div>
+                                                        </dd>
+                                                    </dl>
+
+                                                    <div class="icon-wrapper" title="{{translation.UPLOAD}}">
+                                                        <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+                                                    </div>
+                                                    <div class="icon-wrapper" ng-click="addLink(item.feed.id)" title="{{translation.ATTACHMENT}}">
+                                                        <i class="fa fa-link" aria-hidden="true"></i>
+                                                    </div>
+                                                    <div class="bg_blue_02 btn_filter send" ng-click="addFeedReply(item.feed)" ng-bind="::translation.SEND"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="sub-reply" ng-repeat="feedReply in item.feedReply" ng-class="checkUnread(feedReply)">
+                                            <div class="title">
+                                                <div class="info">
+                                                    <div class="img" style="background-image: url('/api/system/viewfile?id={{feedReply.relatedCreatedBy.avatarThumb}}&def=/img/no_avatar.png');"></div>
+                                                    <div class="name">{{feedReply.relatedCreatedBy.displayName}} - <span>{{feedReply.sendTime}}</span></div>
+                                                </div>
+                                                <div class="button-wrapper">
+                                                    <div class="time">
+                                                        <span> {{feedReply.createdTime | date:'HH:mm:ss - dd/MM/yyyy' }}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="contentFeedReply" class="content">
+                                                <div ng-bind-html="feedReply.content | trustAsHtml"></div>
+                                                <div class="box_group clearfix attach-wrapper">
+                                                    <!--<dl style="flex-grow: 1">
+                                                        <dt><i class="bowtie-icon bowtie-attach"></i>Attachment files</dt>
+                                                        <dd>
+                                                            <div class="file-wrapper">
+                                                                <div class="name">
+                                                                    <img src="/images/ic_word.png" />
+                                                                    <span>Customer Personal</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="file-wrapper">
+                                                                <div class="name">
+                                                                    <img src="/images/ic_excel.png" />
+                                                                    <span>Customer Personal</span>
+                                                                </div>
+                                                            </div>
+                                                        </dd>
+                                                    </dl>-->
+                                                    <dl ng-if="feedReply.listRelated.length" style="flex-grow: 1">
+                                                        <dt><i class="bowtie-icon bowtie-link"></i>Link to Work Items</dt>
+                                                        <dd>
+                                                            <div class="link-wrapper" ng-repeat="related in feedReply.listRelated">
+                                                                <span ng-if="related.data.type == 'cost'" class="type_cost txt_cut link" title="{{related.data.name}}">{{'Cost: ' + related.data.name}}</span>
+                                                                <span ng-if="related.data.type != 'cost'" class="type_{{related.data.type}} txt_cut link" title="{{related.data.name}}">{{related.data.no + ': ' + related.data.name}}</span>
+                                                                <span style="text-transform:capitalize">
+                                                                    <i class="fa fa-circle status_{{related.data.state}} status"></i>{{related.data.state}}
+                                                                </span>
+                                                            </div>
+                                                        </dd>
+                                                    </dl>
+                                                </div>
+                                                <!--Khách hàng liên hệ lại yêu cầu CS tiếp tục điều chỉnh danh mục-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="bg_blue_02 btn_filter showmore" ng-if="feeds.length >= 5" ng-click="showMore()" ng-bind="::translation.SHOWMORE"></div>
+                                </div>
+                            </div>
+                        </dd>
+                    </dl>
+
+                </div>
+            </div>
+            <!--<div class="box_content border_n mb-15">
+
+            </div>-->
+            <!--<div id="feedData" class="box_content border_n">
+                <dl class="mb-0">
+                    <dt><a class="title_01 bg_blue_01" data-toggle="collapse" data-target="#panel_PM_02" aria-expanded="true" aria-controls="panel_PM_02"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span> FEED</span></a></dt>
+                    <dd>
+                        <div class="collapse show" id="panel_PM_02" aria-expanded="true" style="">
+                            <div class="box_content border_n content_7_3 clearfix feed-wrapper">
+                                <div class="list-wrapper content_3 float-left">
+
+                                </div>
+                                <div class="content_7 float-right">
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </dd>
+                </dl>
+            </div>-->
+            <!--<div class="box_content border_n">
+                <dl class="mb-0">
+                    <dt><a class="title_01 bg_blue_01" data-toggle="collapse" data-target="#panel_PM_02" aria-expanded="true" aria-controls="panel_PM_02"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span class="ng-binding" ng-bind="::translation.TASKMANAGEMENT"></span></a></dt>
+                    <dd>
+                        <div class="collapse show" id="panel_PM_02" aria-expanded="true" style="">
+                            <div class="content_7_3 clearfix">
+                                <div class="content_3 float-left">
+
+                                    <div class="box_content border_n">
+                                        <dl class="mb-0">
+                                            <dt class="bg_blue_01 title_01 mb-0 display_n" ng-bind="::translation.TASKLIST">
+                                            </dt>
+                                            <dd class="mb-0">
+                                                <ul class="mb-0 pr_content">
+                                                    <li id="{{item.id}}" ng-dblclick="editWorkItem(item)" ng-click="changeWorkItem(item)" class="middle_40 workitem" ng-repeat="item in listWorkItem"><a href="#" class="clearfix"><span class="float-left">{{item.name}}</span><span class="float-left"><i class="fa fa-circle status_{{item.state}}"></i>&nbsp; {{item.state}}</span></a></li>
+                                                </ul>
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                </div>
+                                <div class="content_7 float-right">
+                                    <div class="box_item_02 clearfix">
+                                        <div class="item">
+                                            <p><span><i class="bowtie-icon bowtie-users"></i></span><span ng-bind="::translation.NEWREQUIREMENT"></span></p>
+                                            <p><span ng-bind="listStatisticalWorkItem.newRequirement"></span></p>
+                                            <p ng-bind="::translation.NEWREQUIREMENT"></p>
+                                        </div>
+                                        <div class="item">
+                                            <p><span><i class="bowtie-icon bowtie-tfvc-pull-request"></i></span><span ng-bind="::translation.CHANGEREQUIREMENT"></span></p>
+                                            <p><span ng-bind="listStatisticalWorkItem.changeRequirement"></span></p>
+                                            <p ng-bind="::translation.CHANGEREQUIREMENT"></p>
+                                        </div>
+                                        <div class="item">
+                                            <p><span><i class="bowtie-icon bowtie-work-item-bug"></i></span><span ng-bind="::translation.TASK"></span></p>
+                                            <p><span ng-bind="listStatisticalWorkItem.task"></span></p>
+                                            <p ng-bind="::translation.TASK"></p>
+                                        </div>
+                                        <div class="item">
+                                            <p><span><i class="bowtie-icon bowtie-status-error-outline"></i></span><span ng-bind="::translation.BUG"></span></p>
+                                            <p><span ng-bind="listStatisticalWorkItem.bug"></span></p>
+                                            <p ng-bind="::translation.BUG"></p>
+                                        </div>
+
+                                    </div>
+                                    <div class="clearfix box_chart">
+
+                                        <dl class="mb-0 item">
+                                            <dt class="bg_blue_01 title_01 mb-0 display_n">
+                                                Work item status
+                                            </dt>
+                                            <dd style="width:100%;height:407px;">
+                                                <canvas id="myChart" style="height:100%;width:100%"></canvas>
+                                            </dd>
+                                        </dl>
+                                        <dl class="mb-0 item">
+                                            <dt class="bg_blue_01 title_01 mb-0 display_n">
+                                                Work item cumulative
+                                            </dt>
+                                            <dd style="width:100%;height:407px;">
+                                                <canvas id="myChartArea" style="height:100%;width:100%"></canvas>
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </dd>
+                </dl>
+            </div>-->
+        </div>
+
+        <div class="modal fadeIn modal_center" role="dialog" id="modal-project">
+            <div class="modal-dialog" style="width: 1000px">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <p class="modal_header_title">
+                            <span ng-bind="action == 'add' ?  translation.ADD_PROJECT : (groupType == 'project' ? translation.EDIT_PROJECT : translation.EDIT_AREA) |uppercase "></span>
+                        </p>
+                        <div class="box_btn_02">
+                            <button type="button" class="fullscreen btn-modal-screen" title="Minimize/Maximize"><i onclick="fullscreen('modal-project')" class="bowtie-icon bowtie-view-full-screen"></i></button>
+                            <button type="button" class="btn_close_02" data-dismiss="modal" title="Close"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="modal-body-content clearfix">
+                            <div class="type_md_header_{{data.type}} modal-body-header">
+                                <p ng-bind="action == 'add' ?  translation.NAME : (groupType == 'project' ? translation.NAME : translation.AREANAME)" tabindex="1"></p>
+                                <div class="clearfix">
+                                    <input ng-model="data.name" type="text" tabindex="1" class="form-control ip_requirement" id="project_name" />
+                                    <ul class="box_btn_03 clearfix">
+                                        <li><a href="" class="btnHistory" ng-class="action == 'add' ? 'btn_30  btn_disable':'btn_30 btn_default'" ng-click="action == 'edit' && openHistory($event)" data-target="popover-history" title="{{translation.HISTORY}}"><i class="bowtie-icon bowtie-navigate-history"></i> </a></li>
+                                        <li><a href="" class="btnComment" ng-class="action == 'add' ? 'btn_30  btn_disable':'btn_30 btn_default'" ng-click="action == 'edit' && openComment($event)" data-target="popover-comment" title="{{translation.COMMENT}}"><i class="bowtie-icon bowtie-comment-discussion"></i> </a></li>
+                                        <li><a href="" class="btn_30 btn_default" ng-click="collapseButton()"><i class="bowtie-icon bowtie-toggle-collapse-all"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="modal-body-maincontent">
+                                <!-- Description -->
+                                <div class="clearfix modal_des">
+                                    <div class="droppable-area advancedDropzoneProject dz-clickable img float-left img_over_180" style="border:1px solid #eee;">
+                                        <img id="imgAvatar" src="/api/system/viewfile?id=null&amp;def=/img/no_avatar.png" class="img-inline dz-message img_full">
+                                    </div>
+                                    <div class="modal-01 float-right">
+                                        <div class="box_content border_n">
+                                            <dl class="mb-0">
+                                                <dt><a class="title_01 bg_blue_01" data-toggle="collapse" data-target="#panel-desc" aria-expanded="true" aria-controls="panel-desc"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span ng-bind="::translation.DESCRIPTION"></span></a></dt>
+                                                <dd style="height:152px;">
+                                                    <div class="collapse show" id="panel-desc" aria-expanded="true" style="">
+                                                        <textarea ui-tinymce="tinymceNoResizeOptions" ng-model="data.description" tabindex="2"></textarea>
+                                                    </div>
+                                                </dd>
+                                            </dl>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-02 col_4 clearfix mb_15">
+                                    <div class="box_content">
+                                        <dl class="mb-0">
+                                            <dt><a class="title_02 bg_gray_01" data-toggle="collapse" data-target="#multiCollapse_01" aria-expanded="true" aria-controls="multiCollapse_01"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span ng-bind="::translation.DETAIL"></span></a></dt>
+                                            <dd>
+                                                <div class="multi-collapse collapse show" id="multiCollapse_01" aria-expanded="true" style="">
+                                                    <div class="item">
+                                                        <lv-input field="code" model="data.code" setting="setting" translation="translation" type="text" tab="3"></lv-input>
+                                                    </div>
+
+                                                    <div class="item">
+                                                        <lv-combobox element-id="cmbProjectManager" option="cmbUserId" field="owner" model="data.owner" tab="4" label="{{action == 'add' ? translation.OWNER :  (groupType == 'project' ? translation.OWNER : translation.AREAOWNER)}}">
+                                                        </lv-combobox>
+                                                    </div>
+
+
+                                                    <div class="item">
+                                                        <lv-combobox element-id="cmbSponser" option="cmbUserId" field="sponser" model="data.sponser" tab="5" label="{{translation.SPONSER}}">
+                                                        </lv-combobox>
+                                                    </div>
+
+                                                    <div class="item" ng-show="data.type=='project'">
+                                                        <lv-select field="productId" model="data.parentId" setting="setting" translation="translation" tab="6"></lv-select>
+                                                    </div>
+
+                                                </div>
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                    <div class="box_content">
+                                        <dl class="mb-0">
+                                            <dt><a class="title_02 bg_gray_01" data-toggle="collapse" data-target="#multiCollapse_02" aria-expanded="true" aria-controls="multiCollapse_02"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span ng-bind="::translation.SETTING"></span></a></dt>
+                                            <dd>
+                                                <div class="multi-collapse collapse show" id="multiCollapse_02" aria-expanded="true">
+                                                    <div class="item">
+                                                        <lv-input field="client" model="data.client" setting="setting" translation="translation" type="text" tab="7"></lv-input>
+                                                    </div>
+
+                                                    <div class="item">
+                                                        <lv-select element-id="vllDepartment" field="department" model="data.department" setting="setting" config="configDepartment" translation="translation" tab="8"></lv-select>
+                                                    </div>
+
+                                                    <div class="item" ng-if="groupType == 'project'">
+                                                        <lv-select field="projectType" model="data.projectType" setting="setting" translation="translation" tab="9"></lv-select>
+                                                    </div>
+
+                                                </div>
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                    <div class="box_content">
+                                        <dl class="mb-0">
+                                            <dt><a class="title_02 bg_gray_01" data-toggle="collapse" data-target="#multiCollapse_03" aria-expanded="true" aria-controls="multiCollapse_03"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span ng-bind="::translation.STATUS"></span></a></dt>
+                                            <dd>
+                                                <div class="multi-collapse collapse show" id="multiCollapse_03" aria-expanded="true" style="">
+                                                    <div class="item">
+                                                        <lv-select config="configState" field="state" model="data.state" setting="setting" translation="translation" tab="10"></lv-select>
+                                                    </div>
+                                                    <div class="item">
+                                                        <lv-select config="configReason" field="reason" model="data.reason" setting="setting" translation="translation" tab="11"></lv-select>
+                                                    </div>
+
+                                                    <div class="item">
+                                                        <lv-select field="priority" model="data.priority" setting="setting" config="configPriority" translation="translation" tab="12"></lv-select>
+                                                    </div>
+
+                                                    <div class="item" ng-show="data.type=='project'">
+                                                        <div class="form-group">
+                                                            <div class="label">Approved sprint planning</div>
+
+                                                            <!--<div class="switch" ng-class="data.active ? 'change' : ''" ng-click="changeActive(data.active)">
+                                                                <input type="checkbox">
+                                                                <p class="slider mb-0"></p>
+                                                            </div>
+                                                            <div class="switch-label txt_cut">Đang hoạt động</div>-->
+
+                                                            <div class="switch" style="margin-top: 5px !important" ng-class="data.isApproveSprint ? 'change' : ''" ng-click="changeApproveSprint(data.isApproveSprint)">
+                                                                <input type="checkbox">
+                                                                <p class="slider mb-0"></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </dd>
+                                        </dl>
+
+                                    </div>
+                                    <div class=" box_content">
+                                        <dl class="mb-0">
+                                            <dt><a class="title_02 bg_gray_01" data-toggle="collapse" data-target="#multiCollapse_04" aria-expanded="true" aria-controls="multiCollapse_04"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span ng-bind="::translation.CONTRACT"></span></a></dt>
+                                            <dd>
+                                                <div class="multi-collapse collapse show" id="multiCollapse_04" aria-expanded="true" style="">
+                                                    <div class="item">
+                                                        <lv-input field="contractCode" model="data.contractCode" setting="setting" translation="translation" type="text" tab="13"></lv-input>
+                                                    </div>
+                                                    <div class="item">
+                                                        <lv-input field="contractValue" model="data.contractValue" setting="setting" translation="translation" type="money" tab="14"></lv-input>
+                                                    </div>
+
+                                                </div>
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                </div>
+                                <div class="modal-02 col_4 clearfix" style="justify-content:flex-start;">
+                                    <div class="box_content">
+                                        <dl class="mb-0">
+                                            <dt><a class="title_02 bg_gray_01" data-toggle="collapse" data-target="#multiCollapse_05" aria-expanded="true" aria-controls="multiCollapse_05"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span ng-bind="::translation.PLANTIME"></span></a></dt>
+                                            <dd>
+                                                <div class="multi-collapse collapse show" id="multiCollapse_05" aria-expanded="true" style="">
+                                                    <div class="item">
+                                                        <lv-date field="planStartDate" model="data.planStartDate" setting="setting" translation="translation" tab="10" change="changePlanDate()"></lv-date>
+                                                    </div>
+
+                                                    <div class="item">
+                                                        <lv-date field="planEndDate" model="data.planEndDate" setting="setting" translation="translation" tab="11" change="changePlanDate()"></lv-date>
+                                                    </div>
+
+                                                    <div class="item">
+                                                        <lv-input field="planDuration" model="data.planDuration" setting="setting" translation="translation" type="text" tab="12"></lv-input>
+                                                    </div>
+                                                </div>
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                    <div class="box_content">
+                                        <dl class="mb-0">
+                                            <dt><a class="title_02 bg_gray_01" data-toggle="collapse" data-target="#multiCollapse_06" aria-expanded="true" aria-controls="multiCollapse_06"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span ng-bind="::translation.ACTUALTIME"></span></a></dt>
+                                            <dd>
+                                                <div class="multi-collapse collapse show" id="multiCollapse_06" aria-expanded="true">
+                                                    <div class="multi-collapse collapse show" id="multiCollapse_06" aria-expanded="true" style="">
+                                                        <div class="item">
+                                                            <div class="form-group">
+                                                                <label ng-bind="::translation.ACTUALSTARTDATE"></label>
+                                                                <input type="text" class="style-input form-control" id="txtActualStartDate" ng-model="data.actualStartDate" date readonly="readonly">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="item">
+                                                            <div class="form-group">
+                                                                <label ng-bind="::translation.ACTUALENDDATE"></label>
+                                                                <input type="text" class="style-input form-control" id="txtActualEndDate" ng-model="data.actualEndDate" date readonly="readonly">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="item">
+                                                            <div class="form-group">
+                                                                <label ng-bind="::translation.ACTUALDURATION"></label>
+                                                                <input type="text" class="style-input form-control" id="txtActualDuration" ng-model="data.actualDuration" readonly="readonly">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-content-plus clearfix animated bounceInDown" style="height:calc(100% - 20px);border:1px solid #ddd;top:10px">
+                            <ul class="title m-0">
+                                <li><a class="btn_data btn_modal">{{::translation.ATTACHMENTS}}</a></li>
+                                <li></li>
+                            </ul>
+                            <div class="modal-content-link-data clearfix">
+                                <!-- Include Attachment -->
+                                <div class="content_data">
+                                    <!-- Include Attachment list -->
+                                    <list-attachment id="projectListAttachment"></list-attachment>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button ng-click="save()" id="btnSaveAndClose" type="button" class="btn btn_save_02" click-Once tabindex="13"><i class="bowtie-icon bowtie-save"></i><span ng-bind="::translation.BTN_SAVE_CLOSE"></span></button>
+                    </div>
+                </div>
+            </div>
+            <!-- Comment -->
+            <comment></comment>
+            <!-- history -->
+            <history></history>
+            <!-- Modal-->
+        </div>
+
+        <div class="modal fadeIn modal_center" id="modal-confirm-product">
+            <div class="modal-dialog" style="width:460px">
+                <div class="modal-content">
+                    <div class="modal-header ui-draggable-handle">
+                        <p class="modal_header_title float-left"><span ng-bind="::translation.CONFIRM_MAP_PRODUCT_TITLE" class="ng-binding"></span></p>
+                        <div class="box_btn_02">
+                            <button type="button" class="btn_close_02 float-right" data-dismiss="modal" title="Đóng"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <p class="center del_icon"><i class="bowtie-icon bowtie-status-error-outline"></i></p>
+                        <h4 class="success-message center">
+                            <span style="margin-left:20px;font-size:14px" ng-bind="::translation.CONFIRM_MAP_PRODUCT"></span>
+                        </h4>
+                    </div>
+                    <div class="modal-footer confirm-footer">
+                        <button type="button" class="btn confirm-button btn btn_save_01" data-dismiss="modal"><i class="bowtie-icon bowtie-save"></i> <span>Yes</span></button>
+                        <button type="button" class="btn confirm-button btn btn_save_02" data-dismiss="modal" id="btnConfirmModal" ng-click="callMethod('confirmProduct')"><i class="bowtie-icon bowtie-save"></i> <span>No</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div lv-include path="app/pm/pm_share/attachment" name="attachment" id="projectAttachment"></div>
+
+        <div lv-include path="app/pm/pm_share/relatedWork" name="relatedWork"></div>
+
+        <div lv-include path="app/system/recorder" name="recorder"></div>
+    </div>
+
+
+</div>

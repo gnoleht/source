@@ -1,0 +1,30 @@
+﻿{
+  "SettlementPrinciple": [
+    {
+      "id": "1",
+      "value": "Thủ công"
+    },
+    {
+      "id": "2",
+      "value": "FIFO"
+    },
+    {
+      "id": "3",
+      "value": "LIFO"
+    }
+  ],
+  "InvoiceUpdate": [
+    {
+      "id": "1",
+      "value": "Số dư"
+    },
+    {
+      "id": "2",
+      "value": "Theo hóa đơn"
+    },
+    {
+      "id": "3",
+      "value": "Theo dòng chi tiết"
+    }
+  ]
+}

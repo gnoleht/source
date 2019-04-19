@@ -1,0 +1,44 @@
+﻿<div id="group" ng-controller="groupController">
+    <div class="page-title" ng-include="'app/system/header.html'" onload="loadHeaderComplete()"></div>
+    <div class="panel panel-default flexLV">
+
+        <div id="sectionMenu">
+            <div id="idLeftMenu"></div>
+        </div>
+
+        <!--page body-->
+        <div class="content-body">
+            <div class="panel-body">
+                <div class="col-md-12 none-padding mt10" id="tabEnvision">
+                    <!--<ul class="tabLv nav nav-tabs" style="min-width:896px;">
+        <li class="active">
+            <a data-toggle="tab" data-target="#user">
+                <span class="visible-xs" title="user"></span>
+                <span class="hidden-xs" title="user"></span>
+            </a>
+        </li>
+        <li>
+            <a data-toggle="tab" data-target="#company" ng-click="activeTab = 'company'">
+                <span class="visible-xs" title="company"></span>
+                <span class="hidden-xs" title="company"></span>
+            </a>
+        </li>
+    </ul>-->
+                    <div id="grvUser" style="width:1300px;height:300px"></div>
+                    <div id="grvRole" style="width:1300px;height:300px"></div>
+
+                    <!--<div id="tab-content" class="tab-content">
+                        <div id="user" style="width:1000px;height:500px">
+                            <div id="grvGroup" style="width:1000px;height:600px"></div>
+                        </div>
+                        <div id="company" style="width:1000px;height:500px">
+                            <div id="grvUser" style="width:100%;height:100%"></div>
+                        </div>
+
+                    </div>-->
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

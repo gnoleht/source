@@ -1,0 +1,51 @@
+﻿<div id="setting" ng-controller="settingController">
+    <div class="white_box" style="background-color:#edf1f5;padding:0">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" id="main_tab_01" role="tablist">
+
+            <li class="nav-item">
+                <a class="nav-link" href="/system/function" id="tab_01-tab" data-toggle="tab" data-target="#tabFunction"
+                   role="tab" aria-controls="tab_01" aria-selected="true">Function</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="/system/setting" id="tab_02-tab" data-toggle="tab" data-target="#tabSetting"
+                   role="tab" aria-controls="tab_01" aria-selected="true">Setting</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/system/format" id="tab_03-tab" data-toggle="tab" data-target="#tabFormat"
+                   role="tab" aria-controls="tab_01" aria-selected="true">Format</a>
+            </li>
+        </ul>
+
+        <div id="tab-content" class="tab-content">
+            <div class="tab-pane" id="tabFunction" style="height:100%;width:100%">
+
+            </div>
+            <div class="tab-pane active" id="tabSetting" style="height:100%;width:100%;overflow: auto">
+                <dl class="box_tb" ng-repeat="item in listSetting">
+                    <dt>
+                        <p class="title_01 cus mb-0" style="padding-bottom: 0" data-toggle="collapse" data-target="#panel_add_pc_{{$index}}" aria-expanded="true" aria-controls="panel_add_pc_02"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>{{item.groupSetting}}</span></p>
+                    </dt>
+                    <dd class="m_10">
+                        <div class="collapse show" id="panel_add_pc_{{$index}}" aria-expanded="true" style="">
+                            <div class="box_02 w_100 col_1 clearfix">
+                                <div class="item border-0 w_100">
+                                    <div class="box_02 col_1 clearfix mb-15" ng-repeat="item2 in item.listSetting">
+                                        <div class="item mt-0">
+                                            <p class="label">{{item2.name}}</p>
+
+                                            <input type="{{item2.code == 'smtp_password' ? 'password' : 'text'}}" class="iput" ng-model="item2.value">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </dd>
+                </dl>
+            </div>
+            <div class="tab-pane" id="tabFormat" style="height:100%;width:100%;overflow: auto">
+                
+            </div>
+        </div>  
+    </div>
+</div>

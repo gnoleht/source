@@ -1,0 +1,291 @@
+﻿<link href='/js/fullcalendar-scheduler/lib/fullcalendar.min.css' rel='stylesheet' />
+<link href='/js/fullcalendar-scheduler/lib/fullcalendar.print.min.css' rel='stylesheet' media='print' />
+<link href='/js/fullcalendar-scheduler/scheduler.min.css' rel='stylesheet' />
+
+<script src='/js/fullcalendar-scheduler/lib/fullcalendar.min.js'></script>
+<script src='/js/fullcalendar-scheduler/scheduler.min.js'></script>
+<script src="/js/fullcalendar-scheduler/locale/locale-all.js"></script>
+
+<style>
+    .fc-license-message {
+        display: none !important;
+    }
+</style>
+<div id="room" ng-controller="roomController">
+    <div class="white_box" style="overflow:auto">
+        <div class="d-flex calendar_header mb_15" style="align-items: center; justify-content: space-between">
+            <div class="d-flex">
+                <a ng-click="prev()" class="btn_refresh btn_30" style="border-radius: 5px 0 0 5px"><i class="bowtie-icon bowtie-chevron-left-light"></i></a>
+                <lv-date field="today" model="today" setting="setting" nolabel="true" change="changeDay()" class="select2_op2 ng-isolate-scope"></lv-date>
+                <a ng-click="next()" class="btn_refresh btn_30" style="border-radius: 0 5px 5px 0"><i class="bowtie-icon bowtie-chevron-right-light"></i></a>
+            </div>
+            <div class="d-flex">
+                <div style="margin-right: 2px">
+                    <button type="button" class="bg_blue_02 btn_filter ng-binding" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true" style="border-radius: 5px 0 0 5px">{{translation.VIEW_FORM}}</button>
+                    <ul class="dropdown-menu animated" style="right: 0px; left: 0px; top: 0px; position: absolute; transform: translate3d(5px, 30px, 0px); will-change: transform;" x-placement="bottom-start">
+                        <li style="width: 100%;">
+                            <div class="message-center">
+                                <a ng-click="changeView('timelineDay')" ng-class="typeView =='timelineDay'?'active':''">
+                                    <div class="mail-content"><span class="mail-desc" ng-bind="translation.VIEW_BY_DAY">Xem theo ngày</span> </div>
+                                </a>
+                                <a ng-click="changeView('timelineMonth')" ng-class="typeView =='timelineMonth'?'active':''">
+                                    <div class="mail-content"><span class="mail-desc" ng-bind="translation.VIEW_BY_MONTH">Xem theo tháng</span> </div>
+                                </a>
+                                <a ng-click="changeView('timelineWeek')" ng-class="typeView =='timelineWeek'?'active':''">
+                                    <div class="mail-content"><span class="mail-desc" ng-bind="translation.VIEW_BY_WEEK">Xem theo tuần</span> </div>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <button type="button" class="bg_blue_02 btn_filter ng-binding" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true" style="border-radius: 0 5px 5px 0">{{translation.LIST}}</button>
+                    <ul class="dropdown-menu animated" style="right: 0px; left: 0px; top: 0px; position: absolute; transform: translate3d(5px, 30px, 0px); will-change: transform;" x-placement="bottom-start">
+                        <li style="width: 100%;">
+                            <div class="message-center">
+                                <a ng-click="changeResoruceEvent('my')" ng-class="typeViewEvent =='my'?'active':''">
+                                    <div class="mail-content"><span class="mail-desc" ng-bind="translation.MY_SUBSCRIPTION">Đăng ký của tôi</span> </div>
+                                </a>
+                                <a ng-click="changeResoruceEvent('all')" ng-class="typeViewEvent =='all'?'active':''">
+                                    <div class="mail-content"><span class="mail-desc" ng-bind="translation.ALL_SUBSCRIPTION">Tất cả đăng ký</span> </div>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div id="calendar"></div>
+        <div class="d-flex mt_10" style="justify-content: space-between; align-items: center">
+            <div class="form-group d-flex">
+                <div class="mr_15">
+                    <div style="width: 16px; height: 16px; display: table-cell; background-color: #f1ba27;color: white;"></div>
+                    <div style="padding-left: 8px; display: table-cell; font-size: 14px" ng-bind="translation.STATUS_PENDDING">Chờ duyệt</div>
+                </div>
+                <div class="mr_15">
+                    <div style="width: 16px; height: 16px; display: table-cell; background-color: #00afbe; color: white;"></div>
+                    <div style="padding-left: 8px; display: table-cell; font-size: 14px" ng-bind="translation.STATUS_APPROVED">Đã phê duyệt</div>
+                </div>
+                <div>
+                    <div style="width: 16px; height: 16px; display: table-cell; background-color: #EF4438; color: white;"></div>
+                    <div style="padding-left: 8px; display: table-cell; font-size: 14px" ng-bind="translation.STATUS_REJECTED">Từ chối</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal detail -->
+    <div class="modal fadeIn modal_center confirmClose" id="modal-detail">
+        <div class="modal-dialog" style="width:1000px">
+            <div class="modal-content">
+                <div class="modal-header clearfix">
+                    <p class="modal_header_title"><span ng-bind="translation.INFO_TITLE"></span></p>
+                    <div class="box_btn_02">
+                        <button type="button" class="fullscreen" onclick="fullscreen('modal-detail')" title="{{translation.BTN_SCREEN}}">
+                            <i class="bowtie-icon bowtie-view-full-screen"></i>
+                        </button>
+                        <button type="button" class="btn_close_02" data-dismiss="modal" title="{{translation.CLOSE_DIALOG}}">
+                            <i class="bowtie-icon bowtie-edit-remove"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-maincontent">
+                        <ul class="nav nav-tabs bg-white" id="main_tab_01" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" data-target="#info" id="a_info"
+                                   role="tab" aria-controls="tab_01" aria-selected="true" ng-bind="translation.INFO">
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" data-target="#option"
+                                   role="tab" aria-controls="tab_02" aria-selected="false" ng-bind="translation.OPTION">
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" data-target="#repeat"
+                                   role="tab" aria-controls="tab_03" aria-selected="false" ng-bind="translation.REPEAT">
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content modal-body-maincontent" style="width:100%">
+                            <div class="tab-pane active" id="info">
+                                <div class="form-input-group">
+                                    <div class="box_02 col_2 clearfix">
+                                        <div class="item" ng-if="!data.id">
+                                            <lv-input field="creator" model="data.creator" setting="setting" translation="translation" type="text" tab="1"></lv-input>
+                                        </div>
+                                        <div class="item" ng-if="data.id">
+                                            <lv-input field="creator" model="data.creatorRelated.displayName" setting="setting" translation="translation" type="text" tab="1"></lv-input>
+                                        </div>
+                                        <div class="item">
+                                            <lv-select field="roomItem" model="data.roomItem" setting="setting" change="changeRoomItem()" translation="translation" tab="2"></lv-select>
+                                        </div>
+                                    </div>
+                                    <div class="box_02 col_6 clearfix">
+                                        <div class="item">
+                                            <lv-date field="startTimeDate" model="data.startTimeDate" setting="setting" translation="translation" tab="3"></lv-date>
+                                        </div>
+                                        <div class="item">
+                                            <lv-select field="startTimeDateHours" model="data.startTimeDateHours" setting="setting" translation="translation" tab="4"></lv-select>
+                                        </div>
+                                        <div class="item">
+                                            <lv-select field="startTimeDateMinutes" model="data.startTimeDateMinutes" setting="setting" translation="translation" tab="5"></lv-select>
+                                        </div>
+                                        <div class="item">
+                                            <lv-date field="endTimeDate" model="data.endTimeDate" setting="setting" translation="translation" tab="6"></lv-date>
+                                        </div>
+                                        <div class="item">
+                                            <lv-select field="endTimeDateHours" model="data.endTimeDateHours" setting="setting" translation="translation" tab="7"></lv-select>
+                                        </div>
+                                        <div class="item">
+                                            <lv-select field="endTimeDateMinutes" model="data.endTimeDateMinutes" setting="setting" translation="translation" tab="8"></lv-select>
+                                        </div>
+                                    </div>
+                                    <div class="box_02 col_1 clearfix">
+                                        <div class="item">
+                                            <lv-select field="department" model="data.department" setting="setting" translation="translation" config="configDepartment" tab="9"></lv-select>
+                                        </div>
+                                    </div>
+                                    <div class="box_02 col_1 clearfix">
+                                        <div class="item">
+                                            <lv-input field="title" model="data.title" setting="setting" translation="translation" type="text" tab="10"></lv-input>
+                                        </div>
+                                    </div>
+                                    <div class="box_02 col_1 clearfix">
+                                        <div class="item">
+                                            <lv-select field="ownerMeeting" model="data.ownerMeeting" setting="setting" translation="translation" tab="11"></lv-select>
+                                        </div>
+                                    </div>
+                                    <div class="box_02 col_2 clearfix">
+                                        <div class="item">
+                                            <lv-select field="scope" model="data.scope" setting="setting" translation="translation" tab="12"></lv-select>
+                                        </div>
+                                        <div class="item">
+                                            <lv-input field="participantCount" model="data.participantCount" setting="setting" translation="translation" type="phone" tab="13"></lv-input>
+                                        </div>
+                                    </div>
+                                    <div class="box_02 col_2 clearfix">
+                                        <div class="item">
+                                            <label ng-bind="translation.RESOURCES"></label>
+                                            <div style="justify-content: flex-start;margin-top: 10px">
+                                                <label class="d-flex mb_5" style="align-items:center;" ng-repeat="resources in roomResources">
+                                                    <i class="mr-15" ng-class="resources.isActive? 'bowtie-icon bowtie-checkbox':'bowtie-icon bowtie-checkbox-empty'"
+                                                       style="font-size:17px;width:10px" ng-click="changeResources(resources.id)"></i>
+                                                    <span class="txt_cut mr-5">{{resources.text}}</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <label ng-bind="translation.LOGISTICS"></label>
+                                            <div style="justify-content: flex-start;margin-top: 10px">
+                                                <label class="d-flex mb_5" style="align-items:center;" ng-repeat="logistics in roomLogistics">
+                                                    <i class="mr-15" ng-class="logistics.isActive? 'bowtie-icon bowtie-checkbox':'bowtie-icon bowtie-checkbox-empty'"
+                                                       style="font-size:17px;width:10px" ng-click="changeLogistics(logistics.id)"></i>
+                                                    <span class="txt_cut mr-5">{{logistics.text}}</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="box_02 col_1 clearfix" ng-if="isComment">
+                                        <div class="item">
+                                            <lv-input field="comment" model="data.comment" setting="setting" translation="translation" type="text" tab="14"></lv-input>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane" id="option">
+                                <div class="form-input-group">
+                                    <div class="box_02 col_1 clearfix">
+                                        <div class="item">
+                                            <lv-select-muti field="requiredParticipants" model="data.requiredParticipants" setting="setting" translation="translation" tab="1"></lv-select-muti>
+                                        </div>
+                                    </div>
+                                    <div class="box_02 col_1 clearfix">
+                                        <div class="item">
+                                            <lv-select-muti field="participants" model="data.participants" setting="setting" translation="translation" tab="2"></lv-select-muti>
+                                        </div>
+                                    </div>
+                                    <div class="box_02 col_1 clearfix">
+                                        <div class="item">
+                                            <lv-input field="preparation" model="data.preparation" setting="setting" translation="translation" type="text" tab="3"></lv-input>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="repeat">
+                                <div class="form-input-group">
+                                    <div class="box_02 col_2 clearfix">
+                                        <div class="item">
+                                            <label ng-bind="translation.REPEAT"></label>
+                                            <div class="d-flex" style="justify-content: flex-start;margin-top: 10px">
+                                                <span class="d-flex mr-20" style="align-items:center;" ng-repeat="repeat in roomRepeat">
+                                                    <i class="mr-15" ng-class="repeat.isActive? 'bowtie-icon bowtie-radio-button':'bowtie-icon bowtie-radio-button-empty'"
+                                                       style="font-size:17px;width:10px" ng-click="changeRepeat(repeat.id)"></i>
+                                                    <span class="txt_cut mr-5">{{translation[repeat.text]}}</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="item" id="item_repeatEndDate" style="display:none;">
+                                            <lv-date field="repeatEndDate" model="data.repeatEndDate" setting="setting" translation="translation"></lv-date>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button ng-if="data.id" type="button" click-Once class="btn btn_save_02" ng-click="history()">
+                        <i class="bowtie-icon bowtie-navigate-history"></i><span ng-bind="translation.HISTORY"></span>
+                    </button>
+                    <button ng-if="action == 'add' && data.permission.create" type="button" click-Once class="btn btn_save_02" ng-click="submit()">
+                        <i class="bowtie-icon bowtie-save"></i><span ng-bind="translation.SUBMIT_TO_APPROVE"></span>
+                    </button>
+                    <button ng-if="action == 'reSubmit' && data.permission.create" type="button" click-Once class="btn btn_save_02" ng-click="reSubmit()">
+                        <i class="bowtie-icon bowtie-save"></i><span ng-bind="translation.SUBMIT_TO_APPROVE"></span>
+                    </button>
+                    <button ng-if="action == 'edit' && data.permission.update" type="button" click-Once class="btn btn_save_02" ng-click="update()">
+                        <i class="bowtie-icon bowtie-edit"></i><span ng-bind="translation.BTN_UPDATE"></span>
+                    </button>
+                    <button ng-if="(action == 'edit' || action == 'reSubmit') && data.permission.delete" type="button" click-Once class="btn btn_save_02" ng-click="delete()">
+                        <i class="bowtie-icon bowtie-edit-remove"></i><span ng-bind="translation.BTN_DELETE"></span>
+                    </button>
+                    <button ng-if="isApprove && data.permission.approve" type="button" click-Once class="btn btn_save_02" ng-click="approve()">
+                        <i class="fa fa-check-circle"></i><span ng-bind="translation.APPROVE"></span>
+                    </button>
+                    <button ng-if="isApprove && data.permission.approve" type="button" click-Once class="btn btn_save_02" ng-click="reject()">
+                        <i class="fa fa-times-circle"></i><span ng-bind="translation.REJECT"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end modal detail -->
+    <!-- History-->
+    <div class="modal fadeIn modal_center" role="dialog" id="modal-detail-history">
+        <div class="modal-dialog modal-medium modal-padding" tabindex="-1" style="width:50%;">
+            <div class="modal-content" style="padding-top: 0px !important">
+                <div class="modal-header">
+                    <p class="modal_header_title">
+                        <span ng-bind="translation.HISTORY_TITLE | uppercase "></span>
+                    </p>
+                    <div class="box_btn_02">
+                        <button type="button" class="btn_close_02" data-dismiss="modal" title="{{translation.CLOSE_DIALOG}}">
+                            <i class="bowtie-icon bowtie-edit-remove"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-content">
+                        <table class="table table-bordered">
+                            <tbody id="btlContent"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End History-->
+
+</div>

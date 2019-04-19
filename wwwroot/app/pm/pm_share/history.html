@@ -1,0 +1,98 @@
+﻿<!--POPOVER-->
+<style>th{text-align:left}</style>
+<div id="popover-history" class="context-popover">
+    <div class="arrow"></div>
+    <div class="popover-title">
+        <b ng-bind="::translation.HISTORY"></b>
+        <a href="javascript:;" ng-click="closeHistory()" style="float:right"><i class="bowtie-icon bowtie-edit-remove"></i></a>
+    </div>
+    <div class="popover-content">
+        <div ng-repeat="item in history">
+            <div ng-if="item.action == 'Create'">
+                <div class="clearfix">
+                    <span class="img_user_tb img_over" style="background-image: url('/api/system/viewfile?id={{item.createdByRelated.avatarThumb}}&def=/img/no_avatar.png')"></span><b>{{item.createdByRelated.displayName}}</b><span class="epoch-time"> ({{item.createdTime}})</span>
+                    <br /><span>Create new</span>
+                </div>
+            </div>
+            <div ng-if="item.action == 'Update'">
+                <div class="clearfix">
+                    <span class="img_user_tb img_over" style="background-image: url('/api/system/viewfile?id={{item.createdByRelated.avatarThumb}}&def=/img/no_avatar.png')"></span><b>{{item.createdByRelated.displayName}}</b><span class="epoch-time"> ({{item.createdTime}})</span>
+                    <br /><span>Updated, made other changes.</span>
+                </div>
+                <div class="box_content border_n">
+                    <dl class="mb-0">
+                        <dt><a class="title_02 bg_gray_01" data-toggle="collapse" data-target="#panel-history-{{$index}}" aria-expanded="true" aria-controls="panel-history-{{$index}}"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>Fields</span></a></dt>
+                        <dd>
+                            <div class="collapse show" id="panel-history-{{$index}}" aria-expanded="true">
+                                <table class="table table-condensed">
+                                    <colgroup>
+                                        <col style="width:30%">
+                                        <col style="width:35%">
+                                        <col style="width:35%">
+                                    </colgroup>
+                                    <thead>
+                                        <tr>
+                                            <th>Field</th>
+                                            <th>New value</th>
+                                            <th>Old value</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="(key, value) in item.newValue">
+                                            <td><span class="item_field">{{key}}</span></td>
+                                            <td>
+                                                <span title="{{value | typeFormat}}">{{value | typeFormat}}</span>
+                                            </td>
+                                            <td>
+                                                <span title="{{item.oldValue[key] | typeFormat}}">{{item.oldValue[key] | typeFormat}}</span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+            <div ng-if="item.action == 'ChangeState'">
+                <span class="img_user_tb img_over" style="background-image: url('/api/system/viewfile?id={{item.createdByRelated.avatarThumb}}&def=/img/no_avatar.png')"></span><b>{{item.createdByRelated.displayName}}</b><span> ({{item.createdTime}})</span>
+                <br /><span>Changed state from <span class="state-{{item.oldValue.State}}">{{item.oldValue.State | capitalize}}</span>  to <span class="state-{{item.newValue.State}}">{{item.newValue.State | capitalize}}</span>, made other changes.</span>
+
+                <div class="box_content border_n">
+                    <dl class="mb-0">
+                        <dt><a class="title_02 bg_gray_01" data-toggle="collapse" data-target="#panel-change-history-{{$index}}" aria-expanded="true" aria-controls="panel-change-history-{{$index}}"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>Fields</span></a></dt>
+                        <dd>
+                            <div class="collapse show" id="panel-change-history-{{$index}}" aria-expanded="true">
+                                <table class="table table-condensed">
+                                    <colgroup>
+                                        <col style="width:30%">
+                                        <col style="width:35%">
+                                        <col style="width:35%">
+                                    </colgroup>
+                                    <thead>
+                                        <tr>
+                                            <th>Field</th>
+                                            <th>New value</th>
+                                            <th>Old value</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="(key, value) in item.newValue">
+                                            <td><span class="item_field">{{key}}</span></td>
+                                            <td>
+                                                <span title="{{value | typeFormat}}">{{value | typeFormat}}</span>
+                                            </td>
+                                            <td>
+                                                <span title="{{item.oldValue[key] | typeFormat}}">{{item.oldValue[key] | typeFormat}}</span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

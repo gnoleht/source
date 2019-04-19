@@ -1,0 +1,317 @@
+﻿<div id="sprintPlan" ng-controller="sprintPlanController">
+    <div class="white_box" style="background-color:#edf1f5;padding:0">
+        <ul class="nav nav-tabs" id="main_tab_01" role="tablist"></ul>
+        <!-- Tab panes -->
+        <div class="tab-content tab-content-sprint" id="tab-content">
+            <div class="tab-pane active wrapper" id="tabSprintPlan" role="tabpanel" aria-labelledby="tab_01-tab">
+                <div class="clearfix content_7_3" style="height:calc(100% - 70px)">
+                    <div class="content_7 float-left {{hiddenListSprint}}" style="overflow:hidden">
+                        <div id="grvSprintPlan" class="control-grid wrapper"></div>
+                    </div>
+                    <div class="sprint_plan_main float-right content_3 {{hiddenListSprint}}" style="height:100%;">
+                        <div class="clearfix bg_blue_01 h_th">
+                            <p class="title_01 float-left mb-0 display_n" ng-bind="translation.SPRINTS"></p>
+                            <ul class="float-right clearfix mb-0 title_01">
+                                <li class="float-left mr-2 cus display_n btn_30 btn_default" ng-click="changeSetting()">
+                                    <i class="bowtie-icon bowtie-settings-gear-outline"></i>
+                                </li>
+                                <li class="float-left cus btn_full btn_30 btn_default" ng-click="toogleSprint()">
+                                    <i class="bowtie-icon bowtie-menu"></i><span class="menu_min" ng-bind="translation.SPRINTS"></span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div id="accordion" class="sprint_plan {{hiddenTemcapacity}}">
+                            <dl class="m-0">
+                                <dt data-toggle="collapse" data-target="#collapse_01" aria-expanded="false" aria-controls="collapse_01" class="collapsed">
+                                    <div class="bg_gray_02" data-toggle="collapse" data-target="#collapse_01" aria-expanded="false" aria-controls="collapse_01">
+                                        <p class="title_02 mb-0" ng-bind="translation.PAST"></p>
+                                    </div>
+                                </dt>
+                                <dd id="collapse_01" class="collapse mb-0" aria-labelledby="collapse_01">
+                                    <div class="content" ng-repeat="item in lstSprintPast">
+                                        <div class="content_title clearfix">
+                                            <a href="/pm/sprintPlan?pjid={{menuParams.pjid}}&spr={{item.code}}&area={{menuParams.area}}&module=pj">
+                                                <p class="mb-0 float-left">{{item.name}}</p>
+                                            </a>
+                                            <p class="mb-0 float-right">{{item.workingDays}} {{translation.DAYS}}</p>
+                                        </div>
+                                        <div class="content_main">
+                                            <p class="time">
+                                                <i class="bowtie-icon bowtie-status-waiting"></i><span class="ml-1">{{ item.startDate | date:'dd-MM'}}</span>
+                                                <span class="ml-3">-</span><span class="ml-3">{{ item.endDate | date:'dd-MM'}}</span>
+                                            </p>
+                                            <ul class="row_status clearfix mb-0">
+                                                <li ng-if="item.newCount > 0" class="bg_status_new"
+                                                    style="width:{{(100*(item.newCount)/(item.newCount + item.activeCount + item.resolvedCount + item.closedCount + item.removedCount))}}%">
+                                                    <span>{{item.newCount}}</span>
+                                                </li>
+                                                <li ng-if="item.activeCount > 0" class="bg_status_active"
+                                                    style="width:{{(100*(item.activeCount)/(item.newCount + item.activeCount + item.resolvedCount + item.closedCount + item.removedCount))}}%">
+                                                    <span>{{item.activeCount}}</span>
+                                                </li>
+                                                <li ng-if="item.resolvedCount > 0" class="bg_status_resolved"
+                                                    style="width:{{(100*(item.resolvedCount)/(item.newCount + item.activeCount + item.resolvedCount + item.closedCount + item.removedCount))}}%">
+                                                    <span>{{item.resolvedCount}}</span>
+                                                </li>
+                                                <li ng-if="item.closedCount > 0" class="bg_status_close"
+                                                    style="width:{{(100*(item.closedCount)/(item.newCount + item.activeCount + item.resolvedCount + item.closedCount + item.removedCount))}}%">
+                                                    <span>{{item.closedCount}}</span>
+                                                </li>
+                                                <li ng-if="item.removedCount > 0" class="bg_status_remove"
+                                                    style="width:{{(100*(item.removedCount)/(item.newCount + item.activeCount + item.resolvedCount + item.closedCount + item.removedCount))}}%">
+                                                    <span>{{item.removedCount}}</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </dd>
+                            </dl>
+                            <dl class="m-0">
+                                <dt class="arrow" data-toggle="collapse" data-target="#collapse_02" aria-expanded="true" aria-controls="collapse_02">
+                                    <div class="bg_gray_02" data-toggle="collapse" data-target="#collapse_02" aria-expanded="true" aria-controls="collapse_02">
+                                        <p class="title_02 mb-0" ng-bind="translation.CURRENT"></p>
+                                    </div>
+                                </dt>
+                                <dd id="collapse_02" class="collapse mb-0 show" aria-labelledby="collapse_02">
+                                    <div class="content" ng-repeat="item in lstSprintCurrent">
+                                        <div class="content_title clearfix">
+                                            <a href="/pm/sprintPlan?pjid={{menuParams.pjid}}&spr={{item.code}}&area={{menuParams.area}}&module=pj">
+                                                <p class="mb-0 float-left">{{item.name}}</p>
+                                            </a>
+                                            <p class="mb-0 float-right">{{item.workingDays}} {{translation.DAYS}}</p>
+                                        </div>
+                                        <div class="content_main">
+                                            <p class="time">
+                                                <i class="bowtie-icon bowtie-status-waiting"></i><span class="ml-1">{{ item.startDate | date:'dd-MM'}}</span>
+                                                <span class="ml-3">-</span><span class="ml-3">{{ item.endDate | date:'dd-MM'}}</span>
+                                            </p>
+                                            <ul class="row_status clearfix mb-0">
+                                                <li ng-if="item.newCount > 0" class="bg_status_new"
+                                                    style="width:{{(100*(item.newCount)/(item.newCount + item.activeCount + item.resolvedCount + item.closedCount + item.removedCount))}}%">
+                                                    <span>{{item.newCount}}</span>
+                                                </li>
+                                                <li ng-if="item.activeCount > 0" class="bg_status_active"
+                                                    style="width:{{(100*(item.activeCount)/(item.newCount + item.activeCount + item.resolvedCount + item.closedCount + item.removedCount))}}%">
+                                                    <span>{{item.activeCount}}</span>
+                                                </li>
+                                                <li ng-if="item.resolvedCount > 0" class="bg_status_resolved"
+                                                    style="width:{{(100*(item.resolvedCount)/(item.newCount + item.activeCount + item.resolvedCount + item.closedCount + item.removedCount))}}%">
+                                                    <span>{{item.resolvedCount}}</span>
+                                                </li>
+                                                <li ng-if="item.closedCount > 0" class="bg_status_close"
+                                                    style="width:{{(100*(item.closedCount)/(item.newCount + item.activeCount + item.resolvedCount + item.closedCount + item.removedCount))}}%">
+                                                    <span>{{item.closedCount}}</span>
+                                                </li>
+                                                <li ng-if="item.removedCount > 0" class="bg_status_remove"
+                                                    style="width:{{(100*(item.removedCount)/(item.newCount + item.activeCount + item.resolvedCount + item.closedCount + item.removedCount))}}%">
+                                                    <span>{{item.removedCount}}</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </dd>
+                            </dl>
+                            <dl class="m-0">
+                                <dt class="arrow" data-toggle="collapse" data-target="#collapse_03" aria-expanded="true" aria-controls="collapse_03">
+                                    <div class="bg_gray_02" data-toggle="collapse" data-target="#collapse_03" aria-expanded="true" aria-controls="collapse_03">
+                                        <p class="title_02 mb-0" ng-bind="translation.FUTURE"></p>
+                                    </div>
+                                </dt>
+                                <dd id="collapse_03" class="collapse mb-0 show" aria-labelledby="collapse_03">
+                                    <div class="content" ng-repeat="item in lstSprintFuture">
+                                        <div class="content_title clearfix">
+                                            <a href="/pm/sprintPlan?pjid={{menuParams.pjid}}&spr={{item.code}}&area={{menuParams.area}}&module=pj">
+                                                <p class="mb-0 float-left txt_cut">{{item.name}}</p>
+                                            </a>
+                                            <p class="mb-0 float-right">{{item.workingDays}} {{translation.DAYS}}</p>
+                                        </div>
+                                        <div class="content_main">
+                                            <p class="time">
+                                                <i class="bowtie-icon bowtie-status-waiting"></i><span class="ml-1">{{ item.startDate | date:'dd-MM'}}</span>
+                                                <span class="ml-3">-</span><span class="ml-3">{{ item.endDate | date:'dd-MM'}}</span>
+                                            </p>
+                                            <ul class="row_status clearfix mb-0">
+                                                <li ng-if="item.newCount > 0" class="bg_status_new"
+                                                    style="width:{{(100*(item.newCount)/(item.newCount + item.activeCount + item.resolvedCount + item.closedCount + item.removedCount))}}%">
+                                                    <span>{{item.newCount}}</span>
+                                                </li>
+                                                <li ng-if="item.activeCount > 0" class="bg_status_active"
+                                                    style="width:{{(100*(item.activeCount)/(item.newCount + item.activeCount + item.resolvedCount + item.closedCount + item.removedCount))}}%">
+                                                    <span>{{item.activeCount}}</span>
+                                                </li>
+                                                <li ng-if="item.resolvedCount > 0" class="bg_status_resolved"
+                                                    style="width:{{(100*(item.resolvedCount)/(item.newCount + item.activeCount + item.resolvedCount + item.closedCount + item.removedCount))}}%">
+                                                    <span>{{item.resolvedCount}}</span>
+                                                </li>
+                                                <li ng-if="item.closedCount > 0" class="bg_status_close"
+                                                    style="width:{{(100*(item.closedCount)/(item.newCount + item.activeCount + item.resolvedCount + item.closedCount + item.removedCount))}}%">
+                                                    <span>{{item.closedCount}}</span>
+                                                </li>
+                                                <li ng-if="item.removedCount > 0" class="bg_status_remove"
+                                                    style="width:{{(100*(item.removedCount)/(item.newCount + item.activeCount + item.resolvedCount + item.closedCount + item.removedCount))}}%">
+                                                    <span>{{item.removedCount}}</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+                <div id="id_sprint_team" class="team_member clearfix {{hiddenTemcapacity}}">
+                    <p class="cus mb-0"><a href="#" class="bg_blue_01" ng-click="toogleTeam()"><i class="bowtie-icon bowtie-chevron-right-end"></i> <span>member</span></a></p>
+                    <div class="scroll clearfix" id="scroll_team_member">
+                        <div class="item">
+                            <p class="name">Team Capacity</p>
+                            <div class="row_status_01">
+                                <div class="row_status_01_01">
+                                    <div ng-if="teamCapacity.remaining == 0">
+                                        <div class="time">(<span title="Total task remaining">0</span>/<span title="Team capacity remaining">{{teamCapacity.capacity}}</span> hrs)</div>
+                                    </div>
+                                    <div ng-if="teamCapacity.remaining != 0" style="width: {{100*(teamCapacity.remaining/teamCapacity.capacity)}}%;"
+                                         ng-class="{'progress-current':teamCapacity.remaining <= teamCapacity.capacity,'progress-overload':teamCapacity.remaining > teamCapacity.capacity}">
+                                        <div class="time">(<span title="Total task remaining">{{teamCapacity.remaining}}</span>/<span title="Team capacity remaining">{{teamCapacity.capacity}}</span> hrs)</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item" ng-repeat="item in workdetails">
+                            <p class="name">{{item.displayName}} (<span title="Original">{{item.original}}</span>/<span title="Capacity">{{item.totalCapacity}}</span>)</p>
+                            <div class="row_status_01">
+                                <div class="row_status_01_01">
+                                    <div ng-if="item.remaining == 0">
+                                        <div class="time">(<span title="Task remaining">0</span>/<span title="Capacity remaining">{{item.capacity}}</span> hrs)</div>
+                                    </div>
+                                    <div ng-if="item.remaining != 0" style="width: {{100*(item.remaining/item.capacity)}}%;"
+                                         ng-class="{'progress-current':item.remaining <= item.capacity,'progress-overload':item.remaining > item.capacity}">
+                                        <div class="time">(<span title="Task remaining">{{item.remaining}}</span>/<span title="Capacity remaining">{{item.capacity}}</span> hrs)</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal (Modal detail)-->
+    <div lv-include path="app/pm/workItem/workItemForm" name="workItemForm"></div>
+
+    <!-- Modal (Modal Sprint Setting)-->
+    <div lv-include path="app/pm/pm_share/sprintSetting" name="sprintSetting" id="sprintSetting"></div>
+
+    <div id="contextMenuSprint" class="context-menu" style="width:320px;">
+        <ul class="context-menu_items">
+            <li class="context-menu_item">
+                <a ng-click="editsprint(null)" class="context-menu_link" title=""><i class="bowtie-icon bowtie-navigate-reload" style="color:#660066;padding-right:10px;"></i> Backlog</a>
+            </li>
+            <li class="context-menu_item" ng-repeat="item1 in lstSprintCurrent">
+                <a ng-click="editsprint(item1.id)" class="context-menu_link" title=""><i class="bowtie-icon bowtie-navigate-forward-disc" style="color:#660066;padding-right:10px;"></i>{{item1.name}}&nbsp;&nbsp;({{item1.startDate | date:"dd/MM/yyyy"}} - {{item1.endDate | date:"dd/MM/yyyy"}})</a>
+            </li>
+            <li class="context-menu_item" style="padding-left:15px;background-color:#f4fbfe;">
+                <div style="font-weight:bold;">FUTURE ITERATIONS</div>
+            </li>
+            <li class="context-menu_item" ng-repeat="item2 in lstSprintFuture">
+                <a ng-click="editsprint(item2.id)" class="context-menu_link" title=""><i class="bowtie-icon bowtie-navigate-forward-circle" style="color:#660066;padding-right:10px;"></i>{{item2.name}}&nbsp;&nbsp;({{item2.startDate | date:"dd/MM/yyyy"}} - {{item2.endDate | date:"dd/MM/yyyy"}})</a>
+            </li>
+        </ul>
+    </div>
+
+    <div id="contextMenuMember" class="context-menu" style="width:300px;">
+        <ul class="context-menu_items">
+            <li class="context-menu_item">
+                <a ng-click="editmember(null)" class="context-menu_link" title=""><span class="img_user_tb img_over" style="background-image: url('/api/system/viewfile?id=null&def=/img/no_avatar.png')"></span><span class="middle_50">Unassign</span></a>
+            </li>
+            <li class="context-menu_item" ng-repeat="item in projectMember">
+                <a ng-click="editmember(item.id)" class="context-menu_link clearfix" title=""><span class="img_user_tb img_over" style="background-image: url('{{'/api/system/viewfile?id=' + item.memberRelated.avatarThumb + '&def=/img/no_avatar.png'}}')"></span> <span class="middle_50">{{item.memberRelated.displayName}}</span></a>
+            </li>
+        </ul>
+    </div>
+
+    <!--context menu-->
+    <div id="contextMenu" class="context-menu">
+        <ul class="context-menu_items">
+            <li ng-show="(parentType == 'userstory' && isApproveSprint == false) || (parentType == 'userstory' && isApproveSprint == true && approveStatus != 'approved')"
+                class="bug context-menu_item no-padding">
+                <a ng-click="add('userstory')" class="context-menu_link type_userstory" title="Add User Story">User Story</a>
+            </li>
+            <li ng-show="isApproveSprint == false || (isApproveSprint == true && approveStatus != 'approved')"
+                class="task context-menu_item no-padding">
+                <a ng-click="add('task')" class="context-menu_link type_task" title="Add task">Task</a>
+            </li>
+            <li ng-show="parentType == 'userstory'" class="bug context-menu_item no-padding">
+                <a ng-click="add('bug')" class="context-menu_link type_bug" title="Add bug">Bug</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Modal (Modal Approval)-->
+    <div class="modal fade modal_center confirmClose" id="modal-approval">
+        <div class="modal-dialog" style="width:600px">
+            <div class="modal-content">
+                <div class="modal-header clearfix">
+                    <p class="modal_header_title">
+                        <span ng-bind="currentSprint.approveStatus == 'approved'? 'SPRINT PLANNING REJECT':'SPRINT PLANNING APPROVE'"></span>
+                    </p>
+                    <div class="box_btn_02">
+                        <button type="button" class="btn_close_02" data-dismiss="modal"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="">
+                        <div class="form-input-group">
+                            <div class="box_02 col_1 clearfix">
+                                <div class="item">
+                                    <div class="label">Sprint Name: <strong class="link">{{currentSprint.name}}</strong></div>
+                                </div>
+                            </div>
+                            <div class="box_02 col_2 clearfix">
+                                <div class="item">
+                                    <div class="label">From: <strong class="link">{{currentSprint.startDate | date:'dd-MM-yyyy'}}</strong></div>
+                                </div>
+                                <div class="item">
+                                    <div class="label">To: <strong class="link">{{currentSprint.endDate | date:'dd-MM-yyyy'}}</strong></div>
+                                </div>
+                            </div>
+                            <div class="box_02 col_2 clearfix">
+                                <div class="item">
+                                    <div class="label">Current Sprint Stories Point: <strong class="link">{{currentSprintStoriesPoint}}</strong></div>
+                                </div>
+                                <div class="item">
+                                    <div class="label">Average Stories Point: <strong class="link">{{averageStoriesPoint}}</strong></div>
+                                </div>
+                            </div>
+                            <div class="box_02 col_1">
+                                <div class="item">
+                                    <div class="label">Team Capacity</div>
+                                </div>
+                            </div>
+                            <div class="box_02 col_1">
+                                <div class="item mb_5">
+                                    <div class="row_status_01">
+                                        <div class="row_status_01_01">
+                                            <div ng-if="teamCapacity.remaining == 0">
+                                                <div class="time">(0/{{teamCapacity.capacity}} hrs)</div>
+                                            </div>
+                                            <div ng-if="teamCapacity.remaining != 0" style="width: {{100*(teamCapacity.remaining/teamCapacity.capacity)}}%;"
+                                                 ng-class="{'progress-current':teamCapacity.remaining <= teamCapacity.capacity,'progress-overload':teamCapacity.remaining > teamCapacity.capacity}">
+                                                <div class="time">({{teamCapacity.remaining}}/{{teamCapacity.capacity}} hrs)</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button ng-click="sendApprove()" type="button" click-Once class="btn btn_save_02">
+                        <i ng-class="currentSprint.approveStatus == 'approved'? 'fa fa-times-circle':'fa fa-check-circle'"></i> <span ng-bind="currentSprint.approveStatus == 'approved'? 'Sent to Reject':'Sent to Approve'"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

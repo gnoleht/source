@@ -1,0 +1,115 @@
+﻿<style>
+    .hidden-label{
+        display: none;
+    }
+</style>
+<!--check-->
+<div id="costPlanning" ng-init="onload()" ng-controller="costPlanningController">
+    <div class="white_box" style="background-color:#edf1f5;padding:0">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" id="main_tab_01" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link" href="/pm/pblEstimating?pjid={{menuParams.pjid}}{{areaUrl}}&module=pj" id="tab_01-tab" data-toggle="tab" data-target="#tabPblEstimating"
+                   role="tab" aria-controls="tab_01" aria-selected="true">PBL Estimating</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/pm/resourcePlanning?pjid={{menuParams.pjid}}{{areaUrl}}&module=pj" id="tab_01-tab" data-toggle="tab" data-target="#tabResourcePlanning"
+                   role="tab" aria-controls="tab_01" aria-selected="true">Resource Planning</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/pm/releasePlanning?pjid={{menuParams.pjid}}{{areaUrl}}&module=pj" id="tab_01-tab" data-toggle="tab" data-target="#tabReleasePlanning"
+                   role="tab" aria-controls="tab_01" aria-selected="true">Release Planning</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="/pm/costPlanning?pjid={{menuParams.pjid}}{{areaUrl}}&module=pj" id="tab_01-tab" data-toggle="tab" data-target="#tabCostPlanning"
+                   role="tab" aria-controls="tab_01" aria-selected="true">Cost Planning</a>
+            </li>
+        </ul>
+
+        <div id="tab-content" class="tab-content" style="height:calc(100% - 34px);width: 100%">
+            <div class="tab-pane" id="tabPblEstimating" style="height:100%;width:100%">
+
+            </div>
+            <div class="tab-pane " id="tabResourcePlanning" style="height:100%;width:100%">
+            </div>
+            <div class="tab-pane " id="tabReleasePlanning" style="height:100%;width:100%">
+            </div>
+            <div class="tab-pane active" id="tabCostPlanning" style="height:100%;width:100%">
+                <div id="grvCostPlanning" class="control-grid" style="width:100%;height:100%"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal (detail)-->
+    <div class="modal fade modal_center confirmClose" id="modal-detail-cost" ng-init="initJS()">
+        <div class="modal-dialog" style="width:600px">
+            <div class="modal-content">
+                <div class="modal-header clearfix">
+                    <p class="modal_header_title"><span>{{::translation.UPDATE_COST_TITLE}}</span></p>
+                    <div class="box_btn_02">
+                        <!--<button type="button" class="fullscreen" onclick="fullScreen(this)"><i class="bowtie-icon bowtie-view-full-screen"></i></button>-->
+                        <button type="button" class="btn_close_02" data-dismiss="modal"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="form-input-group modal-body-maincontent">
+                        <div class="box_02 col_1">
+                            <div class="box_content">
+                                <div class="item">
+                                    <lv-input class="" field="description" model="data.cost.description" setting="setting" translation="translation" type="text" tab="1"></lv-input>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box_02 col_2">
+                            <div class="item">
+                                <lv-date class="" field="paymentDate" model="data.cost.paymentDate" setting="setting" translation="translation" tab="2"></lv-date>
+                            </div>
+                            <div class="item">
+                                <lv-select class="" field="category" model="data.cost.category" change="ChangeCategory()" setting="setting" translation="translation" tab="3"></lv-select>
+                            </div>
+                        </div>
+                        <div class="box_02 col_2">
+                            <div class="item">
+                                <lv-number2 change="CalcSubTotals()" class="no-padding" field="qty" model="data.cost.qty" setting="setting" translation="translation" tab="4"></lv-number2>
+                            </div>
+                            <div class="item">
+                                <lv-select class="" field="unit" model="data.cost.unit" setting="setting" translation="translation" tab="5"></lv-select>
+                            </div>
+                        </div>
+                        <div class="box_02 col_2">
+                            <div class="item">
+                                <lv-money change="CalcSubTotals()"  nolabel="hidden-label" class="no-padding" field="price" model="data.cost.price" type="decimal" setting="setting" translation="translation" tab="6"></lv-money>
+                            </div>
+                            <div class="item">
+                                <lv-input class="no-padding" field="currency" model="data.cost.currency" setting="setting" translation="translation" tab="7"></lv-input>
+                            </div>
+                        </div>
+                        <div class="box_02 col_2">
+                            <div class="item">
+                                <lv-valuelist-multi ng-if="!params.area" element-id="areas" field="areas" model="data.cost.areas" setting="setting" translation="translation" tab="8"></lv-valuelist-multi>
+                            </div>
+                            <div class="item">
+                            </div>
+                        </div>
+                        <div class="box_02 col_2">
+                            <div class="item text-right">
+                                <label>{{::translation.TOTAL}}: </label>
+                            </div>
+                            <div class="item text-left">
+                                <label>{{data.cost.price * data.cost.qty | number:2}}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<lv-select class="col-sm-6 " field="currency" model="data.cost.currency" setting="setting" translation="translation" tab="7"></lv-select>-->
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn_save_02" id="btnSave" ng-click="save()" tabindex="8" click-Once><i class="bowtie-icon bowtie-save"></i><span ng-bind="translation.BTN_SAVE_CLOSE">Save</span></button>
+                </div>
+            </div>
+                
+            </div>
+        </div>
+    </div>
+
+</div>

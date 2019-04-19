@@ -1,0 +1,22 @@
+﻿var myBonusTranslation = {
+    "PROJECTS": "Project Name",
+    "SPRINTS": "Sprint",
+    "RESOURCENAME": "Task Name",
+    "ORIGINALESTIMATE": "Original Estimate",
+    "REMAINING_WORK": "Remaining Work",
+    "COMPLETED_WORK": "Completed Work",
+    "TOTAL_EFFORF_DONE": "Total Efforf Done",
+    "NEW": "New",
+    "ACTIVE": "Active",
+    "RESOLVED": "Resolved",
+    "CLOSED": "Closed",
+    "REMOVED": "Removed",
+    "COMPLETED": "Completed",
+    "ESTIMATE": "Estimate",
+    "URGENT": "Urgent",
+    "HIDE": "Hide",
+    "NORMAL": "Normal",
+    "LOW": "Low",
+    "TOTAL": "Total",
+    "STATUS": "Status"
+}

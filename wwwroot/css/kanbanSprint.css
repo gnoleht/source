@@ -1,0 +1,276 @@
+﻿/*for test only. After test complate: undo, no check-in.*/
+
+ #kanban_Sprint {
+    width: 100%;
+    table-layout: fixed;
+    margin: auto;
+}
+
+#kanban_Sprint thead {
+    width: 100%;
+    display: table;
+}
+
+
+
+#kanban_Sprint thead tr th {
+    padding-left: 10px;
+    padding-bottom: 0;
+    width: 10%;
+    border-bottom: 2px solid #F09659;
+}
+
+#kanban_Sprint thead tr:first-child th:first-child {
+    border-bottom: none;
+    padding-right: 10px;
+}
+
+#kanban_Sprint tbody {
+    width: 100%;
+    height: 560px;
+    /*max-height: 600px;*/
+    overflow: auto;
+    overflow-x: hidden;
+    display: block;
+}
+
+#kanban_Sprint tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+
+#kanban_Sprint tbody tr td {
+    vertical-align: top;
+    padding-left: 0px;
+    height: 100px;
+}
+
+
+#kanban_Sprint tbody tr td:first-child {
+    border-right: 2px solid #F09659;
+    padding-right: 10px;
+    padding-top: 10px;
+}
+
+#kanban_Sprint tbody tr td:nth-child(2){
+    border-right: 2px solid #009CCC;
+}
+
+#kanban_Sprint tbody tr td:nth-child(3) {
+    border-right: 2px solid #F2CB13;
+}
+
+#kanban_Sprint tbody tr td:nth-child(4) {
+    border-right: 2px solid #00FF00;
+}
+
+
+#kanban_Sprint tbody tr td div.tooltip.bottom .tooltip-inner {
+    background-color: #fff;
+    color: red;
+    border: 1px solid #ccc;
+}
+
+#kanban_Sprint tbody tr td div.tooltip.bottom .tooltip-arrow {
+    border-bottom: 5px solid #ccc;
+}
+
+
+.column {
+    width: 100%;
+    float: left;
+    padding: 10px;
+    height: 100%;
+    padding-left:15px;
+}
+
+.task_Kanban {
+    /*width: 100%;*/
+    width: 200px;
+    height: auto;
+    margin: 0 0 15px;
+    display: inline-block;
+    padding: 10px;
+    background: #fff;
+    border: 1px solid #F2CB13;
+    border-left: 8px solid #F2CB13;
+    /*box-shadow: -8px 0px 0px 0px #F2CB13;*/
+    -moz-border-radius-topright: 20px;
+    -webkit-border-top-right-radius: 20px;
+}
+
+.bug_Kanban {
+    /*width: 100%;*/
+    height: auto;
+    width: 200px;
+    margin: 0 0 15px;
+    display: inline-block;
+    padding: 10px;
+    background: #fff;
+    border: 1px solid #CC293D;
+    /*box-shadow: -8px 0px 0px 0px #CC293D;*/
+    border-left: 8px solid #CC293D;
+    -moz-border-radius-topright: 20px;
+    -webkit-border-top-right-radius: 20px;
+}
+
+
+.block-header {
+    color: #337ab7;
+    display: block;
+    word-wrap: break-word;
+    max-height: 3.6em;
+    /*line-height: 1em;*/
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+}
+
+.block-header:hover {
+    cursor:pointer;
+    text-decoration-line:underline;
+}
+
+.block-content {
+    margin-top: 10px;
+    /*margin-bottom: 10px;*/
+    position:relative;
+    font-size:15px;
+}
+
+.block-placeholder {
+    border: 1px dashed black;
+    margin: 0 0 10px;
+    height: 100px;
+    width: 100%;
+    display: block;
+    clear: both;
+}
+
+.assign {
+    color: #000;
+    position: absolute;
+    top: 5px;
+    left: 40px;
+
+    width: 100px;
+    white-space: nowrap;
+    /*width: 100%;*/
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.remaining {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    font-weight:500;
+}
+
+.totalRemaining {
+    float:right;
+    padding-right:20px;
+}
+
+.avatar {
+    /*background-image: url("../img/no_avatar.png");*/
+    /*width: 30px;
+    height: 30px;
+    background-size: cover;
+    display: inline-block;*/
+}
+
+.avatar > img {
+    width: 30px;
+    height: 30px;
+    /*margin-bottom: 5px*/
+}
+
+.backlog_U {
+    width: 250px;
+    /*width: 100%;*/
+    margin: 0 0 15px;
+    display: inline-block;
+    padding: 10px;
+    background: #fff;
+    border: 1px solid #009CCC;
+    border-left: 6px solid #009CCC;
+    font-size: 15px;
+    height: 110px;
+}
+
+.backlog_U2 {
+    width: 250px;
+    /*width: 100%;*/
+    margin: 0 0 15px;
+    display: inline-block;
+    padding: 10px;
+    background: #CEE7F8;
+    border-left: 6px solid #009CCC;
+    font-size: 14px;
+    height: 40px;
+}
+
+.backlog_U2 .header {
+    white-space: nowrap;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.backlog_U .header {
+    white-space: nowrap;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+.backlog_U .state {
+    position:absolute;
+    top:40px;
+}
+
+
+.backlog_U .value {
+    position: absolute;
+    right: 0px;
+    top: 40px;
+}
+
+.addTaskBug {
+    margin-top:10px;
+    color: #6fb583;
+    font-size: 2.16em;
+    line-height: 10px;
+    cursor:pointer;
+    width:30px;
+    margin-bottom:20px;
+}
+
+
+@media screen and (max-width: 1366px) {
+    .task_Kanban {
+        width: 100%;
+    }
+
+    .bug_Kanban {
+        width: 100%;
+    }
+
+    .assign {
+        width: 80px;
+    }
+
+    .backlog_U {
+        width: 100%;
+    }
+
+    .backlog_U2 {
+        width: 100%;
+    }
+
+}
+

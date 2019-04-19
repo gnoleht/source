@@ -1,0 +1,200 @@
+﻿<div id="reportItem" ng-controller="reportItemController">
+    <div class="white_box clearfix">
+        <div class="content_6_4 clearfix">
+            <div class="content_4 scroll float-left" style="padding-right: 10px">
+                <dl class="mb_15">
+                    <dt><a class="title_01 bg_blue_01" data-toggle="collapse" data-target="#panel_02" aria-expanded="true" aria-controls="panel_02"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>{{translation.REPORT_INFO}}</span></a></dt>
+                    <dd>
+                        <div class="collapse show" id="panel_02" aria-expanded="true">
+                            <div class="box_02 col_1">
+                                <div class="item">
+                                    <lv-select element-id="vllReport" field="report" change="clickReport()" model="data.report" label="{{translation.DETAIL_REPORT}}:" setting="setting" tab="1"></lv-select>
+                                </div>
+                            </div>
+                            <div class="box_02 col_1">
+                                <div class="item">
+                                    <lv-select element-id="statistical" field="statistical" change="clickStatistic()" model="data.statistical" label="{{translation.STATISTICAL}}:" setting="setting" tab="1"></lv-select>
+                                </div>
+                            </div>
+                            <div class="box_02 col_1">
+                                <div class="item">
+                                    <!--<lv-valuelist-multi element-id="vllGroup" field="group" model="data.group" translation="translation" setting="setting" tab="2"></lv-valuelist-multi>-->
+                                    <lv-select element-id="vllGroup" field="group" model="data.group" translation="translation" setting="setting" tab="2"></lv-select>
+                                </div>
+                            </div>
+
+                            <!--<lv-combobox element-id="cmbReport"  option="cmbReport" model="data.report" label="Báo cáo chi tiết:" setting="setting" tab="1" ></lv-combobox>-->
+                            <!--<lv-combobox element-id="cmbGroup" option="cmbGroup" model="data.group" label="Nhóm theo:" tab="2">
+    </lv-combobox>-->
+
+                        </div>
+                    </dd>
+                </dl>
+                <dl class="mb_10">
+                    <dt>
+                        <a class="title_01 bg_blue_01" data-toggle="collapse" data-target="#panel_03" aria-expanded="true" aria-controls="panel_03">
+                            <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i>
+                            <span>{{translation.TIME_INFO}}</span>
+                        </a>
+                    </dt>
+                    <dd>
+                        <div class="collapse show" id="panel_03" aria-expanded="true">
+                            <div class="box_02 col_1">
+                                <div class="item">
+                                    <lv-select element-id="timeMark" field="timeMark" model="timeMark" change="changeTimeMark()" label="{{translation.TIME_MARK}}:" setting="setting" tab="3"></lv-select>
+                                </div>
+                            </div>
+                            <div class="box_02 col_1">
+                                <div class="item">
+                                    <lv-datepicker field="fromDate" model="data.fromDate" label="{{translation.FROMDATE}}:" tab="4"></lv-datepicker>
+                                </div>
+                            </div>
+                            <div class="box_02 col_1">
+                                <div class="item">
+                                    <lv-datepicker field="toDate" model="data.toDate" label="{{translation.TODATE}}:" tab="5"></lv-datepicker>
+                                </div>
+                            </div>
+                            <div class="box_02 col_1">
+                                <div class="item">
+                                    <label>{{translation.FROMHOUR}}:</label>
+                                    <input id="fromHour" type="time" name="name" class="iput" />
+                                </div>
+                            </div>
+                            <div class="box_02 col_1">
+                                <div class="item">
+                                    <label>{{translation.TOHOUR}}:</label>
+                                    <input id="toHour" type="time" name="name" class="iput" />
+                                </div>
+                            </div>
+                        </div>
+                    </dd>
+                </dl>
+                <dl class="mb_10">
+                    <dt>
+                        <a class="title_01 bg_blue_01" data-toggle="collapse" data-target="#panel_04" aria-expanded="true" aria-controls="panel_04">
+                            <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>{{translation.PRODUCT_INFO}}</span>
+                        </a>
+                    </dt>
+                    <dd>
+                        <div class="collapse show" id="panel_04" aria-expanded="true">
+                            <div class="box_02 col_1">
+                                <div class="item">
+                                    <lv-combobox element-id="cmbMajorItem" option="cmbMajorItem" model="data.majorItem" label="{{translation.PRODUCT_INDUSTRY}}:" tab="8">
+                                    </lv-combobox>
+                                </div>
+                            </div>
+
+                            <div class="box_02 col_1">
+                                <div class="item">
+                                    <lv-combobox element-id="cmbGroupItem" option="cmbGroupItem" model="data.groupItem" label="{{translation.GROUP_PRODUCT}}:" tab="9">
+                                    </lv-combobox>
+                                </div>
+                            </div>
+
+                            <div class="box_02 col_1">
+                                <div class="item">
+                                    <lv-combobox element-id="cmbItem" option="cmbItem" model="data.item" label="{{translation.PRODUCT}}:" tab="10">
+                                    </lv-combobox>
+                                </div>
+                            </div>
+
+                        </div>
+                    </dd>
+                </dl>
+                <dl class="mb_10">
+                    <dt>
+                        <a class="title_01 bg_blue_01" data-toggle="collapse" data-target="#panel_05" aria-expanded="true" aria-controls="panel_05">
+                            <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>{{translation.CUS_INFO}}</span>
+                        </a>
+                    </dt>
+                    <dd>
+                        <div class="collapse show" id="panel_05" aria-expanded="true">
+                            <div class="box_02 col_1">
+                                <div class="item">
+                                    <lv-combobox element-id="cmbGroupCustomer" option="cmbGroupCustomer" model="data.groupCustomer" label="{{translation.GROUP_CUS}}:" tab="11">
+                                    </lv-combobox>
+                                </div>
+                            </div>
+
+                            <div class="box_02 col_1">
+                                <div class="item">
+                                    <lv-combobox element-id="cmbCategoryCustomer" option="cmbCategoryCustomer" model="data.categoryCustomer" label="{{translation.CATEGORY_CUS}}:" tab="11">
+                                    </lv-combobox>
+                                </div>
+                            </div>
+
+                            <div class="box_02 col_1">
+                                <div class="item">
+                                    <lv-combobox element-id="cmbCustomer" option="cmbCustomer" model="data.customer" label="{{translation.CUSTOMER}}:" tab="12">
+                                    </lv-combobox>
+                                </div>
+                            </div>
+
+                            <div class="box_02 col_1">
+                                <div class="item">
+
+                                    <i class="bowtie-icon mr-10" style="font-size: 17px;" ng-class="checkCustomer ? 'bowtie-checkbox ' : 'bowtie-checkbox-empty'" ng-click="changeCheck()"></i><span>{{translation.GUEST}}</span>
+                                </div>
+                            </div>
+
+                            <!--<lv-input field="retailCustomer" model="data.retailCustomer" change="" type="checkbox" tab="4" style="margin-left:10px"></lv-input><p>Khách lẻ</p>-->
+                        </div>
+                    </dd>
+                </dl>
+                <dl class="mb_10">
+                    <dt>
+                        <a class="title_01 bg_blue_01" data-toggle="collapse" data-target="#panel_06" aria-expanded="true" aria-controls="panel_05">
+                            <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>{{translation.STORE_INFO}}</span>
+                        </a>
+                    </dt>
+                    <dd>
+                        <div class="collapse show" id="panel_06" aria-expanded="true">
+
+                            <div class="box_02 col_1">
+                                <div class="item">
+                                    <lv-valuelist-multi style="width: 400px;" element-id="storeId" field="storeId" model="listStoreId" label="{{translation.STORE}}:" setting="setting" translation="translation" tab="13"></lv-valuelist-multi>
+                                </div>
+                            </div>
+
+
+                            <div class="box_02 col_1">
+                                <div class="item">
+                                    <lv-combobox element-id="cmbCashier" field="cashier" label="{{translation.CASHIER}}:" option="cmbCashier" model="data.cashier" setting="setting" translation="translation" tab="14">
+                                    </lv-combobox>
+                                </div>
+                            </div>
+
+                        </div>
+                    </dd>
+                </dl>
+                <button id="btnSaveClose" ng-click="print()" type="button" class="btn btn_save_02 float-right">
+                    <i class="fa fa-print"></i><span>Xem báo cáo</span>
+                </button>
+            </div>
+
+
+            <div class="content_6 float-right">
+                <dl class="mb-0" style="height:100%">
+                    <dt>
+                        <a class="title_01 bg_blue_01">
+                            <span>{{translation.REPORT_SYNTHETIC}}</span>
+
+                        </a>
+                    </dt>
+                    <dd style="width:100%;height:calc(100% - 25px); padding: 10px 5px;">
+                        <div class="d-flex mb-20">
+                            <label style="margin-right: 100px;">{{translation.FROMDATE}}: {{data.fromDate1 | date :"dd/MM/yyyy"}}</label>
+                            <label>{{translation.TODATE}}: {{data.toDate1 | date :"dd/MM/yyyy"}}</label>
+                        </div>
+
+                        <div class="gridWrapper">
+                            <div id="grvreportItem" class="control-grid" style="width:100%;height:100%"></div>
+                        </div>
+
+
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>

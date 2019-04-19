@@ -1,0 +1,57 @@
+﻿<div id="format" ng-controller="formatController">
+    <div class="white_box" style="background-color:#edf1f5;padding:0">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" id="main_tab_01" role="tablist">
+
+            <li class="nav-item">
+                <a class="nav-link" href="/system/function" id="tab_01-tab" data-toggle="tab" data-target="#tabFunction"
+                   role="tab" aria-controls="tab_01" aria-selected="true">Function</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/system/setting" id="tab_02-tab" data-toggle="tab" data-target="#tabSetting"
+                   role="tab" aria-controls="tab_01" aria-selected="true">Setting</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="/system/format" id="tab_03-tab" data-toggle="tab" data-target="#tabFormat"
+                   role="tab" aria-controls="tab_01" aria-selected="true">Format</a>
+            </li>
+        </ul>
+
+        <div id="tab-content" class="tab-content">
+            <div class="tab-pane" id="tabFunction" style="height:100%;width:100%">
+            </div>
+            <div class="tab-pane" id="tabSetting" style="height:100%;width:100%">
+
+            </div>
+            <div class="tab-pane active" id="tabFormat" style="height:100%;width:100%">
+                <dl class="box_tb">
+                    <dt>
+                        <p class="title_01 cus mb-0" style="padding-bottom: 0" data-toggle="collapse" data-target="#panel_add_pc_1" aria-expanded="true" aria-controls="panel_add_pc_1"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>Number</span></p>
+                    </dt>
+                    <dd class="m_10">
+                        <div class="collapse show" id="panel_add_pc_1" aria-expanded="true" style="">
+                            <div class="box_02 w_100 col_1 clearfix">
+                                <div class="item border-0 w_100">
+                                    <div class="box_02 col_3 clearfix mb-15">
+                                        <div class="item">
+                                            <p class="label">Decimal</p>
+                                            <input type="text" class="iput">
+                                        </div>
+                                        <div class="item">
+                                            <p class="label">Thousand</p>
+                                            <input type="text" class="iput">
+                                        </div>
+                                        <div class="item">
+                                            <p class="label">Precision</p>
+                                            <input type="text" class="iput">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,54 @@
+﻿<div id="workItem" ng-controller="workItemController">
+    <div class="white_box">
+        <div class="gridWrapper" style="display:block">
+            <div id="grvDataTable" class="control-grid" style="width:100%;height:100%"></div>
+        </div>
+    </div>
+
+    <!-- Modal (Modal detail)-->
+    <div lv-include path="app/pm/workItem/workItemForm" name="workItemForm"></div>
+
+    <!-- Modal Use Case -->
+    <div class="modal fade modal_center" role="dialog" id="grapheditor-modal">
+        <div class="modal-dialog" style="width:1100px;height:100%">
+            <div class="modal-content" style="height:100%;width:100%">
+                <a href="javascript:;" ng-click="closeUsecase()" class="close" data-dismiss="modal" style="position: fixed;right: 5px;top: 5px;font-size: 18px;z-index: 1000;"><i class="bowtie-icon bowtie-edit-remove" aria-hidden="true"></i></a>
+                <a href="javascript:;" class="close" title="{{::translation.BTN_SCREEN}}" style="position: fixed;right: 35px;top: 5px;font-size: 18px;z-index: 1000;"><i onclick="fullscreen('grapheditor-modal')" class="bowtie-icon bowtie-view-full-screen"></i></a>
+                <iframe id="ifr-usecase"
+                        style="position:fixed;
+                            top:0px; left:0px;
+                            bottom:0px; right:0px;
+                            width:100%; height:100%;
+                            border:none; margin:0;
+                            padding:0;
+                            overflow:hidden;
+                            z-index:999;"></iframe>
+
+            </div>
+        </div>
+    </div>
+
+    <!--context menu-->
+    <div id="contextMenu" class="context-menu">
+        <ul class="context-menu_items">
+            <!--<li ng-show="parentType == 'requirement'" class="requirement context-menu_item no-padding">
+                <a ng-click="add('epic')" class="context-menu_link" title="Add epic">requirement</a>
+            </li>-->
+            <li ng-show="parentType == 'epic'" class="epic context-menu_item no-padding">
+                <a ng-click="add('epic')" class="context-menu_link type_epic" title="Add epic">Epic</a>
+            </li>
+            <li ng-show="parentType == 'epic' || parentType == 'function'" class="function context-menu_item no-padding">
+                <a ng-click="add('function')" class="context-menu_link type_function" title="Add function">Function</a>
+            </li>
+            <li ng-show="parentType == 'function' || parentType == 'userstory'" class="userstory context-menu_item no-padding">
+                <a ng-click="add('userstory')" class="context-menu_link type_userstory" title="Add user story">User story</a>
+            </li>
+            <li ng-show="parentType == 'userstory' || parentType == 'task'" class="task context-menu_item no-padding">
+                <a ng-click="add('task')" class="context-menu_link type_task" title="Add task">Task</a>
+            </li>
+            <li ng-show="parentType == 'userstory'" class="bug context-menu_item no-padding">
+                <a ng-click="add('bug')" class="context-menu_link type_bug" title="Add bug">Bug</a>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,85 @@
+﻿<style>
+    #newsList .group{
+   
+    }
+    #newsList .white_box {
+        height: 100%;
+        overflow:auto
+    }
+    #newsList .img {
+        width: 170px;
+        height: 170px;
+        float: left;
+        margin-right: 20px;
+    }
+    #newsList .main_content {
+        float: left;
+        width: calc(100% - 190px);
+        height: 170px
+    }
+    #newsList .title {
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #555 !important;
+    }
+    #newsList .time {
+        font-style: italic;
+        margin: 0px;
+    }
+    #newsList .time span {
+        color: #0074a9;
+    }
+    #newsList .group a {
+        color: #999;
+        display: block;
+    }
+    #newsList .group a:hover {
+        background: #fafafa;
+    }
+    #newsList .group .item {
+        border-bottom: 1px solid #eee;
+        padding: 15px;
+    }
+    #newsList .group .content {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 5;
+        -webkit-box-orient: vertical;
+        margin-bottom: 10px;
+    }
+    #newsList button {
+        float: right;
+        margin-top: 15px;
+    }
+    #newsList .description {
+        height: calc(100% - 50px)
+    }
+    #newsList dl {
+        margin-bottom: 45px;
+    }
+</style>
+<div id="newsList" ng-controller="newsListController">
+    <div class="white_box">
+        <dl ng-repeat="group in data">
+            <dt><a class="title_01 bg_blue_01" data-toggle="collapse" data-target="#panel_NL_{{$index}}" aria-expanded="true" aria-controls="panel_NL_{{$index}}"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>{{group.category.name}} ({{group.total}})</span></a></dt>
+            <dd class="collapse show" id="panel_NL_{{$index}}" aria-expanded="true">
+                <div class="group">
+                    <a href="pt/newsDetail?code={{item.code}}" ng-repeat="item in group.listNews" title="{{item.title}}">
+                        <div class="item clearfix">
+                            <div class="img" style="background:#eee url({{'/api/system/viewfile?id='+ item.pictureThumb + '&def=/img/pic_upload.png'}}) no-repeat center center;"></div>
+                            <div class="main_content">
+                                <p class="title">{{item.title}}</p>
+                                <div class="description">
+                                    <p class="content">{{item.describe}}</p>
+                                </div>
+                                <p class="time right"><text ng-bind="::translation.POSTED_DATE"></text>: <span>{{item.publicationTime | date:'dd/MM/yyyy'}}</span> - <text ng-bind="::translation.POSTED_BY"></text>: <span>{{item.createdByRef.displayName}}</span></p>
+                            </div>
+                        </div>
+                    </a>
+                    <button ng-if="group.total > 3 && group.total != group.listNews.length" class="bg_blue_02 btn_filter" ng-click="getByCategory(group.category)">Xem thêm</button>
+                </div>
+            </dd>
+        </dl>
+    </div>
+</div>

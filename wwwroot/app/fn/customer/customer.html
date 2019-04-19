@@ -1,0 +1,154 @@
+﻿<!--check-->
+<div id="customer" ng-controller="customerController" ng-init="onload()">
+    <div class="white_box">
+        <div class="fn">
+            <div class="box_control clearfix">
+                <div class="row pd_lr_5 clearfix">
+                    <div class="col-10">
+                        <ul class="box_btn mb-0 d-flex justify-content-start">
+                            <li>
+                                <button type="button" class="bg_blue_02 btn_filter">Truy vấn</button>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-2">
+                        <ul class="box_btn mb-0 float-right">
+                            <li><a class="btn_default btn_30 btn_search_click" ng-click="toogleFilter()"><i class="bowtie-icon bowtie-search-filter"></i></a></li>
+                            <li><a href="" class="btn_default btn_30"><i class="bowtie-icon bowtie-chart-column"></i></a></li>
+                            <li class="btn_menu btn_collapse_02"><a class="bg_blue_01 m-0" ng-click="toogleRight()"><i class="bowtie-icon bowtie-menu"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="box_filter clearfix">
+                    <ul class="box_btn mb-0 d-flex justify-content-start" ">
+                        <li class="w_15 select2_op2">
+                            <select class="select" name="state" select2>
+                                <option value="" disabled selected>Nhóm khách hàng</option>
+                                <option value="1">VIP</option>
+                                <option value="2">Phổ thông</option>
+                            </select>
+                        </li>
+                        <li class="w_20 select2_op2">
+                            <select class="select" name="state" select2>
+                                <option value="" disabled selected>Khách hàng</option>
+                                <option value="2">Khách hàng 001</option>
+                                <option value="2">Khách hàng 002</option>
+                            </select>
+                        </li>
+                        <li class="w_15 select2_op2">
+                            <select class="select" name="state" select2>
+                                <option value="" disabled selected>Loại doanh nghiệp</option>
+                                <option value="2">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </li>
+                        <li class="w_15 select2_op2">
+                            <select class="select" name="state" select2>
+                                <option value="" disabled selected>Nghề nghiệp</option>
+                                <option value="2">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </li>
+                        <li class="w_15 select2_op2">
+                            <select class="select" name="state" select2>
+                                <option value="" disabled selected>Quy mô</option>
+                                <option value="2">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </li>
+                        <li class="w_10">
+                            <button type="button" class="btn_w100 bg_blue_02 btn_filter">Tra cứu</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="main_box clearfix content_7_3 scroll">
+                <div class="main_box_body content_7 float-left" ng-class="checkRight ? 'h_s_relate' : 'hide'">
+                    <dl class="box_tb box_tb_01 mb-0">
+                        <dt class="clearfix pos_re">
+                            <p class="title_01 cus mb-0" data-toggle="collapse" data-target="#panel_01" aria-expanded="true" aria-controls="panel_01"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>Danh sách khách hàng</span></p>
+                            <ul class="clearfix box_infomation">
+                                <li>Tổng khách hàng <span class="cl_red">(50)</span></li>
+                                <li>Ngưng sử dụng<span class="cl_red">(9)</span></li>
+                            </ul>
+                        </dt>
+                        <dd>
+                            <div class="collapse show" id="panel_01" aria-expanded="true" style="">
+                                Danh sách khách hàng
+                                <!--TODO GRID-->
+                            </div>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="content_3 float-right" ng-class="checkRight ? 'h_s_relate' : 'hide'">
+                    <div class="main_box_relate">
+                        <dl class="box_tb box_tb_02 mb_5">
+                            <dt>
+                                <p class="title_01 cus mb-0" data-toggle="collapse" data-target="#panel_02" aria-expanded="true" aria-controls="panel_02"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>Chứng từ hóa đơn</span><span class="cl_red ml-2">(03)</span></p>
+                            </dt>
+                            <dd>
+                                <div class="collapse show" id="panel_02" aria-expanded="true" style="">
+                                    Chứng từ hóa đơn
+                                    <!--TODO GRID-->
+                                </div>
+                            </dd>
+                        </dl>
+                    </div>
+                    <div class="main_box_relate">
+                        <dl class="box_tb box_tb_02 mb_5">
+                            <dt>
+                                <p class="title_01 cus mb-0" data-toggle="collapse" data-target="#panel_03" aria-expanded="true" aria-controls="panel_03"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>Yêu cầu thanh toán</span><span class="cl_red ml-2">(07)</span></p>
+                            </dt>
+                            <dd>
+                                <div class="collapse show" id="panel_03" aria-expanded="true" style="">
+                                    Yêu cầu thánh toán
+                                    <!--TODO GRID-->
+                                </div>
+                            </dd>
+                        </dl>
+                    </div>
+                    <div class="main_box_relate">
+                        <dl class="box_tb box_tb_02 mb_5">
+                            <dt>
+                                <p class="title_01 cus mb-0" data-toggle="collapse" data-target="#panel_04" aria-expanded="true" aria-controls="panel_04"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>Ủy nhiệm thu</span><span class="cl_red ml-2">(01)</span></p>
+                            </dt>
+                            <dd>
+                                <div class="collapse show" id="panel_04" aria-expanded="true" style="">
+                                    Ủy nhiệm thu
+                                    <!--TODO GRID-->
+                                </div>
+                            </dd>
+                        </dl>
+                    </div>
+                    <div class="main_box_relate">
+                        <dl class="box_tb box_tb_02 mb_5">
+                            <dt>
+                                <p class="title_01 cus mb-0" data-toggle="collapse" data-target="#panel_05" aria-expanded="true" aria-controls="panel_05"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>Đơn hàng liên quan</span><span class="cl_red ml-2">(02)</span></p>
+                            </dt>
+                            <dd>
+                                <div class="collapse show" id="panel_05" aria-expanded="true" style="">
+                                    Đơn hàng liên quan
+                                    <!--TODO GRID-->
+                                </div>
+                            </dd>
+                        </dl>
+                    </div>
+                    <div class="main_box_relate">
+                        <dl class="box_tb box_tb_02 mb_5">
+                            <dt>
+                                <p class="title_01 cus mb-0" data-toggle="collapse" data-target="#panel_06" aria-expanded="true" aria-controls="panel_06"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>Hợp đồng liên quan</span><span class="cl_red ml-2">(02)</span></p>
+                            </dt>
+                            <dd>
+                                <div class="collapse show" id="panel_06" aria-expanded="true" style="">
+                                    Hợp đồng liên quan
+                                    <!--TODO GRID-->
+                                </div>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

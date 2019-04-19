@@ -1,0 +1,121 @@
+﻿<style>
+    .fc-sun, .fc-sat {
+        color: red;
+    }
+
+    .breadcrumb-item.dropdown {
+        visibility: hidden;
+    }
+
+    .highlight {
+        background-color: #b2e7ff !important;
+    }
+
+    .h-task span {
+        border: 1px solid #f1c500;
+        display: inline-block;
+        width: calc(100% - 12px);
+        text-align: right;
+        background: #fffbe7;
+    }
+
+    .h-bug span {
+        border: 1px solid #ef4438;
+        display: inline-block;
+        width: calc(100% - 12px);
+        text-align: right;
+        background: #ffe7e7;
+    }
+
+    .fc-button {
+        font-size: 14px;
+        /*font-weight: bold;*/
+    }
+
+    .fc-state-active {
+        background-color: #0074a9 !important;
+        color: white !important;
+    }
+
+    .fc-time {
+        display: none;
+    }
+
+    .fc-event-container {
+        max-height: 300px;
+        overflow: auto;
+    }
+
+    .fc-content {
+        font-size: 12px;
+    }
+
+    .fc-row {
+        margin: 0 !important;
+    }
+
+    .fc-header-toolbar {
+        margin: 10px 0 !important;
+    }
+
+    .fc-state-disabled {
+        background-color: #0074a9 !important;
+        color: white !important;
+        height: 30px !important;
+        opacity: 1 !important;
+    }
+
+    .fc-today-button {
+        height: 30px !important;
+    }
+</style>
+
+<link type="text/css" href="/js/fullcalendar/fullcalendar.min.css" rel='stylesheet' />
+<script src="/js/fullcalendar/fullcalendar.js"></script>
+<script src='//cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js'></script>
+
+<div id="myTaskCalendar" ng-controller="myTaskCalendarController" ng-init="onload()">
+    <div id="task-context-menu" class="context-menu context-menu-task-list">
+        <ul class="context-menu_items">
+            <li class="epic context-menu_item no-padding">
+                <a ng-click="addTaskBug('task')" class="context-menu_link type_task" title="Add Task">Task</a>
+            </li>
+            <li class="function context-menu_item no-padding">
+                <a ng-click="addTaskBug('bug')" class="context-menu_link type_bug" title="Add Bug">Bug</a>
+            </li>
+
+        </ul>
+    </div>
+    <div class="white_box scroll">
+        <ul id="selectContent" class="box_cbb clearfix">
+            <li>
+                <select id="select-project" class="lv-select" multiple ng-model="project" tab="1" ng-change="ChangeProject()"
+                        ng-options="option.id as option.text for option in setting.valuelist.project"></select>
+            </li>
+            <li>
+                <select id="select-sprint" class="lv-select" multiple ng-model="sprint" tab="2" ng-change="ChangeSprint()">
+                    <optgroup ng-repeat="option in setting.valuelist.sprint" label="{{option.name}}">
+                        <option ng-repeat="child in option.childrens" value="{{child.id}}">{{child.name}}</option>
+                    </optgroup>
+                </select>
+            </li>
+            <li><lv-select element-id="project-member-task-list" field="projectMember" model="projectMember" setting="setting" tab="3" change="ChangeMember()"></lv-select></li>
+            <li><lv-select element-id="task-bug-task-list" field="myTaskListTaskBug" model="type" setting="setting" tab="4" change="ChangeType()"></lv-select></li>
+        </ul>
+        <div class="content_7_3 clearfix">
+            <div class="content_3 float-left">
+                <div class="mini-calendar">
+                    <div id="calendarFrom"></div>
+                    <div id="calendarTo"></div>
+                </div>
+            </div>
+            <div class="content_7 float-right">
+                <div>
+                    <div id="calendar"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal (Modal detail)-->
+    <div lv-include path="app/pm/workItem/workItemForm" name="workItemForm"></div>
+</div>

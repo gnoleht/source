@@ -1,0 +1,105 @@
+﻿<script src="js/dhtmlxgantt.js"></script>
+<link type="text/css" rel="stylesheet" href="/css/dhtmlxgantt.css" />
+
+<div id="plan" ng-controller="planController">
+    <div class="white_box">
+        <div ng-show="viewMode != '1'" id="grvPlan" class="control-grid" style="width:100%;height:100%"></div>
+        <div ng-show="viewMode == '1'" id="gantt" style="width:100%;height:100%"></div>
+    </div>
+
+    <!-- Modal Work Item form-->
+    <!--<div ng-if="loadInclude">-->
+        <div lv-include path="app/pm/workItem/workItemForm" name="workItemForm"></div>
+    <!--</div>-->
+
+    <!-- Modal import work item -->
+    <div class="modal fade modal_center" role="dialog" id="modal-import">
+        <div class="modal-dialog" style="width:1000px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <p class="modal_header_title"><span ng-bind="::translation.TITLE_IMPORT"></span></p>
+                    <div class="box_btn_02">
+                        <button type="button" class="fullscreen btn-modal-screen" title="{{::translation.BTN_SCREEN}}" ng-click="gridImportResize()"><i onclick="fullscreen('modal-import')" class="bowtie-icon bowtie-view-full-screen"></i></button>
+                        <button type="button" class="btn_close_02" data-dismiss="modal" title="{{::translation.BTN_CLOSE}}"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                    </div>
+                </div>
+
+                <div class="modal-body">
+                    <div class="modal-body-maincontent autoHeight" style="max-height:600px">
+                        <div id="gridImport" style="height:100%;width:100%"></div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <div ng-if="params.pjType != '2'" class="switch-wrapper d-flex align-items-center switch_super_small" style="position: absolute;left:10px">
+                        <div class="switch" ng-class="inProject ? 'change' : ''" ng-click="inProjectClick()">
+                            <input type="checkbox">
+                            <p class="slider mb-0"></p>
+                        </div>
+                        <p class="label mb-0 mr-10 txt_bold" style="margin-left:10px" ng-bind="inProject ? translation.TITLE_IN_PROJECT : translation.TITLE_NOT_IN_PROJECT">In Project</p>
+                    </div>
+                    <button ng-click="saveImport()" type="button" class="btn btn_save_02"><i class="bowtie-icon bowtie-save"></i><span ng-bind="::translation.BTN_SAVE_CLOSE"></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--context menu-->
+    <div id="contextMenu" class="context-menu">
+        <ul class="context-menu_items">
+            <li ng-show="parentType == 'epic'" class="epic context-menu_item no-padding">
+                <a ng-click="add('epic')" class="context-menu_link type_epic" title="Add epic">Epic</a>
+            </li>
+            <li ng-show="parentType == 'epic' || parentType == 'function'" class="function context-menu_item no-padding">
+                <a ng-click="add('function')" class="context-menu_link type_function" title="Add function">Function</a>
+            </li>
+            <li ng-show="parentType == 'function' || parentType == 'userstory'" class="userstory context-menu_item no-padding">
+                <a ng-click="add('userstory')" class="context-menu_link type_userstory" title="Add user story">User story</a>
+            </li>
+            <li ng-show="parentType == 'userstory' || parentType == 'task'" class="task context-menu_item no-padding">
+                <a ng-click="add('task')" class="context-menu_link type_task" title="Add task">Task</a>
+            </li>
+            <li ng-show="parentType == 'userstory'" class="bug context-menu_item no-padding">
+                <a ng-click="add('bug')" class="context-menu_link type_bug" title="Add bug">Bug</a>
+            </li>
+        </ul>
+    </div>
+
+    <div id="contextMenuSize" class="context-menu">
+        <ul class="context-menu_items">
+            <li class="context-menu_item" ng-repeat="item in setting.valuelist.size">
+                <a ng-click="editsize(item.id)" class="context-menu_link" title=""><i class="bowtie-icon bowtie-status-success-outline" style="color:#660066;padding-right:10px;"></i> {{item.id}}.&nbsp;&nbsp;{{item.text}}</a>
+            </li>
+        </ul>
+    </div>
+
+    <div id="contextMenuSprint" class="context-menu" style="width:320px;">
+        <ul class="context-menu_items">
+            <li class="context-menu_item">
+                <a ng-click="editsprint(null)" class="context-menu_link" title=""><i class="bowtie-icon bowtie-navigate-reload" style="color:#660066;padding-right:10px;"></i> Backlog</a>
+            </li>
+            <li class="context-menu_item" ng-repeat="item1 in lstSprintCurrent">
+                <a ng-click="editsprint(item1.id)" class="context-menu_link" title=""><i class="bowtie-icon bowtie-navigate-forward-disc" style="color:#660066;padding-right:10px;"></i>{{item1.name}}&nbsp;&nbsp;({{item1.startDate | date:"dd/MM/yyyy"}} - {{item1.endDate | date:"dd/MM/yyyy"}})</a>
+            </li>
+            <li class="context-menu_item" style="padding-left:15px;background-color:#f4fbfe;">
+                <div style="font-weight:bold;">FUTURE ITERATIONS</div>
+            </li>
+            <li class="context-menu_item" ng-repeat="item2 in lstSprintFuture">
+                <a ng-click="editsprint(item2.id)" class="context-menu_link" title=""><i class="bowtie-icon bowtie-navigate-forward-circle" style="color:#660066;padding-right:10px;"></i>{{item2.name}}&nbsp;&nbsp;({{item2.startDate | date:"dd/MM/yyyy"}} - {{item2.endDate | date:"dd/MM/yyyy"}})</a>
+            </li>
+        </ul>
+    </div>
+
+    <div id="contextMenuMember" class="context-menu" style="width:300px;">
+        <ul class="context-menu_items">
+            <li class="context-menu_item">
+                <a ng-click="editmember(null)" class="context-menu_link" title=""><span class="img_user_tb img_over" style="background-image: url('/api/system/viewfile?id=null&def=/img/no_avatar.png')"></span><span class="middle_50">Unassign</span></a>
+            </li>
+            <li class="context-menu_item" ng-repeat="item in projectMember">
+                <a ng-click="editmember(item.id)" class="context-menu_link clearfix" title=""><span class="img_user_tb img_over" style="background-image: url('{{'/api/system/viewfile?id=' + item.memberRelated.avatarThumb + '&def=/img/no_avatar.png'}}')"></span> <span class="middle_50">{{item.memberRelated.displayName}}</span></a>
+            </li>
+        </ul>
+    </div>
+
+</div>
+

@@ -1,0 +1,93 @@
+﻿<div id="roomItem" ng-controller="roomItemController">
+    <div class="white_box" style="overflow:auto">
+        <div id="grvRoomItem" class="control-grid" style="height:100%; width:100%"></div>
+    </div>
+
+    <!-- modal detail-->
+    <div class="modal fadeIn modal_center" role="dialog" id="modal-detail" style="animation-delay:10s;">
+        <div class="modal-dialog modal-medium modal-padding" tabindex="-1">
+            <div class="modal-content" style="padding-top: 0px !important">
+                <div class="modal-header">
+                    <p class="modal_header_title">
+                        <span ng-bind="action == 'add' ? translation.ADD_NEW_ROOM : translation.EDIT_ROOM | uppercase "></span>
+                    </p>
+                    <div class="box_btn_02">
+                        <button type="button" onclick="fullscreen('modal-detail')" class="fullscreen btn-modal-screen" title="{{translation.BTN_SCREEN}}">
+                            <i class="bowtie-icon bowtie-view-full-screen"></i>
+                        </button>
+                        <button type="button" class="btn_close_02" data-dismiss="modal" title="{{translation.CLOSE_DIALOG}}">
+                            <i class="bowtie-icon bowtie-edit-remove"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-content modal-body-maincontent clearfix" style="overflow: visible !important">
+                        <div class="box_02 col_2 clearfix">
+                            <div class="item">
+                                <lv-input field="name" model="data.name" setting="setting" translation="translation" type="text" tab="1"></lv-input>
+                            </div>
+                            <div class="item">
+                                <lv-input field="capacity" model="data.capacity" setting="setting" translation="translation" type="phone" tab="2"></lv-input>
+                            </div>
+                        </div>
+                        <div class="box_02 col_2 clearfix">
+                            <div class="item">
+                                <lv-input field="totaltime" model="data.totaltime" setting="setting" translation="translation" type="phone" tab="3"></lv-input>
+                            </div>
+                            <div class="item">
+                                <lv-input field="address" model="data.address" setting="setting" translation="translation" type="text" tab="4"></lv-input>
+                            </div>
+                        </div>
+                        <div class="box_02 col_2 clearfix">
+                            <div class="item">
+                                <lv-select-muti field="resources" model="data.resources" setting="setting" translation="translation" tab="5"></lv-select-muti>
+                            </div>
+                            <div class="item">
+                                <lv-select-muti field="logistics" model="data.logistics" setting="setting" translation="translation" tab="6"></lv-select-muti>
+                            </div>
+                        </div>
+                        <div class="box_02 col_2 clearfix">
+                            <div class="item">
+                                <lv-select field="location" model="data.location" setting="setting" translation="translation" tab="7" config="configLocation"></lv-select>
+                            </div>
+                            <div class="item">
+                                <lv-input field="description" model="data.description" setting="setting" translation="translation" type="text" tab="8"></lv-input>
+                            </div>
+                        </div>
+                        <div class="box_02 col_2 clearfix">
+                            <div class="item">
+                                <label ng-bind="translation.APPROVES" class="mb_5"></label>
+                                <select id="select-approves" class="lv-select" multiple ng-model="data.approves" tabindex="9">
+                                    <optgroup ng-repeat="option in setting.valuelist.approves" label="{{option[0].objectCode}}">
+                                        <option ng-repeat="child in option" value="{{child.id}}">{{child.text}}</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                            <div class="item">
+                                <div class="d-flex" style=";margin-top: 30px">
+                                    <label class="d-flex mr-15" style="align-items:center;">
+                                        <i class="mr-15" ng-class="data.isActive? 'bowtie-icon bowtie-checkbox':'bowtie-icon bowtie-checkbox-empty'"
+                                           style="font-size:17px;width:10px" ng-click="data.isActive=!data.isActive"></i>
+                                        <span class="txt_cut mr-5">{{translation.ISACTIVE}}</span>
+                                    </label>
+                                    <!--<label class="d-flex" style="align-items:center;">
+                                        <i class="mr-15" ng-class="data.isVideoCanference? 'bowtie-icon bowtie-checkbox':'bowtie-icon bowtie-checkbox-empty'"
+                                           style="font-size:17px;width:10px" ng-click="data.isVideoCanference=!data.isVideoCanference"></i>
+                                        <span class="txt_cut mr-5">{{translation.ISVIDEOCANFERENCE}}</span>
+                                    </label>-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button ng-click="save()" class="btn btn_save_02" click-Once>
+                        <i class="bowtie-icon bowtie-save"></i><span ng-bind="translation.BTN_SAVE_CLOSE">Lưu & đóng</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+

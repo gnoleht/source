@@ -1,0 +1,211 @@
+﻿<div class="modal fade modal_center confirmClose" id="modal-setting" tabindex="-1" ng-init="onload()">
+    <div class="modal-dialog" style="width:1000px">
+        <div class="modal-content">
+            <div class="modal-header clearfix">
+                <p class="modal_header_title"><span ng-bind="translation.SPRINT_SETTING"></span></p>
+                <div class="box_btn_02">
+                    <button type="button" class="fullscreen" onclick="fullscreen('modal-setting')" title="Maximize/Minimize"><i class="bowtie-icon bowtie-view-full-screen"></i></button>
+                    <button type="button" class="btn_close_02" data-dismiss="modal" title="Close"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-body-header">
+                    <div class="clearfix">
+                        <p class="title float-left mb-0" ng-bind="translation.SPRINT_SETTING_DES"></p>
+                        <ul class="box_btn_03 clearfix float-right">
+                            <li id="btnRefreshSprint"><a href="" ng-click="refreshSprintSetting()" class="btn_refresh btn_30"><i class="bowtie-icon bowtie-navigate-refresh"></i></a></li>
+                            <li id="btnAddSprint"><a href="" ng-click="addSprintSetting()" class="btn_add btn_30"><i class="bowtie-icon bowtie-math-plus"></i></a></li>
+                            <li id="btnEditSprint"><a href="" ng-click="editSprintSetting()" class="btn_edit btn_30"><i class="bowtie-icon bowtie-edit-outline"></i></a></li>
+                            <li id="btnDeleteSprint"><a href="" ng-click="deleteSprintSetting()" class="btn_del btn_30"><i class="bowtie-icon bowtie-edit-delete "></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="modal-body-maincontent">
+                    <ul class="nav nav-tabs bg-white" id="main_tab_01" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" ng-click="changeTab('sprints')" data-toggle="tab" data-target="#sprints"
+                               role="tab" aria-controls="tab_01" aria-selected="true" ng-bind="translation.SPRINTS">
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" ng-click="changeTab('workingDays')" data-toggle="tab" data-target="#workingDays"
+                               role="tab" aria-controls="tab_02" aria-selected="true" ng-bind="translation.WORKING_DAY">
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" ng-click="changeTab('workingWithBugs')" data-toggle="tab" data-target="#workingWithBugs"
+                               role="tab" aria-controls="tab_03" aria-selected="true" ng-bind="translation.WORKING_DAY_BUG">
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content modal-body-maincontent" style="height:450px;width:100%">
+                        <div class="tab-pane active" id="sprints" style="height:100%;width:100%">
+                            <div id="grvSprintSetting" class="control-grid" style="height:100%;width:100%"></div>
+                        </div>
+                        <div class="tab-pane" id="workingDays" style="height:100%;width:100%">
+                            <p class="title">Working days</p>
+                            <p class="content" ng-bind="translation.TITLE_WORKING_DAY"></p>
+                            <table>
+                                <tr>
+                                    <th>
+                                        <p ng-bind="translation.SELECT_DAYS"></p>
+                                    </th>
+                                    <th>
+                                        <p ng-bind="translation.FULL_DAY"></p>
+                                    </th>
+                                    <th>
+                                        <p ng-bind="translation.MORNING"></p>
+                                    </th>
+                                    <th>
+                                        <p ng-bind="translation.AFTERNOON"></p>
+                                    </th>
+                                </tr>
+                                <tr ng-repeat="item in currentSprint.workingDayList">
+                                    <td>
+                                        <p>
+                                            <span>
+                                                <i id="i_{{item.dayId}}" ng-class="item.selectDay? 'bowtie-icon bowtie-checkbox':'bowtie-icon bowtie-checkbox-empty'"
+                                                   style="font-size:17px;margin-right:5px;width:10px" ng-click="changeWorkingDay(item)"></i>
+                                            </span><span>{{item.day}}</span>
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <input ng-disabled="!item.selectDay" ng-model="item.fullDay" class="form-control" type="number" max="24" min="0" />
+                                    </td>
+                                    <td>
+                                        <input ng-disabled="item.fullDay || !item.selectDay" class="form-control" ng-model="item.morning" type="number" max="24" min="0" />
+                                    </td>
+                                    <td>
+                                        <input ng-disabled="item.fullDay || !item.selectDay" class="form-control" ng-model="item.afternoon" type="number" max="24" min="0" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="tab-pane" id="workingWithBugs" style="height:100%;width:100%">
+                            <p class="title">Working with bugs</p>
+                            <p class="content mb-0">Bugs act like either backlog items or tasks.</p>
+                            <p class="mb-0">How your team works with bugs</p>
+                            <p>
+                                Choose the behavior of bugs (shown as <span style="color:#EF4438;">
+                                    <i class="bowtie-icon bowtie-stop-fill"></i>
+                                </span>) on your backlogs and boards.
+                            </p>
+                            <div>
+                                <div class="item">
+                                    <p>
+                                        <span>
+                                            <i style="font-size:14px;margin-right:5px;width:10px" ng-click="currentSprint.workingWithbugs = 'requirements'"
+                                               ng-class="currentSprint.workingWithbugs == 'requirements'? 'bowtie-icon bowtie-radio-button':'bowtie-icon bowtie-radio-button-empty'">
+                                            </i>
+                                        </span>
+                                        <span>Bugs appear on the backlogs and boards with requirements.</span>
+                                    </p>
+                                    <ul class="clearfix">
+                                        <li>
+                                            <img src="../../../images/1.png" alt="img bug" />
+                                        </li>
+                                        <li>
+                                            <img src="../../../images/2.png" alt="img bug" />
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="item">
+                                    <p>
+                                        <span>
+                                            <i style="font-size:14px;margin-right:5px;width:10px" ng-click="currentSprint.workingWithbugs = 'tasks'"
+                                               ng-class="currentSprint.workingWithbugs == 'tasks'? 'bowtie-icon bowtie-radio-button':'bowtie-icon bowtie-radio-button-empty'">
+                                            </i>
+                                        </span>
+                                        <span>Bugs appear on the backlogs and boards with tasks.</span>
+                                    </p>
+                                    <ul class="clearfix">
+                                        <li>
+                                            <img src="../../../images/3.png" alt="img bug" />
+                                        </li>
+                                        <li>
+                                            <img src="../../../images/4.png" alt="img bug" />
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="item">
+                                    <p>
+                                        <span>
+                                            <i style="font-size:14px;margin-right:5px;width:10px" ng-click="currentSprint.workingWithbugs = 'none'"
+                                               ng-class="currentSprint.workingWithbugs == 'none'? 'bowtie-icon bowtie-radio-button':'bowtie-icon bowtie-radio-button-empty'">
+                                            </i>
+                                        </span>
+                                        <span>Bugs do not appear on backlogs or boards.</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" click-Once id="btnSaveClose" class="btn btn_save_02" ng-click="saveAndClose()">
+                    <i class="bowtie-icon bowtie-save"></i><span ng-bind="translation.BTN_SAVE_CLOSE"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal (Modal detail sprint)-->
+<div class="modal fade modal_center confirmClose" id="modal-detail-sprint" tabindex="-1">
+    <div class="modal-dialog" style="width:600px">
+        <div class="modal-content">
+            <div class="modal-header clearfix">
+                <p class="modal_header_title"><span ng-bind="actionSetting == 'add' ? translation.SPRINT_TITLE : dataSprint.name|uppercase "></span></p>
+                <div class="box_btn_02">
+                    <button type="button" class="btn_close_02" data-dismiss="modal"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-body-maincontent" style="overflow:initial !important">
+                    <div class="form-input-group">
+                        <div class="box_02 col_1">
+                            <div class="item">
+                                <lv-input field="name" element-id="txtName_Sprint_Setting" model="dataSprint.name" setting="setting" translation="translation" type="text" tab="1"></lv-input>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-input-group">
+                        <div class="box_02 col_1">
+                            <div class="item">
+                                <lv-input field="velocity" model="dataSprint.velocity" setting="setting" translation="translation" type="number" tab="2"></lv-input>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-input-group clearfix">
+                        <div class="box_02 col_2">
+                            <div class="item">
+                                <lv-date field="startDate" change="changeSettingDate()" model="dataSprint.startDate" setting="setting" translation="translation" tab="3"></lv-date>
+                            </div>
+                            <div class="item">
+                                <lv-date field="endDate" change="changeSettingDate()" model="dataSprint.endDate" setting="setting" translation="translation" tab="4"></lv-date>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-input-group">
+                        <div class="box_02 col_1">
+                            <div class="item">
+                                <lv-input field="workingDays" model="dataSprint.workingDays" setting="setting" translation="translation" type="number" tab="5"></lv-input>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-input-group" ng-if="!params.area">
+                        <div class="box_02 col_1">
+                            <div class="item">
+                                <lv-valuelist-multi element-id="areas" field="areas" model="dataSprint.areas" setting="setting" translation="translation" tab="6"></lv-valuelist-multi>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" click-Once class="btn btn_save_02" id="btnSave" ng-disabled="!dataSprint.workingDays" ng-click="saveSprintSettingPop()"><i class="bowtie-icon bowtie-save"></i> <span ng-bind="translation.BTN_SAVE_CLOSE">Save</span></button>
+            </div>
+        </div>
+    </div>
+</div>

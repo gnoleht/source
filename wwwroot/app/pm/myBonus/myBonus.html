@@ -1,0 +1,25 @@
+﻿<div id="myBonus" ng-controller="myBonusController" ng-init="onload()">
+    <div class="white_box">
+        <div class="row" id="selectContent">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <lv-select element-id="cmbProject"
+                               field="projects"
+                               setting="setting"
+                               model="projectId"
+                               translation="translation" change="changeSelectProject"></lv-select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <lv-select element-id="cmbSprint"
+                               field="sprints"
+                               setting="setting"
+                               model="sprintId"
+                               translation="translation" change="changeSelectSprint"></lv-select>
+                </div>
+            </div>
+        </div>
+        <div id="grvKPI"></div>
+    </div>
+</div>

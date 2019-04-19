@@ -1,0 +1,21 @@
+﻿var envisionConfigTranslation = {
+    "PAGE_TITLE": "EnvisionConfig",
+    "PAGE_DESCRIPTION": "Quản lý thông tin EnvisionConfig",
+    "TYPE": "Kiểu",
+    "TITLE": "Tiêu đề",
+    "DESCRIPTION": "Miêu tả",   
+    "SEARCH": "Tìm kiếm",
+    "OPTIONS": "Tuỳ chọn",
+    "SITE": "Quy Mô",
+     "ERR_CHOOSE_ENVISIONCONFIG_EDIT" :"Chọn EnvisionConfig cần sửa.",
+    "CONFIRM_DELETE_ENVISIONCONFIG": "Bạn có muốn xoá dữ liệu đã chọn ?",
+    "BTN_ADD": "Thêm",
+    "BTN_EDIT": "Sửa",
+    "BTN_DELETE": "Xoá",
+    "BTN_SETTING": "Cài đặt", 
+    "BTN_SAVE": "Lưu",
+    "BTN_CLOSE": "Đóng",
+    "TITLE_MODAL_ENVISIONCONFIG": "Thông tin EnvisionConfig",
+    "ERR_CHOOSE_ENVISIONCONFIG_DELETE": "Chọn EnvisionConfig cần xóa.",
+  
+}

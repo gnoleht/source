@@ -1,0 +1,49 @@
+﻿<div id="testCaseQuery" ng-controller="testCaseQueryController">
+    <div class="white_box" style="background-color:#edf1f5;padding:0">
+        <ul class="nav nav-tabs" id="main_tab_01" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link" href="/pm/testPlan?pjid={{menuParams.pjid}}&module=pj" id="tab_01-tab" data-toggle="tab" data-target="#tabTestPlan"
+                   role="tab" aria-controls="tab_01" aria-selected="false">Test Plan</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/pm/testRun?pjid={{menuParams.pjid}}&module=pj" id="tab_02-tab" data-toggle="tab" data-target="#tabTestRun"
+                   role="tab" aria-controls="tab_02" aria-selected="false">Run Test</a>
+            </li>
+            <!--<li class="nav-item">
+                <a class="nav-link" href="/pm/testDashboard?pjid={{menuParams.pjid}}&module=pj" id="tab_03-tab" data-toggle="tab" data-target="#tabTestDashboard"
+                   role="tab" aria-controls="tab_03" aria-selected="false">Dashboard</a>
+            </li>-->
+            <li class="nav-item">
+                <a class="nav-link" href="/pm/testBuildList?pjid={{menuParams.pjid}}&module=pj" id="tab_04-tab" data-toggle="tab" data-target="#tabTestBuildList"
+                   role="tab" aria-controls="tab_04" aria-selected="false">Build</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="/pm/testCaseQuery?pjid={{menuParams.pjid}}&module=pj" id="tab_05-tab" data-toggle="tab" data-target="#tabTestCaseQuery"
+                   role="tab" aria-controls="tab_05" aria-selected="true">Query</a>
+            </li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content tab-content-sprint">
+            <div class="tab-pane" style="height:100%;width:100%" id="tabTestPlan" role="tabpanel" aria-labelledby="tab_01-tab"></div>
+            <div class="tab-pane" style="height:100%;width:100%" id="tabTestRun" role="tabpanel" aria-labelledby="tab_02-tab"></div>
+            <!--<div class="tab-pane" style="height:100%;width:100%" id="tabTestDashboard" role="tabpanel" aria-labelledby="tab_03-tab"></div>-->
+            <div class="tab-pane" style="height:100%;width:100%" id="tabTestBuildList" role="tabpanel" aria-labelledby="tab_04-tab"></div>
+            <div class="tab-pane active" style="height:100%;width:100%" id="tabTestCaseQuery" role="tabpanel" aria-labelledby="tab_05-tab">
+                <div class="gridWrapper">
+                    <ul id="selectContent" class="box_cbb clearfix mb_10" style="align-items: center">
+                        <li><lv-select element-id="sprint" field="sprint" model="sprint" setting="setting" config="configType" tab="1" placeholder="{{translation.SPRINT}}"  allowclear="allowclear"></lv-select></li>
+                        <li><lv-date field="startDate" model="startDate" setting="setting" tab="2" placeholder="{{translation.START_DATE}}" nolabel="hidden"></lv-date></li>
+                        <li><lv-date  field="endDate" model="endDate" setting="setting" tab="3" placeholder="{{translation.FINISH_DATE}}" nolabel="hidden"></lv-date></li>
+                        <li><lv-select element-id="projectMember" field="projectMember" model="projectMember" setting="setting"  tab="4" allowclear="allowclear"></lv-select></li>
+                        <li><lv-input-no-label field="searchValue" model="searchValue" setting="setting" change="" type="text" tab="5" placeholder="Search Value"></lv-input-no-label></li>
+                        <li><a class="btn btn_save_02" tabindex="6" ng-click="loadData()">Search</a></li>
+                    </ul>
+                    <div id="grvTestCaseQuery" class="control-grid" style="height:calc(100% - 85px); width:100%"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal (Modal detail)-->
+    <div lv-include path="app/pm/workItem/workItemForm" name="workItemForm"></div>
+</div>

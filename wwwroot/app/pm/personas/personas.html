@@ -1,0 +1,111 @@
+﻿<div id="personas" ng-controller="personasController">
+    <div class="white_box">
+        <div id="grvPersonas" style="width:100%;height:100%"></div>
+    </div>
+
+    <!-- Modal (Modal Personas)-->
+    <div class="modal fade modal_center confirmClose" id="modal-detail" ng-init="initJS()">
+        <div class="modal-dialog" style="width: 1000px" tabindex="-1">
+            <div class="modal-content requirement-content" style="padding-top: 0px !important">
+                <div class="modal-header clearfix">
+                    <p style="font-size:16px;margin:0;line-height:1.9em;" class="float-left"><span ng-bind="action == 'add' ? translation.MODAL_TITLE : translation.MODAL_TITLE_EDIT"></span></p>
+                    <div class="box_btn_02">
+                        <button type="button" class="btn_close_02" data-dismiss="modal" title="{{translation.BTN_CLOSE}}"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-content clearfix">
+                        <div class="modal-body-header">
+                            <p ng-bind="translation.NAME"></p>
+                            <div class="clearfix">
+                                <input tabindex="1" type="text" class="form-control ip_requirement" id="txtName" ng-model="data.name">
+                                <ul class="box_btn_03 clearfix">
+                                    <li><a href="" class="btnHistory" ng-class="action == 'add' ? 'btn_30  btn_disable':'btn_30 btn_default'" ng-click="action == 'edit' && openHistory($event)" data-target="popover-history" title="{{translation.HISTORY}}"><i class="bowtie-icon bowtie-navigate-history"></i> </a></li>
+                                    <li><a href="" class="btnComment" ng-class="action == 'add' ? 'btn_30  btn_disable':'btn_30 btn_default'" ng-click="action == 'edit' && openComment($event)" data-target="popover-comment" title="{{translation.COMMENT}}"><i class="bowtie-icon bowtie-comment-discussion"></i> </a></li>
+                                    <li><a href="" class="btn_30 btn_default" ng-click="collapseButton()"><i class="bowtie-icon bowtie-toggle-collapse-all"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="modal-body-maincontent">
+                            <div class="modal-01 clearfix">
+                                <div class="row pd_lr_7">
+                                    <div class="box_content col-md-6">
+                                        <dl class="mb-0">
+                                            <dt>
+                                                <a class="title_01 bg_blue_01" data-toggle="collapse" data-target="#multiCollapse_01" aria-expanded="true" aria-controls="multiCollapse_01">
+                                                    <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i>
+                                                    <span ng-bind="translation.DETAIL"></span>
+                                                </a>
+                                            </dt>
+                                            <dd style="border:none">
+                                                <div class="multi-collapse collapse show" id="multiCollapse_01" aria-expanded="true" style="">
+                                                    <textarea tabindex="2" ui-tinymce="tinymceNoResizeOptions" ng-model="data.detail" height="100" style="width:100%"></textarea>
+                                                </div>
+                                            </dd>
+                                        </dl>
+                                    </div>
+
+                                    <div class="box_content col-md-6">
+                                        <dl class="mb-0">
+                                            <dt>
+                                                <a class="title_01 bg_blue_01" data-toggle="collapse" data-target="#multiCollapse_02" aria-expanded="true" aria-controls="multiCollapse_01">
+                                                    <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i>
+                                                    <span ng-bind="translation.BEHAVIOURAL_METRICS"></span>
+                                                </a>
+                                            </dt>
+                                            <dd style="border:none">
+                                                <div class="multi-collapse collapse show" id="multiCollapse_02" aria-expanded="true" style="">
+                                                    <textarea tabindex="3" ui-tinymce="tinymceNoResizeOptions" ng-model="data.behaviouralMetrics" height="100" style="width:100%"></textarea>
+                                                </div>
+                                            </dd>
+                                        </dl>
+                                    </div>
+
+                                    <div class="box_content col-md-6" style="padding-top:15px">
+                                        <dl class="mb-0">
+                                            <dt>
+                                                <a class="title_01 bg_blue_01" data-toggle="collapse" data-target="#multiCollapse_03" aria-expanded="true" aria-controls="multiCollapse_01">
+                                                    <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i>
+                                                    <span ng-bind="translation.FRUSTRATIONS"></span>
+                                                </a>
+                                            </dt>
+                                            <dd style="border:none">
+                                                <div class="multi-collapse collapse show" id="multiCollapse_03" aria-expanded="true" style="">
+                                                    <textarea tabindex="4" ui-tinymce="tinymceNoResizeOptions" ng-model="data.frustrations" height="100" style="width:100%"></textarea>
+                                                </div>
+                                            </dd>
+                                        </dl>
+                                    </div>
+
+                                    <div class="box_content col-md-6" style="padding-top:15px">
+                                        <dl class="mb-0">
+                                            <dt>
+                                                <a class="title_01 bg_blue_01" data-toggle="collapse" data-target="#multiCollapse_04" aria-expanded="true" aria-controls="multiCollapse_01">
+                                                    <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i>
+                                                    <span ng-bind="translation.MOTIVATIONS"></span>
+                                                </a>
+                                            </dt>
+                                            <dd style="border:none">
+                                                <div class="multi-collapse collapse show" id="multiCollapse_04" aria-expanded="true" style="">
+                                                    <textarea tabindex="5" ui-tinymce="tinymceNoResizeOptions" ng-model="data.motivations" height="100" style="width:100%"></textarea>
+                                                </div>
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn_save_02" id="btnSave" ng-click="save()" click-Once><i class="bowtie-icon bowtie-save"></i> <span ng-bind="globalTranslation.BTN_SAVE">Save</span></button>
+                </div>
+            </div>
+        </div>
+        <!-- Comment -->
+        <comment></comment>
+        <!-- history -->
+        <history></history>
+    </div>
+
+</div>

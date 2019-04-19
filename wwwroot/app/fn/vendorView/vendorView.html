@@ -1,0 +1,478 @@
+﻿<div id="vendorView" ng-controller="vendorViewController" ng-init="onload()">
+
+    <!-- main_box start -->
+    <div class="white_box clearfix">
+        <div class="fn">
+            <div class="box_control clearfix">
+                <div class="row pd_lr_5 clearfix">
+                    <div class="col-10">
+                        <ul class="box_btn mb-0 d-flex justify-content-start">
+                            <li>
+                                <button type="button" class="bg_blue_02 btn_filter">Truy vấn</button>
+                            </li>   
+                        </ul>
+                    </div>
+                    <div class="col-2">
+                        <ul class="box_btn mb-0 float-right">
+                            <li><a class="btn_default btn_30 btn_search_click" ng-click="toogleFilter()"><i class="bowtie-icon bowtie-search-filter"></i></a></li>
+                            <li><a href="" class="btn_default btn_30"><i class="bowtie-icon bowtie-chart-column"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="box_filter clearfix">
+                    <ul class="box_btn mb-0 d-flex justify-content-start">
+                        <li class="w_15">
+                            <div class="btn_search">
+                                <div class="input-group">
+                                    <input id="inputSearch" type="text" class="form-control" placeholder="Mã nhà cung cấp" ng-keypress="callMethod('search', $event)">
+                                    <span class="input-group-btn">
+                                        <button ng-click="callMethod('search')" class="btn" type="button"><i class="bowtie-icon bowtie-search"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="w_15">
+                            <div class="btn_search">
+                                <div class="input-group">
+                                    <input id="inputSearch" type="text" class="form-control" placeholder="Mã số thuế" ng-keypress="callMethod('search', $event)">
+                                    <span class="input-group-btn">
+                                        <button ng-click="callMethod('search')" class="btn" type="button"><i class="bowtie-icon bowtie-search"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="w_15 select2_op2">
+                            <select select2 name="state">
+                                <option value="" disabled selected>Vùng miền</option>
+                                <option value="1">VIP</option>
+                                <option value="2">Phổ thông</option>
+                            </select>
+                        </li>
+                        <li class="w_15 select2_op2">
+                            <select select2 name="state">
+                                <option value="" disabled selected>Tỉnh thành</option>
+                                <option value="1">VIP</option>
+                                <option value="2">Phổ thông</option>
+                            </select>
+                        </li>
+                        <li class="w_15 select2_op2">
+                            <select select2 name="state">
+                                <option value="" disabled selected>Quốc gia</option>
+                                <option value="1">VIP</option>
+                                <option value="2">Phổ thông</option>
+                            </select>
+                        </li>
+                        <li class="w_10">
+                            <button type="button" class="w_100 bg_blue_02 btn_filter">Tra cứu</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="scroll clearfix">
+                <div class="content_7_3 clearfix mb-0">
+                    <div class="content_3 float-left">
+                        <div class="main_box_relate">
+                            <dl class="box_tb box_tb_04">
+                                <dt class="title_search h_th">
+                                    <div class="btn_search">
+                                        <div class="input-group">
+                                            <input id="inputSearch_PC" type="text" class="form-control" placeholder="">
+                                            <span class="input-group-btn">
+                                                <button class="btn" type="button"><i class="bowtie-icon bowtie-search"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </dt>
+                                <dd>
+                                    <div class="collapse show" id="panel_02" aria-expanded="true" style="">
+                                        <div class="box_01 view_Customer">
+                                            <div class="item">
+                                                <ul class="clearfix">
+                                                    <li class="txt_cut"><a href="#" class="link">KH018475786666</a><span class="ml-2 cl_green"><i class="bowtie-icon bowtie-check"></i></span></li>
+                                                    <li class="txt_cut">Công ty Cổ phần Tập Đoàn An Nguyên Group</li>
+                                                    <li class="txt_cut"><span class="label mr-2">Hạn mức nợ:</span><span class="txt_bold">5,000,000,000.00</span></li>
+                                                    <li class="txt_cut"><span class="label mr-2">Số dư:</span><span class="txt_bold">900,000,000.00</span></li>
+                                                    <li class="txt_cut"><span class="label mr-2">Order:</span><span class="txt_bold">1,000,000,000.00</span></li>
+                                                </ul>
+                                            </div>
+                                            <div class="item">
+                                                <ul class="clearfix">
+                                                    <li class="txt_cut"><a href="#" class="link">KH018475786666</a><span class="ml-2 cl_green"><i class="bowtie-icon bowtie-check"></i></span></li>
+                                                    <li class="txt_cut">Công ty Cổ phần Tập Đoàn An Nguyên Group</li>
+                                                    <li class="txt_cut"><span class="label mr-2">Hạn mức nợ:</span><span class="txt_bold">5,000,000,000.00</span></li>
+                                                    <li class="txt_cut"><span class="label mr-2">Số dư:</span><span class="txt_bold">900,000,000.00</span></li>
+                                                    <li class="txt_cut"><span class="label mr-2">Order:</span><span class="txt_bold">1,000,000,000.00</span></li>
+                                                </ul>
+                                            </div>
+                                            <div class="item">
+                                                <ul class="clearfix">
+                                                    <li class="txt_cut"><a href="#" class="link">KH018475786666</a><span class="ml-2 cl_green"><i class="bowtie-icon bowtie-check"></i></span></li>
+                                                    <li class="txt_cut">Công ty Cổ phần Tập Đoàn An Nguyên Group</li>
+                                                    <li class="txt_cut"><span class="label mr-2">Hạn mức nợ:</span><span class="txt_bold">5,000,000,000.00</span></li>
+                                                    <li class="txt_cut"><span class="label mr-2">Số dư:</span><span class="txt_bold">900,000,000.00</span></li>
+                                                    <li class="txt_cut"><span class="label mr-2">Order:</span><span class="txt_bold">1,000,000,000.00</span></li>
+                                                </ul>
+                                            </div>
+                                            <div class="item">
+                                                <ul class="clearfix">
+                                                    <li class="txt_cut"><a href="#" class="link">KH018475786666</a><span class="ml-2 cl_green"><i class="bowtie-icon bowtie-check"></i></span></li>
+                                                    <li class="txt_cut">Công ty Cổ phần Tập Đoàn An Nguyên Group</li>
+                                                    <li class="txt_cut"><span class="label mr-2">Hạn mức nợ:</span><span class="txt_bold">5,000,000,000.00</span></li>
+                                                    <li class="txt_cut"><span class="label mr-2">Số dư:</span><span class="txt_bold">900,000,000.00</span></li>
+                                                    <li class="txt_cut"><span class="label mr-2">Order:</span><span class="txt_bold">1,000,000,000.00</span></li>
+                                                </ul>
+                                            </div>
+                                            <div class="item">
+                                                <ul class="clearfix">
+                                                    <li class="txt_cut"><a href="#" class="link">KH018475786666</a><span class="ml-2 cl_green"><i class="bowtie-icon bowtie-check"></i></span></li>
+                                                    <li class="txt_cut">Công ty Cổ phần Tập Đoàn An Nguyên Group</li>
+                                                    <li class="txt_cut"><span class="label mr-2">Hạn mức nợ:</span><span class="txt_bold">5,000,000,000.00</span></li>
+                                                    <li class="txt_cut"><span class="label mr-2">Số dư:</span><span class="txt_bold">900,000,000.00</span></li>
+                                                    <li class="txt_cut"><span class="label mr-2">Order:</span><span class="txt_bold">1,000,000,000.00</span></li>
+                                                </ul>
+                                            </div>
+                                            <div class="item">
+                                                <ul class="clearfix">
+                                                    <li class="txt_cut"><a href="#" class="link">KH018475786666</a><span class="ml-2 cl_green"><i class="bowtie-icon bowtie-check"></i></span></li>
+                                                    <li class="txt_cut">Công ty Cổ phần Tập Đoàn An Nguyên Group</li>
+                                                    <li class="txt_cut"><span class="label mr-2">Hạn mức nợ:</span><span class="txt_bold">5,000,000,000.00</span></li>
+                                                    <li class="txt_cut"><span class="label mr-2">Số dư:</span><span class="txt_bold">900,000,000.00</span></li>
+                                                    <li class="txt_cut"><span class="label mr-2">Order:</span><span class="txt_bold">1,000,000,000.00</span></li>
+                                                </ul>
+                                            </div>
+                                            <div class="item">
+                                                <ul class="clearfix">
+                                                    <li class="txt_cut"><a href="#" class="link">KH018475786666</a><span class="ml-2 cl_green"><i class="bowtie-icon bowtie-check"></i></span></li>
+                                                    <li class="txt_cut">Công ty Cổ phần Tập Đoàn An Nguyên Group</li>
+                                                    <li class="txt_cut"><span class="label mr-2">Hạn mức nợ:</span><span class="txt_bold">5,000,000,000.00</span></li>
+                                                    <li class="txt_cut"><span class="label mr-2">Số dư:</span><span class="txt_bold">900,000,000.00</span></li>
+                                                    <li class="txt_cut"><span class="label mr-2">Order:</span><span class="txt_bold">1,000,000,000.00</span></li>
+                                                </ul>
+                                            </div>
+                                            <div class="item">
+                                                <ul class="clearfix">
+                                                    <li class="txt_cut"><a href="#" class="link">KH018475786666</a><span class="ml-2 cl_green"><i class="bowtie-icon bowtie-check"></i></span></li>
+                                                    <li class="txt_cut">Công ty Cổ phần Tập Đoàn An Nguyên Group</li>
+                                                    <li class="txt_cut"><span class="label mr-2">Hạn mức nợ:</span><span class="txt_bold">5,000,000,000.00</span></li>
+                                                    <li class="txt_cut"><span class="label mr-2">Số dư:</span><span class="txt_bold">900,000,000.00</span></li>
+                                                    <li class="txt_cut"><span class="label mr-2">Order:</span><span class="txt_bold">1,000,000,000.00</span></li>
+                                                </ul>
+                                            </div>
+                                            <div class="item">
+                                                <ul class="clearfix">
+                                                    <li class="txt_cut"><a href="#" class="link">KH018475786666</a><span class="ml-2 cl_green"><i class="bowtie-icon bowtie-check"></i></span></li>
+                                                    <li class="txt_cut">Công ty Cổ phần Tập Đoàn An Nguyên Group</li>
+                                                    <li class="txt_cut"><span class="label mr-2">Hạn mức nợ:</span><span class="txt_bold">5,000,000,000.00</span></li>
+                                                    <li class="txt_cut"><span class="label mr-2">Số dư:</span><span class="txt_bold">900,000,000.00</span></li>
+                                                    <li class="txt_cut"><span class="label mr-2">Order:</span><span class="txt_bold">1,000,000,000.00</span></li>
+                                                </ul>
+                                            </div>
+                                            <div class="item">
+                                                <ul class="clearfix">
+                                                    <li class="txt_cut"><a href="#" class="link">KH018475786666</a><span class="ml-2 cl_green"><i class="bowtie-icon bowtie-check"></i></span></li>
+                                                    <li class="txt_cut">Công ty Cổ phần Tập Đoàn An Nguyên Group</li>
+                                                    <li class="txt_cut"><span class="label mr-2">Hạn mức nợ:</span><span class="txt_bold">5,000,000,000.00</span></li>
+                                                    <li class="txt_cut"><span class="label mr-2">Số dư:</span><span class="txt_bold">900,000,000.00</span></li>
+                                                    <li class="txt_cut"><span class="label mr-2">Order:</span><span class="txt_bold">1,000,000,000.00</span></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="main_box_body content_7 float-right">
+                        <div class="clearfix content_7_3">
+                            <dl class="box_tb box_tb_05 mb_5 content_7 float-left">
+                                <dt class="h_th">
+                                    <p class="title_01 cus mb-0" data-toggle="collapse" data-target="#panel_view_01" aria-expanded="true" aria-controls="panel_view_01"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>Thông tin chung</span></p>
+                                </dt>
+                                <dd>
+                                    <div class="collapse show" id="panel_view_01" aria-expanded="true" style="">
+                                        <div class="item_pt_0">
+                                            <div class="box_02 content_8_2 clearfix">
+                                                <div class="item border-0 content_2 float-left mr-10 mt_10"> <img src="../images/img_1.png" alt="img" class="w-100"> </div>
+                                                <div class="item border-0 content_8 float-left">
+                                                    <div class="box_02 col_01 mt_5">
+                                                        <div class="item mt-0 border-0">
+                                                            <p class="mb_5 txt_cut"><span class="label mr-2">Mã NCC:</span> <span class="content">NCC01847578666</span></p>
+                                                        </div>
+                                                        <div class="item border-0">
+                                                            <p class="mb_5 txt_cut"><span class="label mr-2">Tên NCC:</span> <span class="content">Công ty cổ phần tập đoàn An Nguyên Group</span></p>
+                                                        </div>
+                                                        <div class="item border-0">
+                                                            <p class="mb_5 txt_cut">
+                                                                <span class="label mr-2">Kiêm khách hàng: </span>
+                                                                <span class="ml-2 cl_green"><i class="bowtie-icon bowtie-check"></i></span>
+                                                            </p>
+                                                        </div>
+                                                        <div class="item border-0">
+                                                            <p class="mb_5 txt_cut"><span class="label mr-2">Địa chỉ chính:</span> <span class="content">303/6e Bùi Văn Ngữ, P. Hiệp Thành, Quận Bình Thạnh </span></p>
+                                                        </div>
+                                                        <div class="item border-0">
+                                                            <p class="mb_5 txt_cut"><span class="label mr-2">Tinh thành:</span> <span class="content">Hồ CHí Minh</span></p>
+                                                        </div>
+                                                        <div class="item border-0">
+                                                            <p class="mb_5 txt_cut"><span class="label mr-2">Quốc gia:</span> <span class="content">Việt Nam</span></p>
+                                                        </div>
+                                                        <div class="item border-0">
+                                                            <p class="mb_5 txt_cut"><span class="label mr-2">Số điện thoại:</span> <span class="content">(+842) 3987461258</span></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </dd>
+                            </dl>
+                            <dl class="box_tb box_tb_05 mb_5 content_3 float-right">
+                                <dt class="h_th">
+                                    <p class="title_01 cus mb-0" data-toggle="collapse" data-target="#panel_view_02" aria-expanded="true" aria-controls="panel_view_02"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>Thông tin liên hệ</span></p>
+                                </dt>
+                                <dd>
+                                    <div class="collapse show" id="panel_view_02" aria-expanded="true" style="">
+                                        <div class="item_pt_0">
+                                            <div class="box_02 col_01 mt_10">
+                                                <div class="item mt-0 border-0">
+                                                    <p class="mb_5 txt_cut"><span class="label mr-2">Người đại diện:</span> <span class="content">Nguyễn Cao Trí</span></p>
+                                                </div>
+                                                <div class="item border-0">
+                                                    <p class="mb_5 txt_cut"><span class="label mr-2">Chức vụ:</span> <span class="content">Trưởng phòng</span></p>
+                                                </div>
+                                                <div class="item  border-0">
+                                                    <p class="mb_5 txt_cut"><span class="label mr-2">Email:</span><a href="" class="link"><span class="content">info@lacviet.com.vn</span></a></p>
+                                                </div>
+                                                <div class="item  border-0">
+                                                    <p class="mb_5 txt_cut"><span class="label mr-2">Website:</span><a href="" class="link"><span class="content">lacviet.com.vn</span></a></p>
+                                                </div>
+                                                <div class="item  border-0">
+                                                    <p class="mb_5 txt_cut"><span class="label mr-2">GPKD:</span> <span class="content">GPKD19395858575</span></p>
+                                                </div>
+                                                <div class="item  border-0">
+                                                    <p class="mb_5 txt_cut"><span class="label mr-2">Mã số thuế:</span> <span class="content">031118365</span></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </dd>
+                            </dl>
+                        </div>
+                        <div class="main_box clearfix content_7_3">
+                            <div class="main_box_body content_7 float-left">
+                                <dl class="box_tb box_tb_01 mb-0">
+                                    <dt class="clearfix pos_re">
+                                        <p class="title_01 cus mb-0" data-toggle="collapse" data-target="#panel_01" aria-expanded="true" aria-controls="panel_01"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>Thông tin liên hệ</span></p>
+                                    </dt>
+                                    <dd>
+                                        <div class="collapse show" id="panel_01" aria-expanded="true" style="">
+                                            Thông tin liên hệ
+                                            <!--TODO GRID-->
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl class="box_tb box_tb_01 mb-0">
+                                    <dt class="clearfix pos_re">
+                                        <p class="title_01 cus mb-0" data-toggle="collapse" data-target="#panel_03" aria-expanded="true" aria-controls="panel_03"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>Chi nhánh</span></p>
+                                    </dt>
+                                    <dd>
+                                        <div class="collapse show" id="panel_03" aria-expanded="true" style="">
+                                            Chi nhánh
+                                            <!--TODO GRID-->
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl class="box_tb box_tb_01 mb-0">
+                                    <dt class="clearfix pos_re">
+                                        <p class="title_01 cus mb-0" data-toggle="collapse" data-target="#panel_04" aria-expanded="true" aria-controls="panel_04"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>Hạn mức công nợ</span></p>
+                                    </dt>
+                                    <dd>
+                                        <div class="collapse show" id="panel_04" aria-expanded="true" style="">
+                                            Hạn mức công nợ
+                                            <!--TODO GRID-->
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl class="box_tb box_tb_01 mb-0">
+                                    <dt class="clearfix pos_re">
+                                        <p class="title_01 cus mb-0" data-toggle="collapse" data-target="#panel_07" aria-expanded="true" aria-controls="panel_07"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>Hạn mức nợ quá hạn</span></p>
+                                    </dt>
+                                    <dd>
+                                        <div class="collapse show" id="panel_07" aria-expanded="true" style="">
+                                            Hạn mức nợ quá hạn
+                                            <!--TODO GRID-->
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl class="box_tb box_tb_01 mb-0">
+                                    <dt class="clearfix pos_re">
+                                        <p class="title_01 cus mb-0" data-toggle="collapse" data-target="#panel_05" aria-expanded="true" aria-controls="panel_05"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>Yếu tố phân tích</span></p>
+                                    </dt>
+                                    <dd class="mb_10">
+                                        <div class="collapse show" id="panel_05" aria-expanded="true" style="">
+                                            <div class="box_02 col_4 clearfix">
+                                                <div class="item txt_cut">
+                                                    <p class="label">Nguồn nhà cug cấp</p>
+                                                    <input type="text" class="iput" placeholder="">
+                                                </div>
+                                                <div class="item txt_cut">
+                                                    <p class="label">Thị trường</p>
+                                                    <input type="text" class="iput" placeholder="">
+                                                </div>
+                                                <div class="item txt_cut">
+                                                    <p class="label">Quy mô nhân sự</p>
+                                                    <input type="text" class="iput" placeholder="">
+                                                </div>
+                                                <div class="item txt_cut">
+                                                    <p class="label">Mã phân tích 7</p>
+                                                    <input type="text" class="iput" placeholder="">
+                                                </div>
+                                            </div>
+                                            <div class="box_02 col_4 clearfix">
+                                                <div class="item txt_cut">
+                                                    <p class="label">Loại hình</p>
+                                                    <input type="text" class="iput" placeholder="">
+                                                </div>
+                                                <div class="item txt_cut">
+                                                    <p class="label">Nhóm nhà cung cấp</p>
+                                                    <input type="text" class="iput" placeholder="">
+                                                </div>
+                                                <div class="item txt_cut">
+                                                    <p class="label">Mã phân tích 6</p>
+                                                    <input type="text" class="iput" placeholder="">
+                                                </div>
+                                                <div class="item txt_cut">
+                                                    <p class="label">Mã phân tích 8</p>
+                                                    <input type="text" class="iput" placeholder="">
+                                                </div>
+                                            </div>
+                                            <div class="box_02 col_4 clearfix">
+                                                <div class="item txt_cut">
+                                                    <p class="label">Mã phân tích 9</p>
+                                                    <input type="text" class="iput" placeholder="">
+                                                </div>
+                                                <div class="item txt_cut">
+                                                    <p class="label">Mã phân tích 10</p>
+                                                    <input type="text" class="iput" placeholder="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl class="box_tb box_tb_01 mb-0">
+                                    <dt class="clearfix pos_re">
+                                        <p class="title_01 cus mb-0" data-toggle="collapse" data-target="#panel_06" aria-expanded="true" aria-controls="panel_06"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>Tham số</span></p>
+                                    </dt>
+                                    <dd class="mb_10">
+                                        <div class="collapse show" id="panel_06" aria-expanded="true" style="">
+                                            <div class="box_02 col_4 clearfix">
+                                                <div class="item txt_cut">
+                                                    <p class="label">Đối tượng xuất hóa đơn</p>
+                                                    <input type="text" class="iput" placeholder="Công ty CP tin học Lạc Việt">
+                                                </div>
+                                                <div class="item txt_cu">
+                                                    <p class="label">Tiền tệ</p>
+                                                    <input type="text" class="iput" placeholder="VND">
+                                                </div>
+                                                <div class="item txt_cut">
+                                                    <p class="label">Nguyên tắc cấn trừ HD</p>
+                                                    <input type="text" class="iput" placeholder="FIFO">
+                                                </div>
+                                                <div class="item txt_cut">
+                                                    <p class="label">Cập nhật hóa đơn</p>
+                                                    <input type="text" class="iput" placeholder="Theo hóa đơn">
+                                                </div>
+                                            </div>
+                                            <div class="box_02 col_3 clearfix">
+                                                <div class="item txt_cut">
+                                                    <p class="label">Hình thức thanh toán</p>
+                                                    <input type="text" class="iput" placeholder="">
+                                                </div>
+                                                <div class="item txt_cut">
+                                                    <p class="label">Hình thức giao hàng</p>
+                                                    <input type="text" class="iput" placeholder="">
+                                                </div>
+                                                <div class="item txt_cut">
+                                                    <p class="label">Chiết khấu thanh toán</p>
+                                                    <input type="text" class="iput" placeholder="">
+                                                </div>
+                                            </div>
+                                            <div class="box_02 col_3 clearfix">
+                                                <div class="item txt_cut">
+                                                    <p class="label">Điều khoản thanh toán</p>
+                                                    <input type="text" class="iput" placeholder="Thanh toán trong thời gian 30 ngày">
+                                                </div>
+                                                <div class="item txt_cut">
+                                                    <p class="label">Điều khoản giao hàng</p>
+                                                    <input type="text" class="iput" placeholder="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </dd>
+                                </dl>
+                            </div>
+                            <div class="content_3 float-right">
+                                <div class="main_box_relate">
+                                    <dl class="box_tb box_tb_02 mb_5">
+                                        <dt>
+                                            <p class="title_01 cus mb-0" data-toggle="collapse" data-target="#panel_07" aria-expanded="true" aria-controls="panel_07"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>Đơn hàng bán</span><span class="cl_red ml-2">(03)</span></p>
+                                        </dt>
+                                        <dd>
+                                            <div class="collapse show" id="panel_07" aria-expanded="true" style="">
+                                                Đơn hàng bán
+                                                <!--TODO GRID-->
+                                            </div>
+                                        </dd>
+                                    </dl>
+                                    <dl class="box_tb box_tb_02 mb_5">
+                                        <dt>
+                                            <p class="title_01 cus mb-0" data-toggle="collapse" data-target="#panel_08" aria-expanded="true" aria-controls="panel_08"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>Chứng từ thanh toán</span><span class="cl_red ml-2">(03)</span></p>
+                                        </dt>
+                                        <dd>
+                                            <div class="collapse show" id="panel_08" aria-expanded="true" style="">
+                                                Chứng từ thanh toán
+                                                <!--TODO GRID-->
+                                            </div>
+                                        </dd>
+                                    </dl>
+                                    <dl class="box_tb box_tb_02 mb_5">
+                                        <dt>
+                                            <p class="title_01 cus mb-0" data-toggle="collapse" data-target="#panel_09" aria-expanded="true" aria-controls="panel_09"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>Số dư</span></p>
+                                        </dt>
+                                        <dd>
+                                            <div class="collapse show" id="panel_09" aria-expanded="true" style="">
+
+                                            </div>
+                                        </dd>
+                                    </dl>
+                                    <dl class="box_tb box_tb_02 mb_5">
+                                        <dt>
+                                            <p class="title_01 cus mb-0" data-toggle="collapse" data-target="#panel_10" aria-expanded="true" aria-controls="panel_10"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>Hợp đồng</span><span class="cl_red ml-2">(03)</span></p>
+                                        </dt>
+                                        <dd>
+                                            <div class="collapse show" id="panel_10" aria-expanded="true" style="">
+
+                                            </div>
+                                        </dd>
+                                    </dl>
+                                    <dl class="box_tb box_tb_02 mb_5">
+                                        <dt>
+                                            <p class="title_01 cus mb-0" data-toggle="collapse" data-target="#panel_11" aria-expanded="true" aria-controls="panel_11"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span>Phiếu thu</span><span class="cl_red ml-2">(03)</span></p>
+                                        </dt>
+                                        <dd>
+                                            <div class="collapse show" id="panel_11" aria-expanded="true" style="">
+
+                                            </div>
+                                        </dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <!-- main_box end -->
+</div>

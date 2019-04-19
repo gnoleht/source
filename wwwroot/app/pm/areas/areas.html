@@ -1,0 +1,198 @@
+﻿<script src="../../../js/jquery.ui.touch-punch.js"></script>
+
+<div id="areas" ng-controller="areasController" ng-init="onLoad()">
+
+    <div class="white_box" style="background-color:#edf1f5;padding:0">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" id="main_tab_01" role="tablist">
+
+            <li class="nav-item">
+                <a class="nav-link active" href="/pm/Areas?pjid={{menuParams.pjid}}{{areaUrl}}&module=pj" id="tab_01-tab" data-toggle="tab" data-target="#tabAreas"
+                   role="tab" aria-controls="tab_01" aria-selected="true">{{translation.AREAS}}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/pm/pjMember?pjid={{menuParams.pjid}}{{areaUrl}}&module=pj" id="tab_01-tab" data-toggle="tab" data-target="#tabMember"
+                   role="tab" aria-controls="tab_02" aria-selected="true">{{translation.MEMBER}}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/pm/workingday?pjid={{menuParams.pjid}}{{areaUrl}}&module=pj" id="tab_01-tab" data-toggle="tab" data-target="#tabWorkingDays"
+                   role="tab" aria-controls="tab_03" aria-selected="true">{{translation.WORKINGDAYS}}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/pm/role?pjid={{menuParams.pjid}}{{areaUrl}}&module=pj" id="tab_01-tab" data-toggle="tab" data-target="#tabRole"
+                   role="tab" aria-controls="tab_01" aria-selected="true">{{translation.ROLE}}</a>
+            </li>
+        </ul>
+
+        <div id="tab-content" class="tab-content" style="height: calc(100% - 35px);width:100%">
+            <div class="tab-pane active" id="tabAreas" style="height:100%;width:100%">
+                <div id="grvAreas" class="control-grid" style="width:100%;height:100%"></div>
+            </div>
+            <div class="tab-pane" id="tabMember" style="height:100%;width:100%">
+            </div>
+            <div class="tab-pane" id="tabWorkingDays" style="height:100%;width:100%">
+            </div>
+            <div class="tab-pane" id="tabRole" style="height:100%;width:100%">
+            </div>
+            <div class="tab-pane" id="tabAlertsSettings" style="height:100%;width:100%">
+            </div>
+        </div>
+
+        <div class="modal fadeIn modal_center" role="dialog" id="modal-project">
+            <div class="modal-dialog" style="width: 1000px">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <p class="modal_header_title"><span ng-bind="action == 'add' ? 'Add Area' : 'Edit Area'|uppercase "></span></p>
+                        <div class="box_btn_02">
+                            <button type="button" class="fullscreen btn-modal-screen" title="Minimize/Maximize"><i onclick="fullscreen('modal-project')" class="bowtie-icon bowtie-view-full-screen"></i></button>
+                            <button type="button" class="btn_close_02" data-dismiss="modal" title="Close"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="modal-body-content clearfix">
+                            <div class="type_md_header_{{data.type}} modal-body-header">
+                                <p ng-bind="::translation.NAME" tab="1">Name</p>
+                                <div class="clearfix">
+                                    <input ng-model="data.name" type="text" tabindex="1" class="form-control ip_requirement" id="area_name" autofocus/>
+                                    <ul class="box_btn_03 clearfix">
+                                        <li><a href="" class="btnHistory" ng-class="action == 'add' ? 'btn_30  btn_disable':'btn_30 btn_default'" ng-click="action == 'edit' && openHistory($event)" data-target="popover-history" title="{{translation.HISTORY}}"><i class="bowtie-icon bowtie-navigate-history"></i> </a></li>
+                                        <li><a href="" class="btnComment" ng-class="action == 'add' ? 'btn_30  btn_disable':'btn_30 btn_default'" ng-click="action == 'edit' && openComment($event)" data-target="popover-comment" title="{{translation.COMMENT}}"><i class="bowtie-icon bowtie-comment-discussion"></i> </a></li>
+                                        <li><a href="" class="btn_30 btn_default" ng-click="collapseButton()"><i class="bowtie-icon bowtie-toggle-collapse-all"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="modal-body-maincontent">
+
+                                <div class="clearfix modal_des">
+                                    <div class="droppable-area advancedDropzoneMyAreas dz-clickable img float-left img_over_180" style="border:1px solid #eee;">
+                                        <img id="imgAvatarAreas" src="/api/system/viewfile?id=null&amp;def=/img/no_avatar.png" class="img-inline dz-message img_full">
+                                    </div>
+                                    <div class="modal-01 float-right">
+                                        <div class="box_content border_n">
+                                            <dl class="mb-0">
+                                                <dt><a class="title_01 bg_blue_01" data-toggle="collapse" data-target="#panel-desc" aria-expanded="true" aria-controls="panel-desc"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span ng-bind="::translation.DESCRIPTION"></span></a></dt>
+                                                <dd style="height:152px;">
+                                                    <div class="collapse show" id="panel-desc" aria-expanded="true" style="">
+                                                        <textarea ui-tinymce="tinymceNoResizeOptions" ng-model="data.description" tab="2"></textarea>
+                                                    </div>
+                                                </dd>
+                                            </dl>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-02 col_4 clearfix">
+                                    <div class="box_content">
+                                        <dl class="mb-0">
+                                            <dt><a class="title_02 bg_gray_01" data-toggle="collapse" data-target="#multiCollapse_01" aria-expanded="true" aria-controls="multiCollapse_01"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span ng-bind="::translation.DETAIL"></span></a></dt>
+                                            <dd>
+                                                <div class="multi-collapse collapse show" id="multiCollapse_01" aria-expanded="true" style="">
+                                                    <div class="item">
+                                                        <lv-input field="code" model="data.code" setting="setting" translation="translation" type="text" tab="3"></lv-input>
+                                                    </div>
+
+                                                    <div class="item">
+                                                        <lv-combobox element-id="cmbProjectManager" option="cmbUserId" field="owner" model="data.owner" tab="4" label="{{translation.OWNER}}">
+                                                        </lv-combobox>
+                                                    </div>
+                                                    
+
+                                                    <div class="item">
+                                                        <lv-combobox element-id="cmbSponser" option="cmbUserId" field="sponser" model="data.sponser" tab="5" label="{{translation.SPONSER}}">
+                                                        </lv-combobox>
+                                                    </div>
+                                                    
+
+                                                </div>
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                    <div class="box_content">
+                                        <dl class="mb-0">
+                                            <dt><a class="title_02 bg_gray_01" data-toggle="collapse" data-target="#multiCollapse_02" aria-expanded="true" aria-controls="multiCollapse_02"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span ng-bind="::translation.SETTING"></span></a></dt>
+                                            <dd>
+                                                <div class="multi-collapse collapse show" id="multiCollapse_02" aria-expanded="true">
+                                                    <div class="item">
+                                                        <lv-input field="client" model="data.client" setting="setting" translation="translation" type="text" tab="6"></lv-input>
+                                                    </div>
+
+                                                    <div class="item">
+                                                        <lv-select element-id="vllDepartment" field="department" model="data.department" setting="setting" config="configDepartment" translation="translation" tab="7"></lv-select>
+                                                    </div>
+
+                                                    <!--<div class="item">
+                                                        <lv-select field="projectType" model="data.projectType" setting="setting" translation="translation" tab="8"></lv-select>
+                                                    </div>-->
+
+
+                                                </div>
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                    <div class="box_content">
+                                        <dl class="mb-0">
+                                            <dt><a class="title_02 bg_gray_01" data-toggle="collapse" data-target="#multiCollapse_03" aria-expanded="true" aria-controls="multiCollapse_03"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span ng-bind="::translation.STATUS"></span></a></dt>
+                                            <dd>
+                                                <div class="multi-collapse collapse show" id="multiCollapse_03" aria-expanded="true" style="">
+                                                    <div class="item">
+                                                        <lv-select config="configState" field="state" model="data.state" setting="setting" translation="translation" tab="9"></lv-select>
+                                                    </div>
+                                                    <div class="item">
+                                                        <lv-select config="configReason" field="reason" model="data.reason" setting="setting" translation="translation" tab="10"></lv-select>
+                                                    </div>
+
+                                                    <div class="item">
+                                                        <lv-select field="priority" model="data.priority" setting="setting" config="configPriority" translation="translation" tab="11"></lv-select>
+                                                    </div>
+                                                </div>
+                                            </dd>
+                                        </dl>
+
+                                    </div>
+                                    <div class=" box_content">
+                                        <dl class="mb-0">
+                                            <dt><a class="title_02 bg_gray_01" data-toggle="collapse" data-target="#multiCollapse_04" aria-expanded="true" aria-controls="multiCollapse_04"><i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span ng-bind="::translation.CONTRACT"></span></a></dt>
+                                            <dd>
+                                                <div class="multi-collapse collapse show" id="multiCollapse_04" aria-expanded="true" style="">
+                                                    <div class="item">
+                                                        <lv-input field="contractCode" model="data.contractCode" setting="setting" translation="translation" type="text" tab="12"></lv-input>
+                                                    </div>
+                                                    <div class="item">
+                                                        <lv-input field="contractValue" model="data.contractValue" setting="setting" translation="translation" type="money" tab="13"></lv-input>
+                                                    </div>
+
+                                                </div>
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-content-plus clearfix animated bounceInDown" style="height:calc(100% - 20px);border:1px solid #ddd;top:10px">
+                            <ul class="title m-0">
+                                <li><a class="btn_data btn_modal">{{::translation.ATTACHMENTS}}</a></li>
+                                <li></li>
+                            </ul>
+                            <div class="modal-content-link-data clearfix">
+                                <div class="content_data">
+                                    <list-attachment id="projectListAttachment"></list-attachment>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button ng-click="save()" type="button" class="btn btn_save_02" click-Once tabindex="13"><i class="bowtie-icon bowtie-save"></i><span ng-bind="::translation.BTN_SAVE_CLOSE"></span></button>
+                    </div>
+                </div>
+            </div>
+            <comment></comment>
+            <history></history>
+        </div>
+
+
+    </div>
+
+    <div lv-include path="app/pm/pm_share/attachment" name="attachment" id="areasAttachment"></div>
+
+
+    <!--<lv-include path="app/pm/pm_share/relatedWork" name="relatedWork"></lv-include>-->
+</div>

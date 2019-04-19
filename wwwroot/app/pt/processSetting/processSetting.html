@@ -1,0 +1,392 @@
+﻿<div id="processSetting" ng-controller="processSettingController">
+    <div class="white_box" style="overflow:auto">
+        <div id="grvProcessSetting" class="control-grid" style="height:100%; width:100%"></div>
+    </div>
+    <!-- modal import -->
+    <div class="modal fadeIn modal_center" id="modal_import">
+        <div class="modal-dialog" style="width:60%">
+            <div class="modal-content">
+                <div class="modal-header clearfix">
+                    <p class="modal_header_title"><span ng-bind="translation.ADD_TITLE"></span></p>
+                    <div class="box_btn_02">
+                        <button type="button" class="fullscreen" onclick="fullscreen('modal_import')" title="{{translation.BTN_SCREEN}}">
+                            <i class="bowtie-icon bowtie-view-full-screen"></i>
+                        </button>
+                        <button type="button" class="btn_close_02" data-dismiss="modal" title="{{translation.BTN_CLOSE}}">
+                            <i class="bowtie-icon bowtie-edit-remove"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-maincontent">
+                        <div class="form-input-group">
+                            <div class="box_02 col_1 clearfix">
+                                <div class="item gridWrapper" style="height: calc(100vh - 150px)">
+                                    <div id="grvImport" class="control-grid" style="height:100%; width:100%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" click-Once class="btn btn_save_02" ng-click="saveImport()">
+                        <i class="bowtie-icon bowtie-save"></i><span ng-bind="translation.BTN_SAVE_CLOSE"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end modal import -->
+    <!-- modal assessment -->
+    <div class="modal fadeIn modal_center" id="modal_assessment">
+        <div class="modal-dialog" style="width:60%">
+            <div class="modal-content">
+                <div class="modal-header clearfix">
+                    <p class="modal_header_title"><span ng-bind="translation.ASSESSMENT_TITLE"></span></p>
+                    <div class="box_btn_02">
+                        <button type="button" class="fullscreen" onclick="fullscreen('modal_assessment')" title="{{translation.BTN_SCREEN}}">
+                            <i class="bowtie-icon bowtie-view-full-screen"></i>
+                        </button>
+                        <button type="button" class="btn_close_02" title="{{translation.BTN_CLOSE}}" ng-click="closeAssessment()">
+                            <i class="bowtie-icon bowtie-edit-remove"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-maincontent">
+                        <div class="form-input-group">
+                            <div class="box_02 col_1 clearfix">
+                                <div class="item gridWrapper" style="height:600px;">
+                                    <div id="grvAssessment" class="control-grid" style="height:100%; width:100%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" click-Once class="btn btn_save_02" ng-click="closeAssessment()">
+                        <i class="bowtie-icon bowtie-save"></i><span ng-bind="translation.BTN_SAVE_CLOSE"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end modal assessment -->
+    <!--modal improve-->
+    <div class="modal fade modal_center confirmClose" id="modal_improve">
+        <div class="modal-dialog" style="width:80%">
+            <div class="modal-content requirement-content" style="padding-top: 0px !important">
+                <div class="modal-header clearfix">
+                    <p class="modal_header_title"><span ng-bind="translation.IMPROVE_TITLE"></span></p>
+                    <div class="box_btn_02">
+                        <button type="button" class="fullscreen" onclick="fullscreen('modal_improve')" title="{{translation.BTN_SCREEN}}">
+                            <i class="bowtie-icon bowtie-view-full-screen"></i>
+                        </button>
+                        <button type="button" class="btn_close_02" title="{{translation.BTN_CLOSE}}" ng-click="closeImprove()">
+                            <i class="bowtie-icon bowtie-edit-remove"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-content clearfix">
+                        <div class="clearfix modal-body-maincontent">
+                            <div class="modal-02 box_02 col_3 clearfix">
+                                <!--Info-->
+                                <div class="item">
+                                    <dl class="mb-0">
+                                        <dt>
+                                            <a class="title_02 bg_gray_01" aria-expanded="true" data-target="#panel-paymentInfo" id="btnControl" aria-controls="panel-paymentInfo" data-toggle="collapse">
+                                                <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i>
+                                                <span ng-bind="translation.PUBLIC_INFORMATION" class="ng-binding"></span>
+                                            </a>
+                                        </dt>
+                                        <dd>
+                                            <div class="multi-collapse collapse show" id="panel-paymentInfo" aria-expanded="true">
+                                                <div class="box_02 clearfix">
+                                                    <div class="item">
+                                                        <lv-input field="name" model="data.name" setting="setting" translation="translation" type="text" tab="1"></lv-input>
+                                                    </div>
+                                                    <div class="item">
+                                                        <lv-select field="parent" model="data.parent" setting="setting" translation="translation" tab="2" config="configParent" change="changeParent()"></lv-select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </dd>
+                                    </dl>
+                                </div>
+                                <!--Point-->
+                                <div class="item">
+                                    <dl class="mb-0">
+                                        <dt>
+                                            <a class="title_02 bg_gray_01" aria-expanded="true" data-target="#panel-paymentMethod" id="btnPlanning" aria-controls="panel-paymentMethod" data-toggle="collapse">
+                                                <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span ng-bind="translation.MARK" class="ng-binding"></span>
+                                            </a>
+                                        </dt>
+                                    </dl>
+                                    <dd>
+                                        <div class="multi-collapse collapse show" id="panel-paymentMethod" aria-expanded="true">
+                                            <div class="item">
+                                                <lv-select field="selfLevel" model="data.selfLevel" setting="setting" translation="translation" tab="3"></lv-select>
+                                            </div>
+                                            <div class="item">
+                                                <lv-select field="boardLevel" model="data.boardLevel" setting="setting" translation="translation" tab="4"></lv-select>
+                                            </div>
+                                            <div class="item">
+                                                <lv-select field="planLevel" model="data.planLevel" setting="setting" translation="translation" tab="5"></lv-select>
+                                            </div>
+                                        </div>
+                                    </dd>
+                                </div>
+                                <!--Status-->
+                                <div class="item">
+                                    <dl class="mb-0">
+                                        <dt>
+                                            <a class="title_02 bg_gray_01" aria-expanded="true" data-target="#panel-btnClassification" id="btnClassification" aria-controls="panel-btnClassification" data-toggle="collapse">
+                                                <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span ng-bind="::translation.STATUS" class="ng-binding">Control</span>
+                                            </a>
+                                        </dt>
+                                    </dl>
+                                    <dd>
+                                        <div class="multi-collapse collapse show" id="panel-btnClassification" aria-expanded="true">
+                                            <div class="item">
+                                                <lv-select element-id="vllPriority" config="configPriority" field="priority" model="data.priority" setting="setting" translation="translation" tab="6"></lv-select>
+                                            </div>
+                                        </div>
+                                    </dd>
+                                </div>
+                            </div>
+                            <div class="modal-01 clearfix mb-0">
+                                <div class="box_content" style="width:100%;margin-top:20px">
+                                    <dl class="mb-0">
+                                        <dt class="dt_pos_re">
+                                            <a class=" h_th title_02 bg_gray_01" data-toggle="collapse" data-target="#multiCollapse_businessObjective_02" aria-expanded="true" aria-controls="multiCollapse_businessObjective_02">
+                                                <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i>
+                                                <span ng-bind="translation.CRITERIA_INFORMATION"></span>
+                                            </a>
+                                            <ul class="box_btn clearfix mb-0 dt_pos_ab">
+                                                <li>
+                                                    <a href="javascript:;" ng-click="addDetail()" class="left btn_30 btn_add" title="{{translation.BTN_ADD}}" tabindex="16">
+                                                        <i class="bowtie-icon bowtie-math-plus-light fmIconEnvision"></i>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;" ng-click="editDetail()" class="left btn_30 btn_edit" title="{{translation.BTN_EDIT}}" tabindex="17">
+                                                        <i class="bowtie-icon bowtie-edit-outline fmIconEnvision"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </dt>
+                                        <dd>
+                                            <div class="multi-collapse collapse show" id="multiCollapse_businessObjective_02" aria-expanded="true" tabindex="19">
+                                                <div class="gridWrapper" style="height:400px;">
+                                                    <div id="grvCriteriaCategoryDetail" style="width:100%;height:100%"></div>
+                                                </div>
+                                            </div>
+                                        </dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnSaveClose" ng-click="saveImprove()" type="button" class="btn btn_save_02" click-Once><i class="bowtie-icon bowtie-save"></i><span ng-bind="::translation.BTN_SAVE_CLOSE">Lưu & đóng</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end modal improve-->
+    <!--modal improve criteria-->
+    <div class="modal fade modal_center confirmClose" id="modal_improve_criteria">
+        <div class="modal-dialog" style="width:60%">
+            <div class="modal-content requirement-content" style="padding-top: 0px !important">
+                <div class="modal-header clearfix">
+                    <p class="modal_header_title"><span ng-bind="translation.ADD_EDIT_IMPROVE_TITLE"></span></p>
+                    <div class="box_btn_02">
+                        <button type="button" class="fullscreen" onclick="fullscreen('modal_improve_criteria')" title="{{translation.BTN_SCREEN}}">
+                            <i class="bowtie-icon bowtie-view-full-screen"></i>
+                        </button>
+                        <button type="button" class="btn_close_02" title="{{translation.BTN_CLOSE}}" ng-click="closeImproveCriteria()">
+                            <i class="bowtie-icon bowtie-edit-remove"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-content clearfix">
+                        <div class="clearfix modal-body-maincontent">
+                            <div class="form-input-group">
+                                <div class="modal-02 box_02 col_2 clearfix">
+                                    <!--Info-->
+                                    <div class="item">
+                                        <dl class="mb-0">
+                                            <dt>
+                                                <a class="title_02 bg_gray_01" aria-expanded="true" data-target="#panel_paymentInfo_criteria" aria-controls="panel_paymentInfo_criteria" data-toggle="collapse">
+                                                    <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i>
+                                                    <span ng-bind="translation.PUBLIC_INFORMATION" class="ng-binding"></span>
+                                                </a>
+                                            </dt>
+                                            <dd>
+                                                <div class="multi-collapse collapse show" id="panel_paymentInfo_criteria" aria-expanded="true">
+                                                    <div class="box_02 clearfix">
+                                                        <div class="item">
+                                                            <lv-input element-id="name_improve_criteria" field="name" model="data.name" setting="setting" translation="translation" type="text" tab="1"></lv-input>
+                                                        </div>
+                                                        <div class="item">
+                                                            <lv-select element-id="levelDetail_improve_criteria" field="levelDetail" model="levelDetail" setting="setting"
+                                                                       translation="translation" tab="2" config="configLevelDetail" change="changeLevelDetail()"></lv-select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                    <!--Status-->
+                                    <div class="item">
+                                        <dl class="mb-0">
+                                            <dt>
+                                                <a class="title_02 bg_gray_01" aria-expanded="true" data-target="#panel_btnClassification_criteria" aria-controls="panel_btnClassification_criteria" data-toggle="collapse">
+                                                    <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i>
+                                                    <span ng-bind="translation.IMPLEMENTATIONPLAN" class="ng-binding"></span>
+                                                </a>
+                                            </dt>
+                                        </dl>
+                                        <dd>
+                                            <div class="multi-collapse collapse show" id="panel_btnClassification_criteria" aria-expanded="true">
+                                                <div class="item">
+                                                    <lv-select element-id="implementationPlan_improve_criteria" field="implementationPlan" model="dataChild.implementationPlan" setting="setting" translation="translation" tab="3"></lv-select>
+                                                </div>
+                                            </div>
+                                        </dd>
+                                    </div>
+                                </div>
+                                <div class="modal-02 box_02 col_3 clearfix">
+                                    <!--Assignment-->
+                                    <div class="item">
+                                        <dl class="mb-0">
+                                            <dt>
+                                                <a class="title_02 bg_gray_01" aria-expanded="true" data-target="#panel_assignment" aria-controls="panel_assignment" data-toggle="collapse">
+                                                    <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i>
+                                                    <span ng-bind="translation.ASSIGNMENT" class="ng-binding"></span>
+                                                </a>
+                                            </dt>
+                                            <dd>
+                                                <div class="multi-collapse collapse show" id="panel_assignment" aria-expanded="true">
+                                                    <div class="box_02 clearfix">
+                                                        <div class="item">
+                                                            <lv-select element-id="executorDepartment_improve_criteria" field="executorDepartment" model="dataChild.executorDepartment" setting="setting"
+                                                                       translation="translation" tab="4" config="configDepartment"></lv-select>
+                                                        </div>
+                                                        <div class="item">
+                                                            <lv-select element-id="supportDepartment_improve_criteria" field="supportDepartment" model="dataChild.supportDepartment" setting="setting"
+                                                                       translation="translation" tab="5" config="configDepartment"></lv-select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                    <!--Doing-->
+                                    <div class="item">
+                                        <dl class="mb-0">
+                                            <dt>
+                                                <a class="title_02 bg_gray_01" aria-expanded="true" data-target="#panel_doing" aria-controls="panel_doing" data-toggle="collapse">
+                                                    <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i><span ng-bind="translation.DOING" class="ng-binding"></span>
+                                                </a>
+                                            </dt>
+                                        </dl>
+                                        <dd>
+                                            <div class="multi-collapse collapse show" id="panel_doing" aria-expanded="true">
+                                                <div class="item">
+                                                    <lv-input element-id="improvementDetail_improve_criteria" field="improvementDetail" model="dataChild.improvementDetail" setting="setting" translation="translation" type="text" tab="6"></lv-input>
+                                                </div>
+                                                <div class="item">
+                                                    <lv-input element-id="checkingMethod_improve_criteria" field="checkingMethod" model="dataChild.checkingMethod" setting="setting" translation="translation" type="text" tab="7"></lv-input>
+                                                </div>
+                                                <div class="item">
+                                                    <lv-input element-id="checkingGuideline_improve_criteria" field="checkingGuideline" model="dataChild.checkingGuideline" setting="setting" translation="translation" type="text" tab="8"></lv-input>
+                                                </div>
+                                            </div>
+                                        </dd>
+                                    </div>
+                                    <!--Status-->
+                                    <div class="item">
+                                        <dl class="mb-0">
+                                            <dt>
+                                                <a class="title_02 bg_gray_01" aria-expanded="true" data-target="#panel_implementation_progress" aria-controls="panel_implementation_progress" data-toggle="collapse">
+                                                    <i class="bowtie-icon bowtie-navigate-back-circle float-left ic_arrow"></i>
+                                                    <span ng-bind="translation.IMPLEMENTATION_PROGRESS" class="ng-binding"></span>
+                                                </a>
+                                            </dt>
+                                        </dl>
+                                        <dd>
+                                            <div class="multi-collapse collapse show" id="panel_implementation_progress" aria-expanded="true">
+                                                <div class="item">
+                                                    <lv-date field="deadline" model="dataChild.deadline" setting="setting" translation="translation" tab="9"></lv-date>
+                                                </div>
+                                                <div class="item">
+                                                    <lv-select element-id="monitorDepartment_improve_criteria" field="monitorDepartment" model="dataChild.monitorDepartment" setting="setting"
+                                                               translation="translation" tab="10" config="configDepartment"></lv-select>
+                                                </div>
+                                                <div class="item">
+                                                    <lv-select element-id="status_improve_criteria" field="status" model="dataChild.status" setting="setting"
+                                                               config="configState" translation="translation" tab="11"></lv-select>
+                                                </div>
+                                                <div class="item">
+                                                    <lv-input element-id="reason_improve_criteria" field="reason" model="dataChild.reason"
+                                                              setting="setting" translation="translation" type="text" tab="12"></lv-input>
+                                                </div>
+                                                <div class="item">
+                                                    <label ng-bind="translation.DOCUMENTATTACHMENT"></label>
+                                                    <a class="btn btn_save_02 advancedDropzoneAttachment">
+                                                        <i class="bowtie-icon bowtie-file-preview advancedDropzoneAttachment" style="margin-right: 5px;"></i>Attach
+                                                    </a>
+                                                    <ul>
+                                                        <li ng-repeat="item in dataChild.filesRelated">
+                                                            <a target="_blank" href="api/system/ViewFile/{{item.fileId}}/{{item.name}}">{{item.name}}</a>
+                                                            <i class="bowtie-icon bowtie-edit-remove red" ng-click="removeFile(item.fileId, $event)"></i>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </dd>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnSaveClose" ng-click="saveImproveCriteria()" type="button" class="btn btn_save_02" click-Once>
+                        <i class="bowtie-icon bowtie-save"></i><span ng-bind="translation.BTN_SAVE_CLOSE"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end modal improve criteria-->
+    <!-- context_menu assessment-->
+    <div id="context_menu_assessment" class="context-menu context-menu-task-list">
+        <ul class="context-menu_items">
+            <li class="epic context-menu_item no-padding" ng-repeat="item in setting.valuelist.levels">
+                <a ng-click="showModalAssessment(item.id)" class="context-menu_link type_task" ng-bind="item.text"></a>
+            </li>
+        </ul>
+    </div>
+    <!-- end context_menu assessment-->
+    <!-- contextMenu Department -->
+    <div id="contextMenuDepartment" class="context-menu" style="width:320px;">
+        <ul class="context-menu_items">
+            <li class="context-menu_item">
+                <a ng-click="editDepartment(null)" class="context-menu_link" title="">
+                    <i class="bowtie-icon bowtie-navigate-reload" style="color:#660066;padding-right:10px;"></i>UnDepartment
+                </a>
+            </li>
+            <li class="context-menu_item" ng-repeat="item in departments">
+                <a ng-click="editDepartment(item.id)" class="context-menu_link">
+                    <i class="bowtie-icon bowtie-navigate-forward-disc" style="color:#660066;padding-right:10px;"></i>{{item.text}}
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!-- end contextMenu Department -->
+</div>

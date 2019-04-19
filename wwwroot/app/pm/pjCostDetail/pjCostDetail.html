@@ -1,0 +1,71 @@
+﻿<style>
+    .slick-footerrow.ui-state-default {
+        position: absolute;
+        bottom: 0px;
+        background: #fff;
+    }
+    .slick-footerrow-columns {
+        height: 40px;
+        bottom: 0px;
+        background:#fff;
+        }
+    .ui-state-default.slick-footerrow-column{
+        background:#fff;
+        height:40px;
+        line-height:30px;
+    }
+    .date {
+        margin-bottom: 10px;
+    }
+    .date label {
+        display: none;
+    }
+</style>
+<div id="pjCostDetail" ng-controller="pjCostDetailController">
+    <input id="totalCostApproved" hidden />
+   
+
+    <div class="white_box">
+        <div class="date">
+            <lv-datepicker-format field="month" change="ChangeMonth()" model="month" setting="setting" translation="translation" tab="1" format-view="mm-yyyy" format-scope="MM-YYYY" format-save="MM-YYYY"></lv-datepicker-format>
+        </div>
+        <div id="grvPjCostDetail" class="control-grid" style="width:100%;height:calc(100% - 40px);"></div>
+    </div>
+
+    <div class="modal fade modal_center confirmClose" id="modal-detail">
+        <div class="modal-dialog" style="width:600px;">
+            <div class="modal-content">
+                <div class="modal-header clearfix">
+                    <p class="modal_header_title"><span ng-bind="$parent.translation.UPDATE_RESOURCE_TITLE"></span></p>
+                    <div class="box_btn_02">
+                        <button type="button" class="fullscreen" onclick="fullScreen(this)"><i class="bowtie-icon bowtie-view-full-screen"></i></button>
+                        <button type="button" class="btn_close_02" data-dismiss="modal"><i class="bowtie-icon bowtie-edit-remove"></i></button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="row form-input-group modal-body-maincontent">
+                        <lv-input class="col-sm-12" field="hrsApproved" model="data.hrsApproved" setting="setting" translation="translation" change="" type="number" tab="1"></lv-input>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn_save_02" id="btnSave" ng-click="save()" click-Once><i class="bowtie-icon bowtie-save"></i> <span ng-bind="translation.BTN_APPLY">Save</span></button>
+                    <button type="button" class="btn btn_close" data-dismiss="modal"><i class="bowtie-icon bowtie-navigate-close"></i> <span ng-bind="translation.BTN_CLOSE">Close</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--edit hrsApprove-->
+    <div id="contextHrsApproved" class="context-menu" style="width:100px;  border: none;box-shadow: none;background: none;">
+        <input class="none-padding style-input form-control " id="txtContextHrsApproved" type="text" ng-init="initInput()"/>
+        <!--<lv-input class="none-padding" element-id="txtContextHrsApproved" field="number" model="number" setting="setting" translation="translation" type="number" loaded="abc()"></lv-input>-->
+    </div>
+</div>
+<!--check-->
+
+<script>
+    setTimeout(function () {
+        $("#txtContextHrsApproved").inputmask({ mask: '[9{*}]' });
+        $('#month').prop("readonly", true);
+    }, 1000);
+</script>

@@ -1,0 +1,18 @@
+﻿<div id="dashboardTopItem" ng-controller="dashboardTopItemController" class="pos">
+
+    <p class="cbb_filter select2_op2 clearfix" style="position: absolute;right: 420px;top: -5px;">
+        <lv-select element-id="topItemByDayFilter" field="topItemByDayFilter" model="topItemByDayFilter" setting="setting" translation="translation" tab="1" change="changeTimeMark()"></lv-select>
+    </p>
+    <p class="cbb_filter select2_op2 clearfix" style="position: absolute;right: 210px;top: -5px;">
+        <lv-select element-id="sizeTopItemFilter" field="sizeTopItemFilter" model="sizeTopItemFilter" setting="setting" translation="translation" tab="2" change="changeTimeMark()"></lv-select>
+    </p>
+    <p class="cbb_filter select2_op2 clearfix" style="position: absolute;right: 0;top: -5px;">
+        <lv-select element-id="topItemByTypeFilter" field="topItemByTypeFilter" model="topItemByTypeFilter" setting="setting" translation="translation" tab="3" change="changeTimeMark()"></lv-select>
+    </p>
+
+    <div style="width:100%;" id="divChart3">
+        <canvas id="chartDashboardTopItem"></canvas>
+    </div>
+</div>
+
+

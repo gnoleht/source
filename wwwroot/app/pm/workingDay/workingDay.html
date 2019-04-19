@@ -1,0 +1,73 @@
+﻿<div id="workingday" ng-controller="workingdayController">
+    <div class="white_box" style="background-color:#edf1f5;padding:0">
+        <ul class="nav nav-tabs" id="main_tab_01" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link" href="/pm/areas?pjid={{menuParams.pjid}}{{areaUrl}}&module=pj" ng-bind="translation.AREAS"></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/pm/pjMember?pjid={{menuParams.pjid}}{{areaUrl}}&module=pj" ng-bind="translation.MEMBER"></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="/pm/workingday?pjid={{menuParams.pjid}}{{areaUrl}}&module=pj" id="tab_01-tab" data-toggle="tab" data-target="#tabworkingDay"
+                   role="tab" aria-controls="tab_01" aria-selected="true" ng-bind="translation.WORKINGDAYS"></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/pm/role?pjid={{menuParams.pjid}}{{areaUrl}}&module=pj" ng-bind="translation.ROLE"></a>
+            </li>
+            <!--<li class="nav-item">
+                <a class="nav-link" href="/pm/alertSetting?pjid={{menuParams.pjid}}&area={{menuParams.area}}&module=pj">Alerts Setting</a>
+            </li>-->
+        </ul>
+        <!-- Tab panes -->
+        <div id="tab-content" class="tab-content tab-content-sprint" style="height:calc(100% - 35px);width:100%">
+            <div class="tab-pane active" style="height:100%;width:100%" id="tabworkingDay" role="tabpanel" aria-labelledby="tab_01-tab">
+                <table class="tb_tree" style="height:100%;width:100%;overflow:auto">
+                    <thead>
+                        <tr class="bg_blue_02">
+                            <th colspan="4">
+                                <p class="mb-0" style="font-weight:normal; text-align: left">
+                                    <span>Capacity and burndown are based on the days your team works</span>
+                                </p>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>
+                                <p class="mb-0" ng-bind="translation.SELECT_DAYS"></p>
+                            </th>
+                            <th>
+                                <p class="mb-0" ng-bind="translation.FULL_DAY"></p>
+                            </th>
+                            <th>
+                                <p class="mb-0" ng-bind="translation.MORNING"></p>
+                            </th>
+                            <th>
+                                <p class="mb-0" ng-bind="translation.AFTERNOON"></p>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in data">
+                            <td>
+                                <p class="mb-0">
+                                    <span>
+                                        <i id="i_{{item.id}}" ng-class="item.selected? 'bowtie-icon bowtie-checkbox':'bowtie-icon bowtie-checkbox-empty'"
+                                           style="font-size:17px;margin-right:5px;width:10px" ng-click="changeWorkingDay(item)"></i>
+                                    </span><span>{{item.name}}</span>
+                                </p>
+                            </td>
+                            <td>
+                                <input ng-disabled="!item.selected" ng-model="item.fullDay" class="form-control" type="number" min="0" max="24" ng-change="changeDay(item)" />
+                            </td>
+                            <td>
+                                <input ng-disabled="item.fullDay || !item.selected" class="form-control" ng-model="item.morning" type="number" min="0" max="12" ng-change="changeDay(item)" />
+                            </td>
+                            <td>
+                                <input ng-disabled="item.fullDay || !item.selected" class="form-control" ng-model="item.afternoon" type="number" min="0" max="12" ng-change="changeDay(item)" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
